@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Individual Test Scenes/Jess' Scene.unity
+    path: Assets/Scenes/Individual Test Scenes/Jess' Scene - ARCHIVE.unity
     guid: b9ed34dd5e6e00840a892ade52bc3145
   m_configObjects: {}

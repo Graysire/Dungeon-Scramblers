@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    protected enum Stats { 
+        health = 0,
+        speed = 1,
     }
 
-    // Update is called once per frame
-    void Update()
+    //protected 
+
+    private void OnEnable()
     {
-        
+        UpdateHandler.UpdateOccurred += testerMethod;
+    }    
+    private void OnDisable()
+    {
+        UpdateHandler.UpdateOccurred -= testerMethod;
+    }
+
+    private void testerMethod() {
+        Debug.Log("Health = " + Stats.health);
+        Debug.Log("Speed = " + Stats.speed.ToString());
     }
 }

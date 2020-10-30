@@ -9,18 +9,6 @@ public class JessPlaceholderPanelSwitch : MonoBehaviour
     public GameObject TitleScreen;
     public GameObject LoadoutScreen;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void GoToTitleScreen() {
         LoadoutScreen.SetActive(false);
         TitleScreen.SetActive(true);
