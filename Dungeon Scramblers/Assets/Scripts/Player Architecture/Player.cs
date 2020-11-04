@@ -34,10 +34,10 @@ public class Player : MonoBehaviour
     }
 
     protected virtual void Move(){
-        float moveX = Input.GetAxis("Horizontal");
+/*        float moveX = Input.GetAxis("Horizontal");
         float moveY = Input.GetAxis("Vertical");
         Vector2 movement = new Vector2(moveX, moveY);
-        rb.AddForce(movement * stats[(int)Stats.movespeed]);
+        rb.AddForce(movement * stats[(int)Stats.movespeed]);*/
     }
 
     protected virtual void Attack() { 
