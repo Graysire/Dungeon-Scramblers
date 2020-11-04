@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.InputSystem.InputAction;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] protected Rigidbody2D rb;
     protected enum Stats { 
         health = 0,
         movespeed = 1,
@@ -16,7 +16,15 @@ public class Player : MonoBehaviour
 
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     protected bool isDead = false;
+    // Movement Variables
+    protected CharacterController controller;
+    protected Vector3 direction = Vector3.zero;
+    protected Vector2 inputDirection = Vector2.zero;
 
+    private void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+    }
     private void OnEnable()
     {
         UpdateHandler.UpdateOccurred += testerMethod;
@@ -33,11 +41,18 @@ public class Player : MonoBehaviour
         Debug.Log("Speed = " + Stats.movespeed.ToString());
     }
 
-    protected virtual void Move(){
-/*        float moveX = Input.GetAxis("Horizontal");
-        float moveY = Input.GetAxis("Vertical");
-        Vector2 movement = new Vector2(moveX, moveY);
-        rb.AddForce(movement * stats[(int)Stats.movespeed]);*/
+    public virtual void OnMove(CallbackContext context){
+        SetInputVector(context.ReadValue<Vector2>());
+    }
+
+    protected virtual void SetInputVector(Vector2 dir) {
+        inputDirection = dir;
+    }
+    protected virtual void Move() {
+        direction = new Vector3(inputDirection.x, inputDirection.y,0);
+        direction = transform.TransformDirection(direction);
+        direction *= stats[(int)Stats.movespeed];
+        controller.Move(direction * Time.deltaTime);
     }
 
     protected virtual void Attack() { 
