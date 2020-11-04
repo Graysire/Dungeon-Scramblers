@@ -17,6 +17,8 @@ MonoBehaviour:
   - Custom
   - Example
   - General
+  - Voting
   Categories:
   - {fileID: 11400000, guid: b01e98f4801f7124ba39e1dac4debf90, type: 2}
   - {fileID: 11400000, guid: 1eeee94dbc814ef438e4bc31e7188d2b, type: 2}
+  - {fileID: 11400000, guid: f2cb21ecda981a9419c70a0030ac27b5, type: 2}
