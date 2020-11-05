@@ -32,6 +32,9 @@ public class MapMaker : MonoBehaviour
     {
         
         tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
+        //GenerateRoom(new Vector3Int(0, 0, 0), 0);
+        //GenerateRoom(new Vector3Int(0, 0, 0), 1);
+        //GenerateRoom(new Vector3Int(0, 0, 0), 2);
         GenerateRoom(new Vector3Int(0, 0, 0), 3);
     }
 
@@ -44,6 +47,8 @@ public class MapMaker : MonoBehaviour
 
     //generates a room with an entering door at doorposition towards doorDirection
     //0 = Up, 1 = Right, 2 = Down, 3 = Left
+    //Due to the function of box fill, cannot safely generate multiple rooms aorund one poin
+    //Exception to the above is generating 0 and, 1 and 3, 0 then 3 then 2, or 0 then 1 then 2
     void GenerateRoom(Vector3Int doorPosition, int doorDirection)
     {
         //generate a random x size of the floor space of the room, multiply by negative one if the direction is left
@@ -51,43 +56,77 @@ public class MapMaker : MonoBehaviour
         //generate a random x size of the floor space of the room, multiply by negative one if the direction is down
         int randY = Random.Range(minRoomSize, maxRoomSize);// * (doorDirection == 2 ? -1 : 1);
 
-
+        //set the starting positions to draw tiles from
         int startX = doorPosition.x; //+ (doorDirection == 1 ? 1 : doorDirection == 3 ? -1 : 0) + (int) Mathf.Ceil(randX / 2f);
         int startY = doorPosition.y; //+ (doorDirection == 0 ? 1 : doorDirection == 2 ? -1 : 0) + (int) Mathf.Ceil(randY / 2f);
 
+        //based on door direction, modify starting positions and set a tile to expand thetilemap to cover the room
         switch (doorDirection)
         {
             case 0:
                 startY += 1;
-                startX -= (int) Mathf.Floor(randX / 2f);
+                startX -= (int)Mathf.Floor(randX / 2f);
+                tilemap.SetTile(new Vector3Int(startX - 1, startY + randY, 0), wallTile);
                 break;
             case 1:
                 startX += 1;
                 startY -= (int)Mathf.Floor(randY / 2f);
+                tilemap.SetTile(new Vector3Int(startX + randX, startY - 1, 0), wallTile);
                 break;
             case 2:
                 startY -= randY;
                 startX -= (int)Mathf.Floor(randX / 2f);
+                tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
                 break;
             case 3:
                 startX -= randX;
                 startY -= (int)Mathf.Floor(randY / 2f);
+                tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
                 break;
         }
 
-        Debug.Log("Start X: " + startX);
-        Debug.Log("Start Y: " + startY);
-        Debug.Log("Rand X: " + randX);
-        Debug.Log("Rand Y: " + randY);
-        Debug.Log("End X: " + (startX + randX - 1));
-        Debug.Log("End Y: " + (startY + randY - 1));
+        //Debug statements for room sizes
+        //Debug.Log("Start X: " + startX + " Start Y: " + startY);
+        //Debug.Log("Rand X: " + randX + " Rand Y: " + randY);
+        //Debug.Log("End X: " + (startX + randX - 1) + " End Y: " + (startY + randY - 1));
 
-        tilemap.SetTile(new Vector3Int(startX + randX, startY + randY, 0), wallTile);
-        //tilemap.SetTile(new Vector3Int(startX, startY, 0), wallTile);
+        //if no tile exists, set a wall tile to expandthe tilemap
+        if (!tilemap.HasTile(new Vector3Int(startX + randX, startY + randY, 0)))
+        { 
+            tilemap.SetTile(new Vector3Int(startX + randX, startY + randY, 0), wallTile);
+        }
 
+        //fill the area of the room with wall tiles
+        tilemap.BoxFill(new Vector3Int(startX, startY, 0), wallTile, startX - 1, startY - 1, startX + randX, startY + randY);
+        //fill the inside of the room with floor tiles
         tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile,startX,startY,startX+randX - 1,startY+randY - 1);
-        //tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile, startX, startY + randY + 1, startX + randX - 1, startY);
-        //tilemap.BoxFill(new Vector3Int(startX, startY, 0), wallTile, startX - 1, startY - 1, startX + randX, startY + randY);
+
+        
+
+        //based on door direction, place doors
+        switch (doorDirection)
+        {
+            case 0:
+                tilemap.SetTile(new Vector3Int(startX - 1, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1,randX-1), startY + randY, 0), doorTile);
+                break;
+            case 1:
+                tilemap.SetTile(new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1, randX - 1), startY - 1, 0), doorTile);
+                break;
+            case 2:
+                tilemap.SetTile(new Vector3Int(startX - 1, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1, randX - 1), startY - 1, 0), doorTile);
+                break;
+            case 3:
+                tilemap.SetTile(new Vector3Int(startX - 1, startY + Random.Range(1, randY - 1), 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0), doorTile);
+                tilemap.SetTile(new Vector3Int(startX + Random.Range(1, randX - 1), startY - 1, 0), doorTile);
+                break;
+        }
     }
 
 
