@@ -152,14 +152,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxRooms: 200
+  newDoorChance: 40
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
   doorTile: {fileID: 11400000, guid: f3e2eee4c248c744a84a3300070c17ab, type: 2}
   minRoomSize: 4
-  maxRoomSize: 10
-  minCorridorSize: 4
-  maxCorridorSize: 7
+  maxRoomSize: 20
+  minCorridorSize: 5
+  maxCorridorSize: 15
 --- !u!4 &888398644
 Transform:
   m_ObjectHideFlags: 0
