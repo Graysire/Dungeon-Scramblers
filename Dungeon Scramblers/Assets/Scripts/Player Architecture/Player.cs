@@ -11,37 +11,46 @@ public class Player : MonoBehaviour
         attackdmg = 2,
         attackspeed = 3,
         abilitydmg = 4,
-        defense = 5
+        abilitycd = 5,
+        defense = 6
     }
 
-    [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-    protected bool isDead = false;
+    [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+    [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+    [SerializeField] protected bool isDead = false;
     // Movement Variables
     protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
     protected Vector2 inputDirection = Vector2.zero;
+    // Temporary Variables -- will be replaced by official art
+    protected SpriteRenderer sr;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         controller = GetComponent<CharacterController>();
+        sr = GetComponent<SpriteRenderer>();
     }
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         UpdateHandler.UpdateOccurred += testerMethod;
+        UpdateHandler.UpdateOccurred += Die;
         UpdateHandler.FixedUpdateOccurred += Move;
-    }    
-    private void OnDisable()
+        UpdateHandler.UpdateOccurred += Attack;
+    }
+    protected virtual void OnDisable()
     {
         UpdateHandler.UpdateOccurred -= testerMethod;
+        UpdateHandler.UpdateOccurred -= Die;
         UpdateHandler.FixedUpdateOccurred -= Move;
+        UpdateHandler.UpdateOccurred -= Attack;
     }
 
-    private void testerMethod() {
+    protected void testerMethod() {
         Debug.Log("Health = " + (int)Stats.health);
         Debug.Log("Speed = " + Stats.movespeed.ToString());
     }
 
-    public virtual void OnMove(CallbackContext context){
+    public void OnMove(CallbackContext context){
         SetInputVector(context.ReadValue<Vector2>());
     }
 
@@ -54,9 +63,12 @@ public class Player : MonoBehaviour
         direction *= stats[(int)Stats.movespeed];
         controller.Move(direction * Time.deltaTime);
     }
-
-    protected virtual void Attack() { 
-        // BUTTONS TO ATTACK
+    public virtual void OnAttack(CallbackContext context) {
+        if (context.performed)
+            Attack();
+    }
+    protected virtual void Attack() {
+        Debug.Log("Attack");
     }
 
     protected virtual void UseAbility() { 
@@ -64,13 +76,12 @@ public class Player : MonoBehaviour
     }
 
     protected virtual void Die() {
-        if (stats[(int)Stats.health] <= 0) {
+        if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
             Debug.Log("Do something that indicates the player is dead...");
             isDead = true;
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
+            Debug.Log("Dead");
             // Death animation
         }
-    }
-    protected virtual void Vote() { 
-        // was this supposed to be a thing?
-    }
+    } 
 }

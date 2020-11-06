@@ -82,6 +82,44 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "ScramblerAttack",
+            "id": "856ca490-a01e-4eaf-b47f-e61350effd4e",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "fe582ccd-cd7a-4f3e-90e8-057f44b2710d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "fe08a129-bcdf-491d-aaaa-201836e74db5",
+                    "path": "<Mouse>/leftbutton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c55c14e-7aa2-4148-bfc0-1bae538ad309",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
