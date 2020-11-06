@@ -16,3 +16,4 @@ MonoBehaviour:
   DatabaseType: 1
   Names:
   - MasterCanvas
+  - Matchmaking
