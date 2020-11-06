@@ -10,6 +10,8 @@ public class MapMaker : MonoBehaviour
     int maxRooms = 200;
     [SerializeField]
     int newDoorChance = 50;
+    [SerializeField]
+    float waitTime = 0f;
 
     //tilemap to generate dungeon on
     [SerializeField]
@@ -152,7 +154,7 @@ public class MapMaker : MonoBehaviour
             if (tilemap.GetTile(randDoorLocation) == wallTile)
             {
                 tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(waitTime);
                 GenerateCorridor(randDoorLocation, 2);
             }
         }
@@ -163,7 +165,7 @@ public class MapMaker : MonoBehaviour
             if (tilemap.GetTile(randDoorLocation) == wallTile)
             {
                 tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(waitTime);
                 GenerateCorridor(randDoorLocation, 3);
             }
         }
@@ -174,7 +176,7 @@ public class MapMaker : MonoBehaviour
             if (tilemap.GetTile(randDoorLocation) == wallTile)
             {
                 tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(waitTime);
                 GenerateCorridor(randDoorLocation, 0);
             }
         }
@@ -185,7 +187,7 @@ public class MapMaker : MonoBehaviour
             if (tilemap.GetTile(randDoorLocation) == wallTile)
             {
                 tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(waitTime);
                 GenerateCorridor(randDoorLocation, 1);
             }
         }
@@ -197,6 +199,7 @@ public class MapMaker : MonoBehaviour
     {
         if (maxRooms < 0)
         {
+            tilemap.SetTile(doorPosition, wallTile);
             return;
         }
         //generate a random length for the corridor
