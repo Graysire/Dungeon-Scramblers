@@ -201,7 +201,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -1041,7 +1041,7 @@ MonoBehaviour:
     ButtonAnimationType: 0
     DeselectButton: 0
     DisableInterval: 0.4
-    Enabled: 1
+    Enabled: 0
     LoadSelectedPresetAtRuntime: 1
     OnTrigger:
       AnimatorEvents: []
@@ -2631,7 +2631,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'COUNT: '
+  m_Text: 
 --- !u!222 &159569990
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2792,7 +2792,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -5078,7 +5078,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 210501233}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -5218,7 +5218,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -7867,7 +7867,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -8707,7 +8707,7 @@ MonoBehaviour:
     ButtonAnimationType: 0
     DeselectButton: 0
     DisableInterval: 0.4
-    Enabled: 1
+    Enabled: 0
     LoadSelectedPresetAtRuntime: 0
     OnTrigger:
       AnimatorEvents: []
@@ -10153,7 +10153,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 303657473}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -10305,7 +10305,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -12591,7 +12591,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 420505525}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -12972,7 +12972,7 @@ MonoBehaviour:
   StartRotation: {x: 0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
-  AllowMultipleClicks: 0
+  AllowMultipleClicks: 1
   ButtonCategory: Voting
   ButtonName: 3rd Item Vote
   ClickMode: 0
@@ -12980,7 +12980,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -15266,7 +15266,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044946589}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -15418,7 +15418,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -16258,7 +16258,7 @@ MonoBehaviour:
     ButtonAnimationType: 0
     DeselectButton: 0
     DisableInterval: 0.4
-    Enabled: 1
+    Enabled: 0
     LoadSelectedPresetAtRuntime: 0
     OnTrigger:
       AnimatorEvents: []
@@ -17704,7 +17704,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1177936734}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -18661,7 +18661,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -21237,7 +21237,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -23662,7 +23662,7 @@ MonoBehaviour:
   DisableButtonBetweenClicksInterval: 0.2
   DoubleClickRegisterInterval: 0.2
   InputData:
-    EnableAlternateInputs: 1
+    EnableAlternateInputs: 0
     InputMode: 2
     KeyCode: 13
     KeyCodeAlt: 32
@@ -24502,7 +24502,7 @@ MonoBehaviour:
     ButtonAnimationType: 0
     DeselectButton: 0
     DisableInterval: 0.4
-    Enabled: 1
+    Enabled: 0
     LoadSelectedPresetAtRuntime: 0
     OnTrigger:
       AnimatorEvents: []
@@ -25831,8 +25831,8 @@ MonoBehaviour:
     IsPlaying: 0
     LoopAnimationType: 0
     LoadSelectedPresetAtRuntime: 0
-    PresetCategory: 
-    PresetName: 
+    PresetCategory: Uncategorized
+    PresetName: Default
   SelectedLoopAnimation:
     Animation:
       AnimationType: 3
@@ -26057,6 +26057,8 @@ MonoBehaviour:
   - {fileID: 10705264}
   - {fileID: 1177936737}
   - {fileID: 303657476}
+  Timer: {fileID: 1771295970}
+  TimeRemaining: 10
 --- !u!1 &2055931153
 GameObject:
   m_ObjectHideFlags: 0
