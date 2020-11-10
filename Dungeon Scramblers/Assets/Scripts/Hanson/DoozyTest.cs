@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Doozy.Engine.UI;
 using System;
+using System.Linq;
 
 public class DoozyTest : MonoBehaviour
 {
@@ -53,6 +54,7 @@ public class DoozyTest : MonoBehaviour
         {
             Timer.SetLabelText("Time: 0");
             // Call handle result here, possibly pop-up tab with the item that the player get
+            HandleResult();
         }
 
         
@@ -74,7 +76,11 @@ public class DoozyTest : MonoBehaviour
 
     private void HandleResult()
     {
+        Debug.Log("result");
+        int maxVote = count.Max();
+        int maxIndex = count.ToList().IndexOf(maxVote);
 
+        Debug.Log("Item #" + (maxIndex+1) + " was picked");
     }
 
 }
