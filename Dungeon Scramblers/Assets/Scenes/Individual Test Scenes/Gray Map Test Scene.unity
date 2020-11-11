@@ -133,6 +133,8 @@ GameObject:
   m_Component:
   - component: {fileID: 888398644}
   - component: {fileID: 888398643}
+  - component: {fileID: 888398645}
+  - component: {fileID: 888398646}
   m_Layer: 0
   m_Name: MapMaker
   m_TagString: Untagged
@@ -152,8 +154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxRooms: 40
-  newDoorChance: 40
+  maxRooms: 20
+  newDoorChance: 50
   waitTime: 0.25
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
@@ -177,6 +179,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &888398645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888398642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a8509507c531648b22928a3b078c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &888398646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888398642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ad8db0565074da4e8fcbc75f04adc97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mostRecentPath: []
+  debugObstruct: {fileID: 0}
+  startPos: {x: 0, y: 4, z: 0}
+  targetPos: {x: 4, y: 0, z: 0}
 --- !u!1 &1873881674
 GameObject:
   m_ObjectHideFlags: 0

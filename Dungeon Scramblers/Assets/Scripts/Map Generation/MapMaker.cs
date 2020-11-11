@@ -41,7 +41,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int maxCorridorSize;
 
-    
+    bool tempStop = false;
 
     // Start is called before the first frame update
     void Start()
@@ -53,7 +53,7 @@ public class MapMaker : MonoBehaviour
         //GenerateCorridor(new Vector3Int(0, 0, 0), 2);
         //GenerateCorridor(new Vector3Int(0, 0, 0), 3);
         StartCoroutine(GenerateRoom(new Vector3Int(0, 0, 0), 0));
-        
+
         //GenerateRoom(new Vector3Int(0, 0, 0), 1);
         //GenerateRoom(new Vector3Int(0, 0, 0), 2);
         //GenerateRoom(new Vector3Int(0, 0, 0), 3);
@@ -62,6 +62,11 @@ public class MapMaker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!tempStop)
+        {
+            Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+            tempStop = true;
+        }
 
     }
 
@@ -73,10 +78,7 @@ public class MapMaker : MonoBehaviour
     IEnumerator GenerateRoom(Vector3Int doorPosition, int doorDirection)
     {
         maxRooms--;
-        if (maxRooms < 0)
-        {
-            yield break;
-        }
+        
 
         //generate a random x size of the floor space of the room
         int randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
@@ -148,7 +150,7 @@ public class MapMaker : MonoBehaviour
         Vector3Int randDoorLocation;
 
         //if the door is not facing up, generate a door and corridor facing left
-        if (doorDirection != 0 && Random.Range(0,100) < newDoorChance)
+        if (doorDirection != 0 && Random.Range(0,100) < newDoorChance && maxRooms > 0)
         {
             randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY, 0);
             if (tilemap.GetTile(randDoorLocation) == wallTile)
@@ -159,7 +161,7 @@ public class MapMaker : MonoBehaviour
             }
         }
         //if the door is not facing right, generate a door and corridorfacing left
-        if (doorDirection != 1 && Random.Range(0, 100) < newDoorChance)
+        if (doorDirection != 1 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
         {
             randDoorLocation = new Vector3Int(startX, startY + Random.Range(1, randY - 1), 0);
             if (tilemap.GetTile(randDoorLocation) == wallTile)
@@ -170,7 +172,7 @@ public class MapMaker : MonoBehaviour
             }
         }
         //if the door is not facing down, generate a door and corridor facing up
-        if (doorDirection != 2 && Random.Range(0, 100) < newDoorChance)
+        if (doorDirection != 2 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
         {
             randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0);
             if (tilemap.GetTile(randDoorLocation) == wallTile)
@@ -181,7 +183,7 @@ public class MapMaker : MonoBehaviour
             }
         }
         //if the door is not facing left, generate a door and corridor facing right
-        if (doorDirection != 3 && Random.Range(0, 100) < newDoorChance)
+        if (doorDirection != 3 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
         {
             randDoorLocation = new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0);
             if (tilemap.GetTile(randDoorLocation) == wallTile)
@@ -191,6 +193,8 @@ public class MapMaker : MonoBehaviour
                 GenerateCorridor(randDoorLocation, 1);
             }
         }
+
+        tempStop = false;
     }
 
     //generates a corridor with an entering door at doorposition towards doorDirection
