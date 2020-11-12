@@ -11,6 +11,8 @@ public class DoozyTest : MonoBehaviour
     private UIButton[] Buttons;
     [SerializeField]
     private UIButton Timer;
+    [SerializeField]
+    private UIPopup Popup;
     int[] count = {0,0,0};
     public double TimeRemaining = 10;
     // Start is called before the first frame update
@@ -81,6 +83,7 @@ public class DoozyTest : MonoBehaviour
         int maxIndex = count.ToList().IndexOf(maxVote);
 
         Debug.Log("Item #" + (maxIndex+1) + " was picked");
+        Popup.Show();
     }
 
 }
