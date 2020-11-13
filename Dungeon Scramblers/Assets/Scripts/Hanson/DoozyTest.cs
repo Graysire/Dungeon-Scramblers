@@ -89,7 +89,9 @@ public class DoozyTest : MonoBehaviour
 
     public void HidePopup()
     {
-        UIPopup.HidePopup(Popup.name);
+        Popup.Hide(); //Hide Popup
+        Popup.Canvas.enabled = false; //Turns off overlay canvas
+
     }
 
 }
