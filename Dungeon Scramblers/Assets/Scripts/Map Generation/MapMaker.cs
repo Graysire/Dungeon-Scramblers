@@ -48,15 +48,9 @@ public class MapMaker : MonoBehaviour
     {
         
         tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
-        //GenerateCorridor(new Vector3Int(0, 0, 0), 0);
-        //GenerateCorridor(new Vector3Int(0, 0, 0), 1);
-        //GenerateCorridor(new Vector3Int(0, 0, 0), 2);
-        //GenerateCorridor(new Vector3Int(0, 0, 0), 3);
-        StartCoroutine(GenerateRoom(new Vector3Int(0, 0, 0), 0));
-
-        //GenerateRoom(new Vector3Int(0, 0, 0), 1);
-        //GenerateRoom(new Vector3Int(0, 0, 0), 2);
-        //GenerateRoom(new Vector3Int(0, 0, 0), 3);
+        // StartCoroutine("GenerateMap");
+        GenerateMap(15);
+        Debug.Log((int)Facing.North - (int)Facing.South);
     }
 
     // Update is called once per frame
@@ -70,15 +64,47 @@ public class MapMaker : MonoBehaviour
 
     }
 
+    //generates a dungeon map, assumes the tilemap is currently empty
+    void GenerateMap(int runs)
+    {
+        List<DoorInfo> doorList = new List<DoorInfo>();
+
+        doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
+
+        for (int i = 0; i < runs; i++)
+        {
+            List<DoorInfo> newDoors = new List<DoorInfo>();
+            //generate new rooms from the doors in doorList and add their doors to newDoors
+            foreach (DoorInfo door in doorList)
+            {
+                newDoors.AddRange(GenerateRoom(door));
+                //yield return new WaitForSeconds(waitTime);
+            }
+            doorList.Clear();
+            //generate new corridors from the doors in newDoors and and add their doors to doorList
+            if (i + 1 < runs)
+            {
+                foreach (DoorInfo door in newDoors)
+                {
+                    doorList.AddRange(GenerateCorridor(door));
+                }
+            }
+            else
+            {
+                foreach (DoorInfo door in newDoors)
+                {
+                    tilemap.SetTile(door.position, wallTile);
+                }
+            }
+        }
+       
+    }
 
     //generates a room with an entering door at doorposition towards doorDirection
-    //0 = Up, 1 = Right, 2 = Down, 3 = Left
-    //Due to the function of box fill, cannot safely generate multiple rooms aorund one poin
-    //Exception to the above is generating 0 and, 1 and 3, 0 then 3 then 2, or 0 then 1 then 2
-    IEnumerator GenerateRoom(Vector3Int doorPosition, int doorDirection)
+    //returns a list of all new doors created
+    List<DoorInfo> GenerateRoom(DoorInfo door)
     {
-        maxRooms--;
-        
+        List<DoorInfo> newDoors = new List<DoorInfo>();
 
         //generate a random x size of the floor space of the room
         int randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
@@ -86,28 +112,28 @@ public class MapMaker : MonoBehaviour
         int randY = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 2 ? -1 : 1);
 
         //set the starting positions to draw tiles from
-        int startX = doorPosition.x; //+ (doorDirection == 1 ? 1 : doorDirection == 3 ? -1 : 0) + (int) Mathf.Ceil(randX / 2f);
-        int startY = doorPosition.y; //+ (doorDirection == 0 ? 1 : doorDirection == 2 ? -1 : 0) + (int) Mathf.Ceil(randY / 2f);
+        int startX = door.position.x; //+ (doorDirection == 1 ? 1 : doorDirection == 3 ? -1 : 0) + (int) Mathf.Ceil(randX / 2f);
+        int startY = door.position.y; //+ (doorDirection == 0 ? 1 : doorDirection == 2 ? -1 : 0) + (int) Mathf.Ceil(randY / 2f);
 
-        //based on door direction, modify starting positions and set a tile to expand thetilemap to cover the room
-        switch (doorDirection)
+        //based on door facing, modify starting positions 
+        switch (door.facing)
         {
-            case 0:
+            case Facing.North:
                 //startY += 1;
                 startX -= (int)Mathf.Floor(randX / 2f);
                 //tilemap.SetTile(new Vector3Int(startX - 1, startY + randY, 0), wallTile);
                 break;
-            case 1:
+            case Facing.East:
                 //startX += 1;
                 startY -= (int)Mathf.Floor(randY / 2f);
                 //tilemap.SetTile(new Vector3Int(startX + randX, startY - 1, 0), wallTile);
                 break;
-            case 2:
+            case Facing.South:
                 startY -= randY;
                 startX -= (int)Mathf.Floor(randX / 2f);
                // tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
                 break;
-            case 3:
+            case Facing.West:
                 startX -= randX;
                 startY -= (int)Mathf.Floor(randY / 2f);
                 //tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
@@ -125,6 +151,7 @@ public class MapMaker : MonoBehaviour
             tilemap.SetTile(new Vector3Int(startX + randX, startY + randY, 0), wallTile);
         }*/
 
+        //place all the tiles that make up the room
         for (int x = startX; x <= startX + randX; x++)
         {
             for (int y = startY; y <= startY + randY; y++)
@@ -147,65 +174,64 @@ public class MapMaker : MonoBehaviour
         //fill the inside of the room with floor tiles
         //tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile,startX,startY,startX+randX - 1,startY+randY - 1);
 
-        Vector3Int randDoorLocation;
 
-        //if the door is not facing up, generate a door and corridor facing left
-        if (doorDirection != 0 && Random.Range(0,100) < newDoorChance && maxRooms > 0)
+        Vector3Int randDoorLocation = new Vector3Int(0, 0, 0); ;
+
+        //for each wall of the room except the entering wall, check for creation of new doors and add any new doors to the list of new doors
+        for (int i = 0; i < 4; i++)
         {
-            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY, 0);
-            if (tilemap.GetTile(randDoorLocation) == wallTile)
+            //if the wall being checked is not the wall being entered from
+            if (Mathf.Abs(i - (int) door.facing) != 2)
             {
-                tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(waitTime);
-                GenerateCorridor(randDoorLocation, 2);
-            }
-        }
-        //if the door is not facing right, generate a door and corridorfacing left
-        if (doorDirection != 1 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
-        {
-            randDoorLocation = new Vector3Int(startX, startY + Random.Range(1, randY - 1), 0);
-            if (tilemap.GetTile(randDoorLocation) == wallTile)
-            {
-                tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(waitTime);
-                GenerateCorridor(randDoorLocation, 3);
-            }
-        }
-        //if the door is not facing down, generate a door and corridor facing up
-        if (doorDirection != 2 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
-        {
-            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0);
-            if (tilemap.GetTile(randDoorLocation) == wallTile)
-            {
-                tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(waitTime);
-                GenerateCorridor(randDoorLocation, 0);
-            }
-        }
-        //if the door is not facing left, generate a door and corridor facing right
-        if (doorDirection != 3 && Random.Range(0, 100) < newDoorChance && maxRooms > 0)
-        {
-            randDoorLocation = new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0);
-            if (tilemap.GetTile(randDoorLocation) == wallTile)
-            {
-                tilemap.SetTile(randDoorLocation, doorTile);
-                yield return new WaitForSeconds(waitTime);
-                GenerateCorridor(randDoorLocation, 1);
-            }
+                //check if new door should be generated
+                if (Random.Range(1, 100) <= newDoorChance)
+                {
+                    //determine location of the new door
+                    switch ((Facing) i)
+                    {
+                        case Facing.North:
+                            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0);
+                            break;
+                        case Facing.East:
+                            randDoorLocation = new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0);
+                            break;
+                        case Facing.South:
+                            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY, 0);
+                            
+                            break;
+                        case Facing.West:
+                            randDoorLocation = new Vector3Int(startX, startY + Random.Range(1, randY - 1), 0);
+                            break;
+                    }
+
+                    //place the new door as long as the location is inside a wall
+                    //add it to the lsit of new doors
+                    if (tilemap.GetTile(randDoorLocation) == wallTile)
+                    {
+                        tilemap.SetTile(randDoorLocation, doorTile);
+                        newDoors.Add(new DoorInfo(randDoorLocation, (Facing) i));
+                    }
+                }
+            } 
         }
 
-        tempStop = false;
+        return newDoors;
     }
 
-    //generates a corridor with an entering door at doorposition towards doorDirection
-    //0 = Up, 1 = Right, 2 = Down, 3 = Left
-    void GenerateCorridor(Vector3Int doorPosition, int doorDirection)
+    //generates a corridor continuing away form the given door and returns a new door at the end of the corridor
+    //if the corridor connects to another room or corridor, it will not return any doors
+    //returns doors as a list to facilitate possible T intersections
+    List<DoorInfo> GenerateCorridor(DoorInfo door)
     {
-        if (maxRooms < 0)
+        List<DoorInfo> newDoors = new List<DoorInfo>();
+
+        /*if (maxRooms < 0)
         {
             tilemap.SetTile(doorPosition, wallTile);
             return;
-        }
+        }*/
+
+
         //generate a random length for the corridor
         int length = Random.Range(minCorridorSize, maxCorridorSize); //* (doorDirection >= 2 ? -1 : 1);
 
@@ -218,38 +244,38 @@ public class MapMaker : MonoBehaviour
 
         //set the x and y adjustment to tile location based off door direction
         //this decides what direction the tiles are put down
-        switch (doorDirection)
+        switch (door.facing)
         {
-            case 0:
+            case Facing.North:
                 xAdjust = 0;
                 yAdjust = 1;
 
                 break;
-            case 1:
+            case Facing.East:
                 xAdjust = 1;
                 yAdjust = 0;
 
                 break;
-            case 2:
+            case Facing.South:
                 xAdjust = 0;
                 yAdjust = -1;
 
                 break;
-            case 3:
+            case Facing.West:
                 xAdjust = -1;
                 yAdjust = 0;
 
                 break;
         }
 
-        Vector3Int endDoorPosition = doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
+        Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
         for (int i = 1; i <= length + 1; i++)
         {
-            if (tilemap.HasTile(doorPosition + i * corridorDirection))
+            if (tilemap.HasTile(door.position + i * corridorDirection))
             {
-                endDoorPosition = doorPosition + i * corridorDirection;
+                endDoorPosition = door.position + i * corridorDirection;
                 length = i - 1;
                 isConnector = true;
                 break;
@@ -294,21 +320,21 @@ public class MapMaker : MonoBehaviour
              }
          }*/
 
-        if (tilemap.GetTile(doorPosition + corridorDirection) == floorTile)
+        if (tilemap.GetTile(door.position + corridorDirection) == floorTile)
         {
-            return;
+            return newDoors;
         }
         else if (length < minCorridorSize)
         {
-            tilemap.SetTile(doorPosition, wallTile);
-            return;
+            tilemap.SetTile(door.position, wallTile);
+            return newDoors;
         }
 
         tilemap.SetTile(endDoorPosition, doorTile);
 
         for (int i = 0; i <= length + 1; i++)
         {
-            Vector3Int tileLoc = doorPosition + i * corridorDirection;
+            Vector3Int tileLoc = door.position + i * corridorDirection;
 
             PlaceTile(tileLoc, floorTile);
             PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), wallTile);
@@ -317,12 +343,13 @@ public class MapMaker : MonoBehaviour
 
         }
 
-
-
+        //if this corridor is not a connector, add it's ending door to the lsit of new doors
         if (!isConnector)
         {
-            StartCoroutine(GenerateRoom(doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0), doorDirection));
+            newDoors.Add(new DoorInfo(endDoorPosition, door.facing));
+            //StartCoroutine(GenerateRoom(doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0), doorDirection));
         }
+        return newDoors;
     }
 
     void PlaceTile(Vector3Int position, TileBase tile)
@@ -331,5 +358,28 @@ public class MapMaker : MonoBehaviour
         {
             tilemap.SetTile(position, tile);
         }
+    }
+
+    //The position and facing of a door
+    struct DoorInfo
+    {
+        //the position of the door on the tilemap
+        public Vector3Int position;
+        //the facing of the door to leave its room
+        public Facing facing;
+
+        public DoorInfo(Vector3Int pos, Facing face)
+        {
+            position = pos;
+            facing = face;
+        }
+
+    }
+
+    //the direction a door faces to lead out of a room or corridor
+    //North is up, East is right, South is down, West is left
+    enum Facing
+    {
+        North, East, South, West
     }
 }
