@@ -48,7 +48,7 @@ public class DoozyTest : MonoBehaviour
     {
         if(TimeRemaining >= 0)
         {
-            TimeRemaining -= Time.deltaTime;
+            TimeRemaining -= 2 * Time.deltaTime;
             TimeRemaining = Math.Round(TimeRemaining, 2);
             Timer.SetLabelText("Time: " + TimeRemaining);
         }
@@ -83,7 +83,13 @@ public class DoozyTest : MonoBehaviour
         int maxIndex = count.ToList().IndexOf(maxVote);
 
         Debug.Log("Item #" + (maxIndex+1) + " was picked");
-        Popup.Show();
+        
+        UIPopupManager.ShowPopup(Popup, false, false);
+    }
+
+    public void HidePopup()
+    {
+        UIPopup.HidePopup(Popup.name);
     }
 
 }

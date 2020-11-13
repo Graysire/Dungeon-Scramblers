@@ -4898,7 +4898,7 @@ MonoBehaviour:
         Direction: 0
         CustomPosition: {x: 0, y: 0, z: 0}
         EaseType: 0
-        Ease: 11
+        Ease: 4
         AnimationCurve:
           serializedVersion: 2
           m_Curve: []
@@ -13585,7 +13585,19 @@ MonoBehaviour:
         CustomSortingLayer: Default
       Event:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 2042685602}
+            m_TargetAssemblyTypeName: DoozyTest, Assembly-CSharp
+            m_MethodName: HidePopup
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
       GameEvents: []
       SoundData:
         SoundSource: 0
@@ -14900,8 +14912,8 @@ MonoBehaviour:
     IsPlaying: 0
     LoopAnimationType: 0
     LoadSelectedPresetAtRuntime: 0
-    PresetCategory: 
-    PresetName: 
+    PresetCategory: Uncategorized
+    PresetName: Default
   SelectedLoopAnimation:
     Animation:
       AnimationType: 3
@@ -15329,7 +15341,7 @@ GameObject:
   - component: {fileID: 898622009}
   - component: {fileID: 898622008}
   m_Layer: 0
-  m_Name: UIPopup
+  m_Name: ItemWon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15353,7 +15365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2604, y: 0}
+  m_AnchoredPosition: {x: 2436, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &898622008
@@ -15369,7 +15381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DebugMode: 0
-  StartPosition: {x: 2604, y: 0, z: 0}
+  StartPosition: {x: 2211, y: 0, z: 0}
   StartRotation: {x: -0, y: 0, z: 0}
   StartScale: {x: 1, y: 1, z: 1}
   StartAlpha: 1
@@ -15378,7 +15390,7 @@ MonoBehaviour:
   AutoHideAfterShowDelay: 3
   AutoSelectButtonAfterShow: 0
   AutoSelectPreviouslySelectedButtonAfterHide: 1
-  BlockBackButton: 1
+  BlockBackButton: 0
   CanvasName: MasterCanvas
   Container:
     Canvas: {fileID: 1214269800}
@@ -15401,8 +15413,8 @@ MonoBehaviour:
     - {fileID: 1370827052}
     Labels:
     - {fileID: 1877359549}
-  DestroyAfterHide: 1
-  DisplayTarget: 1
+  DestroyAfterHide: 0
+  DisplayTarget: 0
   HideBehavior:
     Animation:
       AnimationType: 2
@@ -15709,8 +15721,8 @@ MonoBehaviour:
   HideOnAnyButton: 0
   HideOnBackButton: 1
   HideOnClickAnywhere: 0
-  HideOnClickContainer: 1
-  HideOnClickOverlay: 1
+  HideOnClickContainer: 0
+  HideOnClickOverlay: 0
   HideProgressor: {fileID: 0}
   OnInverseVisibilityChanged:
     m_PersistentCalls:
@@ -15724,7 +15736,7 @@ MonoBehaviour:
     DisableCanvas: 1
     DisableGameObject: 1
     DisableGraphicRaycaster: 1
-    Enabled: 0
+    Enabled: 1
     GraphicRaycaster: {fileID: 1154371563}
     RectTransform: {fileID: 1154371559}
     StartAlpha: 1
@@ -16020,8 +16032,8 @@ MonoBehaviour:
       GameEvents: []
       SoundData:
         SoundSource: 0
-        DatabaseName: General
-        SoundName: No Sound
+        DatabaseName: Example Alerts
+        SoundName: Game Navigation
         AudioClip: {fileID: 0}
         OutputAudioMixerGroup: {fileID: 0}
     PresetCategory: Organic
@@ -18526,7 +18538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1154371559
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18603,7 +18615,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154371558}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
@@ -18620,7 +18632,7 @@ Canvas:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154371558}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
@@ -29716,6 +29728,7 @@ MonoBehaviour:
   - {fileID: 1177936737}
   - {fileID: 303657476}
   Timer: {fileID: 1771295970}
+  Popup: {fileID: 898622008}
   TimeRemaining: 10
 --- !u!1 &2055931153
 GameObject:
