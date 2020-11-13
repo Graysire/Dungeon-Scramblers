@@ -4,17 +4,27 @@ using UnityEngine;
 using Doozy.Engine.UI;
 using System;
 using System.Linq;
+using UnityEngine.UI;
 
 public class DoozyTest : MonoBehaviour
 {
     [SerializeField]
     private UIButton[] Buttons;
     [SerializeField]
+    private GameObject[] Images;
+    [SerializeField]
     private UIButton Timer;
     [SerializeField]
     private UIPopup Popup;
+
+    [SerializeField]
+    private Image PopupImage;
+    [SerializeField]
+    private Text PopupText;
+
     int[] count = {0,0,0};
     public double TimeRemaining = 10;
+    private Boolean shown =false;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,11 +59,12 @@ public class DoozyTest : MonoBehaviour
         if(TimeRemaining >= 0)
         {
             TimeRemaining -= 2 * Time.deltaTime;
-            TimeRemaining = Math.Round(TimeRemaining, 2);
-            Timer.SetLabelText("Time: " + TimeRemaining);
+            double TempTime = Math.Round(TimeRemaining, 2);
+            Timer.SetLabelText("Time: " + TempTime);
         }
-        else
+        else if (!shown)
         {
+            shown = true;
             Timer.SetLabelText("Time: 0");
             // Call handle result here, possibly pop-up tab with the item that the player get
             HandleResult();
@@ -83,13 +94,15 @@ public class DoozyTest : MonoBehaviour
         int maxIndex = count.ToList().IndexOf(maxVote);
 
         Debug.Log("Item #" + (maxIndex+1) + " was picked");
-        
-        UIPopupManager.ShowPopup(Popup, false, false);
+        PopupText.text = "Item #" + (maxIndex + 1) + " was picked";
+        PopupImage.sprite = Images[maxIndex].GetComponent<Image>().sprite;
+
+        Popup.Show();
     }
 
     public void HidePopup()
     {
-        UIPopup.HidePopup(Popup.name);
+        Popup.Hide();
     }
 
 }

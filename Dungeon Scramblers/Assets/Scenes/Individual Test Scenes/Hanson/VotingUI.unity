@@ -12704,7 +12704,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: -15}
-  m_SizeDelta: {x: 60, y: 30}
+  m_SizeDelta: {x: 120, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &422662691
 MonoBehaviour:
@@ -15365,7 +15365,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 2436, y: 0}
+  m_AnchoredPosition: {x: 2211, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &898622008
@@ -15692,8 +15692,8 @@ MonoBehaviour:
       GameEvents: []
       SoundData:
         SoundSource: 0
-        DatabaseName: General
-        SoundName: No Sound
+        DatabaseName: Example Clicks
+        SoundName: Plastic Switch
         AudioClip: {fileID: 0}
         OutputAudioMixerGroup: {fileID: 0}
     OnStart:
@@ -18605,8 +18605,8 @@ CanvasGroup:
   m_GameObject: {fileID: 1154371558}
   m_Enabled: 1
   m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1154371563
 MonoBehaviour:
@@ -21125,7 +21125,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 256, y: 192}
+  m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1214269796
 MonoBehaviour:
@@ -21987,8 +21987,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -75.3}
-  m_SizeDelta: {x: 80, y: 80}
+  m_AnchoredPosition: {x: 0, y: -100}
+  m_SizeDelta: {x: 256, y: 256}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1370827052
 MonoBehaviour:
@@ -22003,7 +22003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -29635,8 +29635,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -48.2}
-  m_SizeDelta: {x: -16, y: 40}
+  m_AnchoredPosition: {x: 0, y: -48.19995}
+  m_SizeDelta: {x: -16, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1877359551
 MonoBehaviour:
@@ -29660,11 +29660,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 12
-    m_MaxSize: 20
+    m_MinSize: 2
+    m_MaxSize: 24
     m_Alignment: 4
     m_AlignByGeometry: 1
     m_RichText: 1
@@ -29727,8 +29727,14 @@ MonoBehaviour:
   - {fileID: 10705264}
   - {fileID: 1177936737}
   - {fileID: 303657476}
+  Images:
+  - {fileID: 420505525}
+  - {fileID: 210501233}
+  - {fileID: 1044946589}
   Timer: {fileID: 1771295970}
   Popup: {fileID: 898622008}
+  PopupImage: {fileID: 1370827052}
+  PopupText: {fileID: 1877359551}
   TimeRemaining: 10
 --- !u!1 &2055931153
 GameObject:
