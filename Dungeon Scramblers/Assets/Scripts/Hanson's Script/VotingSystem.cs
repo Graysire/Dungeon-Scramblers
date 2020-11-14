@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 using UnityEngine.UI;
 
-public class DoozyTest : MonoBehaviour
+public class VotingSystem : MonoBehaviour
 {
     [SerializeField]
     private UIButton[] Buttons;
