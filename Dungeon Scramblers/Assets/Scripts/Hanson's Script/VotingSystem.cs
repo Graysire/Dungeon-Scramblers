@@ -87,22 +87,32 @@ public class VotingSystem : MonoBehaviour
         Buttons[index].SetLabelText(count[index].ToString());
     }
 
+    public void HidePopup()
+    {
+        Popup.Hide();
+    }
+
     private void HandleResult()
     {
         Debug.Log("result");
         int maxVote = count.Max();
         int maxIndex = count.ToList().IndexOf(maxVote);
 
-        Debug.Log("Item #" + (maxIndex+1) + " was picked");
+        Debug.Log("Item #" + (maxIndex + 1) + " was picked");
         PopupText.text = "Item #" + (maxIndex + 1) + " was picked";
         PopupImage.sprite = Images[maxIndex].GetComponent<Image>().sprite;
-
+        // additional condition if any scrambler is dead
+        if (maxIndex == 2)
+        {
+            HandleRevive();
+        }
         Popup.Show();
     }
 
-    public void HidePopup()
+    private void HandleRevive()
     {
-        Popup.Hide();
+        Debug.Log("All players strength are restored for the next level");
     }
+
 
 }
