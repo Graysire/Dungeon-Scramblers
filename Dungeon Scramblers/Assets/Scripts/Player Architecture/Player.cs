@@ -22,7 +22,6 @@ public class Player : MonoBehaviour
     // Movement Variables
     protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
-    protected Vector2 inputDirection = Vector2.zero;
     // Temporary Variables -- will be replaced by official art
     protected SpriteRenderer sr;
 
