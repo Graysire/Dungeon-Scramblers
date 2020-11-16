@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
         abilitycd = 5,
         defense = 6
     }
-
+    protected InputMaster controls;
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected bool isDead = false;
@@ -27,52 +28,43 @@ public class Player : MonoBehaviour
 
     protected virtual void Awake()
     {
+        controls = new InputMaster();
+        controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.PlayerMovement.Attack.performed += _ => Attack();
+        controls.PlayerMovement.UseActive.performed += _ => UseAbility();
         controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
     }
     protected virtual void OnEnable()
     {
-        UpdateHandler.UpdateOccurred += testerMethod;
+        controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
-        UpdateHandler.FixedUpdateOccurred += Move;
-        UpdateHandler.UpdateOccurred += Attack;
+        UpdateHandler.FixedUpdateOccurred += ApplyMove;
     }
     protected virtual void OnDisable()
     {
-        UpdateHandler.UpdateOccurred -= testerMethod;
+        controls.Disable();
         UpdateHandler.UpdateOccurred -= Die;
-        UpdateHandler.FixedUpdateOccurred -= Move;
-        UpdateHandler.UpdateOccurred -= Attack;
+        UpdateHandler.FixedUpdateOccurred -= ApplyMove;
     }
 
-    protected void testerMethod() {
-        Debug.Log("Health = " + (int)Stats.health);
-        Debug.Log("Speed = " + Stats.movespeed.ToString());
-    }
-
-    public void OnMove(CallbackContext context){
-        SetInputVector(context.ReadValue<Vector2>());
-    }
-
-    protected virtual void SetInputVector(Vector2 dir) {
-        inputDirection = dir;
-    }
-    protected virtual void Move() {
-        direction = new Vector3(inputDirection.x, inputDirection.y,0);
+    protected virtual void Move(Vector2 d) {
+        direction = new Vector3(d.x, d.y,0);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
+    }
+
+    protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
     }
-    public virtual void OnAttack(CallbackContext context) {
-        if (context.performed)
-            Attack();
-    }
+
     protected virtual void Attack() {
         Debug.Log("Attack");
     }
 
-    protected virtual void UseAbility() { 
-        // BUTTONS TO USE ABILITY
+    protected virtual void UseAbility() {
+        Debug.Log("Ability Used");
     }
 
     protected virtual void Die() {
