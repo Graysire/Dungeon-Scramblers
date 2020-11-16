@@ -1,0 +1,2056 @@
+fileFormatVersion: 2
+guid: f852ce3a6926c6d4880b6457d91d6b86
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -5225540622116197949
+    second: 02_0
+  - first:
+      213: -4287101317676662005
+    second: 02_1
+  - first:
+      213: 6574457499336702476
+    second: 02_2
+  - first:
+      213: 813639542560780024
+    second: 02_3
+  - first:
+      213: 4743604252110829558
+    second: 02_4
+  - first:
+      213: 8265534151042842254
+    second: 02_5
+  - first:
+      213: -1067803521116911252
+    second: 02_6
+  - first:
+      213: 2435825256731879224
+    second: 02_7
+  - first:
+      213: 2098462217882119795
+    second: 02_8
+  - first:
+      213: -9019039134122849718
+    second: 02_9
+  - first:
+      213: -8283629354746321534
+    second: 02_10
+  - first:
+      213: 6724322109435982770
+    second: 02_11
+  - first:
+      213: -1950393254903311869
+    second: 02_12
+  - first:
+      213: 6997297581218221387
+    second: 02_13
+  - first:
+      213: -3498462860084906463
+    second: 02_14
+  - first:
+      213: -948106805065311055
+    second: 02_15
+  - first:
+      213: -4110939859654156382
+    second: 02_16
+  - first:
+      213: -1473317993211103201
+    second: 02_17
+  - first:
+      213: -3988174291572662308
+    second: 02_18
+  - first:
+      213: 3836142757610456476
+    second: 02_19
+  - first:
+      213: 4783420860105866087
+    second: 02_20
+  - first:
+      213: -8464363184977916909
+    second: 02_21
+  - first:
+      213: 5891994885220440092
+    second: 02_22
+  - first:
+      213: 4296699599112310083
+    second: 02_23
+  - first:
+      213: 1772121826822361083
+    second: 02_24
+  - first:
+      213: -4292124904115741525
+    second: 02_25
+  - first:
+      213: 4089079964133221752
+    second: 02_26
+  - first:
+      213: -4568290300244967754
+    second: 02_27
+  - first:
+      213: 1063693924995951894
+    second: 02_28
+  - first:
+      213: -4033003356524041934
+    second: 02_29
+  - first:
+      213: 3115710428536066824
+    second: 02_30
+  - first:
+      213: -2913218244376847690
+    second: 02_31
+  - first:
+      213: 1141851619934174832
+    second: 02_32
+  - first:
+      213: -1859719856131434269
+    second: 02_33
+  - first:
+      213: -475812151287311334
+    second: 02_34
+  - first:
+      213: 9210766623220616327
+    second: 02_35
+  - first:
+      213: 3077202536115499331
+    second: 02_36
+  - first:
+      213: 7158014799578589040
+    second: 02_37
+  - first:
+      213: -204133176510304828
+    second: 02_38
+  - first:
+      213: -2614410367681955549
+    second: 02_39
+  - first:
+      213: 8470997766382562486
+    second: 02_40
+  - first:
+      213: 7778199362084272180
+    second: 02_41
+  - first:
+      213: -606117666968884510
+    second: 02_42
+  - first:
+      213: 7764575013616757237
+    second: 02_43
+  - first:
+      213: -9156494077467835039
+    second: 02_44
+  - first:
+      213: 3537458875945505636
+    second: 02_45
+  - first:
+      213: 49768105577730763
+    second: 02_46
+  - first:
+      213: -8528392548735052017
+    second: 02_47
+  - first:
+      213: -330308897655225455
+    second: 02_48
+  - first:
+      213: -4590181512615279385
+    second: 02_49
+  - first:
+      213: -7855925631161863573
+    second: 02_50
+  - first:
+      213: -386261974090585822
+    second: 02_51
+  - first:
+      213: -7776503917730409639
+    second: 02_52
+  - first:
+      213: 2649268371564532882
+    second: 02_53
+  - first:
+      213: -8017516591275555132
+    second: 02_54
+  - first:
+      213: -5843385164286775471
+    second: 02_55
+  - first:
+      213: -1264793843885051544
+    second: 02_56
+  - first:
+      213: -2596357914679954781
+    second: 02_57
+  - first:
+      213: -7663153968899174366
+    second: 02_58
+  - first:
+      213: -8515497276643068017
+    second: 02_59
+  - first:
+      213: -1216603186891027209
+    second: 02_60
+  - first:
+      213: -8130825555459119289
+    second: 02_61
+  - first:
+      213: 6019749527697458401
+    second: 02_62
+  - first:
+      213: -3426072677369513827
+    second: 02_63
+  - first:
+      213: 644249314105390116
+    second: 02_64
+  - first:
+      213: 2895789023258666551
+    second: 02_65
+  - first:
+      213: -140890371493208300
+    second: 02_0
+  - first:
+      213: 2677674557411792774
+    second: 02_1
+  - first:
+      213: 5879255504844003455
+    second: 02_2
+  - first:
+      213: -9003550195843202894
+    second: 02_3
+  - first:
+      213: -33073361569038063
+    second: 02_4
+  - first:
+      213: 7670599467904643862
+    second: 02_5
+  - first:
+      213: 3916173714055373274
+    second: 02_6
+  - first:
+      213: 7437710902963635026
+    second: 02_7
+  - first:
+      213: 1815213682951454272
+    second: 02_8
+  - first:
+      213: -3293649193808388476
+    second: 02_9
+  - first:
+      213: 7593081260388781156
+    second: 02_10
+  - first:
+      213: 7459174857553271064
+    second: 02_11
+  - first:
+      213: 3223696111050657516
+    second: 02_12
+  - first:
+      213: 1070233267136421149
+    second: 02_13
+  - first:
+      213: 3008633966360337461
+    second: 02_14
+  - first:
+      213: -2421407635341319625
+    second: 02_15
+  - first:
+      213: -7133338522833979362
+    second: 02_16
+  - first:
+      213: 2973215976351040853
+    second: 02_17
+  - first:
+      213: 6453844481957822550
+    second: 02_18
+  - first:
+      213: 955490318131158672
+    second: 02_19
+  - first:
+      213: -9014806617309634130
+    second: 02_20
+  - first:
+      213: -4674493395162866344
+    second: 02_21
+  - first:
+      213: -2263207731673217495
+    second: 02_22
+  - first:
+      213: -7556864173670989622
+    second: 02_23
+  - first:
+      213: -1999509455170781623
+    second: 02_24
+  - first:
+      213: 7861688232338104836
+    second: 02_25
+  - first:
+      213: -1723057506241196906
+    second: 02_26
+  - first:
+      213: -5627128603766691830
+    second: 02_27
+  - first:
+      213: 2018828824109950757
+    second: 02_28
+  - first:
+      213: 7745831483457133976
+    second: 02_29
+  - first:
+      213: 3701255728046334319
+    second: 02_30
+  - first:
+      213: -2452097690125771310
+    second: 02_31
+  - first:
+      213: -1497646397982381964
+    second: 02_32
+  - first:
+      213: 7056542634744455571
+    second: 02_33
+  - first:
+      213: -6803193098848012090
+    second: 02_34
+  - first:
+      213: 1350444086355714960
+    second: 02_35
+  - first:
+      213: 3221946319391047294
+    second: 02_36
+  - first:
+      213: -9077700105715645117
+    second: 02_37
+  - first:
+      213: 1151843762757646764
+    second: 02_38
+  - first:
+      213: -1667178302642239207
+    second: 02_39
+  - first:
+      213: 3791467231576455920
+    second: 02_40
+  - first:
+      213: 8743315727776442140
+    second: 02_41
+  - first:
+      213: -3085705608867102674
+    second: 02_42
+  - first:
+      213: -4647697704804594434
+    second: 02_43
+  - first:
+      213: -7169287618789746177
+    second: 02_44
+  - first:
+      213: -1819247892848705244
+    second: 02_45
+  - first:
+      213: 227744015506059775
+    second: 02_46
+  - first:
+      213: -8514550351667244345
+    second: 02_47
+  - first:
+      213: -295796554908414774
+    second: 02_48
+  - first:
+      213: 8688268895986437874
+    second: 02_49
+  - first:
+      213: -7529013958145224017
+    second: 02_50
+  - first:
+      213: -6089378258967103999
+    second: 02_51
+  - first:
+      213: 5216037196246288026
+    second: 02_52
+  - first:
+      213: -8059925227469985512
+    second: 02_53
+  - first:
+      213: -5776943860970137024
+    second: 02_54
+  - first:
+      213: 6993551866842937725
+    second: 02_55
+  - first:
+      213: -2177835945654249398
+    second: 02_56
+  - first:
+      213: -3404130329660314746
+    second: 02_57
+  - first:
+      213: -4831409391280247945
+    second: 02_58
+  - first:
+      213: 4163035231834214000
+    second: 02_59
+  - first:
+      213: 4958126969281243880
+    second: 02_60
+  - first:
+      213: 1548891275766086424
+    second: 02_61
+  - first:
+      213: -2147367671390953768
+    second: 02_62
+  - first:
+      213: 624587342039976518
+    second: 02_63
+  - first:
+      213: 785167894144671229
+    second: TreeMonster_0
+  - first:
+      213: -5191525404121132538
+    second: TreeMonster_1
+  - first:
+      213: -8422761500703713412
+    second: TreeMonster_2
+  - first:
+      213: -201613505430795830
+    second: TreeMonster_3
+  - first:
+      213: 4745691453109811386
+    second: TreeMonster_4
+  - first:
+      213: 8720472425856706523
+    second: TreeMonster_5
+  - first:
+      213: -1075426540184346212
+    second: TreeMonster_6
+  - first:
+      213: -2514159684718776073
+    second: TreeMonster_7
+  - first:
+      213: 5070754639442067456
+    second: TreeMonster_8
+  - first:
+      213: 4321532595638158964
+    second: TreeMonster_9
+  - first:
+      213: 8075162310269051955
+    second: TreeMonster_10
+  - first:
+      213: -5623499796176052001
+    second: TreeMonster_11
+  - first:
+      213: -7462367001020309127
+    second: TreeMonster_12
+  - first:
+      213: -7713786532112643179
+    second: TreeMonster_13
+  - first:
+      213: -6594073885131251317
+    second: TreeMonster_14
+  - first:
+      213: -4894253153353653712
+    second: TreeMonster_15
+  - first:
+      213: -8606595373631043923
+    second: TreeMonster_16
+  - first:
+      213: 1396180580331115564
+    second: TreeMonster_17
+  - first:
+      213: 2679963061718614754
+    second: TreeMonster_18
+  - first:
+      213: -6062957301921233063
+    second: TreeMonster_19
+  - first:
+      213: 2339891334912605684
+    second: TreeMonster_20
+  - first:
+      213: -8712402304562574090
+    second: TreeMonster_21
+  - first:
+      213: 2573250245180996796
+    second: TreeMonster_22
+  - first:
+      213: 4935921147547141945
+    second: TreeMonster_23
+  - first:
+      213: -1025382292941040157
+    second: TreeMonster_24
+  - first:
+      213: 3319847128136760609
+    second: TreeMonster_25
+  - first:
+      213: 6295108868533228021
+    second: TreeMonster_26
+  - first:
+      213: -7452409980427442804
+    second: TreeMonster_27
+  - first:
+      213: 2841884234679243024
+    second: TreeMonster_28
+  - first:
+      213: -7923284054141004431
+    second: TreeMonster_29
+  - first:
+      213: 6248847448266530111
+    second: TreeMonster_30
+  - first:
+      213: 2462574673079053887
+    second: TreeMonster_31
+  - first:
+      213: -1813721399209644782
+    second: TreeMonster_32
+  - first:
+      213: 1913495033264439635
+    second: TreeMonster_33
+  - first:
+      213: 2187286355324463802
+    second: TreeMonster_34
+  - first:
+      213: -8210883232576907986
+    second: TreeMonster_35
+  - first:
+      213: -7301220131360290442
+    second: TreeMonster_36
+  - first:
+      213: -4005047513091463662
+    second: TreeMonster_37
+  - first:
+      213: -2010315724790426741
+    second: TreeMonster_38
+  - first:
+      213: -4286580699929116502
+    second: TreeMonster_39
+  - first:
+      213: -3523668889155474124
+    second: TreeMonster_40
+  - first:
+      213: -3267739285330493541
+    second: TreeMonster_41
+  - first:
+      213: 117005302346647880
+    second: TreeMonster_42
+  - first:
+      213: 6924448592607326752
+    second: TreeMonster_43
+  - first:
+      213: -1399368316442074625
+    second: TreeMonster_44
+  - first:
+      213: -6126631250833569387
+    second: TreeMonster_45
+  - first:
+      213: 7214083576641782485
+    second: TreeMonster_46
+  - first:
+      213: -8860778059020912542
+    second: TreeMonster_47
+  - first:
+      213: -5701791215213879020
+    second: TreeMonster_48
+  - first:
+      213: 8088905675899367553
+    second: TreeMonster_49
+  - first:
+      213: -7235154657935081737
+    second: TreeMonster_50
+  - first:
+      213: 1251294861465099122
+    second: TreeMonster_51
+  - first:
+      213: -8818265908721728414
+    second: TreeMonster_52
+  - first:
+      213: 6812515383810721514
+    second: TreeMonster_53
+  - first:
+      213: -5121941452897299353
+    second: TreeMonster_54
+  - first:
+      213: -1076599023109782766
+    second: TreeMonster_55
+  - first:
+      213: 6317224429216855275
+    second: TreeMonster_56
+  - first:
+      213: 2281934384554046045
+    second: TreeMonster_57
+  - first:
+      213: -2988116532405069377
+    second: TreeMonster_58
+  - first:
+      213: -2533810412576816570
+    second: TreeMonster_59
+  - first:
+      213: -2863578656722676406
+    second: TreeMonster_60
+  - first:
+      213: 1943990910876124320
+    second: TreeMonster_61
+  - first:
+      213: -1044084794687247727
+    second: TreeMonster_62
+  - first:
+      213: -8702314991023955473
+    second: TreeMonster_63
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TreeMonster_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfdd88b2a0a75ea00800000000000000
+      internalID: 785167894144671229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60291fc962ff3f7b0800000000000000
+      internalID: -5191525404121132538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7718b27a075c1b80800000000000000
+      internalID: -8422761500703713412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 7680
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac940e2c599b33df0800000000000000
+      internalID: -201613505430795830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab8b73c9b351cd140800000000000000
+      internalID: 4745691453109811386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_5
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd727c0e777550970800000000000000
+      internalID: 8720472425856706523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_6
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c91e84272415311f0800000000000000
+      internalID: -1075426540184346212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_7
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 7168
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f0babb5619eb1dd0800000000000000
+      internalID: -2514159684718776073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 000cb138a70fe5640800000000000000
+      internalID: 5070754639442067456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_9
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476c840dffa29fb30800000000000000
+      internalID: 4321532595638158964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_10
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 334a53f465db01070800000000000000
+      internalID: 8075162310269051955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_11
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6656
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd0e17edab055f1b0800000000000000
+      internalID: -5623499796176052001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9716698ffb8507890800000000000000
+      internalID: -7462367001020309127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_13
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59bcb38b40023f490800000000000000
+      internalID: -7713786532112643179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_14
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8162160db42d74a0800000000000000
+      internalID: -6594073885131251317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_15
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 6144
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 032258910be141cb0800000000000000
+      internalID: -4894253153353653712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da6833d7b1b3f8880800000000000000
+      internalID: -8606595373631043923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_17
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c245fec27da306310800000000000000
+      internalID: 1396180580331115564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_18
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e208e0a434213520800000000000000
+      internalID: 2679963061718614754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_19
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 5632
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 957cf92f47c0cdba0800000000000000
+      internalID: -6062957301921233063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fdfa7695c6f87020800000000000000
+      internalID: 2339891334912605684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_21
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fcc048a344571780800000000000000
+      internalID: -8712402304562574090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_22
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbc333ed67506b320800000000000000
+      internalID: 2573250245180996796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_23
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 5120
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 937c2eec12aef7440800000000000000
+      internalID: 4935921147547141945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e5164ebc3c15c1f0800000000000000
+      internalID: -1025382292941040157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_25
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d313daf57721e20800000000000000
+      internalID: 3319847128136760609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_26
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1955bb928bc5750800000000000000
+      internalID: 6295108868533228021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_27
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4608
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c85eb0c7b98b39890800000000000000
+      internalID: -7452409980427442804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_28
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011d6dc87a6607720800000000000000
+      internalID: 2841884234679243024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_29
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1759862d127da0290800000000000000
+      internalID: -7923284054141004431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_30
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3d588975ad58b650800000000000000
+      internalID: 6248847448266530111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_31
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 4096
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3e20cd2e92dc2220800000000000000
+      internalID: 2462574673079053887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_32
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21da5963ffd54d6e0800000000000000
+      internalID: -1813721399209644782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_33
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 351833938991e8a10800000000000000
+      internalID: 1913495033264439635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_34
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba6c27f95dca5e10800000000000000
+      internalID: 2187286355324463802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_35
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3584
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e25da0ef3351d0e80800000000000000
+      internalID: -8210883232576907986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_36
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 679c65b59fadcaa90800000000000000
+      internalID: -7301220131360290442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_37
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2162f99a1863b68c0800000000000000
+      internalID: -4005047513091463662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_38
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b831c79df7ce914e0800000000000000
+      internalID: -2010315724790426741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_39
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 3072
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa00eaf80910384c0800000000000000
+      internalID: -4286580699929116502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43deac380d9691fc0800000000000000
+      internalID: -3523668889155474124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_41
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9f7947ee68a6a2d0800000000000000
+      internalID: -3267739285330493541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_42
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 849853bd3bfaf9100800000000000000
+      internalID: 117005302346647880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_43
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2560
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02230d3ce45981060800000000000000
+      internalID: 6924448592607326752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_44
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff1a88c2ee1749ce0800000000000000
+      internalID: -1399368316442074625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_45
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59902407655d9faa0800000000000000
+      internalID: -6126631250833569387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_46
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d286b58ac29d1460800000000000000
+      internalID: 7214083576641782485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_47
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 2048
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 268bb7e3d41380580800000000000000
+      internalID: -8860778059020912542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 411ebb1691b2fd0b0800000000000000
+      internalID: -5701791215213879020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_49
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1807f99fad0914070800000000000000
+      internalID: 8088905675899367553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_50
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fe34ce0c21979b90800000000000000
+      internalID: -7235154657935081737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_51
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1536
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27b16eefb0e7d5110800000000000000
+      internalID: 1251294861465099122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_52
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26444bf80e93f9580800000000000000
+      internalID: -8818265908721728414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_53
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae60ce6b5aaea8e50800000000000000
+      internalID: 6812515383810721514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_54
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76455b3c2653be8b0800000000000000
+      internalID: -5121941452897299353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_55
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1024
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 213420e74e62f01f0800000000000000
+      internalID: -1076599023109782766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_56
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4f3e5f52a4ba750800000000000000
+      internalID: 6317224429216855275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_57
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52f7188b3f0baf10800000000000000
+      internalID: 2281934384554046045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_58
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb9168278d31886d0800000000000000
+      internalID: -2988116532405069377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_59
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 512
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6424c2ebad816dcd0800000000000000
+      internalID: -2533810412576816570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4597a332668248d0800000000000000
+      internalID: -2863578656722676406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_61
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a40c590f617afa10800000000000000
+      internalID: 1943990910876124320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_62
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19aa749396aa281f0800000000000000
+      internalID: -1044084794687247727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TreeMonster_63
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe1e57c5f9a2b3780800000000000000
+      internalID: -8702314991023955473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
