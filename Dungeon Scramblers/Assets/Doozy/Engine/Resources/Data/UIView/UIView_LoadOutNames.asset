@@ -15,6 +15,5 @@ MonoBehaviour:
   CategoryName: LoadOutNames
   DatabaseType: 2
   Names:
-  - Armor
+  - Abilities
   - Weapons
-  - OtherShit
