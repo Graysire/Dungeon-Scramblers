@@ -7,7 +7,7 @@ using UnityEngine.Tilemaps;
 public class MapMaker : MonoBehaviour
 {
     [SerializeField]
-    int maxRooms = 200;
+    int maxIterations = 200;
     [SerializeField]
     int newDoorChance = 50;
     [SerializeField]
@@ -49,7 +49,7 @@ public class MapMaker : MonoBehaviour
         
         tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         // StartCoroutine("GenerateMap");
-        GenerateMap(15);
+        GenerateMap();
         Debug.Log((int)Facing.North - (int)Facing.South);
     }
 
@@ -65,13 +65,13 @@ public class MapMaker : MonoBehaviour
     }
 
     //generates a dungeon map, assumes the tilemap is currently empty
-    void GenerateMap(int runs)
+    void GenerateMap()
     {
         List<DoorInfo> doorList = new List<DoorInfo>();
 
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
 
-        for (int i = 0; i < runs; i++)
+        for (int i = 0; i < maxIterations; i++)
         {
             List<DoorInfo> newDoors = new List<DoorInfo>();
             //generate new rooms from the doors in doorList and add their doors to newDoors
@@ -82,7 +82,7 @@ public class MapMaker : MonoBehaviour
             }
             doorList.Clear();
             //generate new corridors from the doors in newDoors and and add their doors to doorList
-            if (i + 1 < runs)
+            if (i + 1 < maxIterations)
             {
                 foreach (DoorInfo door in newDoors)
                 {
