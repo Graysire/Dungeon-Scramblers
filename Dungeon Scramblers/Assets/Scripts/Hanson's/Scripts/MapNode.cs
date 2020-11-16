@@ -6,7 +6,7 @@ public class MapNode : MonoBehaviour
 {
     [SerializeField]
     protected Color hoverColor;
-    
+
     private SpriteRenderer render;
     private Color startColor;
     // Start is called before the first frame update
