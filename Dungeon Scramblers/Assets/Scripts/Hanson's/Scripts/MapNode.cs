@@ -31,4 +31,11 @@ public class MapNode : MonoBehaviour
     {
         render.material.color = startColor;
     }
+
+    private void OnMouseDown()
+    {
+        Debug.Log("Something");
+        Hover.GetHover().Deactivate();
+        Hover.GetHover().CreateEnemyInstacne(transform);
+    }
 }
