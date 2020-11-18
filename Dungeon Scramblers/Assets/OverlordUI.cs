@@ -19,7 +19,7 @@ public class OverlordUI : MonoBehaviour
 
     public void ObstacleClicked(GameObject EnemyInstance)
     {
-        Image image = EnemyInstance.GetComponent<Image>();
+        SpriteRenderer image = EnemyInstance.GetComponent<SpriteRenderer>();
         Hover.GetHover().Activate(image.sprite);
         Hover.GetHover().SetEnemyIntance(EnemyInstance);
     }
