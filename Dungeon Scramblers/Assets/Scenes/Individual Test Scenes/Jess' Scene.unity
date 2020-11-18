@@ -944,7 +944,11 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
-  charactersheet: []
+  charactersheet:
+  - {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
+  - {fileID: -3183433249587548989, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
+  - {fileID: 837951493161683073, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
+  - {fileID: 3388858837682162894, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
 --- !u!114 &1180461910
 MonoBehaviour:
   m_ObjectHideFlags: 0
