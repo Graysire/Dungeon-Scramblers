@@ -24,6 +24,12 @@ public class Player : MonoBehaviour
     protected Vector3 direction = Vector3.zero;
     // Temporary Variables -- will be replaced by official art
     protected SpriteRenderer sr;
+    // Art variables
+    [SerializeField] protected Sprite[] charactersheet;
+    // Down, right, up, left
+    protected bool[] facingCheckers = new bool[] { true, false, false, false};
+    protected int trueFaceIndex = 0;
+
 
     protected virtual void Awake()
     {
@@ -49,9 +55,24 @@ public class Player : MonoBehaviour
     }
 
     protected virtual void Move(Vector2 d) {
+        if (d.y < 0 && d.x == 0 && !facingCheckers[0])
+            SwitchSpritesOnMove(0);
+        else if (d.y > 0 && d.x == 0 && !facingCheckers[2])
+            SwitchSpritesOnMove(2);
+        else if (d.x > 0 && !facingCheckers[1])
+            SwitchSpritesOnMove(1);
+        else if (d.x < 0 && !facingCheckers[3])
+            SwitchSpritesOnMove(3);
         direction = new Vector3(d.x, d.y,0);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
+    }
+
+    protected virtual void SwitchSpritesOnMove(int ind) {
+        facingCheckers[ind] = true;
+        facingCheckers[trueFaceIndex] = false;
+        trueFaceIndex = ind;
+        sr.sprite = charactersheet[ind];
     }
 
     protected virtual void ApplyMove() {
