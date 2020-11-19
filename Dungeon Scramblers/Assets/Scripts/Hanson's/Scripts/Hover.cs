@@ -72,10 +72,4 @@ public class Hover : MonoBehaviour
         
     }
 
-
-    //private void OnMouseUp()
-    //{
-    //    Debug.Log("Mouse Up");
-    //    Deactivate();
-    //}
 }
