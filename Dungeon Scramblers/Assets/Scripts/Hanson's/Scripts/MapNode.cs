@@ -34,7 +34,7 @@ public class MapNode : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("Something");
+        Debug.Log("Clicked");
         Hover.GetHover().Deactivate();
         Hover.GetHover().CreateEnemyInstacne(transform);
     }
