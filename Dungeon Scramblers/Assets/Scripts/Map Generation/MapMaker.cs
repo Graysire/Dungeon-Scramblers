@@ -61,8 +61,8 @@ public class MapMaker : MonoBehaviour
     {
         
         tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
-        // StartCoroutine("GenerateMap");
-        GenerateMap();
+        StartCoroutine("GenerateMap");
+        //GenerateMap();
     }
 
     // Update is called once per frame
@@ -72,7 +72,7 @@ public class MapMaker : MonoBehaviour
     }
 
     //generates a dungeon map, assumes the tilemap is currently empty
-    void GenerateMap()
+    IEnumerator GenerateMap()
     {
         //set current number of rooms to 0
         currentRoomNum = 0;
@@ -88,7 +88,7 @@ public class MapMaker : MonoBehaviour
             foreach (DoorInfo door in doorList)
             {
                 newDoors.AddRange(GenerateRoom(door));
-                //yield return new WaitForSeconds(waitTime);
+                yield return new WaitForSeconds(waitTime);
             }
             doorList.Clear();
             //generate new corridors from the doors in newDoors and and add their doors to doorList
@@ -97,6 +97,7 @@ public class MapMaker : MonoBehaviour
                 foreach (DoorInfo door in newDoors)
                 {
                     doorList.AddRange(GenerateCorridor(door));
+                    yield return new WaitForSeconds(waitTime);
                 }
             }
             else
@@ -110,6 +111,7 @@ public class MapMaker : MonoBehaviour
 
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+        yield return null;
     }
 
     //generates a room with an entering door at doorposition towards doorDirection
@@ -164,14 +166,34 @@ public class MapMaker : MonoBehaviour
             tilemap.SetTile(new Vector3Int(startX + randX, startY + randY, 0), wallTile);
         }*/
 
+
+        //the end locations of the room
+        int endX = startX + randX;
+        int endY = startY + randY;
+
         //place all the tiles that make up the room
-        for (int x = startX; x <= startX + randX; x++)
+        for (int x = startX; x <= endX; x++)
         {
-            for (int y = startY; y <= startY + randY; y++)
+            for (int y = startY; y <= endY; y++)
             {
-                if (x == startX || x == startX + randX || y == startY || y == startY + randY)
+                if (x == startX || x == endX || y == startY || y == endY)
                 {
                     PlaceTile(new Vector3Int(x, y, 0), wallTile);
+                }
+                //if a non-floor tile is found, check if it has empty spaces around it that are beyond the borders of this room
+                //if it does not, then replace the wall with floor
+                else if (tilemap.HasTile(new Vector3Int(x,y,0)) && tilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile)
+                {
+                    for (int x2 = 0; x2 < 2; x2++)
+                    {
+                        for (int y2 = 0; y2 < 2; y2++)
+                        {
+                            if (x2 != y2 && x2 * -1 != y2 && (!tilemap.HasTile(new Vector3Int(x + x2, y + y2, 0)) || (x + x2 >= startX && x + x2 <= endX && y + y2 >= startY && y + y2 <= endY)))
+                            {
+                                tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+                            }
+                        }
+                    }
                 }
                 else
                 {
