@@ -29,8 +29,6 @@ public class Player : MonoBehaviour
     // Down, right, up, left
     protected bool[] facingCheckers = new bool[] { true, false, false, false};
     protected int trueFaceIndex = 0;
-
-
     protected virtual void Awake()
     {
         controls = new InputMaster();
@@ -53,7 +51,6 @@ public class Player : MonoBehaviour
         UpdateHandler.UpdateOccurred -= Die;
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
     }
-
     protected virtual void Move(Vector2 d) {
         if (d.y < 0 && d.x == 0 && !facingCheckers[0])
             SwitchSpritesOnMove(0);
@@ -67,26 +64,21 @@ public class Player : MonoBehaviour
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
     }
-
     protected virtual void SwitchSpritesOnMove(int ind) {
         facingCheckers[ind] = true;
         facingCheckers[trueFaceIndex] = false;
         trueFaceIndex = ind;
         sr.sprite = charactersheet[ind];
     }
-
     protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
     }
-
     protected virtual void Attack() {
         Debug.Log("Attack");
     }
-
     protected virtual void UseAbility() {
         Debug.Log("Ability Used");
     }
-
     protected virtual void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
             Debug.Log("Do something that indicates the player is dead...");
@@ -97,3 +89,5 @@ public class Player : MonoBehaviour
         }
     } 
 }
+
+

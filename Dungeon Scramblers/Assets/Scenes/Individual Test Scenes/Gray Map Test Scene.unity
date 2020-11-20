@@ -154,7 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIterations: 10
-  newDoorChance: 40
+  minimumDoors: 1
+  maximumDoors: 20
+  doorChanceReducer: 10
+  currentRoomNum: 0
   waitTime: 0.25
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
