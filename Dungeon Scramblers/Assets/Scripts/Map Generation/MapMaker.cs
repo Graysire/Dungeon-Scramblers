@@ -8,8 +8,23 @@ public class MapMaker : MonoBehaviour
 {
     [SerializeField]
     int maxIterations = 200;
+    //[SerializeField]
+    //int newDoorChance = 50;
+
     [SerializeField]
-    int newDoorChance = 50;
+    //minimum number of doors that can be generated leading from rooms
+    int minimumDoors = 1;
+    [SerializeField]
+    //maximum number of doors that can be generated leading form rooms
+    int maximumDoors = 20;
+    [SerializeField]
+    //value used to non-linearly reduce the chance of new doors being produced
+    int doorChanceReducer = 10;
+    [SerializeField]
+    int currentRoomNum = 0;
+
+
+
     [SerializeField]
     float waitTime = 0f;
 
@@ -41,8 +56,6 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int maxCorridorSize;
 
-    bool tempStop = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -50,23 +63,20 @@ public class MapMaker : MonoBehaviour
         tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         // StartCoroutine("GenerateMap");
         GenerateMap();
-        Debug.Log((int)Facing.North - (int)Facing.South);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!tempStop)
-        {
-            Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
-            tempStop = true;
-        }
 
     }
 
     //generates a dungeon map, assumes the tilemap is currently empty
     void GenerateMap()
     {
+        //set current number of rooms to 0
+        currentRoomNum = 0;
+
         List<DoorInfo> doorList = new List<DoorInfo>();
 
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
@@ -97,13 +107,16 @@ public class MapMaker : MonoBehaviour
                 }
             }
         }
-       
+
+        //generate the pathfinding grid
+        Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
     }
 
     //generates a room with an entering door at doorposition towards doorDirection
     //returns a list of all new doors created
     List<DoorInfo> GenerateRoom(DoorInfo door)
     {
+
         List<DoorInfo> newDoors = new List<DoorInfo>();
 
         //generate a random x size of the floor space of the room
@@ -184,8 +197,9 @@ public class MapMaker : MonoBehaviour
             if (Mathf.Abs(i - (int) door.facing) != 2)
             {
                 //check if new door should be generated
-                if (Random.Range(1, 100) <= newDoorChance)
+                if (Random.Range(1, 100) <= GetDoorChance())
                 {
+                    currentRoomNum++;
                     //determine location of the new door
                     switch ((Facing) i)
                     {
@@ -359,6 +373,26 @@ public class MapMaker : MonoBehaviour
             tilemap.SetTile(position, tile);
         }
     }
+
+    int GetDoorChance()
+    {
+        if (currentRoomNum < minimumDoors)
+        {
+            return 100;
+        }
+        else if(currentRoomNum >= maximumDoors)
+        {
+            return 0;
+        }
+        else
+        {
+            Debug.Log("Num:" + currentRoomNum + ", C:" + (Mathf.RoundToInt(100 - (currentRoomNum * 100.0f) / (currentRoomNum + doorChanceReducer)) + "%"));
+            return Mathf.RoundToInt(100 - (currentRoomNum * 100.0f) / (currentRoomNum + doorChanceReducer));
+        }
+    }
+
+
+
 
     //The position and facing of a door
     struct DoorInfo
