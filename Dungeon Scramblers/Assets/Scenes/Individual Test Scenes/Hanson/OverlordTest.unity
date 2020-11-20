@@ -2190,7 +2190,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 416344885}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: eaf9773c334fa7d40992b1a0358e4cf0, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -6030,7 +6030,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 984277549}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: 3000e521121b1784dad3e00b7690b1bf, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -10381,7 +10381,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 1691451670}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: 594a271c2099be04389d05579329ce1f, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -12806,7 +12806,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 6344628813720506570, guid: 4c616e3bab3f5054ba9e97b2a45be698, type: 3}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: 4c55b417b5cd41940a58603dce715af8, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -15355,7 +15355,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 1795908767}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: 4c616e3bab3f5054ba9e97b2a45be698, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -17904,7 +17904,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 1812800678}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: d3ecdfc72bf72d949b3c7c3c997c7218, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -20527,7 +20527,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 1928454671}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: bb17fd2e076f19d408ba402277277d2e, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0
@@ -22952,7 +22952,7 @@ MonoBehaviour:
             m_MethodName: ObstacleClicked
             m_Mode: 2
             m_Arguments:
-              m_ObjectArgument: {fileID: 1930116263}
+              m_ObjectArgument: {fileID: 6344628813720506570, guid: 5ee12bf525d70a946a20aa2b805a3874, type: 3}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_IntArgument: 0
               m_FloatArgument: 0

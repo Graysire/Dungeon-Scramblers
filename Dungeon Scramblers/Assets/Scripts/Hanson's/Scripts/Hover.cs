@@ -68,6 +68,7 @@ public class Hover : MonoBehaviour
         {
             trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f),trans.rotation);
             GameObject.Instantiate(EnemyInstance,trans, false);
+            EnemyInstance = null;
         }
         
     }
