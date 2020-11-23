@@ -36,6 +36,6 @@ public class MapNode : MonoBehaviour
     {
         Debug.Log("Clicked");
         Hover.GetHover().Deactivate();
-        Hover.GetHover().CreateEnemyInstacne(transform);
+        Hover.GetHover().CreateEnemyInstance();
     }
 }

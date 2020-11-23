@@ -42,7 +42,7 @@ public class Hover : MonoBehaviour
         if(obstacle.enabled)
         {
             Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            transform.position = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
+            transform.position = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, -10);
         }
     }
 
@@ -62,15 +62,43 @@ public class Hover : MonoBehaviour
         this.EnemyInstance = EnemyInstance;
     }
 
-    public void CreateEnemyInstacne(Transform trans)
+    public void CreateEnemyInstance()
     {
         if(EnemyInstance != null)
         {
-            trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f),trans.rotation);
-            GameObject.Instantiate(EnemyInstance,trans, false);
-            EnemyInstance = null;
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            
+            Debug.Log(hit);
+            if (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero))
+            {
+                Debug.Log("Something Hit");
+                Debug.Log(hit.transform.name);
+                if (hit.transform.tag == "Map")
+                {
+                    Debug.Log("Map Hit");
+                    Transform trans = hit.transform;
+                    trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f), trans.rotation);
+                    GameObject.Instantiate(EnemyInstance, trans, false);
+                    EnemyInstance = null;
+                }
+
+            }
+            Debug.DrawLine(transform.position, Vector3.forward*100, Color.red, 5.0f);
+                                                 
+           
         }
-        
+        Debug.Log(this.transform.position);
+        Debug.DrawLine(this.transform.position, transform.forward*100, Color.red, 5.0f);
+
     }
 
+    private void OnMouseDown()
+    {
+        Debug.Log("Clicked");
+        CreateEnemyInstance();
+    }
+    private void OnMouseDrag()
+    {
+        
+    }
 }
