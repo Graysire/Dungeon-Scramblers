@@ -100,15 +100,59 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""334882b9-f8f0-4bf3-ad22-3a41ad301f00"",
-                    ""path"": ""<Touchscreen>/press"",
+                    ""name"": ""2D Vector"",
+                    ""id"": ""0aedca90-b267-4a4f-a274-2d33bee4a9db"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Touchscreen"",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""d2e07e40-4584-4d7b-93b1-9bcaaaf84fbc"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""dda8cd74-206c-46fb-800d-446b10da14b5"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a52059d9-302d-461d-9c63-dfc42479ef99"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""d6b1b21d-98ff-4fc2-9aed-d6d24b0ed294"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -123,17 +167,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3e09016c-0c69-4b9d-90ad-8fd371f569b9"",
-                    ""path"": ""<Touchscreen>/primaryTouch/tap"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e7636559-dc8f-4c61-802c-5c59b35db63f"",
                     ""path"": ""<Mouse>/rightbutton"",
                     ""interactions"": ""Press"",
@@ -142,15 +175,31 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""UseActive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
+                }
+            ]
+        },
+        {
+            ""name"": ""UIPlayerMovement"",
+            ""id"": ""4bd9e794-c113-4fd9-ba6e-c5ad1276f89c"",
+            ""actions"": [
+                {
+                    ""name"": ""New action"",
+                    ""type"": ""Button"",
+                    ""id"": ""fc5a9a40-fb7c-4d34-b5b0-447eb0a25632"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""f93f8d9c-3bfd-41c4-909f-489e749b62f7"",
-                    ""path"": ""<Touchscreen>/primaryTouch/indirectTouch"",
+                    ""id"": ""b83e34ad-2efe-425c-ad9e-b90c751d2139"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Touchscreen"",
-                    ""action"": ""UseActive"",
+                    ""groups"": """",
+                    ""action"": ""New action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -175,11 +224,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ]
         },
         {
-            ""name"": ""Touchscreen"",
-            ""bindingGroup"": ""Touchscreen"",
+            ""name"": ""iOS"",
+            ""bindingGroup"": ""iOS"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<Touchscreen>"",
+                    ""devicePath"": ""<iOSGameController>"",
+                    ""isOptional"": true,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Android"",
+            ""bindingGroup"": ""Android"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<AndroidGamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -192,6 +252,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
         m_PlayerMovement_UseActive = m_PlayerMovement.FindAction("UseActive", throwIfNotFound: true);
+        // UIPlayerMovement
+        m_UIPlayerMovement = asset.FindActionMap("UIPlayerMovement", throwIfNotFound: true);
+        m_UIPlayerMovement_Newaction = m_UIPlayerMovement.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -286,6 +349,39 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
+
+    // UIPlayerMovement
+    private readonly InputActionMap m_UIPlayerMovement;
+    private IUIPlayerMovementActions m_UIPlayerMovementActionsCallbackInterface;
+    private readonly InputAction m_UIPlayerMovement_Newaction;
+    public struct UIPlayerMovementActions
+    {
+        private @InputMaster m_Wrapper;
+        public UIPlayerMovementActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Newaction => m_Wrapper.m_UIPlayerMovement_Newaction;
+        public InputActionMap Get() { return m_Wrapper.m_UIPlayerMovement; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(UIPlayerMovementActions set) { return set.Get(); }
+        public void SetCallbacks(IUIPlayerMovementActions instance)
+        {
+            if (m_Wrapper.m_UIPlayerMovementActionsCallbackInterface != null)
+            {
+                @Newaction.started -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
+                @Newaction.performed -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
+                @Newaction.canceled -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
+            }
+            m_Wrapper.m_UIPlayerMovementActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Newaction.started += instance.OnNewaction;
+                @Newaction.performed += instance.OnNewaction;
+                @Newaction.canceled += instance.OnNewaction;
+            }
+        }
+    }
+    public UIPlayerMovementActions @UIPlayerMovement => new UIPlayerMovementActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -295,13 +391,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
             return asset.controlSchemes[m_KeyboardandMouseSchemeIndex];
         }
     }
-    private int m_TouchscreenSchemeIndex = -1;
-    public InputControlScheme TouchscreenScheme
+    private int m_iOSSchemeIndex = -1;
+    public InputControlScheme iOSScheme
     {
         get
         {
-            if (m_TouchscreenSchemeIndex == -1) m_TouchscreenSchemeIndex = asset.FindControlSchemeIndex("Touchscreen");
-            return asset.controlSchemes[m_TouchscreenSchemeIndex];
+            if (m_iOSSchemeIndex == -1) m_iOSSchemeIndex = asset.FindControlSchemeIndex("iOS");
+            return asset.controlSchemes[m_iOSSchemeIndex];
+        }
+    }
+    private int m_AndroidSchemeIndex = -1;
+    public InputControlScheme AndroidScheme
+    {
+        get
+        {
+            if (m_AndroidSchemeIndex == -1) m_AndroidSchemeIndex = asset.FindControlSchemeIndex("Android");
+            return asset.controlSchemes[m_AndroidSchemeIndex];
         }
     }
     public interface IPlayerMovementActions
@@ -309,5 +414,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnUseActive(InputAction.CallbackContext context);
+    }
+    public interface IUIPlayerMovementActions
+    {
+        void OnNewaction(InputAction.CallbackContext context);
     }
 }

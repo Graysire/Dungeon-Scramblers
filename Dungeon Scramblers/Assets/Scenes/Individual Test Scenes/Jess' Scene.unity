@@ -140,7 +140,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &63450609
 RectTransform:
   m_ObjectHideFlags: 0
@@ -317,7 +317,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &209397019
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1194,6 +1194,7 @@ GameObject:
   - component: {fileID: 1514069662}
   - component: {fileID: 1514069664}
   - component: {fileID: 1514069663}
+  - component: {fileID: 1514069665}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -1258,6 +1259,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1514069661}
   m_CullTransparentMesh: 0
+--- !u!114 &1514069665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1514069661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9d677f1681015749b15c436eec6d880, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MovementRange: 50
+  m_ControlPath: <Gamepad>/leftStick
 --- !u!1 &1717459073
 GameObject:
   m_ObjectHideFlags: 0
