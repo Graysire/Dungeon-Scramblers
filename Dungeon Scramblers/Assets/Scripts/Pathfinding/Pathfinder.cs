@@ -221,7 +221,7 @@ public class Pathfinder : MonoBehaviour
     }
 
     //returns pathfinding node at given point in world space
-    static PathNode WorldToNode(Vector3 worldPos)
+    public static PathNode WorldToNode(Vector3 worldPos)
     {
         //get the cell location from the Tilemap Grid
         Vector3Int cellLocation = tileGrid.WorldToCell(worldPos);

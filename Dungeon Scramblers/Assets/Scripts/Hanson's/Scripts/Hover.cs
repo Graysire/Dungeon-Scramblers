@@ -66,39 +66,40 @@ public class Hover : MonoBehaviour
     {
         if(EnemyInstance != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-            
-            Debug.Log(hit);
-            if (Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero))
+            //if (hit.transform.tag == "Map")
+            //{
+            //    Debug.Log("Map Hit");
+            //    Transform trans = hit.transform;
+            //    trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f), trans.rotation);
+            //    GameObject.Instantiate(EnemyInstance, trans, false);
+            //    EnemyInstance = null;
+            //}
+
+            PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            if (!node.isObstructed)
             {
-                Debug.Log("Something Hit");
-                Debug.Log(hit.transform.name);
-                if (hit.transform.tag == "Map")
-                {
-                    Debug.Log("Map Hit");
-                    Transform trans = hit.transform;
-                    trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f), trans.rotation);
-                    GameObject.Instantiate(EnemyInstance, trans, false);
-                    EnemyInstance = null;
-                }
+                GameObject emptyGO = new GameObject();
+                Transform Trans = emptyGO.transform;
+     
+                Trans.SetPositionAndRotation(new Vector3(node.posX, node.posY, - 5f), Trans.rotation);
 
+                GameObject.Instantiate(EnemyInstance, Trans, false);
+                
             }
-            Debug.DrawLine(transform.position, Vector3.forward*100, Color.red, 5.0f);
-                                                 
-           
-        }
-        Debug.Log(this.transform.position);
-        Debug.DrawLine(this.transform.position, transform.forward*100, Color.red, 5.0f);
+            else
+            {
+                Debug.Log("Nope");
+            }
 
+        }
+        
     }
 
     private void OnMouseDown()
     {
         Debug.Log("Clicked");
+        
         CreateEnemyInstance();
     }
-    private void OnMouseDrag()
-    {
-        
-    }
+    
 }
