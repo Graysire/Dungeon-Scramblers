@@ -15,11 +15,11 @@ public class MapMaker : MonoBehaviour
     //minimum number of doors that can be generated leading from rooms
     int minimumDoors = 1;
     [SerializeField]
-    //maximum number of doors that can be generated leading form rooms
-    int maximumDoors = 20;
+    //soft cap on the number of doors that can be generated leading from rooms
+    int softMaximumDoors = 20;
     [SerializeField]
-    //value used to non-linearly reduce the chance of new doors being produced
-    int doorChanceReducer = 10;
+    //penalty applied to new door chance, 1 = .01% penalty
+    int softMaximumPenalty = 10;
     [SerializeField]
     int currentDoorNum = 0;
 
@@ -75,7 +75,7 @@ public class MapMaker : MonoBehaviour
     IEnumerator GenerateMap()
     {
         //set current number of rooms to 0
-        currentDoorNum = 0;
+        currentDoorNum = 1;
 
         List<DoorInfo> doorList = new List<DoorInfo>();
 
@@ -224,7 +224,7 @@ public class MapMaker : MonoBehaviour
             if (Mathf.Abs(i - (int) door.facing) != 2)
             {
                 //check if new door should be generated
-                if (Random.Range(1, 100) <= GetDoorChance())
+                if (Random.Range(1, 10000) <= GetDoorChance())
                 {
                     currentDoorNum++;
                     //determine location of the new door
@@ -410,21 +410,13 @@ public class MapMaker : MonoBehaviour
 
     int GetDoorChance()
     {
-        if (currentDoorNum < minimumDoors)
-        {
-            return 100;
-        }
-        else if(currentDoorNum >= maximumDoors)
-        {
-            return 0;
-        }
-        else
-        {
-            Debug.Log("Num:" + currentDoorNum + ", C:" + (Mathf.RoundToInt(100 - (currentDoorNum * 100.0f) / (currentDoorNum + doorChanceReducer)) + "%"));
-            return Mathf.RoundToInt(100 - (currentDoorNum * 100.0f) / (currentDoorNum + doorChanceReducer));
-        }
+
+        Debug.Log("Num:" + currentDoorNum + ", C:" + ((100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors)) - (currentDoorNum >= softMaximumDoors ? softMaximumPenalty : 0) / 100) + "%");
+        return (int) (100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors) * 100) - (currentDoorNum >= softMaximumDoors? softMaximumPenalty:0);
     }
 
+    // 100 / ((1-minDoors) * x)
+    // 100 / (logBase MinDoors X)
 
 
 
