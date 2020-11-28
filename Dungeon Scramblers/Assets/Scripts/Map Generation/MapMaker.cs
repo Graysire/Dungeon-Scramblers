@@ -21,7 +21,7 @@ public class MapMaker : MonoBehaviour
     //value used to non-linearly reduce the chance of new doors being produced
     int doorChanceReducer = 10;
     [SerializeField]
-    int currentRoomNum = 0;
+    int currentDoorNum = 0;
 
 
 
@@ -75,7 +75,7 @@ public class MapMaker : MonoBehaviour
     IEnumerator GenerateMap()
     {
         //set current number of rooms to 0
-        currentRoomNum = 0;
+        currentDoorNum = 0;
 
         List<DoorInfo> doorList = new List<DoorInfo>();
 
@@ -121,6 +121,13 @@ public class MapMaker : MonoBehaviour
 
         List<DoorInfo> newDoors = new List<DoorInfo>();
 
+        //if the position of this door does not contain a door, do not generate a room
+        if (tilemap.GetTile(door.position) != doorTile)
+        {
+            currentDoorNum--;
+            return newDoors;
+        }
+
         //generate a random x size of the floor space of the room
         int randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
         //generate a random x size of the floor space of the room
@@ -134,24 +141,22 @@ public class MapMaker : MonoBehaviour
         switch (door.facing)
         {
             case Facing.North:
-                //startY += 1;
-                startX -= (int)Mathf.Floor(randX / 2f);
-                //tilemap.SetTile(new Vector3Int(startX - 1, startY + randY, 0), wallTile);
+                //startX -= (int)Mathf.Floor(randX / 2f);
+                startX -= Random.Range(1, randX);
                 break;
             case Facing.East:
-                //startX += 1;
-                startY -= (int)Mathf.Floor(randY / 2f);
-                //tilemap.SetTile(new Vector3Int(startX + randX, startY - 1, 0), wallTile);
+                //startY -= (int)Mathf.Floor(randY / 2f);
+                startY -= Random.Range(1, randY);
                 break;
             case Facing.South:
                 startY -= randY;
-                startX -= (int)Mathf.Floor(randX / 2f);
-               // tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
+                //startX -= (int)Mathf.Floor(randX / 2f);
+                startX -= Random.Range(1, randX);
                 break;
             case Facing.West:
                 startX -= randX;
-                startY -= (int)Mathf.Floor(randY / 2f);
-                //tilemap.SetTile(new Vector3Int(startX - 1, startY - 1, 0), wallTile);
+                //startY -= (int)Mathf.Floor(randY / 2f);
+                startY -= Random.Range(1, randY);
                 break;
         }
 
@@ -188,7 +193,7 @@ public class MapMaker : MonoBehaviour
                     {
                         for (int y2 = 0; y2 < 2; y2++)
                         {
-                            if (x2 != y2 && x2 * -1 != y2 && (!tilemap.HasTile(new Vector3Int(x + x2, y + y2, 0)) || (x + x2 >= startX && x + x2 <= endX && y + y2 >= startY && y + y2 <= endY)))
+                            if (x2 != y2 && x2 * -1 != y2 && x + x2 >= startX && x + x2 <= endX && y + y2 >= startY && y + y2 <= endY)
                             {
                                 tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
                             }
@@ -221,7 +226,7 @@ public class MapMaker : MonoBehaviour
                 //check if new door should be generated
                 if (Random.Range(1, 100) <= GetDoorChance())
                 {
-                    currentRoomNum++;
+                    currentDoorNum++;
                     //determine location of the new door
                     switch ((Facing) i)
                     {
@@ -304,9 +309,11 @@ public class MapMaker : MonoBehaviour
                 break;
         }
 
+        //calculate end door position and corridor direction vector
         Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
+        //check if this corridor should connect to a room
         for (int i = 1; i <= length + 1; i++)
         {
             if (tilemap.HasTile(door.position + i * corridorDirection))
@@ -331,14 +338,19 @@ public class MapMaker : MonoBehaviour
             length += 2;
         }
 
+        //checks if this corridor would connect to the corner of another room
         if (isConnector && tilemap.GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
         {
-            tilemap.SetTile(endDoorPosition, floorTile);
+            //checks if this would result in two adjacent door tiles
+            if (!tilemap.GetTile(endDoorPosition + corridorDirection * 2) == doorTile)
+            {
+                tilemap.SetTile(endDoorPosition, floorTile);
 
 
 
-            endDoorPosition += corridorDirection;
-            length+= 2;
+                endDoorPosition += corridorDirection;
+                length += 2;
+            }
         }
 
         /* while (tilemap.HasTile(endDoorPosition))
@@ -398,18 +410,18 @@ public class MapMaker : MonoBehaviour
 
     int GetDoorChance()
     {
-        if (currentRoomNum < minimumDoors)
+        if (currentDoorNum < minimumDoors)
         {
             return 100;
         }
-        else if(currentRoomNum >= maximumDoors)
+        else if(currentDoorNum >= maximumDoors)
         {
             return 0;
         }
         else
         {
-            Debug.Log("Num:" + currentRoomNum + ", C:" + (Mathf.RoundToInt(100 - (currentRoomNum * 100.0f) / (currentRoomNum + doorChanceReducer)) + "%"));
-            return Mathf.RoundToInt(100 - (currentRoomNum * 100.0f) / (currentRoomNum + doorChanceReducer));
+            Debug.Log("Num:" + currentDoorNum + ", C:" + (Mathf.RoundToInt(100 - (currentDoorNum * 100.0f) / (currentDoorNum + doorChanceReducer)) + "%"));
+            return Mathf.RoundToInt(100 - (currentDoorNum * 100.0f) / (currentDoorNum + doorChanceReducer));
         }
     }
 
