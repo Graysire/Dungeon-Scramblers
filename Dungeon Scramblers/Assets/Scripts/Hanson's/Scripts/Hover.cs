@@ -11,6 +11,12 @@ public class Hover : MonoBehaviour
     private GameObject EnemyInstance;
     private SpriteRenderer obstacle;
 
+    //the tilemap grid that paths are being found on
+    [SerializeField]
+    protected MapMaker map;
+
+
+
     public static Hover GetHover()
     {
         
@@ -75,7 +81,11 @@ public class Hover : MonoBehaviour
             //    EnemyInstance = null;
             //}
 
+            Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log(Input.mousePosition);
             PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log(node);
+
             if (!node.isObstructed)
             {
                 GameObject emptyGO = new GameObject();

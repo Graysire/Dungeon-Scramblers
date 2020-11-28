@@ -3234,7 +3234,7 @@ MonoBehaviour:
   maximumDoors: 20
   doorChanceReducer: 10
   currentRoomNum: 0
-  waitTime: 0.75
+  waitTime: 0
   tilemap: {fileID: 87731826}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
@@ -6720,7 +6720,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569469567}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -12.9, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 87731828}
