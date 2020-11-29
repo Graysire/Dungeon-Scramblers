@@ -958,6 +958,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usingOnScreenControls: 0
   stats:
   - 1
   - 4
@@ -1005,19 +1006,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents:
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1180461909}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: OnMove
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: d9ac522d-91a1-4319-90b6-513485a98d03
     m_ActionName: PlayerMovement/Movement[/Touchscreen/primaryTouch/press,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -1028,10 +1017,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 724c26d7-f486-4b85-a285-40e46c9afd81
     m_ActionName: PlayerMovement/UseActive[/Mouse/rightButton,/Touchscreen/primaryTouch/indirectTouch]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fc5a9a40-fb7c-4d34-b5b0-447eb0a25632
-    m_ActionName: UIPlayerMovement/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement

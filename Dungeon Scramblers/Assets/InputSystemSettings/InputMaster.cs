@@ -100,7 +100,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""2D Vector"",
+                    ""name"": ""Left Joystick iOS"",
                     ""id"": ""0aedca90-b267-4a4f-a274-2d33bee4a9db"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -166,6 +166,61 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
+                    ""name"": ""Right Joystick iOS"",
+                    ""id"": ""4d0ef5ff-1dd5-482a-a97b-d73a61416612"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Attack"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""dfd1ff17-fa8c-4927-a05a-0a39137ffac9"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""06e00745-cf08-4ce8-b1e9-8e0c33e009f1"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1c2f5a09-9b8a-4e25-90e4-c42098159950"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""786045c4-dc68-4bc8-8ed0-3d29915dac5b"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""e7636559-dc8f-4c61-802c-5c59b35db63f"",
                     ""path"": ""<Mouse>/rightbutton"",
@@ -175,33 +230,61 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""UseActive"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""UIPlayerMovement"",
-            ""id"": ""4bd9e794-c113-4fd9-ba6e-c5ad1276f89c"",
-            ""actions"": [
+                },
                 {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""fc5a9a40-fb7c-4d34-b5b0-447eb0a25632"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """"
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""b83e34ad-2efe-425c-ad9e-b90c751d2139"",
-                    ""path"": """",
+                    ""name"": ""Right Joystick iOS"",
+                    ""id"": ""4f563763-550c-414b-9fc7-74240126d87f"",
+                    ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
+                    ""action"": ""UseActive"",
+                    ""isComposite"": true,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""823f2649-9f5f-4e45-829a-8b2157eceead"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""UseActive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""492545e0-5e07-4c91-879d-9324cc90d245"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""UseActive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""314a94b7-9686-453a-9ff5-ab7580f41df2"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""UseActive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""566025d5-f9f5-4aca-8fc7-50d44b5ba630"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""iOS"",
+                    ""action"": ""UseActive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -252,9 +335,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
         m_PlayerMovement_UseActive = m_PlayerMovement.FindAction("UseActive", throwIfNotFound: true);
-        // UIPlayerMovement
-        m_UIPlayerMovement = asset.FindActionMap("UIPlayerMovement", throwIfNotFound: true);
-        m_UIPlayerMovement_Newaction = m_UIPlayerMovement.FindAction("New action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -349,39 +429,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
         }
     }
     public PlayerMovementActions @PlayerMovement => new PlayerMovementActions(this);
-
-    // UIPlayerMovement
-    private readonly InputActionMap m_UIPlayerMovement;
-    private IUIPlayerMovementActions m_UIPlayerMovementActionsCallbackInterface;
-    private readonly InputAction m_UIPlayerMovement_Newaction;
-    public struct UIPlayerMovementActions
-    {
-        private @InputMaster m_Wrapper;
-        public UIPlayerMovementActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_UIPlayerMovement_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_UIPlayerMovement; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIPlayerMovementActions set) { return set.Get(); }
-        public void SetCallbacks(IUIPlayerMovementActions instance)
-        {
-            if (m_Wrapper.m_UIPlayerMovementActionsCallbackInterface != null)
-            {
-                @Newaction.started -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_UIPlayerMovementActionsCallbackInterface.OnNewaction;
-            }
-            m_Wrapper.m_UIPlayerMovementActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
-            }
-        }
-    }
-    public UIPlayerMovementActions @UIPlayerMovement => new UIPlayerMovementActions(this);
     private int m_KeyboardandMouseSchemeIndex = -1;
     public InputControlScheme KeyboardandMouseScheme
     {
@@ -414,9 +461,5 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnUseActive(InputAction.CallbackContext context);
-    }
-    public interface IUIPlayerMovementActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
     }
 }

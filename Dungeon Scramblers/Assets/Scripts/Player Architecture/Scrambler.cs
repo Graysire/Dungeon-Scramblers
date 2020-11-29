@@ -5,17 +5,33 @@ using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem;
 
 public class Scrambler : Player
-{ 
-/*    protected override void OnEnable()
+{
+/*    protected override void Awake()
     {
+        controls = new InputMaster();
+        controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
+        controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
+        if(usingOnScreenControls)
+            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>());
+        else
+            controls.PlayerMovement.Attack.performed += ctx => Attack();
+        controls.PlayerMovement.UseActive.performed += _ => UseAbility();
+        controller = GetComponent<CharacterController>();
+        sr = GetComponent<SpriteRenderer>();
+
+    }*/
+    protected override void OnEnable()
+    {
+        controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
-        UpdateHandler.FixedUpdateOccurred += Move;
+        UpdateHandler.FixedUpdateOccurred += ApplyMove;
     }
     protected override void OnDisable()
     {
+        controls.Disable();
         UpdateHandler.UpdateOccurred -= Die;
-        UpdateHandler.FixedUpdateOccurred -= Move;
-    }*/
+        UpdateHandler.FixedUpdateOccurred -= ApplyMove;
+    }
     protected void Revive(float reviveHP) {
         if (isDead) {
             affectedStats[(int)Stats.health] = 0 + reviveHP;
@@ -23,4 +39,15 @@ public class Scrambler : Player
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
         }
     }
+/*    protected override void Attack()
+    {
+#if usingOnScreenControls
+        Debug.Log("Attack from mobile");
+#else 
+        Debug.Log("Attack from mouse");
+#endif
+    }*/
+/*    protected void Attack(Vector2 d) {
+        Debug.Log("Attack from mobile");
+    }*/
 }
