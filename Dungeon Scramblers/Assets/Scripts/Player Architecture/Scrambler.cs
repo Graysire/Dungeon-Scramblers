@@ -39,15 +39,9 @@ public class Scrambler : Player
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
         }
     }
-/*    protected override void Attack()
-    {
-#if usingOnScreenControls
-        Debug.Log("Attack from mobile");
-#else 
-        Debug.Log("Attack from mouse");
-#endif
-    }*/
-/*    protected void Attack(Vector2 d) {
-        Debug.Log("Attack from mobile");
-    }*/
+    protected override void Attack(float f){ // MOUSE ATTACK INPUT
+    }
+    protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
+        
+    }
 }
