@@ -15,7 +15,9 @@ public class Player : MonoBehaviour
         abilitycd = 5,
         defense = 6
     }
-    [SerializeField] protected bool usingOnScreenControls;
+    [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
+                                                           // but real application/build should only be using one or the other
+    [SerializeField] protected GameObject PlayerOnScreenControls;
     protected InputMaster controls;
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
@@ -32,10 +34,14 @@ public class Player : MonoBehaviour
     protected int trueFaceIndex = 0;
     protected virtual void Awake()
     {
-/*        if (SystemInfo.deviceType == DeviceType.Handheld)
-            usingOnScreenControls = true;
-        else
-            usingOnScreenControls = false;*/
+        // UNCOMMENT THE SECTION BELOW FOR THE REAL BUILD
+        /*if (SystemInfo.deviceType == DeviceType.Handheld)
+                    usingOnScreenControls = true;
+                else
+                    usingOnScreenControls = false;*/
+        if (usingOnScreenControls && PlayerOnScreenControls != null)
+            PlayerOnScreenControls.SetActive(true);
+
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
