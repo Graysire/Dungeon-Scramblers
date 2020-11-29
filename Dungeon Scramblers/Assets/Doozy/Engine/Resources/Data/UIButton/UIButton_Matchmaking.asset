@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CategoryName: Matchmaking
   DatabaseType: 0
-  Names: []
+  Names:
+  - CreateRoom
+  - EnterName
+  - Join Room
