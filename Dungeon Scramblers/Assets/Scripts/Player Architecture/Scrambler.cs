@@ -6,20 +6,6 @@ using UnityEngine.InputSystem;
 
 public class Scrambler : Player
 {
-/*    protected override void Awake()
-    {
-        controls = new InputMaster();
-        controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
-        controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
-        if(usingOnScreenControls)
-            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>());
-        else
-            controls.PlayerMovement.Attack.performed += ctx => Attack();
-        controls.PlayerMovement.UseActive.performed += _ => UseAbility();
-        controller = GetComponent<CharacterController>();
-        sr = GetComponent<SpriteRenderer>();
-
-    }*/
     protected override void OnEnable()
     {
         controls.Enable();
@@ -40,8 +26,17 @@ public class Scrambler : Player
         }
     }
     protected override void Attack(float f){ // MOUSE ATTACK INPUT
+        if (f < 1)
+        {
+            Debug.Log("Scrambler Stop attacking");
+        }
+        if (f == 1)
+        {
+            Debug.Log("Scramber Start attacking");
+        }
     }
     protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
-        
+        Debug.Log("Scrambler attack on phone"); 
+        // Implement something directional here and above when you wake up Jess
     }
 }

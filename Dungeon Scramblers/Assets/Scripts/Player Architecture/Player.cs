@@ -108,7 +108,6 @@ public class Player : MonoBehaviour
     }
     protected virtual void UseAbility(Vector2 d)
     {
-
         Debug.Log("Ability used on phone");
     }
     protected virtual void UseAbility(float f) {
