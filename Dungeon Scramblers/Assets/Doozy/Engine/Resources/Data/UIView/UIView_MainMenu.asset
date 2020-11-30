@@ -15,7 +15,4 @@ MonoBehaviour:
   CategoryName: Main Menu
   DatabaseType: 2
   Names:
-  - Main
-  - Options
-  - Matchmaking
-  - Loadout
+  - Main Menu Page

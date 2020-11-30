@@ -15,7 +15,5 @@ MonoBehaviour:
   CategoryName: Loadout
   DatabaseType: 0
   Names:
-  - Armor
-  - Weapoons
-  - OtherShit
-  - Play Match
+  - Abilities
+  - Weapons

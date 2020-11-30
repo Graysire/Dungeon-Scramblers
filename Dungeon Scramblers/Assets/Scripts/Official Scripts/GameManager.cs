@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     bool isLoading;
 
+    // MapMaker
+    MapMaker mapMaker = new MapMaker();
+
     // Voting Stats
     float timer;
 
@@ -14,6 +17,10 @@ public class GameManager : MonoBehaviour
     Player[] Scramblers; // = new Scrambler class array of 4;
     Player Overlord; // = new Overlord class;
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
 
     void GenerateLevel()
     {
