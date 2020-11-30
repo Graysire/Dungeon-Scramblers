@@ -38,5 +38,6 @@ public class Scrambler : Player
     protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
         Debug.Log("Scrambler attack on phone"); 
         // Implement something directional here and above when you wake up Jess
+        // Oh yea find a different joystick input for Ability too lmao
     }
 }

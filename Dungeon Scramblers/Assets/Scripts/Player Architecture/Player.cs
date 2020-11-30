@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     // Down, right, up, left
     protected bool[] facingCheckers = new bool[] { true, false, false, false};
     protected int trueFaceIndex = 0;
+    protected bool rightJoystickInUse = false;
     protected virtual void Awake()
     {
         // UNCOMMENT THE SECTION BELOW FOR THE REAL BUILD
@@ -96,6 +97,7 @@ public class Player : MonoBehaviour
         controller.Move(direction * Time.deltaTime);
     }
     protected virtual void Attack(Vector2 d) {
+
         Debug.Log("Attack on Phone");
     }
     protected virtual void Attack(float f) {
