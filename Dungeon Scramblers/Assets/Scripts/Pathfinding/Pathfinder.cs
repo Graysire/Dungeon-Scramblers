@@ -15,6 +15,8 @@ public class Pathfinder : MonoBehaviour
     [SerializeField]
     //size of the grid, can be removed if using constructor
     static Vector2Int gridSize;
+    //the grid's offset
+    static Vector3Int gridOffset;
 
     //the tilemap grid that paths are being found on
     [SerializeField]
@@ -174,12 +176,11 @@ public class Pathfinder : MonoBehaviour
         tileGrid = grid;
 
         //the adjustment used to calculate the actual positions of new nodes
-        int xAdjust = tilemap.cellBounds.x;
-        int yAdjust = tilemap.cellBounds.y;
+        gridOffset = new Vector3Int(tilemap.cellBounds.x, tilemap.cellBounds.y, 0);
 
         //calculate the size of the grid needed
-        gridSize.x = tilemap.cellBounds.xMax - xAdjust;
-        gridSize.y = tilemap.cellBounds.yMax - yAdjust;
+        gridSize.x = tilemap.cellBounds.xMax - gridOffset.x;
+        gridSize.y = tilemap.cellBounds.yMax - gridOffset.y;
 
         //instantiates 2D array of nodes
         nodeGrid = new PathNode[gridSize.y, gridSize.x];
@@ -193,16 +194,16 @@ public class Pathfinder : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                if (tilemap.HasTile(new Vector3Int(x + xAdjust, y + yAdjust, 0)))
+                if (tilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)))
                 {
                     //fills every space on the grid that has a tile with a node
-                    if (tilemap.GetTile(new Vector3Int(x + xAdjust, y + yAdjust, 0)) == wallTile)
+                    if (tilemap.GetTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)) == wallTile)
                     {
-                        nodeGrid[y, x] = new PathNode(x + xAdjust, y + yAdjust, true);
+                        nodeGrid[y, x] = new PathNode(x + gridOffset.x, y + gridOffset.y, true);
                     }
                     else
                     {
-                        nodeGrid[y, x] = new PathNode(x + xAdjust, y + yAdjust, false);
+                        nodeGrid[y, x] = new PathNode(x + gridOffset.x, y + gridOffset.y, false);
                     }
                 }
                 else
@@ -210,12 +211,6 @@ public class Pathfinder : MonoBehaviour
                     nodeGrid[y, x] = null;
                 }
 
-                //Will be deprecated by mapmaker
-                /*//if the tilemap is missing any tiles on the pathable grid, fill those tiles with the defualt tile
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == null)
-                {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), defaultTile);
-                }*/
             }
         }
     }
@@ -224,7 +219,7 @@ public class Pathfinder : MonoBehaviour
     public static PathNode WorldToNode(Vector3 worldPos)
     {
         //get the cell location from the Tilemap Grid
-        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos);
+        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos) + gridOffset;
         //if the index is our of bounds return null, otherwise return the node
         if (cellLocation.x >= nodeGrid.GetLength(1) || cellLocation.x < 0 || cellLocation.y >= nodeGrid.GetLength(0) || cellLocation.y < 0)
         {
