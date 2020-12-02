@@ -154,11 +154,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxIterations: 10
-  minimumDoors: 20
-  maximumDoors: 20
-  doorChanceReducer: 10
-  currentRoomNum: 0
-  waitTime: 0.75
+  minimumDoors: 3
+  softMaximumDoors: 20
+  softMaximumPenalty: 2000
+  currentDoorNum: 0
+  waitTime: 0.6
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
