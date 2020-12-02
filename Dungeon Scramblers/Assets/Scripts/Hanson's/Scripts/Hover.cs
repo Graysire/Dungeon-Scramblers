@@ -41,6 +41,8 @@ public class Hover : MonoBehaviour
     void Update()
     {
         FollowMouse();
+        PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        Debug.Log(node);
     }
 
     private void FollowMouse()
@@ -81,12 +83,12 @@ public class Hover : MonoBehaviour
             //    EnemyInstance = null;
             //}
 
-            Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-            Debug.Log(Input.mousePosition);
+            //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            //Debug.Log(Input.mousePosition);
             PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             Debug.Log(node);
 
-            if (!node.isObstructed)
+            if (node != null && !node.isObstructed)
             {
                 GameObject emptyGO = new GameObject();
                 Transform Trans = emptyGO.transform;
