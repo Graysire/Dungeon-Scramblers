@@ -21,10 +21,25 @@ MonoBehaviour:
   - Matchmaking
   - Main Menu
   - Loadout
+  - Character Type Selection
+  - Scrambler Class Selection
+  - Knight Loadout
+  - Rogue Loadout
+  - Mage Loadot
+  - Overlord Loadout
   Categories:
   - {fileID: 11400000, guid: 40f9e81ff80114a47a3721228ba749ed, type: 2}
   - {fileID: 11400000, guid: a03c9f97dbdece44398be6e223b4421e, type: 2}
   - {fileID: 11400000, guid: c0bc5a6a4da5d0a4fae1e1c4fa54fdc0, type: 2}
+<<<<<<< HEAD
   - {fileID: 11400000, guid: fb26256354cdb5b42b5c149a5faf0e9a, type: 2}
   - {fileID: 11400000, guid: c16cdeaa1bc48b543b84ba33b2c63877, type: 2}
   - {fileID: 11400000, guid: d162165dcd6f15e4da24fbdf21fd6e0c, type: 2}
+=======
+  - {fileID: 11400000, guid: 64365ad3f6d28044a9d4640c5d169f7a, type: 2}
+  - {fileID: 11400000, guid: cd56e63c5ddef5f4eb8aa6d97dc9467f, type: 2}
+  - {fileID: 11400000, guid: 05a092282a697c04bb174a0a35ff132c, type: 2}
+  - {fileID: 11400000, guid: 12148a24aa51a4847a0a97e1aa1b8a01, type: 2}
+  - {fileID: 11400000, guid: cc1157b418b53914c913dc9a91a50857, type: 2}
+  - {fileID: 11400000, guid: 81d2de6ba700c5544ab61ffe077e64f6, type: 2}
+>>>>>>> master
