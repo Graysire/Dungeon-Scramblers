@@ -237,6 +237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 324fd840b255cd04ab057ac7ef357d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  map: {fileID: 0}
 --- !u!4 &47967567
 Transform:
   m_ObjectHideFlags: 0
@@ -3229,11 +3230,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIterations: 10
+  maxIterations: 4
   minimumDoors: 20
-  maximumDoors: 20
-  doorChanceReducer: 10
-  currentRoomNum: 0
+  softMaximumDoors: 20
+  softMaximumPenalty: 10
+  currentDoorNum: 0
   waitTime: 0
   tilemap: {fileID: 87731826}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
