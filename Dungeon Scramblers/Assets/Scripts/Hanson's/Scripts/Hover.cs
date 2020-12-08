@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Hover : MonoBehaviour
+public class Hover : MonoBehaviour, IDragHandler
 {
     // Making this class a singleton will allow all obstacles to call on the activate function and replace their
     // sprite into the hover instance while the mopuse is down
@@ -11,15 +12,9 @@ public class Hover : MonoBehaviour
     private GameObject EnemyInstance;
     private SpriteRenderer obstacle;
 
-    //the tilemap grid that paths are being found on
-    [SerializeField]
-    protected MapMaker map;
-
-
 
     public static Hover GetHover()
     {
-        
         return HoverInstance;
     }
 
@@ -27,9 +22,6 @@ public class Hover : MonoBehaviour
     {
         HoverInstance = this;
     }
-
-
-    
 
     // Start is called before the first frame update
     void Start()
@@ -41,11 +33,9 @@ public class Hover : MonoBehaviour
     void Update()
     {
         FollowMouse();
-        PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-        Debug.Log(node);
     }
 
-    private void FollowMouse()
+    public void FollowMouse()
     {
         if(obstacle.enabled)
         {
@@ -74,14 +64,6 @@ public class Hover : MonoBehaviour
     {
         if(EnemyInstance != null)
         {
-            //if (hit.transform.tag == "Map")
-            //{
-            //    Debug.Log("Map Hit");
-            //    Transform trans = hit.transform;
-            //    trans.SetPositionAndRotation(new Vector3(trans.position.x, trans.position.y, trans.position.z - 5f), trans.rotation);
-            //    GameObject.Instantiate(EnemyInstance, trans, false);
-            //    EnemyInstance = null;
-            //}
 
             //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             //Debug.Log(Input.mousePosition);
@@ -110,8 +92,12 @@ public class Hover : MonoBehaviour
     private void OnMouseDown()
     {
         Debug.Log("Clicked");
-        
+
         CreateEnemyInstance();
     }
-    
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        Debug.Log("Dragging");
+    }
 }

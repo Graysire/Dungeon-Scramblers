@@ -176,6 +176,7 @@ public class Pathfinder : MonoBehaviour
         tileGrid = grid;
 
         //the adjustment used to calculate the actual positions of new nodes
+        //subtract 1 to account for integer rounding down in 
         gridOffset = new Vector3Int(tilemap.cellBounds.x, tilemap.cellBounds.y, 0);
 
         //calculate the size of the grid needed
@@ -219,7 +220,7 @@ public class Pathfinder : MonoBehaviour
     public static PathNode WorldToNode(Vector3 worldPos)
     {
         //get the cell location from the Tilemap Grid
-        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos + gridOffset);
+        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos - gridOffset);
         Debug.Log("World Position: " + worldPos + "to CellLocation: " + cellLocation);
         //if the index is our of bounds return null, otherwise return the node
         if (cellLocation.x >= nodeGrid.GetLength(1) || cellLocation.x < 0 || cellLocation.y >= nodeGrid.GetLength(0) || cellLocation.y < 0)
