@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Hover : MonoBehaviour, IDragHandler
+public class Hover : MonoBehaviour
 {
     // Making this class a singleton will allow all obstacles to call on the activate function and replace their
     // sprite into the hover instance while the mopuse is down
@@ -30,10 +30,10 @@ public class Hover : MonoBehaviour, IDragHandler
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        FollowMouse();
-    }
+    //void Update()
+    //{
+    //    FollowMouse();
+    //}
 
     public void FollowMouse()
     {
@@ -94,10 +94,5 @@ public class Hover : MonoBehaviour, IDragHandler
         Debug.Log("Clicked");
 
         CreateEnemyInstance();
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        Debug.Log("Dragging");
     }
 }
