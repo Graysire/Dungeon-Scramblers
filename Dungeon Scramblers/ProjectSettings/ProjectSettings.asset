@@ -93,7 +93,7 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 1
-  fullscreenMode: 1
+  fullscreenMode: 3
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -126,7 +126,8 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 11400000, guid: 4371016195fa14b4a82ccefbd6955e68, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1

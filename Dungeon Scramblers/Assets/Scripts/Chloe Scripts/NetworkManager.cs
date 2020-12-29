@@ -8,21 +8,23 @@ using Doozy.Engine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
-    [Header("Login Ui Panel")]
+    [Header("Login UI Panel")]
     public UIView PlayerNamePanel;
     public InputField playerNameInput;
     #region Unity Methods
 
     [Header("RoomListings")]
-    public GameObject RoomLisitngsView;
-    public GameObject RoomListingsPrefab;
+    public GameObject RoomLisitngsView; //"Content" panel to display RoomListPrefabs
+    public GameObject RoomListingsPrefab; //Prefab of Room listings
 
     [Header("GameOptions")]
     public UIView GameOptionsPanel;
 
-    [Header("GameOptions")]
+    [Header("Join Room UI Panel")]
     public UIView JoinRoomListingPanels;
 
+    [Header("Inside Room UI Panel")]
+    public UIView InsideRoomUIPanel;
 
     [Header("Create Room Panel UI")]
     public UIView CreateRoomPanel;
@@ -32,12 +34,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     //Dictionary for PlayerRoomListings
     private Dictionary<string, RoomInfo> cachedRoomList;
+    //Dictionary for PlayerRoomListings as instantiated
+    private Dictionary<string, GameObject>RoomListGameObjects;
 
 
 
     private void Start()
     {
         cachedRoomList = new Dictionary<string, RoomInfo>();
+        RoomListGameObjects = new Dictionary<string, GameObject>();
     }
     #endregion
 
@@ -66,6 +71,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public void OnCreateRoomButtonClicked()
     {
         string RoomName = RoomNameInputfield.text;
+        //If Player doesn't give a valid room name, give them a random name
         if(string.IsNullOrEmpty(RoomName))
         {
             RoomName = "Room" + Random.Range(1000, 10000);
@@ -89,9 +95,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //When Player decides to Join a Lobby
     public void OnJoinLobbyOptionClicked()
     {
+
+        
         //Player must be in Lobby to view rooms
         if(!PhotonNetwork.InLobby)
         {
+            Debug.Log("Joining Lobby Services");
             PhotonNetwork.JoinLobby();
             GameOptionsPanel.Hide();
             JoinRoomListingPanels.Show();
@@ -132,10 +141,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
+        
     }
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
+        ClearRoomListView();
+
        foreach(RoomInfo room in roomList)
         {
             Debug.Log("room.Name: " + room.Name);
@@ -150,7 +162,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
                 }
             }
-            else
+            else //If the room is available, display it on the list
             {
                 if(cachedRoomList.ContainsKey(room.Name)) //If room already exists, update the information
                 {
@@ -167,11 +179,52 @@ public class NetworkManager : MonoBehaviourPunCallbacks
           
         }
 
-       //Create Room Listing Obj for every room accounted for
+       //Create Room Listing Obj for every room accounted for in the dictionary
        foreach(RoomInfo room in cachedRoomList.Values)
         {
+            //Instantiate roomListGameobject and parent it to the RoomListingsView
             GameObject roomListEntryGameobject = Instantiate(RoomListingsPrefab, RoomLisitngsView.transform);
+            roomListEntryGameobject.transform.localScale = Vector3.one;
+
+            //change Attirbutes on RoomListPrefab to show Room name and room size
+            roomListEntryGameobject.transform.Find("RoomNameText").GetComponent<Text>().text = room.Name;
+            roomListEntryGameobject.transform.Find("RoomPlayersText").GetComponent<Text>().text = room.PlayerCount + " / " + room.MaxPlayers;
+
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //THERE MIGHT BE A BETTER WAY TO DO THIS W/ DOOZY, BUT FOR THE SAKE OF SIMPLICITY, I'M KEEPING IT UNTIL FURHTER NOTICE////
+
+            roomListEntryGameobject.transform.Find("JoinRoomButton").GetComponent<Button>().onClick.AddListener(() =>OnJoinRoomButtonClicked(room.Name));
+
+            //Add instantiation to dictionary
+            RoomListGameObjects.Add(room.Name, roomListEntryGameobject);
+
         }
+    }
+    #endregion
+
+
+    #region Private methods
+
+    void OnJoinRoomButtonClicked(string _roomName)
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+        }
+        PhotonNetwork.JoinRoom(_roomName); //Join Lobby thorugh PhotonNetwork
+
+         //Display Inside RoomPanel
+    }
+
+    void ClearRoomListView()
+    {
+        //Loop through instantiated game objects and destroy them when updated
+        foreach (var roomListGameobject in RoomListGameObjects.Values)
+        {
+            Destroy(roomListGameobject);
+        }
+
+        RoomListGameObjects.Clear();
     }
     #endregion
 }

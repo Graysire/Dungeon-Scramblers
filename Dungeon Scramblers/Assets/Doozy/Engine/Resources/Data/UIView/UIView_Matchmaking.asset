@@ -18,8 +18,6 @@ MonoBehaviour:
   - PlayerName
   - GameOptions
   - CreateRoom
-<<<<<<< Updated upstream
   - Lobby Finder
 =======
   - JoinRoom
->>>>>>> Stashed changes
