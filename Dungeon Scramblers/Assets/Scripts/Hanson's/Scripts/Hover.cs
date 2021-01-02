@@ -29,11 +29,6 @@ public class Hover : MonoBehaviour
         obstacle = this.GetComponent<SpriteRenderer>();   
     }
 
-    // Update is called once per frame
-    //void Update()
-    //{
-    //    FollowMouse();
-    //}
 
     public void FollowMouse()
     {

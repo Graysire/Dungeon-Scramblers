@@ -218,6 +218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usingOnScreenControls: 0
+  PlayerOnScreenControls: {fileID: 0}
   stats:
   - 1
   - 4
@@ -306,10 +308,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 724c26d7-f486-4b85-a285-40e46c9afd81
     m_ActionName: PlayerMovement/UseActive[/Mouse/rightButton,/Touchscreen/primaryTouch/indirectTouch]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: fc5a9a40-fb7c-4d34-b5b0-447eb0a25632
-    m_ActionName: UIPlayerMovement/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
@@ -671,11 +669,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxIterations: 10
+  maxIterations: 5
   minimumDoors: 20
-  maximumDoors: 20
-  doorChanceReducer: 10
-  currentRoomNum: 0
+  softMaximumDoors: 20
+  softMaximumPenalty: 10
+  currentDoorNum: 0
   waitTime: 0
   tilemap: {fileID: 2009835769}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
