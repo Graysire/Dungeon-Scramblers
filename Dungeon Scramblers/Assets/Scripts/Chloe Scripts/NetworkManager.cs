@@ -32,6 +32,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public InputField MaxPlayerInputfield;
 
 
+    [Header("Buttons")]
+    public GameObject CreateRoomButton;
+    public GameObject Backbutton;
+
+
     //Dictionary for PlayerRoomListings
     private Dictionary<string, RoomInfo> cachedRoomList;
     //Dictionary for PlayerRoomListings as instantiated
@@ -92,23 +97,48 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomPanel.Show();
     }
 
-    //When Player decides to Join a Lobby
+    //When Player decides to Join a Lobby (DEFUNCT)
     public void OnJoinLobbyOptionClicked()
     {
+        Debug.Log("OnJoinLobbyButtonClicked was called");
+        ////Player must be in Lobby to view rooms
+        //if(!PhotonNetwork.InLobby)
+        //{
+        //    Debug.Log("Joining Lobby Services");
+        //    PhotonNetwork.JoinLobby();
+        //    GameOptionsPanel.Hide();
+        //    JoinRoomListingPanels.Show();
+        //}
 
-        
+    }
+
+    //When Player decides to Join a Lobby
+    public void OnJoinLobbyOption()
+    {
         //Player must be in Lobby to view rooms
-        if(!PhotonNetwork.InLobby)
+        if (!PhotonNetwork.InLobby)
         {
             Debug.Log("Joining Lobby Services");
             PhotonNetwork.JoinLobby();
             GameOptionsPanel.Hide();
             JoinRoomListingPanels.Show();
         }
-        GameOptionsPanel.Hide();
-        JoinRoomListingPanels.Show();
+
     }
 
+    //Remove Player from Lobby Networking after pressing back button
+    public void OnBackButtonClicked()
+    {
+        if (PhotonNetwork.InLobby)
+        {
+            PhotonNetwork.LeaveLobby();
+            Debug.Log("Removing Player from Lobby Finder");
+            //Show appropriate Panels
+            GameOptionsPanel.Show();
+            JoinRoomListingPanels.Hide();
+        }
+
+    }
 
 
     #endregion
@@ -133,17 +163,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
     }
 
+    //Callback function for Debug.Log when Creating Room
     public override void OnCreatedRoom()
     {
         Debug.Log(PhotonNetwork.CurrentRoom.Name + " is created");
     }
 
+    //Callback function for Debug.Log when Joining Room
     public override void OnJoinedRoom()
     {
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
         
     }
 
+
+    //Update room lisitings
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         ClearRoomListView();
@@ -200,6 +234,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         }
     }
+
+    //Wipe room list to refresh after leaving Lobby Finder
+    public override void OnLeftLobby()
+    {
+        ClearRoomListView();
+        cachedRoomList.Clear();
+    }
+
+
     #endregion
 
 
