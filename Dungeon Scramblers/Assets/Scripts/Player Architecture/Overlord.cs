@@ -35,7 +35,6 @@ public class Overlord : Player
         // set the ending position of the attack indicator
         line.SetPosition(1, AttackEnd);
 
-        Debug.Log(AttackEnd);
         Debug.DrawLine(transform.position, AttackEnd, Color.red, 10f);
     }
     protected override void Attack(Vector2 d)
