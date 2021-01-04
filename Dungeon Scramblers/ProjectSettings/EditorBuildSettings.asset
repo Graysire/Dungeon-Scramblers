@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scripts/Hanson's/Prefab/Chloe/Multiplayer test.unity
+    path: Assets/Scenes/Individual Test Scenes/Chloe/Multiplayer test.unity
     guid: 2591c13616095e64d8e5510f243cc777
   - enabled: 1
     path: Assets/Scenes/Individual Test Scenes/Jess' Scene.unity

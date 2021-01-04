@@ -726,8 +726,8 @@ GameObject:
   - component: {fileID: 1528147726}
   - component: {fileID: 1528147725}
   - component: {fileID: 1528147723}
-  - component: {fileID: 1528147729}
   - component: {fileID: 1528147724}
+  - component: {fileID: 1528147729}
   m_Layer: 0
   m_Name: Overlord
   m_TagString: Untagged
@@ -763,14 +763,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1528147722}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25d88da95d450c84a8e7de3de933eb2e, type: 3}
+  m_Script: {fileID: 11500000, guid: c82bf72b4764af64c9f7285f4a8f1e42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   stats:
   - 1
-  - 5
+  - 10
   - 1
   - 1
   - 1
@@ -787,7 +787,6 @@ MonoBehaviour:
   isDead: 0
   charactersheet: []
   line: {fileID: 0}
-  ability: {fileID: 4427557190297321068, guid: 1a416b108477c75468618e8fd3212436, type: 3}
 --- !u!143 &1528147725
 CharacterController:
   m_ObjectHideFlags: 0
