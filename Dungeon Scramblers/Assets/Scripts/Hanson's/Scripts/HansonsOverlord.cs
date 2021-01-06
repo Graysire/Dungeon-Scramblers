@@ -28,7 +28,7 @@ public class HansonsOverlord : Player
     protected virtual void Awake()
     {
         base.Awake();
-        line = GetComponent<LineRenderer>();
+        //line = GetComponent<LineRenderer>();
         
     }
 
@@ -49,14 +49,23 @@ public class HansonsOverlord : Player
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
         // set the origin position of the attack indicator
-        line.SetPosition(0, transform.position);
+        //line.SetPosition(0, transform.position);
         // set the ending position of the attack indicator
-        line.SetPosition(1, AttackEnd);
+        //line.SetPosition(1, AttackEnd);
 
         Debug.DrawLine(transform.position, AttackEnd, Color.red, 10f);
-
+        Debug.Log(transform.up);
+        // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
+        Vector3 RelativeAttackEnd = AttackEnd - transform.position;
+        float dot = Vector3.Dot(transform.up, RelativeAttackEnd);
+        Debug.Log("Dot: " + dot);
+        // Calculate the angle of the ability in radians with dot product formula A dot B = |A||B|cos(theta)
+        float AbilityAngle = Mathf.Acos(dot / (transform.up.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
+        Debug.Log("Angle: " + AbilityAngle);
+        
         Vector3 AttackDirection = (AttackEnd - transform.position).normalized;
-        Transform AbilityTransform = Instantiate(ability.gameObject, transform.position, Quaternion.identity).transform;
+        Transform AbilityTransform = Instantiate(ability.gameObject, transform.position, 
+            Quaternion.Euler(0,0, AttackEnd.x >= transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackDirection);
         yield return new WaitForSeconds(ability.GetCoolDownTime());
         bBasicAttack = false;
