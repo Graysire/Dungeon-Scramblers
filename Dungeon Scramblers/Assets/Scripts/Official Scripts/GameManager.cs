@@ -1,13 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     bool isLoading;
-
-    // MapMaker
-    MapMaker mapMaker = new MapMaker();
 
     // Voting Stats
     float timer;
