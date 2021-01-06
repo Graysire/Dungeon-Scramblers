@@ -129,6 +129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Range: 10
   MoveSpeed: 10
+  CastingTime: 0.2
+  CoolDown: 1
 --- !u!61 &2936887780288272672
 BoxCollider2D:
   m_ObjectHideFlags: 0

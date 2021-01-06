@@ -7,13 +7,16 @@ public class HansonsOverlord : Player
     [SerializeField]
     private LineRenderer line;
     [SerializeField]
-    private GameObject ability; 
+    private Ability ability;
+
+    bool bBasicAttack = false;
 
     protected override void OnEnable()
     {
         controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
         UpdateHandler.FixedUpdateOccurred += ApplyMove;
+
     }
     protected override void OnDisable()
     {
@@ -26,10 +29,23 @@ public class HansonsOverlord : Player
     {
         base.Awake();
         line = GetComponent<LineRenderer>();
+        
     }
 
     protected override void Attack(float f)
     { // MOUSE ATTACK INPUT
+        if(!bBasicAttack) StartCoroutine("AttackSequence");
+    }
+    protected override void Attack(Vector2 d)
+    { // TOUCHSCREEN ATTACK INPUT
+        Debug.Log("Overlord attack on phone");
+        
+    }
+
+    IEnumerator AttackSequence()
+    {
+        bBasicAttack = true;
+        yield return new WaitForSeconds(ability.GetCastingTime());
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
         // set the origin position of the attack indicator
@@ -40,12 +56,9 @@ public class HansonsOverlord : Player
         Debug.DrawLine(transform.position, AttackEnd, Color.red, 10f);
 
         Vector3 AttackDirection = (AttackEnd - transform.position).normalized;
-        Transform AbilityTransform = Instantiate(ability, transform.position, Quaternion.identity).transform;
+        Transform AbilityTransform = Instantiate(ability.gameObject, transform.position, Quaternion.identity).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackDirection);
-    }
-    protected override void Attack(Vector2 d)
-    { // TOUCHSCREEN ATTACK INPUT
-        Debug.Log("Overlord attack on phone");
-        
+        yield return new WaitForSeconds(ability.GetCoolDownTime());
+        bBasicAttack = false;
     }
 }
