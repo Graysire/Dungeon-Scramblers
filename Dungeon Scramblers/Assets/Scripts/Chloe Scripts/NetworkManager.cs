@@ -31,6 +31,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public InputField RoomNameInputfield;
     public InputField MaxPlayerInputfield;
 
+    [Header("Inside Room")]
+    public Text RoomInfoText;
+    public GameObject PlayerListingPrefab;
+    public GameObject PlayerListingsPanel;
+
 
     [Header("Buttons")]
     public GameObject CreateRoomButton;
@@ -167,13 +172,40 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         Debug.Log(PhotonNetwork.CurrentRoom.Name + " is created");
+
+        //turn off all input fields and Create Room Button Here
+        RoomNameInputfield.gameObject.SetActive(false);
+        MaxPlayerInputfield.gameObject.SetActive(false);
+
+        
     }
 
     //Callback function for Debug.Log when Joining Room
     public override void OnJoinedRoom()
     {
+        //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
+
+        //Change Room Text to display proper info
+        RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " \n"+
+            "Players: " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
         
+        //Display PlayerNamePrefab
+        foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+
+            GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
+            //playerListGameObject.transform.localScale = Vector3.one;
+
+            //Specialize PlayerListings to display proper name and PlayerIndicator
+            playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
+
+            if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            {
+                playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
+            }
+        }
+
     }
 
 
@@ -256,7 +288,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
         PhotonNetwork.JoinRoom(_roomName); //Join Lobby thorugh PhotonNetwork
 
-         //Display Inside RoomPanel
+        //Display Inside RoomPanel
+        JoinRoomListingPanels.Hide();
+        CreateRoomPanel.Show();
     }
 
     void ClearRoomListView()
