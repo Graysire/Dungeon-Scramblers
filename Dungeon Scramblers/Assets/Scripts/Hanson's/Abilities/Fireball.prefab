@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: 10
+  DecayTime: 0.3
   MoveSpeed: 10
   CastingTime: 0.2
   CoolDown: 1
