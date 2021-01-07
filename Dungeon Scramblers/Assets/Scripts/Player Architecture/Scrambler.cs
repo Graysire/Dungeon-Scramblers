@@ -40,4 +40,20 @@ public class Scrambler : Player
         // Implement something directional here and above when you wake up Jess
         // Oh yea find a different joystick input for Ability too lmao
     }
+    public override void UseAbility(Vector2 d)
+    {
+        Debug.Log("Scrambler ability used on phone");
+    }
+
+    protected override void UseAbility(float f)
+    {
+        if (f < 1)
+        {
+            Debug.Log("Stop ability");
+        }
+        if (f == 1)
+        {
+            Debug.Log("Start ability");
+        }
+    }
 }

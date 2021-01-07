@@ -35,7 +35,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""UseActive"",
+                    ""name"": ""UseAbility"",
                     ""type"": ""Button"",
                     ""id"": ""724c26d7-f486-4b85-a285-40e46c9afd81"",
                     ""expectedControlType"": ""Button"",
@@ -113,7 +113,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""d2e07e40-4584-4d7b-93b1-9bcaaaf84fbc"",
-                    ""path"": ""<Gamepad>/leftStick/up"",
+                    ""path"": ""<Joystick>{Movement}/stick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -124,7 +124,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""dda8cd74-206c-46fb-800d-446b10da14b5"",
-                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""path"": ""<Joystick>{Movement}/stick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -135,7 +135,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""a52059d9-302d-461d-9c63-dfc42479ef99"",
-                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""path"": ""<Joystick>{Movement}/stick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -146,7 +146,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""d6b1b21d-98ff-4fc2-9aed-d6d24b0ed294"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""path"": ""<Joystick>{Movement}/stick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -166,7 +166,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Right Joystick iOS"",
+                    ""name"": ""Attack Joystick iOS"",
                     ""id"": ""4d0ef5ff-1dd5-482a-a97b-d73a61416612"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -179,7 +179,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""dfd1ff17-fa8c-4927-a05a-0a39137ffac9"",
-                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""path"": ""<Joystick>{Attack}/stick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -190,7 +190,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""06e00745-cf08-4ce8-b1e9-8e0c33e009f1"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""path"": ""<Joystick>{Attack}/stick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -201,7 +201,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""1c2f5a09-9b8a-4e25-90e4-c42098159950"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""path"": ""<Joystick>{Attack}/stick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -212,7 +212,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""786045c4-dc68-4bc8-8ed0-3d29915dac5b"",
-                    ""path"": ""<Gamepad>/rightStick/right"",
+                    ""path"": ""<Joystick>{Attack}/stick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -227,62 +227,62 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""interactions"": ""Press"",
                     ""processors"": """",
                     ""groups"": ""Keyboard and Mouse"",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Right Joystick iOS"",
-                    ""id"": ""4f563763-550c-414b-9fc7-74240126d87f"",
+                    ""name"": ""Ability Joystick iOS"",
+                    ""id"": ""66c4e778-f48e-4fa5-9cc6-4c5fc58fe2a1"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""823f2649-9f5f-4e45-829a-8b2157eceead"",
-                    ""path"": ""<Gamepad>/rightStick/up"",
+                    ""id"": ""919dd2dd-00aa-4ec2-bed1-89798e924147"",
+                    ""path"": ""<Joystick>{Ability0}/stick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""492545e0-5e07-4c91-879d-9324cc90d245"",
-                    ""path"": ""<Gamepad>/rightStick/down"",
+                    ""id"": ""0535c607-fe74-44a7-85b9-1c44c15e132f"",
+                    ""path"": ""<Joystick>{Ability0}/stick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""314a94b7-9686-453a-9ff5-ab7580f41df2"",
-                    ""path"": ""<Gamepad>/rightStick/left"",
+                    ""id"": ""84122b53-7fd9-44bf-883d-38b707fd67e1"",
+                    ""path"": ""<Joystick>{Ability0}/stick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""566025d5-f9f5-4aca-8fc7-50d44b5ba630"",
-                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""id"": ""2ba8f29f-80b4-4aa6-b2e0-23790f75bec1"",
+                    ""path"": ""<Joystick>{Ability0}/stick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
-                    ""action"": ""UseActive"",
+                    ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 }
@@ -311,7 +311,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""bindingGroup"": ""iOS"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<iOSGameController>"",
+                    ""devicePath"": ""<Joystick>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -334,7 +334,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement = asset.FindActionMap("PlayerMovement", throwIfNotFound: true);
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
-        m_PlayerMovement_UseActive = m_PlayerMovement.FindAction("UseActive", throwIfNotFound: true);
+        m_PlayerMovement_UseAbility = m_PlayerMovement.FindAction("UseAbility", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -386,14 +386,14 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private IPlayerMovementActions m_PlayerMovementActionsCallbackInterface;
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Attack;
-    private readonly InputAction m_PlayerMovement_UseActive;
+    private readonly InputAction m_PlayerMovement_UseAbility;
     public struct PlayerMovementActions
     {
         private @InputMaster m_Wrapper;
         public PlayerMovementActions(@InputMaster wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Attack => m_Wrapper.m_PlayerMovement_Attack;
-        public InputAction @UseActive => m_Wrapper.m_PlayerMovement_UseActive;
+        public InputAction @UseAbility => m_Wrapper.m_PlayerMovement_UseAbility;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -409,9 +409,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnAttack;
-                @UseActive.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseActive;
-                @UseActive.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseActive;
-                @UseActive.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseActive;
+                @UseAbility.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
+                @UseAbility.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
+                @UseAbility.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -422,9 +422,9 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @UseActive.started += instance.OnUseActive;
-                @UseActive.performed += instance.OnUseActive;
-                @UseActive.canceled += instance.OnUseActive;
+                @UseAbility.started += instance.OnUseAbility;
+                @UseAbility.performed += instance.OnUseAbility;
+                @UseAbility.canceled += instance.OnUseAbility;
             }
         }
     }
@@ -460,6 +460,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnUseActive(InputAction.CallbackContext context);
+        void OnUseAbility(InputAction.CallbackContext context);
     }
 }

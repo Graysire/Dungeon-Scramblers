@@ -15,10 +15,16 @@ public class Player : MonoBehaviour
         abilitycd = 5,
         defense = 6
     }
+
+    // ON SCREEN CONTROLS ONLY
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
     [SerializeField] protected GameObject PlayerOnScreenControls;
-    protected InputMaster controls;
+    protected List<GameObject> AllIndependentJoystickFunctions;
+    protected GameObject EnabledIndependentJoystick;
+    // END ON SCREEN CONTROLS ONLY
+
+    protected InputMaster controls;    
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected bool isDead = false;
@@ -32,7 +38,7 @@ public class Player : MonoBehaviour
     // Down, right, up, left
     protected bool[] facingCheckers = new bool[] { true, false, false, false};
     protected int trueFaceIndex = 0;
-    protected bool rightJoystickInUse = false;
+
     protected virtual void Awake()
     {
         // UNCOMMENT THE SECTION BELOW FOR THE REAL BUILD
@@ -40,23 +46,43 @@ public class Player : MonoBehaviour
                     usingOnScreenControls = true;
                 else
                     usingOnScreenControls = false;*/
-        if (usingOnScreenControls && PlayerOnScreenControls != null)
+        if (usingOnScreenControls && PlayerOnScreenControls != null) {
             PlayerOnScreenControls.SetActive(true);
-
+        }
+           
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         if (usingOnScreenControls) {
+            AllIndependentJoystickFunctions = new List<GameObject>();
+            foreach (Transform t in PlayerOnScreenControls.transform) {
+                if (t.tag == "IndependentJoystick") {
+                    foreach (Transform t2 in t.transform) {
+                        if (t2.tag == "IndependentJoystick")
+                            AllIndependentJoystickFunctions.Add(t2.gameObject);
+                    }
+                }
+            }
+            if (AllIndependentJoystickFunctions.Count > 0) {
+                EnabledIndependentJoystick = AllIndependentJoystickFunctions[0];
+                Debug.Log("Joystick Count: " + AllIndependentJoystickFunctions.Count);
+                for (int i = 1; i < AllIndependentJoystickFunctions.Count; i++)
+                    AllIndependentJoystickFunctions[i].SetActive(false);
+            }else
+                Debug.Log("No independent joysticks found");
+
+            /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>());
-            controls.PlayerMovement.Attack.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());            
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
-            controls.PlayerMovement.Attack.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
+            //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
+            //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
+
         }
         else {
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
-            controls.PlayerMovement.UseActive.performed += ctx => UseAbility(ctx.ReadValue<float>());
+            controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<float>());
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>());
-            controls.PlayerMovement.UseActive.canceled += ctx => UseAbility(ctx.ReadValue<float>());
+            controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<float>());
         }
             
         controller = GetComponent<CharacterController>();
@@ -108,7 +134,7 @@ public class Player : MonoBehaviour
             Debug.Log("Start attacking");
         }
     }
-    protected virtual void UseAbility(Vector2 d)
+    public virtual void UseAbility(Vector2 d)
     {
         Debug.Log("Ability used on phone");
     }
