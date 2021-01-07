@@ -49,7 +49,6 @@ public class AI : MonoBehaviour
         }
     }
 
-
     //Gets the path given the start position and target position
     public List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos)
     {
@@ -62,7 +61,7 @@ public class AI : MonoBehaviour
     {
         for (int i = 0; i < currentPath.Count; i++)
         {
-            transform.position = Vector3.MoveTowards(transform.position, currentPath.IndexOf(i), speed * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], speed * Time.deltaTime);
         }
     }
 
