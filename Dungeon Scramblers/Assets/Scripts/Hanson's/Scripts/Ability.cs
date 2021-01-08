@@ -7,6 +7,8 @@ public class Ability : MonoBehaviour, IAbilityInterface
     [SerializeField]
     private float Range;
     [SerializeField]
+    private float DecayTime;
+    [SerializeField]
     private float MoveSpeed;
     [SerializeField]
     private float CastingTime;
@@ -16,6 +18,7 @@ public class Ability : MonoBehaviour, IAbilityInterface
 
 
     private Vector3 AttackDir;
+    private float totalTime = 0;
     private bool canCast = true;
     private Vector3 PositionTraveled = Vector3.zero;
     Collider2D Collider;
@@ -47,9 +50,10 @@ public class Ability : MonoBehaviour, IAbilityInterface
     {
         if (AttackDir != null)
         {
+            totalTime += Time.deltaTime;
             transform.position += AttackDir * Time.deltaTime * MoveSpeed;
             PositionTraveled += AttackDir * Time.deltaTime * MoveSpeed;
-            if (PositionTraveled.magnitude >= Range)
+            if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 Destroy(this.gameObject);
             }
