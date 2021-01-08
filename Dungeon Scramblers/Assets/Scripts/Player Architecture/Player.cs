@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -20,8 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
     [SerializeField] protected GameObject PlayerOnScreenControls;
-    protected List<GameObject> AllIndependentJoystickFunctions;
+    protected List<GameObject> AllIndependentJoysticks; // Morning Jess, please figure out a way to replace specific onscreenstick with generic GOs, ty
     protected GameObject EnabledIndependentJoystick;
+    //protected List<UnityEngine.InputSystem.OnScreen.OnScreenStick> AllIndependentJoystickFunctions;
+   // protected UnityEngine.InputSystem.OnScreen.OnScreenStick EnabledIndependentJoystickFunction;
     // END ON SCREEN CONTROLS ONLY
 
     protected InputMaster controls;    
@@ -54,20 +58,20 @@ public class Player : MonoBehaviour
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         if (usingOnScreenControls) {
-            AllIndependentJoystickFunctions = new List<GameObject>();
+            AllIndependentJoysticks = new List<GameObject>();
+            //AllIndependentJoystickFunctions = new List<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
             foreach (Transform t in PlayerOnScreenControls.transform) {
                 if (t.tag == "IndependentJoystick") {
-                    foreach (Transform t2 in t.transform) {
-                        if (t2.tag == "IndependentJoystick")
-                            AllIndependentJoystickFunctions.Add(t2.gameObject);
-                    }
+                    AllIndependentJoysticks.Add(t.gameObject);
+                    //AllIndependentJoystickFunctions.Add(t.GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>());
                 }
             }
-            if (AllIndependentJoystickFunctions.Count > 0) {
-                EnabledIndependentJoystick = AllIndependentJoystickFunctions[0];
-                Debug.Log("Joystick Count: " + AllIndependentJoystickFunctions.Count);
-                for (int i = 1; i < AllIndependentJoystickFunctions.Count; i++)
-                    AllIndependentJoystickFunctions[i].SetActive(false);
+            if (AllIndependentJoysticks.Count > 0) {
+                AllIndependentJoysticks[0].GetComponentInChildren<Button>().gameObject.SetActive(false);
+                EnabledIndependentJoystick = AllIndependentJoysticks[0];
+                Debug.Log("Joystick Count: " + AllIndependentJoysticks.Count);
+                for (int i = 1; i < AllIndependentJoysticks.Count; i++)
+                    AllIndependentJoysticks[i].GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>().enabled = false;
             }else
                 Debug.Log("No independent joysticks found");
 
@@ -122,6 +126,21 @@ public class Player : MonoBehaviour
     protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
     }
+
+    public virtual void SwitchEnabledIndependentJoystick() {
+        GameObject thisButton = EventSystem.current.currentSelectedGameObject;
+        UnityEngine.InputSystem.OnScreen.OnScreenStick requestedStick = thisButton.GetComponentInParent<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
+        if (!requestedStick.enabled) {
+            UnityEngine.InputSystem.OnScreen.OnScreenStick tempSwitch = EnabledIndependentJoystick.GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
+            thisButton.SetActive(false);
+            tempSwitch.enabled = false;
+            requestedStick.enabled = true;
+            EnabledIndependentJoystick.GetComponentInChildren<Button>(true).gameObject.SetActive(true);
+            EnabledIndependentJoystick = requestedStick.gameObject;
+            Debug.Log("Switched joysticks");
+        }
+    }
+
     protected virtual void Attack(Vector2 d) {
 
         Debug.Log("Attack on Phone");
