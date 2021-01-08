@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 63450611}
   - component: {fileID: 63450610}
   - component: {fileID: 63450612}
+  - component: {fileID: 63450613}
   m_Layer: 5
   m_Name: Ability
   m_TagString: IndependentJoystick
@@ -215,6 +216,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementRange: 75
   m_ControlPath: <Gamepad>/rightStick
+--- !u!114 &63450613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 63450608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154711e5229e2c5428882eee83f1dba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllOtherIndependentJoysticks:
+  - {fileID: 209397018}
 --- !u!1 &172553610
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +341,7 @@ GameObject:
   - component: {fileID: 209397021}
   - component: {fileID: 209397020}
   - component: {fileID: 209397022}
+  - component: {fileID: 209397023}
   m_Layer: 5
   m_Name: Auto Attack
   m_TagString: IndependentJoystick
@@ -406,6 +422,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovementRange: 75
   m_ControlPath: <Gamepad>/rightStick
+--- !u!114 &209397023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209397018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 154711e5229e2c5428882eee83f1dba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AllOtherIndependentJoysticks:
+  - {fileID: 63450608}
 --- !u!1 &224076585
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &426416521
 RectTransform:
   m_ObjectHideFlags: 0
@@ -994,7 +1024,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &709321407
 RectTransform:
   m_ObjectHideFlags: 0

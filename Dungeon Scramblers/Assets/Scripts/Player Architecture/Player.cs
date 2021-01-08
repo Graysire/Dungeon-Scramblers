@@ -22,10 +22,6 @@ public class Player : MonoBehaviour
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
     [SerializeField] protected GameObject PlayerOnScreenControls;
-    protected List<GameObject> AllIndependentJoysticks; // Morning Jess, please figure out a way to replace specific onscreenstick with generic GOs, ty
-    protected GameObject EnabledIndependentJoystick;
-    //protected List<UnityEngine.InputSystem.OnScreen.OnScreenStick> AllIndependentJoystickFunctions;
-   // protected UnityEngine.InputSystem.OnScreen.OnScreenStick EnabledIndependentJoystickFunction;
     // END ON SCREEN CONTROLS ONLY
 
     protected InputMaster controls;    
@@ -58,25 +54,8 @@ public class Player : MonoBehaviour
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         if (usingOnScreenControls) {
-            AllIndependentJoysticks = new List<GameObject>();
-            //AllIndependentJoystickFunctions = new List<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
-            foreach (Transform t in PlayerOnScreenControls.transform) {
-                if (t.tag == "IndependentJoystick") {
-                    AllIndependentJoysticks.Add(t.gameObject);
-                    //AllIndependentJoystickFunctions.Add(t.GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>());
-                }
-            }
-            if (AllIndependentJoysticks.Count > 0) {
-                AllIndependentJoysticks[0].GetComponentInChildren<Button>().gameObject.SetActive(false);
-                EnabledIndependentJoystick = AllIndependentJoysticks[0];
-                Debug.Log("Joystick Count: " + AllIndependentJoysticks.Count);
-                for (int i = 1; i < AllIndependentJoysticks.Count; i++)
-                    AllIndependentJoysticks[i].GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>().enabled = false;
-            }else
-                Debug.Log("No independent joysticks found");
-
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
-            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>());
+            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
@@ -125,20 +104,6 @@ public class Player : MonoBehaviour
     }
     protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
-    }
-
-    public virtual void SwitchEnabledIndependentJoystick() {
-        GameObject thisButton = EventSystem.current.currentSelectedGameObject;
-        UnityEngine.InputSystem.OnScreen.OnScreenStick requestedStick = thisButton.GetComponentInParent<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
-        if (!requestedStick.enabled) {
-            UnityEngine.InputSystem.OnScreen.OnScreenStick tempSwitch = EnabledIndependentJoystick.GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
-            thisButton.SetActive(false);
-            tempSwitch.enabled = false;
-            requestedStick.enabled = true;
-            EnabledIndependentJoystick.GetComponentInChildren<Button>(true).gameObject.SetActive(true);
-            EnabledIndependentJoystick = requestedStick.gameObject;
-            Debug.Log("Switched joysticks");
-        }
     }
 
     protected virtual void Attack(Vector2 d) {
