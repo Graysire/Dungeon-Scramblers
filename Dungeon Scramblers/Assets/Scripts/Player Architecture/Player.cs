@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -20,8 +22,6 @@ public class Player : MonoBehaviour
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
     [SerializeField] protected GameObject PlayerOnScreenControls;
-    protected List<GameObject> AllIndependentJoystickFunctions;
-    protected GameObject EnabledIndependentJoystick;
     // END ON SCREEN CONTROLS ONLY
 
     protected InputMaster controls;    
@@ -54,25 +54,8 @@ public class Player : MonoBehaviour
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
         if (usingOnScreenControls) {
-            AllIndependentJoystickFunctions = new List<GameObject>();
-            foreach (Transform t in PlayerOnScreenControls.transform) {
-                if (t.tag == "IndependentJoystick") {
-                    foreach (Transform t2 in t.transform) {
-                        if (t2.tag == "IndependentJoystick")
-                            AllIndependentJoystickFunctions.Add(t2.gameObject);
-                    }
-                }
-            }
-            if (AllIndependentJoystickFunctions.Count > 0) {
-                EnabledIndependentJoystick = AllIndependentJoystickFunctions[0];
-                Debug.Log("Joystick Count: " + AllIndependentJoystickFunctions.Count);
-                for (int i = 1; i < AllIndependentJoystickFunctions.Count; i++)
-                    AllIndependentJoystickFunctions[i].SetActive(false);
-            }else
-                Debug.Log("No independent joysticks found");
-
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
-            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>());
+            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
@@ -122,6 +105,7 @@ public class Player : MonoBehaviour
     protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
     }
+
     protected virtual void Attack(Vector2 d) {
 
         Debug.Log("Attack on Phone");
