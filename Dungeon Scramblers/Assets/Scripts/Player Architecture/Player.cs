@@ -17,11 +17,13 @@ public class Player : MonoBehaviour
         abilitycd = 5,
         defense = 6
     }
-
+    // Placeholder for eventual Attack & Ability Equipables 
+    [SerializeField] protected List<int> AttacksAndAbilities;
     // ON SCREEN CONTROLS ONLY
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
     [SerializeField] protected GameObject PlayerOnScreenControls;
+    protected int activeIndependentJoystick = -1;
     // END ON SCREEN CONTROLS ONLY
 
     protected InputMaster controls;    
@@ -106,10 +108,27 @@ public class Player : MonoBehaviour
         controller.Move(direction * Time.deltaTime);
     }
 
-    protected virtual void Attack(Vector2 d) {
-
-        Debug.Log("Attack on Phone");
+    // For On-screen stick usage only
+    public virtual void SetActiveIndependentJoystick(int j) {
+        activeIndependentJoystick = j;
     }
+
+    protected virtual void Attack(Vector2 d) {
+        // Decide what we're attacking with (i.e. attack vs ability)
+        // Joystick.getJoystickNumber
+        if (activeIndependentJoystick < 0 || activeIndependentJoystick >= AttacksAndAbilities.Count)
+        {
+            Debug.Log("Invalid Joystick number.");
+            return;
+        }
+        if (d.x == 0 && d.y == 0) { // Stop Attacking if joystick is at <0, 0>
+            Debug.Log("End Attack " + activeIndependentJoystick);
+            activeIndependentJoystick = -1;
+            return;
+        }
+        Debug.Log("Attack " + activeIndependentJoystick + " on phone");
+    }
+
     protected virtual void Attack(float f) {
         if (f < 1) {
             Debug.Log("Stop attacking");
@@ -118,10 +137,10 @@ public class Player : MonoBehaviour
             Debug.Log("Start attacking");
         }
     }
-    public virtual void UseAbility(Vector2 d)
+/*    public virtual void UseAbility(Vector2 d)
     {
         Debug.Log("Ability used on phone");
-    }
+    }*/
     protected virtual void UseAbility(float f) {
         if (f < 1)
         {

@@ -113,7 +113,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""d2e07e40-4584-4d7b-93b1-9bcaaaf84fbc"",
-                    ""path"": ""<Joystick>{Movement}/stick/up"",
+                    ""path"": ""<Gamepad>/leftStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -124,7 +124,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""dda8cd74-206c-46fb-800d-446b10da14b5"",
-                    ""path"": ""<Joystick>{Movement}/stick/down"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -135,7 +135,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""a52059d9-302d-461d-9c63-dfc42479ef99"",
-                    ""path"": ""<Joystick>{Movement}/stick/left"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -146,7 +146,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""d6b1b21d-98ff-4fc2-9aed-d6d24b0ed294"",
-                    ""path"": ""<Joystick>{Movement}/stick/right"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -179,7 +179,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""dfd1ff17-fa8c-4927-a05a-0a39137ffac9"",
-                    ""path"": ""<Joystick>{Attack}/stick/up"",
+                    ""path"": ""<Gamepad>/rightStick/up"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -190,7 +190,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""06e00745-cf08-4ce8-b1e9-8e0c33e009f1"",
-                    ""path"": ""<Joystick>{Attack}/stick/down"",
+                    ""path"": ""<Gamepad>/rightStick/down"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -201,7 +201,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""1c2f5a09-9b8a-4e25-90e4-c42098159950"",
-                    ""path"": ""<Joystick>{Attack}/stick/left"",
+                    ""path"": ""<Gamepad>/rightStick/right"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -212,7 +212,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""786045c4-dc68-4bc8-8ed0-3d29915dac5b"",
-                    ""path"": ""<Joystick>{Attack}/stick/right"",
+                    ""path"": ""<Gamepad>/rightStick/left"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""iOS"",
@@ -230,61 +230,6 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""Ability Joystick iOS"",
-                    ""id"": ""66c4e778-f48e-4fa5-9cc6-4c5fc58fe2a1"",
-                    ""path"": ""2DVector"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""UseAbility"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""up"",
-                    ""id"": ""919dd2dd-00aa-4ec2-bed1-89798e924147"",
-                    ""path"": ""<Joystick>{Ability0}/stick/up"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""iOS"",
-                    ""action"": ""UseAbility"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""down"",
-                    ""id"": ""0535c607-fe74-44a7-85b9-1c44c15e132f"",
-                    ""path"": ""<Joystick>{Ability0}/stick/down"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""iOS"",
-                    ""action"": ""UseAbility"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""left"",
-                    ""id"": ""84122b53-7fd9-44bf-883d-38b707fd67e1"",
-                    ""path"": ""<Joystick>{Ability0}/stick/left"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""iOS"",
-                    ""action"": ""UseAbility"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""right"",
-                    ""id"": ""2ba8f29f-80b4-4aa6-b2e0-23790f75bec1"",
-                    ""path"": ""<Joystick>{Ability0}/stick/right"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""iOS"",
-                    ""action"": ""UseAbility"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -311,7 +256,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
             ""bindingGroup"": ""iOS"",
             ""devices"": [
                 {
-                    ""devicePath"": ""<Joystick>"",
+                    ""devicePath"": ""<Gamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
