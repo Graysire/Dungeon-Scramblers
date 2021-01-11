@@ -9,7 +9,7 @@ public class HansonsOverlord : Player
     [SerializeField]
     private Ability ability;
 
-    bool bBasicAttack = false;
+    bool bIsAttacking = false;
 
     protected override void OnEnable()
     {
@@ -25,16 +25,11 @@ public class HansonsOverlord : Player
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
     }
 
-    protected virtual void Awake()
-    {
-        base.Awake();
-        //line = GetComponent<LineRenderer>();
-        
-    }
-
+    // Override Attack function to start coroutine
     protected override void Attack(float f)
     { // MOUSE ATTACK INPUT
-        if(!bBasicAttack) StartCoroutine("AttackSequence");
+        // Check if the coroutine can be called with account to Castingtime and Cooldown
+        if(!bIsAttacking) StartCoroutine("AttackSequence");
     }
     protected override void Attack(Vector2 d)
     { // TOUCHSCREEN ATTACK INPUT
@@ -44,17 +39,14 @@ public class HansonsOverlord : Player
 
     IEnumerator AttackSequence()
     {
-        bBasicAttack = true;
+        // Set Is currently attacking
+        bIsAttacking = true;
+        // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(ability.GetCastingTime());
+        // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
-        // set the origin position of the attack indicator
-        //line.SetPosition(0, transform.position);
-        // set the ending position of the attack indicator
-        //line.SetPosition(1, AttackEnd);
 
-        Debug.DrawLine(transform.position, AttackEnd, Color.red, 10f);
-        Debug.Log(transform.up);
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - transform.position;
         float dot = Vector3.Dot(transform.up, RelativeAttackEnd);
@@ -63,11 +55,14 @@ public class HansonsOverlord : Player
         float AbilityAngle = Mathf.Acos(dot / (transform.up.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
         Debug.Log("Angle: " + AbilityAngle);
         
+        // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackDirection = (AttackEnd - transform.position).normalized;
-        Transform AbilityTransform = Instantiate(ability.gameObject, transform.position, 
+        // Transform vector with quick if statements for returning offset for attacks
+        Vector3 AttackTransform = transform.position + (RelativeAttackEnd.normalized * ability.GetOffsetScale());
+        Transform AbilityTransform = Instantiate(ability.gameObject, AttackTransform, 
             Quaternion.Euler(0,0, AttackEnd.x >= transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackDirection);
         yield return new WaitForSeconds(ability.GetCoolDownTime());
-        bBasicAttack = false;
+        bIsAttacking = false;
     }
 }
