@@ -40,13 +40,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     [Header("Buttons")]
     public GameObject CreateRoomButton;
     public GameObject Backbutton;
+    public GameObject LeaveRoomButton;
+    public GameObject StartButton;
 
 
     //Dictionary for PlayerRoomListings
     private Dictionary<string, RoomInfo> cachedRoomList;
     //Dictionary for PlayerRoomListings as instantiated
     private Dictionary<string, GameObject>RoomListGameObjects;
-
+    //Dictionary for Player Objects
+    private Dictionary<int, GameObject> PlayerListGameObjects;
 
 
     private void Start()
@@ -100,6 +103,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         GameOptionsPanel.Hide();
         CreateRoomPanel.Show();
+        //Setting correct UI buttons
+        RoomNameInputfield.gameObject.SetActive(true);
+        MaxPlayerInputfield.gameObject.SetActive(true);
+        CreateRoomButton.SetActive(true);
+        StartButton.SetActive(false);
+        LeaveRoomButton.SetActive(false);
     }
 
     //When Player decides to Join a Lobby (DEFUNCT)
@@ -145,6 +154,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
+    //When Player leaves room
+    public void OnLeaveRoomButtonClicked()
+    {
+        PhotonNetwork.LeaveRoom();
+        GameOptionsPanel.Show();
+        CreateRoomPanel.Hide();
+    }
 
     #endregion
 
@@ -176,7 +192,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //turn off all input fields and Create Room Button Here
         RoomNameInputfield.gameObject.SetActive(false);
         MaxPlayerInputfield.gameObject.SetActive(false);
-
+        CreateRoomButton.SetActive(false);
+        //StartButton.SetActive(true);
+        LeaveRoomButton.SetActive(true);
         
     }
 
@@ -186,12 +204,29 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
 
+        //Display StartButton for Party Leader only
+        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            StartButton.SetActive(true);
+        }
+        else
+        {
+            StartButton.SetActive(false);
+        }
+
         //Change Room Text to display proper info
         RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " \n"+
             "Players: " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
-        
+
+        //Update Dictionary
+        if(PlayerListGameObjects == null)
+        {
+            PlayerListGameObjects = new Dictionary<int, GameObject>();
+        }
+
+
         //Display PlayerNamePrefab
-        foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
 
             GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
@@ -204,6 +239,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             {
                 playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
             }
+
+            PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
         }
 
     }
@@ -265,6 +302,64 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             RoomListGameObjects.Add(room.Name, roomListEntryGameobject);
 
         }
+    }
+
+    //This function will most likely be used to update the Game Manager about what weapons each player is carrying
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
+        //playerListGameObject.transform.localScale = Vector3.one;
+
+        //Specialize PlayerListings to display proper name and PlayerIndicator
+        playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = newPlayer.NickName;
+
+        if (newPlayer.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+        {
+            playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
+        }
+
+        PlayerListGameObjects.Add(newPlayer.ActorNumber, playerListGameObject);
+
+
+        //Code for Gathering Player info should be here ( i think)
+    }
+
+    //When Player Leaves the room, destroy his/her PlayerListingPrefab
+    //This function could also be used to remove player from GameManager after leaving a match
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        //Change Room Text to display proper info
+        RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " \n" +
+            "Players: " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
+
+        //Destroy Player Listing
+        Destroy(PlayerListGameObjects[otherPlayer.ActorNumber].gameObject);
+        //Remove Player from Dictionary
+        PlayerListGameObjects.Remove(otherPlayer.ActorNumber);
+
+        //change ownership of Room to next player
+        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            StartButton.SetActive(true);
+        }
+
+
+    }
+
+    //When "we" or the player that started the room leaves the room
+    public override void OnLeftRoom()
+    {
+       //Display Game Options Panel
+
+
+        //Throw the whole room away
+        foreach(GameObject playerlistGameObject in PlayerListGameObjects.Values)
+        {
+            Destroy(playerlistGameObject);
+        }
+        PlayerListGameObjects.Clear();
+        PlayerListGameObjects = null;
+
     }
 
     //Wipe room list to refresh after leaving Lobby Finder
