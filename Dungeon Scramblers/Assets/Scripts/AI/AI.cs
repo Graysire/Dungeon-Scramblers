@@ -8,25 +8,27 @@ using Panda;
 public class AI : MonoBehaviour
 {
     public Transform player;
-    public Transform bulletSpawn;
     public Slider healthBar;
-    public GameObject bulletPrefab;
+    public GameObject attackSpawn;
+    public GameObject attackPrefab;
     
     public Vector3 destination; // The movement destination
     public Vector3 target;      // The position to aim to
     List<Vector3> currentPath;  // Stores the current path being used
 
-    float health = 100.0f;
-    public float speed = 15.0f;
-    float visibleRange = 80.0f;
-    float shotRange = 40.0f;
+    public float stoppingDistance = 30.0f;  //Distance from player AI stops at
+    public float health = 100.0f;           //Ai health
+    public float speed = 15.0f;             //Movement speed of AI
+    public float visibleRange = 80.0f;      //Range AI needs to be in to see Player
+    public float attackRange = 40.0f;       //Range AI needs to be in to attack
+    public float attackForce = 2000.0f;     //Determines how fast projectile is
 
 
-    
+
     // Start is called before the first frame update
     void Start()
     { 
-        InvokeRepeating("UpdateHealth", 5, 0.5f);
+        //InvokeRepeating("UpdateHealth", 5, 0.5f);
     }
 
     // Update is called once per frame
@@ -64,29 +66,42 @@ public class AI : MonoBehaviour
         return Pathfinder.GetPath(startPos, targetPos, 90000);
     }
 
+    //Determines if the AI is at the stopping distance from the player
+    public bool AtStoppingDistance()
+    {
+        Vector3 distance = player.transform.position - this.transform.position;
+        if (distance.magnitude < stoppingDistance)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
+
 
 
     //Has AI move to given destination
     [Task]
     public void MoveToDestination()
     {
+        //Get path to player
+        currentPath = GetPath(this.transform.position, player.transform.position);
         for (int i = 0; i < currentPath.Count; i++)
         {
+            //Stop moving if at the stopping distance
+            if (AtStoppingDistance())
+            {
+                break;
+            }
             this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], speed * Time.deltaTime);
         }
         Task.current.Succeed();
     }
 
-    //Sets the target to the player location, can be used for AI attack
-    [Task]
-    public void TargetPlayer()
-    {
-        target = player.transform.position;
-        Task.current.Succeed();
-    }
-
     //Determines whether player is seen or not.
-        //Will get the path from AI to player if the player is in sight.
+    //Will get the path from AI to player if the player is in sight.
     [Task]
     bool SeePlayer()
     {
@@ -116,44 +131,46 @@ public class AI : MonoBehaviour
             //If player is in visible range of AI
             if (distance.magnitude < visibleRange && !seeWall)
             {
-                //Get path to player
-                currentPath = GetPath(this.transform.position, player.transform.position);
                 return true;
             }
         }
         return false;
     }
 
-    //Spawns a bullet using a bullet prefab (which is not currently made)
+    //Determines if the Player is in range of attack
     [Task]
-    public bool Fire()
+    bool AttackInRange()
     {
-        GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
-        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 2000);
+        target = player.transform.position;
+        Vector3 distance = target - this.transform.position;
+        if (distance.magnitude < attackRange)
+            return true;
+        else
+            return false;
+    }
+
+    //Spawns an attack on the attackSpawn towards player
+    [Task]
+    public bool Attack()
+    {
+        Vector3 direction = target - this.transform.position;
+        attackSpawn.transform.up = direction;
+        GameObject attack = GameObject.Instantiate(attackPrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
+        attack.GetComponent<Rigidbody>().AddForce(direction * attackForce);
         return true;
     }
 
     //For AI death
     [Task]
-    public bool Explode()
+    public bool Death()
     {
         if (healthBar != null)
         {
             Destroy(healthBar.gameObject);
         }
-
+        //Destroy(attackSpawn.gameObject);
         Destroy(this.gameObject);
         return true;
     }
-    
-    //Lines up the shot to player
-    [Task]
-    bool ShotLinedUp()
-    {
-        Vector3 distance = target - this.transform.position;
-        if (distance.magnitude < shotRange && Vector3.Angle(this.transform.forward, distance) < 1.0f)
-            return true;
-        else
-            return false;
-    }
+
 }
