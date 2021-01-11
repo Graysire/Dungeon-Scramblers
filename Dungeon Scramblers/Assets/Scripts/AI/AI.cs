@@ -49,11 +49,22 @@ public class AI : MonoBehaviour
         }
     }
 
+    //Deals damage to AI if hit by a bullet
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "bullet")
+        {
+            health -= 10;
+        }
+    }
+
     //Gets the path given the start position and target position
     public List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos)
     {
         return Pathfinder.GetPath(startPos, targetPos, 90000);
     }
+
+
 
     //Has AI move to given destination
     [Task]
@@ -63,9 +74,10 @@ public class AI : MonoBehaviour
         {
             this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], speed * Time.deltaTime);
         }
+        Task.current.Succeed();
     }
 
-    //Sets the target to the player location
+    //Sets the target to the player location, can be used for AI attack
     [Task]
     public void TargetPlayer()
     {
@@ -73,39 +85,75 @@ public class AI : MonoBehaviour
         Task.current.Succeed();
     }
 
-    //Determines whether player is seen or not
+    //Determines whether player is seen or not.
+        //Will get the path from AI to player if the player is in sight.
     [Task]
     bool SeePlayer()
     {
-        Vector3 distance = player.transform.position - this.transform.position;
-
-        RaycastHit hit;
-        bool seeWall = false;
-
-        Debug.DrawRay(this.transform.position, distance, Color.red);
-
-        if (Physics.Raycast(this.transform.position, distance, out hit))
+        if (player != null)
         {
-            if (hit.collider.gameObject.tag == "wall")
+            //Get distance from AI and player
+            Vector3 distance = player.transform.position - this.transform.position;
+
+            RaycastHit hit;
+            bool seeWall = false;
+
+            Debug.DrawRay(this.transform.position, distance, Color.red);
+
+            //Checks for wall w/ raycast
+            if (Physics.Raycast(this.transform.position, distance, out hit))
             {
-                seeWall = true;
+                if (hit.collider.gameObject.tag == "wall")
+                {
+                    seeWall = true;
+                }
+            }
+            if (Task.isInspected)
+            {
+                Task.current.debugInfo = string.Format("wall={0}", seeWall);
+            }
+
+            //If player is in visible range of AI
+            if (distance.magnitude < visibleRange && !seeWall)
+            {
+                //Get path to player
+                currentPath = GetPath(this.transform.position, player.transform.position);
+                return true;
             }
         }
+        return false;
+    }
 
-        if (Task.isInspected)
+    //Spawns a bullet using a bullet prefab (which is not currently made)
+    [Task]
+    public bool Fire()
+    {
+        GameObject bullet = GameObject.Instantiate(bulletPrefab, bulletSpawn.transform.position, bulletSpawn.transform.rotation);
+        bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.forward * 2000);
+        return true;
+    }
+
+    //For AI death
+    [Task]
+    public bool Explode()
+    {
+        if (healthBar != null)
         {
-            Task.current.debugInfo = string.Format("wall={0}", seeWall);
+            Destroy(healthBar.gameObject);
         }
 
-        if (distance.magnitude < visibleRange && !seeWall)
-        {
-            //Get path to player
-            currentPath = GetPath(this.transform.position, player.transform.position);
+        Destroy(this.gameObject);
+        return true;
+    }
+    
+    //Lines up the shot to player
+    [Task]
+    bool ShotLinedUp()
+    {
+        Vector3 distance = target - this.transform.position;
+        if (distance.magnitude < shotRange && Vector3.Angle(this.transform.forward, distance) < 1.0f)
             return true;
-        }
         else
-        {
             return false;
-        }
     }
 }

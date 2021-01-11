@@ -35,15 +35,14 @@ public class Scrambler : Player
             Debug.Log("Scramber Start attacking");
         }
     }
-    protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
+/*    protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
         Debug.Log("Scrambler attack on phone"); 
-        // Implement something directional here and above when you wake up Jess
-        // Oh yea find a different joystick input for Ability too lmao
-    }
-    public override void UseAbility(Vector2 d)
+        // 
+    }*/
+/*    public override void UseAbility(Vector2 d)
     {
         Debug.Log("Scrambler ability used on phone");
-    }
+    }*/
 
     protected override void UseAbility(float f)
     {

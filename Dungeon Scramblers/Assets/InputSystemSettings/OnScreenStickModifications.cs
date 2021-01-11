@@ -7,7 +7,9 @@ using UnityEngine.InputSystem.Layouts;
 
 public class OnScreenStickModifications : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+    [SerializeField] protected int joystickNumber;
     [SerializeField] protected List<GameObject> AllOtherIndependentJoysticks;
+    [SerializeField] protected Player associatedPlayer;
     protected List<UnityEngine.InputSystem.OnScreen.OnScreenStick> AllOtherIndependentJoystickFunctions;
     protected List<OnScreenStickModifications> AllOtherIndependentJoystickModifications;
 
@@ -32,7 +34,9 @@ public class OnScreenStickModifications : MonoBehaviour, IPointerDownHandler, IP
             {
                 AllOtherIndependentJoystickFunctions[i].enabled = false;
                 AllOtherIndependentJoystickModifications[i].enabled = false;
-                Debug.Log("Other is disabled.");
+                //Debug.Log("Other is disabled.");
+                // Let the Player know which attack to use
+                associatedPlayer.SetActiveIndependentJoystick(joystickNumber);
             }
         }
     }
@@ -45,7 +49,7 @@ public class OnScreenStickModifications : MonoBehaviour, IPointerDownHandler, IP
             {
                 AllOtherIndependentJoystickFunctions[i].enabled = true;
                 AllOtherIndependentJoystickModifications[i].enabled = true;
-                Debug.Log("Other is enabled.");
+                //Debug.Log("Other is enabled.");
             }
         }
     }
