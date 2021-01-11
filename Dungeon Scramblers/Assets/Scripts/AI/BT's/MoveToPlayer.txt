@@ -1,0 +1,4 @@
+tree("Root")
+	while SeePlayer
+		MoveToDestination
+
