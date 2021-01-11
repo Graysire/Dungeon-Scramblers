@@ -208,7 +208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4957453470583471053, guid: 9c5874535947390418ae71186686551a, type: 3}
       propertyPath: attackForce
-      value: 2000
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4957453470583471054, guid: 9c5874535947390418ae71186686551a, type: 3}
       propertyPath: scripts.Array.data[0]

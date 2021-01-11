@@ -154,9 +154,8 @@ public class AI : MonoBehaviour
     public bool Attack()
     {
         Vector3 direction = target - this.transform.position;
-        attackSpawn.transform.up = direction;
         GameObject attack = GameObject.Instantiate(attackPrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
-        attack.GetComponent<Rigidbody>().AddForce(direction * attackForce);
+        attack.GetComponent<Rigidbody2D>().AddForce(direction.normalized * attackForce);
         return true;
     }
 
