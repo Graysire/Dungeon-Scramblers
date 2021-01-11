@@ -221,7 +221,7 @@ public class Pathfinder : MonoBehaviour
     {
         //get the cell location from the Tilemap Grid
         Vector3Int cellLocation = tileGrid.WorldToCell(worldPos - gridOffset);
-        Debug.Log("World Position: " + worldPos + "to CellLocation: " + cellLocation);
+        //Debug.Log("World Position: " + worldPos + " to CellLocation: " + cellLocation + " " + nodeGrid.GetLength(1));
         //if the index is our of bounds return null, otherwise return the node
         if (cellLocation.x >= nodeGrid.GetLength(1) || cellLocation.x < 0 || cellLocation.y >= nodeGrid.GetLength(0) || cellLocation.y < 0)
         {
@@ -246,6 +246,10 @@ public class Pathfinder : MonoBehaviour
         //creates list of nodes to be returned
         List<PathNode> adjacentNodes = new List<PathNode>();
 
+
+        int truePosX = centerNode.posX - gridOffset.x;
+        int truePosY = centerNode.posY - gridOffset.y;
+
         //iterate through every adjacent node
         for (int y = -1; y <= 1; y++)
         {
@@ -255,14 +259,23 @@ public class Pathfinder : MonoBehaviour
                 //add the node at centerX + x and centerY + y to the list of adjacent nodes
                 if ((x != 0) || (y != x))
                 {
-                    if (centerNode.posX + x >= 0 && centerNode.posX + x < nodeGrid.GetLength(1) && centerNode.posY + y >= 0 && centerNode.posY < nodeGrid.GetLength(0) && nodeGrid[centerNode.posY,centerNode.posX] != null)
+                    Debug.Log("Potential Point " + truePosX + "," + truePosY);
+
+
+                    //check that the x position is within the bounds of the grid
+                    if (truePosX + x >= 0 && truePosX + x < nodeGrid.GetLength(1) 
+                        //check that the y position is within the bounds of the grid
+                        && truePosY + y >= 0 && truePosY < nodeGrid.GetLength(0) 
+                        //check that the target point exists
+                        && nodeGrid[truePosY + y,truePosX + x] != null)
                     {
-                        adjacentNodes.Add(nodeGrid[centerNode.posY + y, centerNode.posX + x]);
+                        
+                        adjacentNodes.Add(nodeGrid[truePosY + y, truePosX + x]);
                     }
                 }
             }
         }
-        
+
         //return the list of adjacent nodes
         return adjacentNodes;
     }
