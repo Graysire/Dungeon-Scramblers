@@ -1,0 +1,11 @@
+tree("Root")
+	while SeePlayer
+		fallback
+			while AttackInRange
+				sequence
+					Attack
+					Wait(0.5)
+			while not AttackInRange
+				MoveToDestination
+
+
