@@ -50,10 +50,10 @@ public class HansonsOverlord : Player
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - transform.position;
         float dot = Vector3.Dot(transform.up, RelativeAttackEnd);
-        Debug.Log("Dot: " + dot);
+
         // Calculate the angle of the ability in radians with dot product formula A dot B = |A||B|cos(theta)
         float AbilityAngle = Mathf.Acos(dot / (transform.up.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
-        Debug.Log("Angle: " + AbilityAngle);
+
         
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackDirection = (AttackEnd - transform.position).normalized;

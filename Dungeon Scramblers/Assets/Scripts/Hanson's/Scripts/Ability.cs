@@ -80,4 +80,10 @@ public class Ability : MonoBehaviour
 
     }
 
+    // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Hit " + collision);
+    }
+
 }
