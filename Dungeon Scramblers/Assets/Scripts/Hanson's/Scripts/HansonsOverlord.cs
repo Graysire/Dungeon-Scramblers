@@ -10,6 +10,7 @@ public class HansonsOverlord : Player
     private Ability ability;
 
     bool bIsAttacking = false;
+    Vector3 AttackEnd;
 
     protected override void OnEnable()
     {
@@ -29,12 +30,18 @@ public class HansonsOverlord : Player
     protected override void Attack(float f)
     { // MOUSE ATTACK INPUT
         // Check if the coroutine can be called with account to Castingtime and Cooldown
-        if(!bIsAttacking) StartCoroutine("AttackSequence");
+        if (usingOnScreenControls) return;
+  
+        Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
+        if (!bIsAttacking) StartCoroutine("AttackSequence");
     }
     protected override void Attack(Vector2 d)
     { // TOUCHSCREEN ATTACK INPUT
+        if (!usingOnScreenControls) return;
         Debug.Log("Overlord attack on phone");
-        
+        AttackEnd = transform.position + new Vector3(-d.x, d.y, 0);
+        if (!bIsAttacking) StartCoroutine("AttackSequence");
     }
 
     IEnumerator AttackSequence()
@@ -44,9 +51,8 @@ public class HansonsOverlord : Player
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(ability.GetCastingTime());
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
-        Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
-
+        
+        
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - transform.position;
         float dot = Vector3.Dot(transform.up, RelativeAttackEnd);

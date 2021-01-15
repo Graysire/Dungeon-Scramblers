@@ -58,7 +58,7 @@ public class Player : MonoBehaviour
         if (usingOnScreenControls) {
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
-            controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
+            //controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
 
