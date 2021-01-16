@@ -56,6 +56,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         cachedRoomList = new Dictionary<string, RoomInfo>();
         RoomListGameObjects = new Dictionary<string, GameObject>();
+
+
+        //All clients in the same room will load the same scene
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
     #endregion
 
@@ -160,6 +164,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
         GameOptionsPanel.Show();
         CreateRoomPanel.Hide();
+    }
+
+    public void OnStartButtonClicked()
+    {
+        if(PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Trying to load new Scene");
+            //Use Photon to load new Scene
+            PhotonNetwork.LoadLevel("MultiplayerGameTest");
+
+            //Add Loading Screen Here
+        }
+
     }
 
     #endregion
