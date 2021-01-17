@@ -11,6 +11,7 @@ public class HansonsOverlord : Player
 
     bool bIsAttacking = false;
     Vector3 AttackEnd;
+    Vector3 AttackDirection;
 
     protected override void OnEnable()
     {
@@ -33,14 +34,14 @@ public class HansonsOverlord : Player
         if (usingOnScreenControls) return;
   
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        AttackEnd = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, 0);
+        AttackDirection = new Vector3(transform.position.x - MouseWorldCoord.x, transform.position.y - MouseWorldCoord.y, 0);
         if (!bIsAttacking) StartCoroutine("AttackSequence");
     }
     protected override void Attack(Vector2 d)
     { // TOUCHSCREEN ATTACK INPUT
         if (!usingOnScreenControls) return;
         Debug.Log("Overlord attack on phone");
-        AttackEnd = transform.position + new Vector3(-d.x, d.y, 0);
+        AttackDirection = new Vector3(-d.x, d.y, 0);
         if (!bIsAttacking) StartCoroutine("AttackSequence");
     }
 
@@ -51,8 +52,8 @@ public class HansonsOverlord : Player
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(ability.GetCastingTime());
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
-        
-        
+
+        AttackEnd = transform.position + AttackDirection;
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - transform.position;
         float dot = Vector3.Dot(transform.up, RelativeAttackEnd);
@@ -62,12 +63,12 @@ public class HansonsOverlord : Player
 
         
         // Normalize the direction of the attack for incrementing the attack movement
-        Vector3 AttackDirection = (AttackEnd - transform.position).normalized;
+        Vector3 AttackNormal = (AttackEnd - transform.position).normalized;
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = transform.position + (RelativeAttackEnd.normalized * ability.GetOffsetScale());
         Transform AbilityTransform = Instantiate(ability.gameObject, AttackTransform, 
             Quaternion.Euler(0,0, AttackEnd.x >= transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
-        AbilityTransform.GetComponent<Ability>().SetUp(AttackDirection);
+        AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
         yield return new WaitForSeconds(ability.GetCoolDownTime());
         bIsAttacking = false;
     }
