@@ -7,7 +7,8 @@ using Panda;
 
 public class AI : MonoBehaviour
 {
-    public Transform player;
+    Transform player;
+    public Transform[] players;
     public Slider healthBar;
     public GameObject attackSpawn;
     public GameObject attackPrefab;
@@ -34,6 +35,7 @@ public class AI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Find the closest player that is in
         if (healthBar != null)
         {
             Vector3 healthBarPos = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -102,13 +104,17 @@ public class AI : MonoBehaviour
 
     //Determines whether player is seen or not.
     //Will get the path from AI to player if the player is in sight.
+    //Will also target the closest seen player
     [Task]
     bool SeePlayer()
     {
-        if (player != null)
+        bool playerSeen = false;
+
+        //Set the closest visible player
+        foreach (Transform p in players)
         {
             //Get distance from AI and player
-            Vector3 distance = player.transform.position - this.transform.position;
+            Vector3 distance = p.transform.position - this.transform.position;
 
             RaycastHit hit;
             bool seeWall = false;
@@ -131,10 +137,26 @@ public class AI : MonoBehaviour
             //If player is in visible range of AI
             if (distance.magnitude < visibleRange && !seeWall)
             {
-                return true;
+                //Set the player to interact with
+                if (player != null)
+                {
+                    //If this player is closer than the previously targeted player then make this player the new target
+                    if (distance.magnitude < (player.transform.position - this.transform.position).magnitude)
+                    {
+                        player = p;
+                    }
+                }
+                else
+                {
+                    player = p;
+                }
+
+                //Set player seen 
+                playerSeen = true;
             }
         }
-        return false;
+
+        return playerSeen;
     }
 
     //Determines if the Player is in range of attack
