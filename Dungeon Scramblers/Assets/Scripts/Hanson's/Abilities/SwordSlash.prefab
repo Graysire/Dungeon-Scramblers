@@ -151,8 +151,8 @@ MonoBehaviour:
   DecayTime: 0.2
   MoveSpeed: 1
   CastingTime: 0.1
-  CoolDown: 0.25
-  OffsetScale: 1
+  CoolDown: 0.1
+  OffsetScale: 2
 --- !u!61 &3339342635295003916
 BoxCollider2D:
   m_ObjectHideFlags: 0

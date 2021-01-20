@@ -1798,10 +1798,10 @@ PrefabInstance:
     - target: {fileID: 3821945590979815899, guid: 8ab2b36eebcd86348ac8daa89e8f1164, type: 3}
       propertyPath: ability
       value: 
-      objectReference: {fileID: 6437745037534223780, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+      objectReference: {fileID: 6437745037534223780, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
     - target: {fileID: 3821945590979815899, guid: 8ab2b36eebcd86348ac8daa89e8f1164, type: 3}
       propertyPath: usingOnScreenControls
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3821945590979815901, guid: 8ab2b36eebcd86348ac8daa89e8f1164, type: 3}
       propertyPath: m_Name

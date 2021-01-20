@@ -34,7 +34,7 @@ public class HansonsOverlord : Player
         if (usingOnScreenControls) return;
   
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        AttackDirection = new Vector3(transform.position.x - MouseWorldCoord.x, transform.position.y - MouseWorldCoord.y, 0);
+        AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x , MouseWorldCoord.y - transform.position.y, 0);
         if (!bIsAttacking) StartCoroutine("AttackSequence");
     }
     protected override void Attack(Vector2 d)
@@ -43,6 +43,11 @@ public class HansonsOverlord : Player
         Debug.Log("Overlord attack on phone");
         AttackDirection = new Vector3(-d.x, d.y, 0);
         if (!bIsAttacking) StartCoroutine("AttackSequence");
+    }
+
+    public void toggleIsAttacking()
+    {
+        bIsAttacking = !bIsAttacking;
     }
 
     IEnumerator AttackSequence()
