@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     // Movement Variables
     protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
+    // Attack Direction Variables
+    protected Vector3 AttackDirection;
     // Temporary Variables -- will be replaced by official art
     protected SpriteRenderer sr;
     // Art variables
@@ -58,7 +60,7 @@ public class Player : MonoBehaviour
         if (usingOnScreenControls) {
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
-            //controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
+            controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
             //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
 
@@ -126,29 +128,36 @@ public class Player : MonoBehaviour
             activeIndependentJoystick = -1;
             return;
         }
+        AttackDirection = new Vector3(-d.x, d.y, 0);
+        //if (!bIsAttacking) StartCoroutine("AttackSequence");
+        // Call attack based on joystick number
         Debug.Log("Attack " + activeIndependentJoystick + " on phone");
     }
 
-    protected virtual void Attack(float f) {
+    protected virtual void Attack(float f) { // Basic attack using mouse
         if (f < 1) {
             Debug.Log("Stop attacking");
         }
         if (f == 1) {
+            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
+            // if (!bIsAttacking) StartCoroutine("AttackSequence");
+            // Use attack from list
             Debug.Log("Start attacking");
         }
     }
-/*    public virtual void UseAbility(Vector2 d)
-    {
-        Debug.Log("Ability used on phone");
-    }*/
-    protected virtual void UseAbility(float f) {
+    protected virtual void UseAbility(float f) { // Ability cast using mouse, different way to implement?
         if (f < 1)
         {
             Debug.Log("Stop ability");
         }
         if (f == 1)
         {
-            Debug.Log("Start ability");
+            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
+            // if (!bIsAttacking) StartCoroutine("AttackSequence");
+            // Use ability from list
+            Debug.Log("Start attacking");
         }
     }
     protected virtual void Die() {
@@ -159,7 +168,9 @@ public class Player : MonoBehaviour
             Debug.Log("Dead");
             // Death animation
         }
-    } 
+    }
+
+    public Vector3 GetAttackDirection() => AttackDirection;
 }
 
 
