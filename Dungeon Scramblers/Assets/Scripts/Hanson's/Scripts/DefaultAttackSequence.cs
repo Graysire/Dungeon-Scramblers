@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class DefaultAttackSequence : MonoBehaviour
 {
-
+    [SerializeField]
     private Ability Ability;
-    private HansonsOverlord Player;
+
+    private Player Player;
     private Vector3 AttackDirection;
 
 
-    public void StartAttack(Vector3 AttackDirection, Ability Ability, HansonsOverlord Player)
+    public void StartAttack(Vector3 AttackDirection, Player Player)
     {
         this.AttackDirection = AttackDirection;
-        this.Ability = Ability;
         this.Player = Player;
-        StartCoroutine("Attacking");
+        StartCoroutine("AttackSequence");
     }
 
 
-    IEnumerator Attacking()
+    protected virtual IEnumerator AttackSequence()
     {
         // Set Is currently attacking
         Player.toggleIsAttacking();

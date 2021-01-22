@@ -13,8 +13,6 @@ public class HansonsOverlord : Player
     [SerializeField]
     private LineRenderer line;
     [SerializeField]
-    private Ability ability;
-    [SerializeField]
     private AttackSequences sequence;
 
     private Attack attack;
@@ -50,14 +48,14 @@ public class HansonsOverlord : Player
   
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector3 AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x , MouseWorldCoord.y - transform.position.y, 0);
-        if (!bIsAttacking) attack.StartAttack(AttackDirection, ability, this);
+        if (!bIsAttacking) attack.StartAttack(AttackDirection, this);
     }
     protected override void Attack(Vector2 d)
     { // TOUCHSCREEN ATTACK INPUT
         if (!usingOnScreenControls) return;
         Debug.Log("Overlord attack on phone");
         Vector3 AttackDirection = new Vector3(-d.x, d.y, 0);
-        if (!bIsAttacking) attack.StartAttack(AttackDirection, ability, this);
+        if (!bIsAttacking) attack.StartAttack(AttackDirection, this);
     }
 
     public void toggleIsAttacking()
