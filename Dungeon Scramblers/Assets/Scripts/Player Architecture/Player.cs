@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
         defense = 6
     }
     // Placeholder for eventual Attack & Ability Equipables 
-    [SerializeField] protected List<DefaultAttackSequence> AttackList;
+    [SerializeField] protected List<GameObject> AttackObjectList;
+    protected List<DefaultAttackSequence> AttackList;
     // ON SCREEN CONTROLS ONLY
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
@@ -51,9 +52,21 @@ public class Player : MonoBehaviour
                     usingOnScreenControls = true;
                 else
                     usingOnScreenControls = false;*/
-        if (usingOnScreenControls && PlayerOnScreenControls != null) {
-            PlayerOnScreenControls.SetActive(true);
+
+        AttackList = new List<DefaultAttackSequence>();
+        for (int i = 0; i < AttackObjectList.Count; i++) {
+            AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
         }
+        // Make sure on-screen controls are on/off based on what they should be
+        if (usingOnScreenControls && PlayerOnScreenControls != null)
+        {
+            if (!PlayerOnScreenControls.activeSelf)
+                PlayerOnScreenControls.SetActive(true);
+        }
+        else if (!usingOnScreenControls && PlayerOnScreenControls != null) {
+            if (PlayerOnScreenControls.activeSelf)
+                PlayerOnScreenControls.SetActive(false);
+        }   
            
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
@@ -174,6 +187,7 @@ public class Player : MonoBehaviour
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
+    public void DecreaseHealth(float dmg) => affectedStats[(int)Stats.health] -= dmg;
 }
 
 
