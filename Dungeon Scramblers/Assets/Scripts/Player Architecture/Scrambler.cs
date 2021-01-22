@@ -25,7 +25,7 @@ public class Scrambler : Player
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
         }
     }
-    protected override void Attack(float f){ // MOUSE ATTACK INPUT
+/*    protected override void Attack(float f){ // MOUSE ATTACK INPUT
         if (f < 1)
         {
             Debug.Log("Scrambler Stop attacking");
@@ -34,7 +34,7 @@ public class Scrambler : Player
         {
             Debug.Log("Scramber Start attacking");
         }
-    }
+    }*/
 /*    protected override void Attack(Vector2 d) { // TOUCHSCREEN ATTACK INPUT
         Debug.Log("Scrambler attack on phone"); 
         // 
@@ -44,7 +44,7 @@ public class Scrambler : Player
         Debug.Log("Scrambler ability used on phone");
     }*/
 
-    protected override void UseAbility(float f)
+/*    protected override void UseAbility(float f)
     {
         if (f < 1)
         {
@@ -54,5 +54,5 @@ public class Scrambler : Player
         {
             Debug.Log("Start ability");
         }
-    }
+    }*/
 }
