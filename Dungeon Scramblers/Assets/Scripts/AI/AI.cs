@@ -80,10 +80,6 @@ public class AI : MonoBehaviour
     }
 
 
-
-
-
-
     //Has AI move to given destination
     [Task]
     public void MoveToDestination()
