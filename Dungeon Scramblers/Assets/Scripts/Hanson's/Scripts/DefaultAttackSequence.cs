@@ -22,7 +22,7 @@ public class DefaultAttackSequence : MonoBehaviour
     protected virtual IEnumerator AttackSequence()
     {
         // Set Is currently attacking
-        Player.toggleIsAttacking();
+        Player.SetAllowedToAttack(false);
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Ability.GetCastingTime());
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
@@ -44,6 +44,6 @@ public class DefaultAttackSequence : MonoBehaviour
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
         yield return new WaitForSeconds(Ability.GetCoolDownTime());
 
-        Player.toggleIsAttacking();
+        Player.SetAllowedToAttack(true);
     }
 }

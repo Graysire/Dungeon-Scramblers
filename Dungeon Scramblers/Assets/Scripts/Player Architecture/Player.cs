@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
         defense = 6
     }
     // Placeholder for eventual Attack & Ability Equipables 
-    [SerializeField] protected List<int> AttacksAndAbilities;
+    [SerializeField] protected List<DefaultAttackSequence> AttackList;
     // ON SCREEN CONTROLS ONLY
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
@@ -33,8 +33,9 @@ public class Player : MonoBehaviour
     // Movement Variables
     protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
-    // Attack Direction Variables
+    // Attack Variables
     protected Vector3 AttackDirection;
+    protected bool allowedToAttack;
     // Temporary Variables -- will be replaced by official art
     protected SpriteRenderer sr;
     // Art variables
@@ -61,9 +62,6 @@ public class Player : MonoBehaviour
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
-            //controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<Vector2>());
-            //controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<Vector2>());
-
         }
         else {
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
@@ -74,6 +72,7 @@ public class Player : MonoBehaviour
             
         controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
+        allowedToAttack = true;
     }
     protected virtual void OnEnable()
     {
@@ -118,7 +117,7 @@ public class Player : MonoBehaviour
     protected virtual void Attack(Vector2 d) {
         // Decide what we're attacking with (i.e. attack vs ability)
         // Joystick.getJoystickNumber
-        if (activeIndependentJoystick < 0 || activeIndependentJoystick >= AttacksAndAbilities.Count)
+        if (activeIndependentJoystick < 0 || activeIndependentJoystick >= AttackList.Count)
         {
             Debug.Log("Invalid Joystick number.");
             return;
@@ -129,7 +128,7 @@ public class Player : MonoBehaviour
             return;
         }
         AttackDirection = new Vector3(-d.x, d.y, 0);
-        //if (!bIsAttacking) StartCoroutine("AttackSequence");
+        RequestAttack(activeIndependentJoystick);
         // Call attack based on joystick number
         Debug.Log("Attack " + activeIndependentJoystick + " on phone");
     }
@@ -141,8 +140,7 @@ public class Player : MonoBehaviour
         if (f == 1) {
             Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
-            // if (!bIsAttacking) StartCoroutine("AttackSequence");
-            // Use attack from list
+            RequestAttack(0);
             Debug.Log("Start attacking");
         }
     }
@@ -155,7 +153,7 @@ public class Player : MonoBehaviour
         {
             Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
-            // if (!bIsAttacking) StartCoroutine("AttackSequence");
+            RequestAttack(1);
             // Use ability from list
             Debug.Log("Start attacking");
         }
@@ -169,8 +167,13 @@ public class Player : MonoBehaviour
             // Death animation
         }
     }
-
+    protected virtual void RequestAttack(int attackListIndex) {
+        if (allowedToAttack)
+            if(attackListIndex >= 0 && attackListIndex < AttackList.Count)
+                AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
+    }
     public Vector3 GetAttackDirection() => AttackDirection;
+    public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
 }
 
 
