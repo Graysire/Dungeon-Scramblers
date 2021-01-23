@@ -56,11 +56,14 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int maxCorridorSize;
 
+    //list of all rooms created
+    List<RoomInfo> rooms;
+
     // Start is called before the first frame update
     void Start()
     {
         
-        tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
+        //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         StartCoroutine("GenerateMap");
         //GenerateMap();
     }
@@ -74,10 +77,11 @@ public class MapMaker : MonoBehaviour
     //generates a dungeon map, assumes the tilemap is currently empty
     IEnumerator GenerateMap()
     {
-        //set current number of rooms to 0
+        //set current number of doors to 1
         currentDoorNum = 1;
 
         List<DoorInfo> doorList = new List<DoorInfo>();
+        rooms = new List<RoomInfo>();
 
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
 
@@ -121,17 +125,29 @@ public class MapMaker : MonoBehaviour
 
         List<DoorInfo> newDoors = new List<DoorInfo>();
 
-        //if the position of this door does not contain a door, do not generate a room
-        if (tilemap.GetTile(door.position) != doorTile)
+        //if the position of this door does not contain a door, do not generate a room, unless no rooms exist
+        if (tilemap.GetTile(door.position) != doorTile && rooms.Count > 0)
         {
             currentDoorNum--;
             return newDoors;
         }
 
-        //generate a random x size of the floor space of the room
-        int randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
-        //generate a random x size of the floor space of the room
-        int randY = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 2 ? -1 : 1);
+        int randX;
+        int randY;
+
+        //if this is the first room, make it maximum size, otherwise generate a randomly sized room
+        if (rooms.Count > 0)
+        {
+            //generate a random x size of the floor space of the room
+            randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
+            //generate a random x size of the floor space of the room
+            randY = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 2 ? -1 : 1);
+        }
+        else
+        {
+            randX = maxRoomSize;
+            randY = maxRoomSize;
+        }
 
         //set the starting positions to draw tiles from
         int startX = door.position.x; //+ (doorDirection == 1 ? 1 : doorDirection == 3 ? -1 : 0) + (int) Mathf.Ceil(randX / 2f);
@@ -175,6 +191,12 @@ public class MapMaker : MonoBehaviour
         //the end locations of the room
         int endX = startX + randX;
         int endY = startY + randY;
+
+        //add this room's information to the list of rooms
+        RoomInfo thisRoom;
+        thisRoom.lowerLeft = new Vector3Int(startX + 1, startY + 1, 0);
+        thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
+        rooms.Add(thisRoom);
 
         //place all the tiles that make up the room
         for (int x = startX; x <= endX; x++)
@@ -433,7 +455,14 @@ public class MapMaker : MonoBehaviour
             position = pos;
             facing = face;
         }
+    }
 
+    struct RoomInfo
+    {
+        //the position of the lower left floor corner on the tilemap
+        public Vector3Int lowerLeft;
+        //the position of the upper right floor corner on the tilemap
+        public Vector3Int upperRight;
     }
 
     //the direction a door faces to lead out of a room or corridor
