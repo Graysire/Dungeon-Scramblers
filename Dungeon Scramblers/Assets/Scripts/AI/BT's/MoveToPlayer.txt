@@ -1,4 +1,4 @@
 tree("Root")
-	while SeePlayer
+	while SeePlayerAndSetTarget
 		MoveToDestination
 

@@ -12,30 +12,35 @@ public class AI : MonoBehaviour
     public Slider healthBar;
     public GameObject attackSpawn;
     public GameObject attackPrefab;
-    
-    public Vector3 destination; // The movement destination
-    public Vector3 target;      // The position to aim to
-    List<Vector3> currentPath;  // Stores the current path being used
+
+    public DefaultAttackSequence attack;    // The attack to call for attacking
+    public Vector3 destination;             // The destination to move to
+    public Vector3 target;                  // The position, or player position, to aim at for attack
+    List<Vector3> currentPath;              // Stores the current path being used
 
     public float stoppingDistance = 30.0f;  //Distance from player AI stops at
     public float health = 100.0f;           //Ai health
     public float speed = 15.0f;             //Movement speed of AI
     public float visibleRange = 80.0f;      //Range AI needs to be in to see Player
     public float attackRange = 40.0f;       //Range AI needs to be in to attack
-    public float attackForce = 2000.0f;     //Determines how fast projectile is
+    public float damageTaken = 10.0f;       //The amount of damage that will be applied to the AI when hit
 
 
 
     // Start is called before the first frame update
     void Start()
-    { 
+    {
+        // Updates health over time - commented out till feature is requested
         //InvokeRepeating("UpdateHealth", 5, 0.5f);
+
+        //Get the attack ability to use for attacking
+        attack = gameObject.GetComponent<DefaultAttackSequence>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Find the closest player that is in
+        // Updates the position and value of the healthbar for this AI
         if (healthBar != null)
         {
             Vector3 healthBarPos = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -53,12 +58,12 @@ public class AI : MonoBehaviour
         }
     }
 
-    //Deals damage to AI if hit by a bullet
+    //Deals damage to AI if hit by a bullet -- Subject to change
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "bullet")
         {
-            health -= 10;
+            health -= damageTaken;
         }
     }
 
@@ -73,19 +78,19 @@ public class AI : MonoBehaviour
     {
         Vector3 distance = player.transform.position - this.transform.position;
         if (distance.magnitude < stoppingDistance)
-        {
             return true;
-        }
         return false;
     }
 
 
-    //Has AI move to given destination
+    //Has AI move to given destination - currently destination is the player
     [Task]
     public void MoveToDestination()
     {
         //Get path to player
         currentPath = GetPath(this.transform.position, player.transform.position);
+
+        //Move to each path node until reaching stopping distance
         for (int i = 0; i < currentPath.Count; i++)
         {
             //Stop moving if at the stopping distance
@@ -100,9 +105,9 @@ public class AI : MonoBehaviour
 
     //Determines whether player is seen or not.
     //Will get the path from AI to player if the player is in sight.
-    //Will also target the closest seen player
+    //Will also target the closest visible player
     [Task]
-    bool SeePlayer()
+    bool SeePlayerAndSetTarget()
     {
         bool playerSeen = false;
 
@@ -112,12 +117,15 @@ public class AI : MonoBehaviour
             //Get distance from AI and player
             Vector3 distance = p.transform.position - this.transform.position;
 
+
+            //Use raycast to determine if player is in sight
             RaycastHit hit;
             bool seeWall = false;
 
+            //Create visual debug of raycast
             Debug.DrawRay(this.transform.position, distance, Color.red);
 
-            //Checks for wall w/ raycast
+            //Checks for walls with raycast
             if (Physics.Raycast(this.transform.position, distance, out hit))
             {
                 if (hit.collider.gameObject.tag == "wall")
@@ -125,15 +133,19 @@ public class AI : MonoBehaviour
                     seeWall = true;
                 }
             }
+
+            //Debug message for determining if wall is in path of raycast
             if (Task.isInspected)
             {
                 Task.current.debugInfo = string.Format("wall={0}", seeWall);
             }
 
-            //If player is in visible range of AI
+
+
+            //If player is in visible range of AI and there is no wall blocking sight
             if (distance.magnitude < visibleRange && !seeWall)
             {
-                //Set the player to interact with
+                //Set this player to interact with (move to and attack)
                 if (player != null)
                 {
                     //If this player is closer than the previously targeted player then make this player the new target
@@ -155,26 +167,26 @@ public class AI : MonoBehaviour
         return playerSeen;
     }
 
-    //Determines if the Player is in range of attack
+    //Determines if the Player as target is in range of attack
     [Task]
     bool AttackInRange()
     {
         target = player.transform.position;
         Vector3 distance = target - this.transform.position;
+
         if (distance.magnitude < attackRange)
             return true;
-        else
-            return false;
+
+        return false;
     }
 
     //Spawns an attack on the attackSpawn towards player
     [Task]
-    public bool Attack()
+    public void Attack()
     {
         Vector3 direction = target - this.transform.position;
-        GameObject attack = GameObject.Instantiate(attackPrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
-        attack.GetComponent<Rigidbody2D>().AddForce(direction.normalized * attackForce);
-        return true;
+        attack.StartAIAttack(direction, this);
+        Task.current.Succeed();
     }
 
     //For AI death
@@ -185,7 +197,6 @@ public class AI : MonoBehaviour
         {
             Destroy(healthBar.gameObject);
         }
-        //Destroy(attackSpawn.gameObject);
         Destroy(this.gameObject);
         return true;
     }

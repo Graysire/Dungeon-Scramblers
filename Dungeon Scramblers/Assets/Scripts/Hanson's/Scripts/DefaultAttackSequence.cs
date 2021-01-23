@@ -46,4 +46,25 @@ public class DefaultAttackSequence : MonoBehaviour
 
         Player.SetAllowedToAttack(true);
     }
+
+
+    //Attack caller for AI agents
+    public void StartAIAttack(Vector3 AttackDirection, AI AI)
+    {
+        Vector3 AttackEnd = AI.transform.position + AttackDirection;
+        // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
+        Vector3 RelativeAttackEnd = AttackEnd - AI.transform.position;
+        float dot = Vector3.Dot(AI.transform.up, RelativeAttackEnd);
+
+        // Calculate the angle of the ability in radians with dot product formula A dot B = |A||B|cos(theta)
+        float AbilityAngle = Mathf.Acos(dot / (AI.transform.up.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
+
+        // Normalize the direction of the attack for incrementing the attack movement
+        Vector3 AttackNormal = (AttackEnd - AI.transform.position).normalized;
+        // Transform vector with quick if statements for returning offset for attacks
+        Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
+        Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
+            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
+        AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
+    }
 }
