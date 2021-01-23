@@ -85,6 +85,7 @@ public class MapMaker : MonoBehaviour
 
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
 
+        //generate rooms and corridors
         for (int i = 0; i < maxIterations; i++)
         {
             List<DoorInfo> newDoors = new List<DoorInfo>();
@@ -111,6 +112,25 @@ public class MapMaker : MonoBehaviour
                     tilemap.SetTile(door.position, wallTile);
                 }
             }
+        }
+
+        //cleanup rooms
+        foreach (RoomInfo room in rooms)
+        {
+            //Add floors to the room
+            for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+            {
+                    for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y++)
+                    {
+                        //ensure that the starting room is never combined with other rooms
+                        if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                        {
+                            //fill the room with floor tiles
+                            tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+                        }
+                    }
+            }
+            yield return new WaitForSeconds(waitTime);
         }
 
         //generate the pathfinding grid
@@ -198,7 +218,7 @@ public class MapMaker : MonoBehaviour
         thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
         rooms.Add(thisRoom);
 
-        //place all the tiles that make up the room
+        //place all the walls that make up the room
         for (int x = startX; x <= endX; x++)
         {
             for (int y = startY; y <= endY; y++)
@@ -207,7 +227,9 @@ public class MapMaker : MonoBehaviour
                 {
                     PlaceTile(new Vector3Int(x, y, 0), wallTile);
                 }
-                //if a non-floor tile is found, check if it has empty spaces around it that are beyond the borders of this room
+
+                //placing floors during initial room generation is deprecated
+                /*//if a non-floor tile is found, check if it has empty spaces around it that are beyond the borders of this room
                 //if it does not, then replace the wall with floor
                 else if (tilemap.HasTile(new Vector3Int(x,y,0)) && tilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile)
                 {
@@ -217,15 +239,15 @@ public class MapMaker : MonoBehaviour
                         {
                             if (x2 != y2 && x2 * -1 != y2 && x + x2 >= startX && x + x2 <= endX && y + y2 >= startY && y + y2 <= endY)
                             {
-                                tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+                                //tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
                             }
                         }
                     }
                 }
                 else
                 {
-                    PlaceTile(new Vector3Int(x, y, 0), floorTile);
-                }
+                    //PlaceTile(new Vector3Int(x, y, 0), floorTile);
+                }*/
                 
             }
         }
