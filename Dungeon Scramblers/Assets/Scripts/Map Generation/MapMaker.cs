@@ -411,7 +411,7 @@ public class MapMaker : MonoBehaviour
     int GetDoorChance()
     {
 
-        Debug.Log("Num:" + currentDoorNum + ", C:" + ((100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors)) - (currentDoorNum >= softMaximumDoors ? softMaximumPenalty : 0) / 100) + "%");
+        //Debug.Log("Num:" + currentDoorNum + ", C:" + ((100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors)) - (currentDoorNum >= softMaximumDoors ? softMaximumPenalty : 0) / 100) + "%");
         return (int) (100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors) * 100) - (currentDoorNum >= softMaximumDoors? softMaximumPenalty:0);
     }
 

@@ -259,7 +259,7 @@ public class Pathfinder : MonoBehaviour
                 //add the node at centerX + x and centerY + y to the list of adjacent nodes
                 if ((x != 0) || (y != x))
                 {
-                    Debug.Log("Potential Point " + truePosX + "," + truePosY);
+                    //Debug.Log("Potential Point " + truePosX + "," + truePosY);
 
 
                     //check that the x position is within the bounds of the grid

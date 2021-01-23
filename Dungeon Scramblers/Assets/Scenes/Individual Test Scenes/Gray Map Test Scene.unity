@@ -158,7 +158,7 @@ MonoBehaviour:
   softMaximumDoors: 20
   softMaximumPenalty: 2000
   currentDoorNum: 0
-  waitTime: 0.6
+  waitTime: 0.2
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
@@ -331,6 +331,7 @@ GameObject:
   - component: {fileID: 2100146498}
   - component: {fileID: 2100146500}
   - component: {fileID: 2100146499}
+  - component: {fileID: 2100146501}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -438,3 +439,19 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!19719996 &2100146501
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2100146497}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
