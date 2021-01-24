@@ -115,23 +115,80 @@ public class MapMaker : MonoBehaviour
         }
 
         //cleanup rooms
+        //Add floors to all rooms
         foreach (RoomInfo room in rooms)
         {
-            //Add floors to the room
-            for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+            for (int x = room.lowerLeft.x; x <= room.upperRight.x; x++)
             {
-                    for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y++)
+                    for (int y = room.lowerLeft.y; y <= room.upperRight.y; y++)
                     {
-                        //ensure that the starting room is never combined with other rooms
+                        /*//check if a door should exist in a location, and place it if so
+                        if ((x == room.lowerLeft.x - 1 || x == room.upperRight.x + 1 || y == room.lowerLeft.y - 1 || y == room.upperRight.y + 1))
+                        {
+                            //if the location is not a floor, no door should exist here
+                            if (tilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile)
+                            {
+                                continue;
+                            }
+                            //check to see if the tile has 2 adjacent walls, if so place a door
+                            int adjacentWalls = 0;
+                            for (int x2 = -1; x2 <= 1; x2++)
+                            {
+                                for (int y2 = -1; y2 <= 1; y2++)
+                                {
+                                    if (x2 != y2 && tilemap.GetTile(new Vector3Int(x + x2, y + y2, 0)) == wallTile)
+                                    {
+                                        adjacentWalls++;
+                                    }
+                                }
+                            }
+
+                            if (adjacentWalls == 2)
+                            {
+                                tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
+                            }
+                        }*/
+                        //ensure that the starting room is never combined with other rooms and fill each room with floor tiles
                         if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
                         {
                             //fill the room with floor tiles
                             tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
                         }
                     }
+
+
             }
             yield return new WaitForSeconds(waitTime);
         }
+
+        foreach (RoomInfo room in rooms)
+        {
+            for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+            {
+                for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y -1))
+                {
+                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && CheckAdjacentTiles(x, y, wallTile) == 2)
+                    {
+                        tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
+                    }
+                }
+            }
+
+            for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y++)
+            {
+                for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
+                {
+                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && CheckAdjacentTiles(x, y, wallTile) == 2)
+                    {
+                        tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
+                    }
+                }
+            }
+        }
+
+
+
+
 
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
@@ -146,11 +203,11 @@ public class MapMaker : MonoBehaviour
         List<DoorInfo> newDoors = new List<DoorInfo>();
 
         //if the position of this door does not contain a door, do not generate a room, unless no rooms exist
-        if (tilemap.GetTile(door.position) != doorTile && rooms.Count > 0)
+        /*if (tilemap.GetTile(door.position) != doorTile && rooms.Count > 0)
         {
             currentDoorNum--;
             return newDoors;
-        }
+        }*/
 
         int randX;
         int randY;
@@ -290,10 +347,10 @@ public class MapMaker : MonoBehaviour
                     }
 
                     //place the new door as long as the location is inside a wall
-                    //add it to the lsit of new doors
+                    //add it to the list of new doors
                     if (tilemap.GetTile(randDoorLocation) == wallTile)
                     {
-                        tilemap.SetTile(randDoorLocation, doorTile);
+                        tilemap.SetTile(randDoorLocation, floorTile);
                         newDoors.Add(new DoorInfo(randDoorLocation, (Facing) i));
                     }
                 }
@@ -462,7 +519,23 @@ public class MapMaker : MonoBehaviour
     // 100 / ((1-minDoors) * x)
     // 100 / (logBase MinDoors X)
 
+    //checks cardinally adjacent tiles, returns the number that match the given tile
+    int CheckAdjacentTiles(int startX, int startY, TileBase tile)
+    {
+        int adjacent = 0;
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                if (x != y && x != y * -1 && tilemap.GetTile(new Vector3Int(startX + x, startY + y, 0)) == tile)
+                {
+                    adjacent++;
+                }
+            }
+        }
 
+        return adjacent;
+    }
 
     //The position and facing of a door
     struct DoorInfo
