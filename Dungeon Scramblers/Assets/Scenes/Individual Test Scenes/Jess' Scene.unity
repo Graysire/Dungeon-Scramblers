@@ -979,7 +979,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &877045523
 Transform:
   m_ObjectHideFlags: 0
@@ -1306,8 +1306,8 @@ CharacterController:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Height: 0.5
-  m_Radius: 0.42
+  m_Height: 1.75
+  m_Radius: 0.45
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -1353,8 +1353,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.007976532, a: 1}
+  m_Sprite: {fileID: -5717868095155697618, guid: 8ef8b543228458e4fa88abba73bc92f8, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1414,11 +1414,6 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
-  charactersheet:
-  - {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: -3183433249587548989, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 837951493161683073, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 3388858837682162894, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
 --- !u!114 &1180461910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1471,7 +1466,7 @@ Animator:
   m_GameObject: {fileID: 1180461905}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 34b838ba598b3964886584f22940767c, type: 2}
+  m_Controller: {fileID: 9100000, guid: c607ea68c567974489fa2bd9dc44f9e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1565,7 +1560,6 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
-  charactersheet: []
   line: {fileID: 0}
 --- !u!95 &1214607110
 Animator:

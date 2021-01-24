@@ -37,13 +37,10 @@ public class Player : MonoBehaviour
     // Attack Variables
     protected Vector3 AttackDirection;
     protected bool allowedToAttack;
-    // Temporary Variables -- will be replaced by official art
+    // Art Variables
     protected SpriteRenderer sr;
-    // Art variables
-    [SerializeField] protected Sprite[] charactersheet;
-    // Down, right, up, left
-    protected bool[] facingCheckers = new bool[] { true, false, false, false};
-    protected int trueFaceIndex = 0;
+    protected Animator animator;
+    protected bool isFacingLeft;
 
     protected virtual void Awake()
     {
@@ -85,7 +82,9 @@ public class Player : MonoBehaviour
             
         controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         allowedToAttack = true;
+        isFacingLeft = false;
     }
     protected virtual void OnEnable()
     {
@@ -100,23 +99,50 @@ public class Player : MonoBehaviour
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
     }
     protected virtual void Move(Vector2 d) {
-        if (d.y < 0 && d.x == 0 && !facingCheckers[0])
-            SwitchSpritesOnMove(0);
-        else if (d.y > 0 && d.x == 0 && !facingCheckers[2])
-            SwitchSpritesOnMove(2);
-        else if (d.x > 0 && !facingCheckers[1])
-            SwitchSpritesOnMove(1);
-        else if (d.x < 0 && !facingCheckers[3])
-            SwitchSpritesOnMove(3);
-        direction = new Vector3(d.x, d.y,0);
+        // Animation changes
+        // Not moving
+        if (d.x == 0 && d.y == 0 && !animator.GetBool("idle"))
+        {
+            if (animator.GetBool("facingLeft")) {
+                animator.SetBool("facingLeft", false);
+                animator.SetBool("facingFront", true);
+            }
+            animator.SetBool("idle", true);
+        }
+        else {
+            animator.SetBool("idle", false);
+            // Moving Down (front-facing)
+            if (d.y < 0 && d.x == 0 && !animator.GetBool("facingFront"))
+            {
+                animator.SetBool("facingFront", true);
+                animator.SetBool("facingBack", false);
+                animator.SetBool("facingLeft", false);
+            }
+            // Moving Up (back-facing)
+            else if (d.y > 0 && d.x == 0 && !animator.GetBool("facingBack"))
+            {
+                animator.SetBool("facingFront", false);
+                animator.SetBool("facingBack", true);
+                animator.SetBool("facingLeft", false);
+            }
+            // Moving Sideways & diagonally (side-facing)
+            else if (d.x != 0 )
+            {
+                if (!animator.GetBool("facingLeft")) {
+                    animator.SetBool("facingFront", false);
+                    animator.SetBool("facingBack", false);
+                    animator.SetBool("facingLeft", true);
+                }
+                if (d.x < 0 && sr.flipX)
+                    sr.flipX = false;
+                else if (d.x > 0 && !sr.flipX)
+                    sr.flipX = true;
+            }
+        }
+        // Actual movement
+        direction = new Vector3(d.x, d.y, 0);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
-    }
-    protected virtual void SwitchSpritesOnMove(int ind) {
-        facingCheckers[ind] = true;
-        facingCheckers[trueFaceIndex] = false;
-        trueFaceIndex = ind;
-        sr.sprite = charactersheet[ind];
     }
     protected virtual void ApplyMove() {
         controller.Move(direction * Time.deltaTime);
