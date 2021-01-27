@@ -41,6 +41,22 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""UseAbilityQ"",
+                    ""type"": ""Button"",
+                    ""id"": ""c6b49925-e24d-4e49-8997-dbc4e0852404"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""UseAbilityE"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0b37117-0757-4f80-acd3-bc0e549df89c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -230,6 +246,28 @@ public class @InputMaster : IInputActionCollection, IDisposable
                     ""action"": ""UseAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03f14187-58ad-4c31-aa5c-6af1f5f80ee9"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""UseAbilityQ"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a25c1bb9-2d2b-4f20-b2ba-d055783dc734"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard and Mouse"",
+                    ""action"": ""UseAbilityE"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -280,6 +318,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         m_PlayerMovement_Movement = m_PlayerMovement.FindAction("Movement", throwIfNotFound: true);
         m_PlayerMovement_Attack = m_PlayerMovement.FindAction("Attack", throwIfNotFound: true);
         m_PlayerMovement_UseAbility = m_PlayerMovement.FindAction("UseAbility", throwIfNotFound: true);
+        m_PlayerMovement_UseAbilityQ = m_PlayerMovement.FindAction("UseAbilityQ", throwIfNotFound: true);
+        m_PlayerMovement_UseAbilityE = m_PlayerMovement.FindAction("UseAbilityE", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -332,6 +372,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
     private readonly InputAction m_PlayerMovement_Movement;
     private readonly InputAction m_PlayerMovement_Attack;
     private readonly InputAction m_PlayerMovement_UseAbility;
+    private readonly InputAction m_PlayerMovement_UseAbilityQ;
+    private readonly InputAction m_PlayerMovement_UseAbilityE;
     public struct PlayerMovementActions
     {
         private @InputMaster m_Wrapper;
@@ -339,6 +381,8 @@ public class @InputMaster : IInputActionCollection, IDisposable
         public InputAction @Movement => m_Wrapper.m_PlayerMovement_Movement;
         public InputAction @Attack => m_Wrapper.m_PlayerMovement_Attack;
         public InputAction @UseAbility => m_Wrapper.m_PlayerMovement_UseAbility;
+        public InputAction @UseAbilityQ => m_Wrapper.m_PlayerMovement_UseAbilityQ;
+        public InputAction @UseAbilityE => m_Wrapper.m_PlayerMovement_UseAbilityE;
         public InputActionMap Get() { return m_Wrapper.m_PlayerMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -357,6 +401,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @UseAbility.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
                 @UseAbility.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
                 @UseAbility.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbility;
+                @UseAbilityQ.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityQ;
+                @UseAbilityQ.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityQ;
+                @UseAbilityQ.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityQ;
+                @UseAbilityE.started -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityE;
+                @UseAbilityE.performed -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityE;
+                @UseAbilityE.canceled -= m_Wrapper.m_PlayerMovementActionsCallbackInterface.OnUseAbilityE;
             }
             m_Wrapper.m_PlayerMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -370,6 +420,12 @@ public class @InputMaster : IInputActionCollection, IDisposable
                 @UseAbility.started += instance.OnUseAbility;
                 @UseAbility.performed += instance.OnUseAbility;
                 @UseAbility.canceled += instance.OnUseAbility;
+                @UseAbilityQ.started += instance.OnUseAbilityQ;
+                @UseAbilityQ.performed += instance.OnUseAbilityQ;
+                @UseAbilityQ.canceled += instance.OnUseAbilityQ;
+                @UseAbilityE.started += instance.OnUseAbilityE;
+                @UseAbilityE.performed += instance.OnUseAbilityE;
+                @UseAbilityE.canceled += instance.OnUseAbilityE;
             }
         }
     }
@@ -406,5 +462,7 @@ public class @InputMaster : IInputActionCollection, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
         void OnUseAbility(InputAction.CallbackContext context);
+        void OnUseAbilityQ(InputAction.CallbackContext context);
+        void OnUseAbilityE(InputAction.CallbackContext context);
     }
 }
