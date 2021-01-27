@@ -177,29 +177,23 @@ public class Player : MonoBehaviour, IDamageable<float>
     }
 
     protected virtual void Attack(float f) { // Basic attack using mouse
-        if (f < 1) {
-            Debug.Log("Stop attacking");
-        }
-        if (f == 1) {
-            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
-            RequestAttack(0);
-            Debug.Log("Start attacking");
-        }
+        if (f < 1)
+            Debug.Log("Stop ability");
+        else if (f == 1)
+            ApplyAttack(f, 0);
     }
     protected virtual void UseAbility(float f) { // Ability cast using mouse, different way to implement?
         if (f < 1)
-        {
             Debug.Log("Stop ability");
-        }
-        if (f == 1)
-        {
-            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
-            RequestAttack(1);
-            // Use ability from list
-            Debug.Log("Start attacking");
-        }
+        else if (f == 1)
+            ApplyAttack(f, 1);
+    }
+    protected virtual void ApplyAttack(float f, int abilityIndex) {
+        Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
+        RequestAttack(abilityIndex);
+        // Use ability from list
+        Debug.Log("Start attacking");
     }
     protected virtual void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
