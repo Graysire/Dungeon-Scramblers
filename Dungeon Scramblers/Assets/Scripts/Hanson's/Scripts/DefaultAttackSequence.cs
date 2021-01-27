@@ -10,12 +10,13 @@ public class DefaultAttackSequence : MonoBehaviour
     private Player Player;
     private Vector3 AttackDirection;
 
+    private bool Attacked = false;
 
     public void StartAttack(Vector3 AttackDirection, Player Player)
     {
         this.AttackDirection = AttackDirection;
         this.Player = Player;
-        StartCoroutine("AttackSequence");
+        if(!Attacked) StartCoroutine("AttackSequence");
     }
 
 
@@ -23,6 +24,7 @@ public class DefaultAttackSequence : MonoBehaviour
     {
         // Set Is currently attacking
         Player.SetAllowedToAttack(false);
+        Attacked = true;
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Ability.GetCastingTime());
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
@@ -42,9 +44,10 @@ public class DefaultAttackSequence : MonoBehaviour
         Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
             Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
-        yield return new WaitForSeconds(Ability.GetCoolDownTime());
-
         Player.SetAllowedToAttack(true);
+        yield return new WaitForSeconds(Ability.GetCoolDownTime());
+        Attacked = false;
+        
     }
 
 

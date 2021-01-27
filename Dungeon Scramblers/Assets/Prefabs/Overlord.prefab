@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8249146083343666963}
   - component: {fileID: 3999471267183834224}
   - component: {fileID: 5608261891253828423}
-  - component: {fileID: 5763009813376832700}
+  - component: {fileID: 682744693}
   m_Layer: 0
   m_Name: Overlord
   m_TagString: Untagged
@@ -177,7 +177,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5763009813376832700
+--- !u!114 &682744693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,10 +186,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5763009813376832701}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c82bf72b4764af64c9f7285f4a8f1e42, type: 3}
+  m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackObjectList: []
+  AttackObjectList:
+  - {fileID: 6497682061442774528, guid: fae1a52e74452544f880d0c1e5bdf9f2, type: 3}
+  - {fileID: 6497682061442774528, guid: dbe75519d21f2ed4e888b2a687079fbc, type: 3}
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   stats:
@@ -209,9 +211,3 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
-  charactersheet:
-  - {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: -3183433249587548989, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 837951493161683073, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 3388858837682162894, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  line: {fileID: 0}
