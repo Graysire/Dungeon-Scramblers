@@ -28,6 +28,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "UseAbilityQ",
+                    "type": "Button",
+                    "id": "c6b49925-e24d-4e49-8997-dbc4e0852404",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "UseAbilityE",
+                    "type": "Button",
+                    "id": "f0b37117-0757-4f80-acd3-bc0e549df89c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -215,6 +231,28 @@
                     "processors": "",
                     "groups": "Keyboard and Mouse",
                     "action": "UseAbility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03f14187-58ad-4c31-aa5c-6af1f5f80ee9",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "UseAbilityQ",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a25c1bb9-2d2b-4f20-b2ba-d055783dc734",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard and Mouse",
+                    "action": "UseAbilityE",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
