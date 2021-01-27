@@ -141,8 +141,10 @@ GameObject:
   - component: {fileID: 1072143506390651206}
   - component: {fileID: 1072143506390651201}
   - component: {fileID: 1072143506390651203}
-  - component: {fileID: -8888097298318637405}
   - component: {fileID: 2471560480833163746}
+  - component: {fileID: -2871127162674489090}
+  - component: {fileID: 6245544231496140591}
+  - component: {fileID: -8188628870344661320}
   m_Layer: 0
   m_Name: Jess's Scrambler Protoype
   m_TagString: Player
@@ -288,7 +290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttacksAndAbilities: 0000000001000000
+  AttackObjectList: []
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   stats:
@@ -307,11 +309,6 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
-  charactersheet:
-  - {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: -3183433249587548989, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 837951493161683073, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  - {fileID: 3388858837682162894, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
 --- !u!95 &1072143506390651203
 Animator:
   serializedVersion: 3
@@ -331,21 +328,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-8888097298318637405
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072143506390651205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
 --- !u!114 &2471560480833163746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -361,14 +343,92 @@ MonoBehaviour:
   ObservedComponentsFoldoutOpen: 1
   Group: 0
   prefixField: -1
-  observableSearch: 2
+  observableSearch: 0
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: -8888097298318637405}
+  - {fileID: 6245544231496140591}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &-2871127162674489090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072143506390651205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b8983c15016ca4b9f07f399a116974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackObjectList: []
+  usingOnScreenControls: 0
+  PlayerOnScreenControls: {fileID: 0}
+  stats:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  affectedStats:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  isDead: 0
+--- !u!114 &6245544231496140591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072143506390651205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 0.05
+    InterpolateOption: 4
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 1
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 2
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 1
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
+--- !u!114 &-8188628870344661320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072143506390651205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SmoothingDelay: 5
 --- !u!1 &1072143506839055818
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scrambler2ElectricBoogaloo : Player
+public class Scrambler2ElectricBoogaloo : Player, IPunObservable
 {
     protected override void OnEnable()
     {
@@ -60,14 +61,15 @@ public class Scrambler2ElectricBoogaloo : Player
     protected override void Move(Vector2 d)
     {
         base.Move(d);
-        Debug.Log("I'm trying to move");
+        //Debug.Log("I'm trying to move");
         controller.Move(direction * Time.deltaTime);
 
     }
     protected override void ApplyMove()
     {
         base.ApplyMove();
-        Debug.Log("Calling Apply Move function");
+       // Debug.Log("Calling Apply Move function");
     }
+  
 }
 

@@ -5,8 +5,9 @@ using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class Player : MonoBehaviour, IDamageable<float>
+public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
 {
     protected enum Stats { 
         health = 0,
@@ -31,6 +32,9 @@ public class Player : MonoBehaviour, IDamageable<float>
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected bool isDead = false;
+    //Netowkring Variables
+    protected Vector3 networkPosition;  //Network position for lag Compensation
+    protected Vector3 movement;
     // Movement Variables
     protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
@@ -94,6 +98,48 @@ public class Player : MonoBehaviour, IDamageable<float>
         isFacingLeft = false;
 
     }
+
+    #region Pun/Unity Callbacks
+
+    //This function is used to update player data for internet
+    void Update()
+    {
+
+        if (!photonView.IsMine)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, networkPosition, Time.deltaTime *(int) Stats.movespeed);
+            //transform.rotation = Quaternion.RotateTowards(transform.rotation, networkRotation, Time.deltaTime * 100);
+            return;
+        }
+        Vector3 oldPosition = transform.position;
+
+        // Handling position updates related to the given input
+
+        movement = transform.position - oldPosition;
+    }
+
+    // send packets about player movement to help reduce lag
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+        Debug.Log("Lag: " + lag);
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+            //stream.SendNext(transform.rotation);
+        }
+        else
+        {
+            networkPosition = (Vector3)stream.ReceiveNext();
+            // networkRotation = (Quaternion)stream.ReceiveNext();
+
+            networkPosition += (movement * lag);
+
+        }
+    }
+    #endregion
+
+
     protected virtual void OnEnable()
     {
         controls.Enable();
@@ -148,6 +194,7 @@ public class Player : MonoBehaviour, IDamageable<float>
             }
         }
         // Actual movement
+
         direction = new Vector3(d.x, d.y, 0);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
