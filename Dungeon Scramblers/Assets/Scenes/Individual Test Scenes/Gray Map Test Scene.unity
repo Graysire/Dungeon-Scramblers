@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 888398644}
   - component: {fileID: 888398643}
+  - component: {fileID: 888398646}
   - component: {fileID: 888398645}
   m_Layer: 0
   m_Name: MapMaker
@@ -153,9 +154,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateMapOnStart: 0
   maxIterations: 10
   minimumDoors: 3
-  softMaximumDoors: 3
+  softMaximumDoors: 10
   softMaximumPenalty: 2000
   currentDoorNum: 0
   waitTime: 0.15
@@ -193,6 +195,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a8509507c531648b22928a3b078c49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &888398646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888398642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7226128f37f17f4f9c504a33825c3dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfMaps: 50
+  waitTimeBetweenMaps: 8
+  startingSeed: 0
+  mapper: {fileID: 888398643}
 --- !u!1 &1873881674
 GameObject:
   m_ObjectHideFlags: 0

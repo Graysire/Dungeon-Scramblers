@@ -165,7 +165,10 @@ public class Pathfinder : MonoBehaviour
     }
 
 
-
+    public static void ClearGrid()
+    {
+        nodeGrid = null;
+    }
 
 
 
