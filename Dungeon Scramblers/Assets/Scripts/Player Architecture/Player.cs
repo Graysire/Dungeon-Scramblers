@@ -51,7 +51,11 @@ public class Player : MonoBehaviour, IDamageable<float>
                     usingOnScreenControls = false;*/
 
         // Instantiate attack sequences to reattach the instance to the player
-        AttackObjectList[0] = Instantiate(AttackObjectList[0], gameObject.transform);
+        for(int i = 0; i < AttackObjectList.Count; i++)
+        {
+            AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
+        }
+        
 
         AttackList = new List<DefaultAttackSequence>();
         for (int i = 0; i < AttackObjectList.Count; i++) {

@@ -160,7 +160,7 @@ MonoBehaviour:
   softMaximumDoors: 10
   softMaximumPenalty: 2000
   currentDoorNum: 0
-  waitTime: 0.15
+  waitTime: 0.3
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 50
-  waitTimeBetweenMaps: 8
+  waitTimeBetweenMaps: 10
   startingSeed: 0
   mapper: {fileID: 888398643}
 --- !u!1 &1873881674

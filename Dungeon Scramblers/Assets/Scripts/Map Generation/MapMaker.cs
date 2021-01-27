@@ -10,6 +10,9 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     bool generateMapOnStart = true;
 
+    //whether or not the map has finished generating
+    bool mapFinished = false;
+
     [SerializeField]
     int maxIterations = 200;
     //[SerializeField]
@@ -26,8 +29,6 @@ public class MapMaker : MonoBehaviour
     int softMaximumPenalty = 10;
     [SerializeField]
     int currentDoorNum = 0;
-
-
 
     [SerializeField]
     float waitTime = 0f;
@@ -66,7 +67,6 @@ public class MapMaker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Random.InitState(0);
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
@@ -84,6 +84,8 @@ public class MapMaker : MonoBehaviour
     //generates a dungeon map, assumes the tilemap is currently empty
     IEnumerator GenerateMap()
     {
+        mapFinished = false;
+
         //set current number of doors to 1
         currentDoorNum = 1;
 
@@ -200,6 +202,7 @@ public class MapMaker : MonoBehaviour
 
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+        mapFinished = true;
         yield return null;
     }
 
@@ -557,6 +560,12 @@ public class MapMaker : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //returns whether the map has finished generating
+    public bool IsMapFinished()
+    {
+        return mapFinished;
     }
 
     //clears the map and pathfinder
