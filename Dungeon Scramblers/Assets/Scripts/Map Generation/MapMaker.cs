@@ -6,6 +6,10 @@ using UnityEngine.Tilemaps;
 //Script to generate a dungeon map
 public class MapMaker : MonoBehaviour
 {
+    //generates a map on intilization of the object
+    [SerializeField]
+    bool generateMapOnStart = true;
+
     [SerializeField]
     int maxIterations = 200;
     //[SerializeField]
@@ -64,7 +68,10 @@ public class MapMaker : MonoBehaviour
     {
         Random.InitState(0);
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
-        StartCoroutine("GenerateMap");
+        if (generateMapOnStart)
+        {
+            StartCoroutine("GenerateMap");
+        }
         //GenerateMap();
     }
 
@@ -550,6 +557,14 @@ public class MapMaker : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    //clears the map and pathfinder
+    public void ClearMap()
+    {
+        tilemap.ClearAllTiles();
+        tilemap.CompressBounds();
+        Pathfinder.ClearGrid();
     }
 
     //The position and facing of a door
