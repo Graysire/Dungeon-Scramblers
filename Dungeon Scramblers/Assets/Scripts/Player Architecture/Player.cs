@@ -50,6 +50,9 @@ public class Player : MonoBehaviour, IDamageable<float>
                 else
                     usingOnScreenControls = false;*/
 
+        // Instantiate attack sequences to reattach the instance to the player
+        AttackObjectList[0] = Instantiate(AttackObjectList[0], gameObject.transform);
+
         AttackList = new List<DefaultAttackSequence>();
         for (int i = 0; i < AttackObjectList.Count; i++) {
             AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
@@ -85,6 +88,7 @@ public class Player : MonoBehaviour, IDamageable<float>
         animator = GetComponent<Animator>();
         allowedToAttack = true;
         isFacingLeft = false;
+
     }
     protected virtual void OnEnable()
     {
