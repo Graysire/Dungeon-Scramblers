@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable<float>
 {
     protected enum Stats { 
         health = 0,
@@ -213,7 +213,7 @@ public class Player : MonoBehaviour
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
-    public void DecreaseHealth(float dmg) => affectedStats[(int)Stats.health] -= dmg;
+    public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 }
 
 
