@@ -62,7 +62,7 @@ public class MapMaker : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Random.InitState(0);
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         StartCoroutine("GenerateMap");
         //GenerateMap();
@@ -161,13 +161,14 @@ public class MapMaker : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
+        //Add doors to all entrances to all rooms
         foreach (RoomInfo room in rooms)
         {
             for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
             {
                 for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y -1))
                 {
-                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && CheckAdjacentTiles(x, y, wallTile) == 2)
+                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x,y))
                     {
                         tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
                     }
@@ -178,7 +179,7 @@ public class MapMaker : MonoBehaviour
             {
                 for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
                 {
-                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && CheckAdjacentTiles(x, y, wallTile) == 2)
+                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
                     {
                         tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
                     }
@@ -479,7 +480,8 @@ public class MapMaker : MonoBehaviour
             return newDoors;
         }
 
-        tilemap.SetTile(endDoorPosition, doorTile);
+        //tilemap.SetTile(endDoorPosition, doorTile);
+        tilemap.SetTile(endDoorPosition, floorTile);
 
         for (int i = 0; i <= length + 1; i++)
         {
@@ -509,6 +511,7 @@ public class MapMaker : MonoBehaviour
         }
     }
 
+    //gets the chance of a new door being created based on the number of doors that exist
     int GetDoorChance()
     {
 
@@ -535,6 +538,18 @@ public class MapMaker : MonoBehaviour
         }
 
         return adjacent;
+    }
+
+    //checks if a given tile is a doorway, meaning that one wall tile exists on either side of it
+    bool IsDoorway(int startX, int startY)
+    {
+        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls, return true
+        if (tilemap.GetTile(new Vector3Int(startX - 1, startY, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX + 1, startY, 0)) == wallTile
+            || tilemap.GetTile(new Vector3Int(startX, startY - 1, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX, startY + 1, 0)) == wallTile)
+        {
+            return true;
+        }
+        return false;
     }
 
     //The position and facing of a door
