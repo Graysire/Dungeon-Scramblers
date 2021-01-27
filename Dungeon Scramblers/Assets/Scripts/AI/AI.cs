@@ -7,32 +7,29 @@ using Panda;
 
 public class AI : MonoBehaviour
 {
-    Transform player;
+    Transform player;                       // Player that AI will target for attacks and chasing
     public Transform[] players;
-    public Slider healthBar;
-    public GameObject attackSpawn;
-    public GameObject attackPrefab;
+    public Slider healthBar;                // Healthbar to display -- Not implemented
 
     public DefaultAttackSequence attack;    // The attack to call for attacking
     public Vector3 destination;             // The destination to move to
     public Vector3 target;                  // The position, or player position, to aim at for attack
-    List<Vector3> currentPath;              // Stores the current path being used
+    private List<Vector3> currentPath;      // Stores the current path being used
 
-    public float stoppingDistance = 30.0f;  //Distance from player AI stops at
-    public float health = 100.0f;           //Ai health
-    public float speed = 15.0f;             //Movement speed of AI
-    public float visibleRange = 80.0f;      //Range AI needs to be in to see Player
-    public float attackRange = 40.0f;       //Range AI needs to be in to attack
-    public float damageTaken = 10.0f;       //The amount of damage that will be applied to the AI when hit
+    public float stoppingDistance = 0.5f;  // Distance from player AI stops at
+    public float health = 100.0f;           // Ai health
+    public float speed = 0.8f;             // Movement speed of AI
+    public float visibleRange = 8.0f;      // Range AI needs to be in to see Player
+    public float attackRange = 4.0f;       // Range AI needs to be in to attack
+    public float damageTaken = 10.0f;       // The amount of damage that will be applied to the AI when hit
+    public bool onlyAttackOnePlayer = false;// AI will only target one player till they die
+
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        // Updates health over time - commented out till feature is requested
-        //InvokeRepeating("UpdateHealth", 5, 0.5f);
-
         //Get the attack ability to use for attacking
         attack = gameObject.GetComponent<DefaultAttackSequence>();
     }
@@ -50,7 +47,7 @@ public class AI : MonoBehaviour
     }
 
     //Updates the AI health
-    void UpdateHealth()
+    protected void UpdateHealth()
     {
         if (health < 100)
         {
@@ -59,7 +56,7 @@ public class AI : MonoBehaviour
     }
 
     //Deals damage to AI if hit by a bullet -- Subject to change
-    void OnCollisionEnter(Collision col)
+    protected void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "bullet")
         {
@@ -68,13 +65,13 @@ public class AI : MonoBehaviour
     }
 
     //Gets the path given the start position and target position
-    public List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos)
+    protected List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos)
     {
         return Pathfinder.GetPath(startPos, targetPos, 90000);
     }
 
     //Determines if the AI is at the stopping distance from the player
-    public bool AtStoppingDistance()
+    protected bool AtStoppingDistance()
     {
         Vector3 distance = player.transform.position - this.transform.position;
         if (distance.magnitude < stoppingDistance)
@@ -82,10 +79,9 @@ public class AI : MonoBehaviour
         return false;
     }
 
-
     //Has AI move to given destination - currently destination is the player
     [Task]
-    public void MoveToDestination()
+    protected void MoveToDestination()
     {
         //Get path to player
         currentPath = GetPath(this.transform.position, player.transform.position);
@@ -107,9 +103,12 @@ public class AI : MonoBehaviour
     //Will get the path from AI to player if the player is in sight.
     //Will also target the closest visible player
     [Task]
-    bool SeePlayerAndSetTarget()
+    protected bool SeePlayerAndSetTarget()
     {
         bool playerSeen = false;
+
+        //If this AI targets only one player and they were already found then don't find a new target
+        if (onlyAttackOnePlayer && player != null) return true;
 
         //Set the closest visible player
         foreach (Transform p in players)
@@ -125,6 +124,7 @@ public class AI : MonoBehaviour
             //Create visual debug of raycast
             Debug.DrawRay(this.transform.position, distance, Color.red);
 
+
             //Checks for walls with raycast
             if (Physics.Raycast(this.transform.position, distance, out hit))
             {
@@ -133,7 +133,6 @@ public class AI : MonoBehaviour
                     seeWall = true;
                 }
             }
-
             //Debug message for determining if wall is in path of raycast
             if (Task.isInspected)
             {
@@ -157,6 +156,9 @@ public class AI : MonoBehaviour
                 else
                 {
                     player = p;
+
+                    //If this AI sees a player that will be the only player it'll attack
+                    if (onlyAttackOnePlayer) break;
                 }
 
                 //Set player seen 
@@ -169,7 +171,7 @@ public class AI : MonoBehaviour
 
     //Determines if the Player as target is in range of attack
     [Task]
-    bool AttackInRange()
+    protected bool AttackInRange()
     {
         target = player.transform.position;
         Vector3 distance = target - this.transform.position;
@@ -182,16 +184,16 @@ public class AI : MonoBehaviour
 
     //Spawns an attack on the attackSpawn towards player
     [Task]
-    public void Attack()
+    protected void AttackPlayer()
     {
         Vector3 direction = target - this.transform.position;
-        attack.StartAIAttack(direction, this);
+        attack.StartAIAttack(direction, this); //AI will attack in direction of player
         Task.current.Succeed();
     }
 
     //For AI death
     [Task]
-    public bool Death()
+    protected bool Death()
     {
         if (healthBar != null)
         {
@@ -200,5 +202,7 @@ public class AI : MonoBehaviour
         Destroy(this.gameObject);
         return true;
     }
+
+
 
 }

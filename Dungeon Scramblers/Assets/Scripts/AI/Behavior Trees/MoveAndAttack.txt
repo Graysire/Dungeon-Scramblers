@@ -3,7 +3,7 @@ tree("Root")
 		fallback
 			while AttackInRange
 				sequence
-					Attack
+					AttackPlayer
 					Wait(0.5)
 			while not AttackInRange
 				MoveToDestination
