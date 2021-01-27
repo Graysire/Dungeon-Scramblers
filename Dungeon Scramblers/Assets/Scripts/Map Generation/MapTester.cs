@@ -15,7 +15,7 @@ public class MapTester : MonoBehaviour
 
     //the initial seed usedfor generating maps
     [SerializeField]
-    int startingSeed;
+    int startingSeed = 0;
 
     //the MapMaker used to generate maps
     [SerializeField]
@@ -36,7 +36,7 @@ public class MapTester : MonoBehaviour
     //
     IEnumerator GenerateMapSeries()
     {
-        for (int i = 0; i < numberOfMaps; i++)
+        for (int i = startingSeed; i < numberOfMaps + startingSeed; i++)
         {
             Debug.Log("Testing Seed: " + i);
             Random.InitState(i);
