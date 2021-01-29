@@ -223,7 +223,7 @@ public class Pathfinder : MonoBehaviour
     public static PathNode WorldToNode(Vector3 worldPos)
     {
         //get the cell location from the Tilemap Grid
-        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos - gridOffset);
+        Vector3Int cellLocation = tileGrid.WorldToCell(worldPos) - gridOffset;
         //Debug.Log("World Position: " + worldPos + " to CellLocation: " + cellLocation + " " + nodeGrid.GetLength(1));
         //if the index is our of bounds return null, otherwise return the node
         if (cellLocation.x >= nodeGrid.GetLength(1) || cellLocation.x < 0 || cellLocation.y >= nodeGrid.GetLength(0) || cellLocation.y < 0)

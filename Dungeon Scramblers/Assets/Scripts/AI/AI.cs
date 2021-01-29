@@ -5,25 +5,25 @@ using UnityEngine.UI;
 using Panda;
 
 
-public class AI : MonoBehaviour
+public class AI : MonoBehaviour, IDamageable<float>
 {
-    Transform player;                       // Player that AI will target for attacks and chasing
-    public Transform[] players;
-    public Slider healthBar;                // Healthbar to display -- Not implemented
+    Transform player;                           // Player that AI will target for attacks and chasing
+    public Transform[] players;                 // Positions of all players in game
+    public Slider healthBar;                    // Healthbar to display -- Not implemented
 
-    public DefaultAttackSequence attack;    // The attack to call for attacking
-    public Vector3 destination;             // The destination to move to
-    public Vector3 target;                  // The position, or player position, to aim at for attack
-    private List<Vector3> currentPath;      // Stores the current path being used
+    public DefaultAttackSequence attack;        // The attack to call for attacking
+    public Vector3 destination;                 // The destination to move to
+    public Vector3 target;                      // The position, or player position, to aim at for attack
+    private List<Vector3> currentPath;          // Stores the current path being used
 
-    public float stoppingDistance = 0.5f;  // Distance from player AI stops at
-    public float health = 100.0f;           // Ai health
-    public float speed = 0.8f;             // Movement speed of AI
-    public float visibleRange = 8.0f;      // Range AI needs to be in to see Player
-    public float attackRange = 4.0f;       // Range AI needs to be in to attack
-    public float damageTaken = 10.0f;       // The amount of damage that will be applied to the AI when hit
-    public bool onlyAttackOnePlayer = false;// AI will only target one player till they die
-
+    public float stoppingDistance = 0.5f;       // Distance from player AI stops at
+    public float health = 100.0f;               // Ai health
+    public float speed = 0.8f;                  // Movement speed of AI
+    public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
+    public float attackRange = 4.0f;            // Range AI needs to be in to attack
+    //public float damageTaken = 10.0f;           // The amount of damage that will be applied to the AI when hit
+    public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
+    public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
 
 
@@ -46,21 +46,18 @@ public class AI : MonoBehaviour
         }
     }
 
+    //When ability hits AI it takes damage
+    public void Damage(float damageTaken)
+    {
+        health -= damageTaken;
+    }
+
     //Updates the AI health
     protected void UpdateHealth()
     {
         if (health < 100)
         {
             health++;
-        }
-    }
-
-    //Deals damage to AI if hit by a bullet -- Subject to change
-    protected void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "bullet")
-        {
-            health -= damageTaken;
         }
     }
 
@@ -79,7 +76,16 @@ public class AI : MonoBehaviour
         return false;
     }
 
-    //Has AI move to given destination - currently destination is the player
+    //Send EXP to Game Manager to send to all players
+    protected void DisperseEXP()
+    {
+        /*
+         * TO DO
+         */
+    }
+
+
+    //Has AI move to given destination - currently the destination is the seen player
     [Task]
     protected void MoveToDestination()
     {
@@ -195,6 +201,7 @@ public class AI : MonoBehaviour
     [Task]
     protected bool Death()
     {
+        DisperseEXP(); //Send the experience for killing AI to players
         if (healthBar != null)
         {
             Destroy(healthBar.gameObject);
@@ -202,7 +209,4 @@ public class AI : MonoBehaviour
         Destroy(this.gameObject);
         return true;
     }
-
-
-
 }
