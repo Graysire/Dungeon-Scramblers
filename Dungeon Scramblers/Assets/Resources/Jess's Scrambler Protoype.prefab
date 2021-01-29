@@ -138,13 +138,11 @@ GameObject:
   - component: {fileID: 1072143506390651200}
   - component: {fileID: 1072143506390651207}
   - component: {fileID: 1072143506390651202}
-  - component: {fileID: 1072143506390651206}
-  - component: {fileID: 1072143506390651201}
   - component: {fileID: 1072143506390651203}
   - component: {fileID: 2471560480833163746}
   - component: {fileID: -2871127162674489090}
-  - component: {fileID: 6245544231496140591}
-  - component: {fileID: -8188628870344661320}
+  - component: {fileID: 4823538436004081160}
+  - component: {fileID: 6951493725146800694}
   m_Layer: 0
   m_Name: Jess's Scrambler Protoype
   m_TagString: Player
@@ -255,60 +253,19 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 724c26d7-f486-4b85-a285-40e46c9afd81
     m_ActionName: PlayerMovement/UseActive[/Mouse/rightButton,/Touchscreen/primaryTouch/indirectTouch]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c6b49925-e24d-4e49-8997-dbc4e0852404
+    m_ActionName: PlayerMovement/UseAbilityQ[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f0b37117-0757-4f80-acd3-bc0e549df89c
+    m_ActionName: PlayerMovement/UseAbilityE[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!143 &1072143506390651206
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072143506390651205}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 0.5
-  m_Radius: 0.42
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1072143506390651201
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072143506390651205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackObjectList: []
-  usingOnScreenControls: 0
-  PlayerOnScreenControls: {fileID: 0}
-  stats:
-  - 1
-  - 4
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  isDead: 0
 --- !u!95 &1072143506390651203
 Animator:
   serializedVersion: 3
@@ -347,7 +304,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 6245544231496140591}
+  - {fileID: 6951493725146800694}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -383,7 +340,28 @@ MonoBehaviour:
   - 1
   - 1
   isDead: 0
---- !u!114 &6245544231496140591
+--- !u!50 &4823538436004081160
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072143506390651205}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &6951493725146800694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -392,43 +370,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1072143506390651205}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 1
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 0.05
-    InterpolateOption: 4
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 1
-    InterpolateOption: 2
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 1
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
---- !u!114 &-8188628870344661320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1072143506390651205}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35144820bcc25444bb8f0fd767d9423e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SmoothingDelay: 5
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1072143506839055818
 GameObject:
   m_ObjectHideFlags: 0

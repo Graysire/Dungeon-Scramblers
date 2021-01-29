@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scrambler2ElectricBoogaloo : Player, IPunObservable
+public class Scrambler2ElectricBoogaloo : PlayerTest, IPunObservable
 {
     protected override void OnEnable()
     {
@@ -62,7 +62,7 @@ public class Scrambler2ElectricBoogaloo : Player, IPunObservable
     {
         base.Move(d);
         //Debug.Log("I'm trying to move");
-        controller.Move(direction * Time.deltaTime);
+        //controller.Move(direction * Time.deltaTime);
 
     }
     protected override void ApplyMove()
@@ -70,6 +70,38 @@ public class Scrambler2ElectricBoogaloo : Player, IPunObservable
         base.ApplyMove();
        // Debug.Log("Calling Apply Move function");
     }
-  
+
+    #region Pun/Unity Callbacks
+
+    //This function is used to update player data for internet
+    public void FixedUpdate()
+    {
+        if (!photonView.IsMine)
+        {
+            rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
+            //rb.rotation = Quaternion.RotateTowards(rb., networkRotation, Time.fixedDeltaTime * 100.0f);
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(this.rb.position);
+            stream.SendNext(this.rb.rotation);
+            stream.SendNext(this.rb.velocity);
+        }
+        else
+        {
+            networkPosition = (Vector2)stream.ReceiveNext();
+            //networkRotation = (Quaternion)stream.ReceiveNext();
+            rb.velocity = (Vector2)stream.ReceiveNext();
+
+            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.SentServerTime));
+            networkPosition += (this.rb.velocity * lag);
+        }
+    }
+    #endregion
+
 }
 
