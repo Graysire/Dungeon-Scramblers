@@ -58,15 +58,11 @@ public class DefaultAttackSequence : MonoBehaviour
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = Player.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
 
-        // Get instance of ability
+        // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player, AbilityAngle).transform;
-/*        AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
-                Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;*/  // REPLACE THIS WITH OBJECT POOLER
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
         yield return new WaitForSeconds(Ability.GetCoolDownTime());
-        /*AbilityTransform.gameObject.transform.localPosition = Vector3.zero;
-        AbilityTransform.gameObject.SetActive(false);*/
         Attacked = false;
     }
 
@@ -87,8 +83,9 @@ public class DefaultAttackSequence : MonoBehaviour
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
         
-        Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
-            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform; // REPLACE THIS WITH OBJECT POOLER
+/*        Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
+            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform; // REPLACE THIS WITH OBJECT POOLER*/
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player, AbilityAngle).transform; // REPLACE THIS WITH OBJECT POOLER
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
     }
 }

@@ -28,7 +28,7 @@ public class ObjectPooler : MonoBehaviour
         for (int i = 0; i < amountToPool; i++)
         {
             GameObject go = (GameObject)Instantiate(objectToPool, transform);
-            //go.SetActive(false);
+            go.SetActive(false);
             objectsPooled.Add(go);
         }
     }
@@ -51,7 +51,6 @@ public class ObjectPooler : MonoBehaviour
         {
             if (!objectsPooled[i].activeSelf)
             {
-                Debug.Log("Should be active now..");
                 objectsPooled[i].SetActive(true);
                 objectsPooled[i].transform.position = AttackTransform;
                 objectsPooled[i].transform.rotation = Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle);

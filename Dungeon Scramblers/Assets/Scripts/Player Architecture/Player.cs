@@ -7,17 +7,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
+public class Player : HasStats, IDamageable<float>
 {
-    protected enum Stats { 
-        health = 0,
-        movespeed = 1,
-        attackdmg = 2,
-        attackspeed = 3,
-        abilitydmg = 4,
-        abilitycd = 5,
-        defense = 6
-    }
     // Placeholder for eventual Attack & Ability Equipables 
     [SerializeField] protected List<GameObject> AttackObjectList;
     protected List<DefaultAttackSequence> AttackList;
@@ -29,15 +20,13 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
     // END ON SCREEN CONTROLS ONLY
 
     protected InputMaster controls;    
-    [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-    [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected bool isDead = false;
     //Netowkring Variables
     protected Vector2 networkPosition;  //Network position for lag Compensation
     protected Quaternion networkRotation;
     protected Vector3 movement;
     // Movement Variables
-    //protected CharacterController controller;
+    protected CharacterController controller;
     protected Vector3 direction = Vector3.zero;
     protected Rigidbody2D rb;
     // Attack Variables
@@ -93,7 +82,7 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
             controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<float>());
         }
             
-        //controller = GetComponent<CharacterController>();
+        controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         allowedToAttack = true;
@@ -105,11 +94,11 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
     #region Pun/Unity Callbacks
     public void FixedUpdate()
     {
-        if (!photonView.IsMine)
+/*        if (!photonView.IsMine)
         {
             rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
             //rb.rotation = Quaternion.RotateTowards(rb., networkRotation, Time.fixedDeltaTime * 100.0f);
-        }
+        }*/
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -195,7 +184,7 @@ public class Player : MonoBehaviourPunCallbacks, IDamageable<float>
 
 
     protected virtual void ApplyMove() {
-       //controller.Move(direction * Time.deltaTime);
+       controller.Move(direction * Time.deltaTime);
        //rb.velocity
     }
 

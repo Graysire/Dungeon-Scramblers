@@ -74,7 +74,6 @@ public class Ability : MonoBehaviour
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
-                Debug.Log("Set to false properly");
                 this.gameObject.SetActive(false);
                 totalTime = 0f;
                 PositionTraveled = Vector3.zero;
