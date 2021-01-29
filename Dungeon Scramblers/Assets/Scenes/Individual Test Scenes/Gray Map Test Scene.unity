@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 50
-  waitTimeBetweenMaps: 10
-  startingSeed: 0
+  waitTimeBetweenMaps: 5
+  startingSeed: 2
   mapper: {fileID: 888398643}
 --- !u!1 &1873881674
 GameObject:

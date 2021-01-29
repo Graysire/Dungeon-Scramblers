@@ -230,6 +230,8 @@ public class MapMaker : MonoBehaviour
             randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
             //generate a random x size of the floor space of the room
             randY = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 2 ? -1 : 1);
+
+            //Debug.Log("Room " + (rooms.Count + 1) + ": X: " + randX + " Y: " + randY);
         }
         else
         {
@@ -327,7 +329,7 @@ public class MapMaker : MonoBehaviour
         //tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile,startX,startY,startX+randX - 1,startY+randY - 1);
 
 
-        Vector3Int randDoorLocation = new Vector3Int(0, 0, 0); ;
+        Vector3Int randDoorLocation = new Vector3Int(0, 0, 0);
 
         //for each wall of the room except the entering wall, check for creation of new doors and add any new doors to the list of new doors
         for (int i = 0; i < 4; i++)
