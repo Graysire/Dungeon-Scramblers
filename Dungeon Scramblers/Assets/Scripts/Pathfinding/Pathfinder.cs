@@ -260,7 +260,7 @@ public class Pathfinder : MonoBehaviour
             {
                 //if x and y are not both 0, and they do not result in an index out of range exception
                 //add the node at centerX + x and centerY + y to the list of adjacent nodes
-                if ((x != 0) || (y != x))
+                if (((x != 0) || (y != x)) && x != y * -1)
                 {
                     //Debug.Log("Potential Point " + truePosX + "," + truePosY);
 
