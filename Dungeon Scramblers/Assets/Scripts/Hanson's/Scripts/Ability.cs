@@ -74,7 +74,10 @@ public class Ability : MonoBehaviour
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
-                Destroy(this.gameObject);
+                Debug.Log("Set to false properly");
+                this.gameObject.SetActive(false);
+                totalTime = 0f;
+                PositionTraveled = Vector3.zero;
             }
         }
 
@@ -87,5 +90,4 @@ public class Ability : MonoBehaviour
         collision.gameObject.GetComponent<IDamageable<float>>().Damage(0.2f);
         
     }
-
 }

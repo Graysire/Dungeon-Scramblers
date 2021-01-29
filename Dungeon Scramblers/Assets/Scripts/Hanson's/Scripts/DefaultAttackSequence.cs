@@ -5,12 +5,29 @@ using UnityEngine;
 public class DefaultAttackSequence : MonoBehaviour
 {
     [SerializeField]
-    private Ability Ability;
+    protected Ability Ability;
+    protected ObjectPooler AbilityPooler;
+    //protected bool needsMoreInstances;
 
-    private Player Player;
-    private Vector3 AttackDirection;
+    protected Player Player;
+    protected Vector3 AttackDirection;
 
-    private bool Attacked = false;
+    protected bool Attacked = false;
+
+    private void Start()
+    {
+        // Find object pooler child GameObject
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Transform child = transform.GetChild(i);
+            if (child.CompareTag("Object Pooler"))
+            {
+                AbilityPooler = child.GetComponent<ObjectPooler>();
+                Debug.Log("Found pooler");
+                break;
+            }
+        }
+    }
 
     public void StartAttack(Vector3 AttackDirection, Player Player)
     {
@@ -18,7 +35,6 @@ public class DefaultAttackSequence : MonoBehaviour
         this.Player = Player;
         if(!Attacked) StartCoroutine("AttackSequence");
     }
-
 
     protected virtual IEnumerator AttackSequence()
     {
@@ -41,13 +57,17 @@ public class DefaultAttackSequence : MonoBehaviour
         Vector3 AttackNormal = (AttackEnd - Player.transform.position).normalized;
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = Player.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
-        Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
-            Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
+
+        // Get instance of ability
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player, AbilityAngle).transform;
+/*        AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
+                Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;*/  // REPLACE THIS WITH OBJECT POOLER
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
         yield return new WaitForSeconds(Ability.GetCoolDownTime());
+        /*AbilityTransform.gameObject.transform.localPosition = Vector3.zero;
+        AbilityTransform.gameObject.SetActive(false);*/
         Attacked = false;
-        
     }
 
 
@@ -66,8 +86,9 @@ public class DefaultAttackSequence : MonoBehaviour
         Vector3 AttackNormal = (AttackEnd - AI.transform.position).normalized;
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
+        
         Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
-            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform;
+            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform; // REPLACE THIS WITH OBJECT POOLER
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
     }
 }
