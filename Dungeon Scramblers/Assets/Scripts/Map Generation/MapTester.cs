@@ -61,12 +61,13 @@ public class MapTester : MonoBehaviour
         {
             Debug.Log("Testing Seed: " + i);
             mapper.ClearMap();
-            Random.InitState(2);
+            Random.InitState(i);
             mapper.StartCoroutine("GenerateMap");
             yield return new WaitUntil(mapper.IsMapFinished);
             yield return new WaitForSeconds(waitTimeBetweenMaps);
         }
 
+        Debug.Log("Total Corridors: " + MapMaker.totalCorridors + ", Corner Cases: " + MapMaker.cornerCount + "\n" + "Corner Case Rate: " + (((double) MapMaker.cornerCount) / MapMaker.totalCorridors));
         yield return null; 
     }
 }
