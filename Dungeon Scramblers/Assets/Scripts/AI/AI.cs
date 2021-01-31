@@ -5,33 +5,61 @@ using UnityEngine.UI;
 using Panda;
 
 
-public class AI : MonoBehaviour
+public class AI : HasStats, IDamageable<float>
 {
-    Transform player;                       // Player that AI will target for attacks and chasing
-    public Transform[] players;
-    public Slider healthBar;                // Healthbar to display -- Not implemented
 
-    public DefaultAttackSequence attack;    // The attack to call for attacking
-    public Vector3 destination;             // The destination to move to
-    public Vector3 target;                  // The position, or player position, to aim at for attack
-    private List<Vector3> currentPath;      // Stores the current path being used
+    // Placeholder for eventual Attack & Ability Equipables 
+    [SerializeField] protected List<GameObject> AttackObjectList;
+    protected List<DefaultAttackSequence> AttackList;
 
-    public float stoppingDistance = 0.5f;  // Distance from player AI stops at
-    public float health = 100.0f;           // Ai health
-    public float speed = 0.8f;             // Movement speed of AI
-    public float visibleRange = 8.0f;      // Range AI needs to be in to see Player
-    public float attackRange = 4.0f;       // Range AI needs to be in to attack
-    public float damageTaken = 10.0f;       // The amount of damage that will be applied to the AI when hit
-    public bool onlyAttackOnePlayer = false;// AI will only target one player till they die
+    Transform player;                           // Player that AI will target for attacks and chasing
+    public Transform[] players;                 // Positions of all players in game
+    public GameObject healthBarUI;
+    public Slider healthBar;                    // Healthbar to display -- Not implemented
 
+    public DefaultAttackSequence attack;        // The attack to call for attacking
+    public Vector3 destination;                 // The destination to move to
+    public Vector3 target;                      // The position, or player position, to aim at for attack
 
+    private List<Vector3> currentPath;          // Stores the current path being used
+
+    public float stoppingDistance = 0.5f;       // Distance from player AI stops at
+    public float maxHealth = 100.0f;            // Max AI health
+    public float speed = 0.8f;                  // Movement speed of AI
+    public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
+    public float attackRange = 4.0f;            // Range AI needs to be in to attack
+    public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
+    public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
+
+    private float health = 100.0f;              // Updated AI health
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //set the current health to be max
+        health = maxHealth;
+        //Sets the value of health bar based on percentage of current health and max health
+        healthBar.value = CalculateHealth();
+
         //Get the attack ability to use for attacking
         attack = gameObject.GetComponent<DefaultAttackSequence>();
+    }
+
+    protected virtual void Awake()
+    {
+        // Instantiate attack sequences to reattach the instance to the player
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
+            AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
+        }
+
+
+        AttackList = new List<DefaultAttackSequence>();
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
+            AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
+        }
     }
 
     // Update is called once per frame
@@ -40,10 +68,27 @@ public class AI : MonoBehaviour
         // Updates the position and value of the healthbar for this AI
         if (healthBar != null)
         {
-            Vector3 healthBarPos = Camera.main.WorldToScreenPoint(this.transform.position);
-            healthBar.value = (int)health;
-            healthBar.transform.position = healthBarPos + new Vector3(0, 60, 0);
+            //Set the health bar active once damage is taken
+            if (health < maxHealth) healthBarUI.SetActive(true);
+
+            //set the health bar value
+            healthBar.value = CalculateHealth();
         }
+
+        //If health is greater than max then set it to max
+        if (health > maxHealth) health = maxHealth;
+    }
+
+    //Calculates the health percentage for displaying on health bar
+    protected float CalculateHealth()
+    {
+        return health / maxHealth;
+    }
+
+    //When ability hits AI it takes damage
+    public void Damage(float damageTaken)
+    {
+        health -= damageTaken;
     }
 
     //Updates the AI health
@@ -52,15 +97,6 @@ public class AI : MonoBehaviour
         if (health < 100)
         {
             health++;
-        }
-    }
-
-    //Deals damage to AI if hit by a bullet -- Subject to change
-    protected void OnCollisionEnter(Collision col)
-    {
-        if (col.gameObject.tag == "bullet")
-        {
-            health -= damageTaken;
         }
     }
 
@@ -79,7 +115,16 @@ public class AI : MonoBehaviour
         return false;
     }
 
-    //Has AI move to given destination - currently destination is the player
+    //Send EXP to Game Manager to send to all players
+    protected void DisperseEXP()
+    {
+        /*
+         * TO DO
+         */
+    }
+
+
+    //Has AI move to given destination - currently the destination is the seen player
     [Task]
     protected void MoveToDestination()
     {
@@ -157,7 +202,7 @@ public class AI : MonoBehaviour
                 {
                     player = p;
 
-                    //If this AI sees a player that will be the only player it'll attack
+                    //If true AI will only target this player seen
                     if (onlyAttackOnePlayer) break;
                 }
 
@@ -191,18 +236,19 @@ public class AI : MonoBehaviour
         Task.current.Succeed();
     }
 
-    //For AI death
+    //Checks if the health is less than the given value
+    [Task]
+    public bool IsHealthLessThan(float health)
+    {
+        return this.health < health;
+    }
+
+    //Destroys AI object
     [Task]
     protected bool Death()
     {
-        if (healthBar != null)
-        {
-            Destroy(healthBar.gameObject);
-        }
+        DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);
         return true;
     }
-
-
-
 }

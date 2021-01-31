@@ -64,6 +64,9 @@ public class MapMaker : MonoBehaviour
     //list of all rooms created
     List<RoomInfo> rooms;
 
+    //public static int cornerCount = 0;
+    //public static int totalCorridors = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -230,6 +233,8 @@ public class MapMaker : MonoBehaviour
             randX = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 3 ? -1 : 1);
             //generate a random x size of the floor space of the room
             randY = Random.Range(minRoomSize, maxRoomSize) + 1;// * (doorDirection == 2 ? -1 : 1);
+
+            //Debug.Log("Room " + (rooms.Count + 1) + ": X: " + randX + " Y: " + randY);
         }
         else
         {
@@ -327,7 +332,7 @@ public class MapMaker : MonoBehaviour
         //tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile,startX,startY,startX+randX - 1,startY+randY - 1);
 
 
-        Vector3Int randDoorLocation = new Vector3Int(0, 0, 0); ;
+        Vector3Int randDoorLocation = new Vector3Int(0, 0, 0);
 
         //for each wall of the room except the entering wall, check for creation of new doors and add any new doors to the list of new doors
         for (int i = 0; i < 4; i++)
@@ -453,9 +458,12 @@ public class MapMaker : MonoBehaviour
         //checks if this corridor would connect to the corner of another room
         if (isConnector && tilemap.GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
         {
+            //cornerCount++;
+
             //checks if this would result in two adjacent door tiles
-            if (!tilemap.GetTile(endDoorPosition + corridorDirection * 2) == doorTile)
+            if (tilemap.GetTile(endDoorPosition + corridorDirection * 2) != doorTile)
             {
+                Debug.Log("Corner case");
                 tilemap.SetTile(endDoorPosition, floorTile);
 
 
@@ -480,10 +488,12 @@ public class MapMaker : MonoBehaviour
              }
          }*/
 
+        //if there is floor immediately after the initial door, do not generate the corridor
         if (tilemap.GetTile(door.position + corridorDirection) == floorTile)
         {
             return newDoors;
         }
+        //if the corridor is too small, do not generate it
         else if (length < minCorridorSize)
         {
             tilemap.SetTile(door.position, wallTile);
@@ -510,6 +520,8 @@ public class MapMaker : MonoBehaviour
             newDoors.Add(new DoorInfo(endDoorPosition, door.facing));
             //StartCoroutine(GenerateRoom(doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0), doorDirection));
         }
+
+        //totalCorridors++;
         return newDoors;
     }
 

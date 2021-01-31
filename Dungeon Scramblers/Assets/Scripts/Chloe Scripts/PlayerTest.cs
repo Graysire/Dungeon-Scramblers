@@ -1,14 +1,21 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.InputSystem.InputAction;
-using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
-using Photon.Pun;
 
-public class Player : HasStats, IDamageable<float>
+
+public class PlayerTest : MonoBehaviourPunCallbacks
 {
+    protected enum Stats
+    {
+        health = 0,
+        movespeed = 1,
+        attackdmg = 2,
+        attackspeed = 3,
+        abilitydmg = 4,
+        abilitycd = 5,
+        defense = 6
+    }
     // Placeholder for eventual Attack & Ability Equipables 
     [SerializeField] protected List<GameObject> AttackObjectList;
     protected List<DefaultAttackSequence> AttackList;
@@ -19,16 +26,18 @@ public class Player : HasStats, IDamageable<float>
     protected int activeIndependentJoystick = -1;
     // END ON SCREEN CONTROLS ONLY
 
-    protected InputMaster controls;    
+    protected InputMaster controls;
+    [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
+    [SerializeField] protected float[] affectedStats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     [SerializeField] protected bool isDead = false;
     //Netowkring Variables
     protected Vector2 networkPosition;  //Network position for lag Compensation
+    protected Vector2 movement;
     protected Quaternion networkRotation;
-    protected Vector3 movement;
+    protected Rigidbody2D rb;
     // Movement Variables
     protected CharacterController controller;
-    protected Vector3 direction = Vector3.zero;
-    protected Rigidbody2D rb;
+    protected Vector2 direction = Vector2.zero;
     // Attack Variables
     protected Vector3 AttackDirection;
     protected bool allowedToAttack;
@@ -46,14 +55,15 @@ public class Player : HasStats, IDamageable<float>
                     usingOnScreenControls = false;*/
 
         // Instantiate attack sequences to reattach the instance to the player
-        for(int i = 0; i < AttackObjectList.Count; i++)
+        for (int i = 0; i < AttackObjectList.Count; i++)
         {
             AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
         }
-        
+
 
         AttackList = new List<DefaultAttackSequence>();
-        for (int i = 0; i < AttackObjectList.Count; i++) {
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
             AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
         }
         // Make sure on-screen controls are on/off based on what they should be
@@ -62,64 +72,38 @@ public class Player : HasStats, IDamageable<float>
             if (!PlayerOnScreenControls.activeSelf)
                 PlayerOnScreenControls.SetActive(true);
         }
-        else if (!usingOnScreenControls && PlayerOnScreenControls != null) {
+        else if (!usingOnScreenControls && PlayerOnScreenControls != null)
+        {
             if (PlayerOnScreenControls.activeSelf)
                 PlayerOnScreenControls.SetActive(false);
-        }   
-           
+        }
+
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
-        if (usingOnScreenControls) {
+        if (usingOnScreenControls)
+        {
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
         }
-        else {
+        else
+        {
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
             controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<float>());
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>());
             controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<float>());
         }
-            
-        controller = GetComponent<CharacterController>();
+
+        //controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         allowedToAttack = true;
         isFacingLeft = false;
         rb = GetComponent<Rigidbody2D>();
-
     }
 
-    #region Pun/Unity Callbacks
-    public void FixedUpdate()
-    {
-/*        if (!photonView.IsMine)
-        {
-            rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
-            //rb.rotation = Quaternion.RotateTowards(rb., networkRotation, Time.fixedDeltaTime * 100.0f);
-        }*/
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(this.rb.position);
-            stream.SendNext(this.rb.rotation);
-            stream.SendNext(this.rb.velocity);
-        }
-        else
-        {
-            networkPosition = (Vector3)stream.ReceiveNext();
-            networkRotation = (Quaternion)stream.ReceiveNext();
-            rb.velocity = (Vector3)stream.ReceiveNext();
-
-            float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
-            networkPosition += (this.rb.velocity * lag);
-        }
-    }
-    #endregion
+   
 
 
     protected virtual void OnEnable()
@@ -134,18 +118,21 @@ public class Player : HasStats, IDamageable<float>
         UpdateHandler.UpdateOccurred -= Die;
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
     }
-    protected virtual void Move(Vector2 d) {
+    protected virtual void Move(Vector2 d)
+    {
         // Animation changes
         // Not moving
         if (d.x == 0 && d.y == 0 && !animator.GetBool("idle"))
         {
-            if (animator.GetBool("facingLeft")) {
+            if (animator.GetBool("facingLeft"))
+            {
                 animator.SetBool("facingLeft", false);
                 animator.SetBool("facingFront", true);
             }
             animator.SetBool("idle", true);
         }
-        else {
+        else
+        {
             animator.SetBool("idle", false);
             // Moving Down (front-facing)
             if (d.y < 0 && d.x == 0 && !animator.GetBool("facingFront"))
@@ -162,9 +149,10 @@ public class Player : HasStats, IDamageable<float>
                 animator.SetBool("facingLeft", false);
             }
             // Moving Sideways & diagonally (side-facing)
-            else if (d.x != 0 )
+            else if (d.x != 0)
             {
-                if (!animator.GetBool("facingLeft")) {
+                if (!animator.GetBool("facingLeft"))
+                {
                     animator.SetBool("facingFront", false);
                     animator.SetBool("facingBack", false);
                     animator.SetBool("facingLeft", true);
@@ -177,25 +165,25 @@ public class Player : HasStats, IDamageable<float>
         }
         // Actual movement
 
-        direction = new Vector3(d.x, d.y, 0);
+        direction = new Vector2(d.x, d.y);
+        Debug.Log("direction:" + direction);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
     }
-
-
-    protected virtual void ApplyMove() {
-       controller.Move(direction * Time.deltaTime);
-       //rb.velocity
+    protected virtual void ApplyMove()
+    {
+        // controller.Move(direction * Time.deltaTime);
+        rb.velocity += direction * Time.deltaTime;
     }
 
-
-
     // For On-screen stick usage only
-    public virtual void SetActiveIndependentJoystick(int j) {
+    public virtual void SetActiveIndependentJoystick(int j)
+    {
         activeIndependentJoystick = j;
     }
 
-    protected virtual void Attack(Vector2 d) {
+    protected virtual void Attack(Vector2 d)
+    {
         // Decide what we're attacking with (i.e. attack vs ability)
         // Joystick.getJoystickNumber
         if (activeIndependentJoystick < 0 || activeIndependentJoystick >= AttackList.Count)
@@ -203,7 +191,8 @@ public class Player : HasStats, IDamageable<float>
             Debug.Log("Invalid Joystick number.");
             return;
         }
-        if (d.x == 0 && d.y == 0) { // Stop Attacking if joystick is at <0, 0>
+        if (d.x == 0 && d.y == 0)
+        { // Stop Attacking if joystick is at <0, 0>
             Debug.Log("End Attack " + activeIndependentJoystick);
             activeIndependentJoystick = -1;
             return;
@@ -214,27 +203,32 @@ public class Player : HasStats, IDamageable<float>
         Debug.Log("Attack " + activeIndependentJoystick + " on phone");
     }
 
-    protected virtual void Attack(float f) { // Basic attack using mouse
+    protected virtual void Attack(float f)
+    { // Basic attack using mouse
         if (f < 1)
             Debug.Log("Stop ability");
         else if (f == 1)
             ApplyAttack(f, 0);
     }
-    protected virtual void UseAbility(float f) { // Ability cast using mouse, different way to implement?
+    protected virtual void UseAbility(float f)
+    { // Ability cast using mouse, different way to implement?
         if (f < 1)
             Debug.Log("Stop ability");
         else if (f == 1)
             ApplyAttack(f, 1);
     }
-    protected virtual void ApplyAttack(float f, int abilityIndex) {
+    protected virtual void ApplyAttack(float f, int abilityIndex)
+    {
         Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
         RequestAttack(abilityIndex);
         // Use ability from list
         Debug.Log("Start attacking");
     }
-    protected virtual void Die() {
-        if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
+    protected virtual void Die()
+    {
+        if (affectedStats[(int)Stats.health] <= 0 || isDead == true)
+        {
             Debug.Log("Do something that indicates the player is dead...");
             isDead = true;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
@@ -242,14 +236,13 @@ public class Player : HasStats, IDamageable<float>
             // Death animation
         }
     }
-    protected virtual void RequestAttack(int attackListIndex) {
-        if (allowedToAttack)
-            if(attackListIndex >= 0 && attackListIndex < AttackList.Count)
-                AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
+    protected virtual void RequestAttack(int attackListIndex)
+    {
+      //  if (allowedToAttack)
+           // if (attackListIndex >= 0 && attackListIndex < AttackList.Count)
+               // AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
     public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 }
-
-

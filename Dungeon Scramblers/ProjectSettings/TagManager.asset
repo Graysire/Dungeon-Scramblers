@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Map
   - IndependentJoystick
+  - Object Pooler
   layers:
   - Default
   - TransparentFX
