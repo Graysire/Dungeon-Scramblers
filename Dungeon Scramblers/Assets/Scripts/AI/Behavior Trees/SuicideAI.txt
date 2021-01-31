@@ -1,0 +1,20 @@
+tree("Root")
+	parallel
+		repeat mute tree("Dead")
+		repeat mute tree("Attack")
+		
+
+tree("Attack")
+	while SeePlayerAndSetTarget
+		fallback
+			while AttackInRange
+				sequence
+					AttackPlayer
+					Death
+			while not AttackInRange
+				MoveToDestination
+
+tree("Dead")
+	sequence
+		IsHealthLessThan(0.1)
+		Death

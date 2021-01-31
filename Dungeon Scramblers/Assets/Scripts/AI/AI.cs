@@ -17,7 +17,7 @@ public class AI : HasStats, IDamageable<float>
     public GameObject healthBarUI;
     public Slider healthBar;                    // Healthbar to display -- Not implemented
 
-    public DefaultAttackSequence attack;        // The attack to call for attacking
+    //public DefaultAttackSequence attack;        // The attack to call for attacking
     public Vector3 destination;                 // The destination to move to
     public Vector3 target;                      // The position, or player position, to aim at for attack
 
@@ -46,7 +46,7 @@ public class AI : HasStats, IDamageable<float>
         healthBar.value = CalculateHealth();
 
         //Get the attack ability to use for attacking
-        attack = gameObject.GetComponent<DefaultAttackSequence>();
+        //attack = gameObject.GetComponent<DefaultAttackSequence>();
     }
 
     protected virtual void Awake()
@@ -236,7 +236,7 @@ public class AI : HasStats, IDamageable<float>
     protected void AttackPlayer()
     {
         Vector3 direction = target - this.transform.position;
-        attack.StartAIAttack(direction, this); //AI will attack in direction of player
+        AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
         Task.current.Succeed();
     }
 

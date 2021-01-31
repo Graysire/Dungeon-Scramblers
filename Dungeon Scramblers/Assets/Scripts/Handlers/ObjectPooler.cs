@@ -46,7 +46,7 @@ public class ObjectPooler : MonoBehaviour
         return objectsPooled[objectsPooled.Count - 1];
     }
 
-    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, Player Player, float AbilityAngle) {
+    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
         for (int i = 0; i < objectsPooled.Count; i++)
         {
             if (!objectsPooled[i].activeSelf)

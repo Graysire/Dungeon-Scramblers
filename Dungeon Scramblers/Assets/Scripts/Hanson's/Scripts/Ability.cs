@@ -86,7 +86,7 @@ public class Ability : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Hit " + collision);
-        collision.gameObject.GetComponent<IDamageable<float>>().Damage(0.2f);
+        collision.gameObject.GetComponent<IDamageable<float>>().Damage(5.0f);
         
     }
 }
