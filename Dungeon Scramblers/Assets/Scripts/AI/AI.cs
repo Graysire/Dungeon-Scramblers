@@ -21,24 +21,27 @@ public class AI : HasStats, IDamageable<float>
     public Vector3 destination;                 // The destination to move to
     public Vector3 target;                      // The position, or player position, to aim at for attack
 
-    private List<Vector3> currentPath;          // Stores the current path being used
+    protected List<Vector3> currentPath;        // Stores the current path being used
 
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at
-    public float maxHealth = 100.0f;            // Max AI health
-    public float speed = 0.8f;                  // Movement speed of AI
+                      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
-    private float health = 100.0f;              // Updated AI health
+    protected float maxHealth;                  // Max AI health
 
+    //private float health = 100.0f;              // Updated AI health
+
+    //private float speed;                        // Movement speed of AI
 
     // Start is called before the first frame update
     void Start()
     {
-        //set the current health to be max
-        health = maxHealth;
+        //set the max health
+        maxHealth = stats[(int)Stats.health];
+
         //Sets the value of health bar based on percentage of current health and max health
         healthBar.value = CalculateHealth();
 
@@ -69,34 +72,34 @@ public class AI : HasStats, IDamageable<float>
         if (healthBar != null)
         {
             //Set the health bar active once damage is taken
-            if (health < maxHealth) healthBarUI.SetActive(true);
+            if (stats[(int)Stats.health] < maxHealth) healthBarUI.SetActive(true);
 
             //set the health bar value
             healthBar.value = CalculateHealth();
         }
 
         //If health is greater than max then set it to max
-        if (health > maxHealth) health = maxHealth;
+        if (stats[(int)Stats.health] > maxHealth) stats[(int)Stats.health] = maxHealth;
     }
 
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
     {
-        return health / maxHealth;
+        return stats[(int)Stats.health] / maxHealth;
     }
 
     //When ability hits AI it takes damage
     public void Damage(float damageTaken)
     {
-        health -= damageTaken;
+        stats[(int)Stats.health] -= damageTaken;
     }
 
     //Updates the AI health
     protected void UpdateHealth()
     {
-        if (health < 100)
+        if (stats[(int)Stats.health] < 100)
         {
-            health++;
+            stats[(int)Stats.health]++;
         }
     }
 
@@ -139,10 +142,11 @@ public class AI : HasStats, IDamageable<float>
             {
                 break;
             }
-            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], speed * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], stats[(int)Stats.movespeed] * Time.deltaTime);
         }
         Task.current.Succeed();
     }
+
 
     //Determines whether player is seen or not.
     //Will get the path from AI to player if the player is in sight.
@@ -240,7 +244,7 @@ public class AI : HasStats, IDamageable<float>
     [Task]
     public bool IsHealthLessThan(float health)
     {
-        return this.health < health;
+        return stats[(int)Stats.health] < health;
     }
 
     //Destroys AI object
