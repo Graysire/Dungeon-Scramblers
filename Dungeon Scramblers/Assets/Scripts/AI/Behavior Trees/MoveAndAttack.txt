@@ -1,7 +1,8 @@
 tree("Root")
 	parallel
-		repeat mute tree("Attack")
 		repeat mute tree("Dead")
+		repeat mute tree("Attack")
+		
 
 tree("Attack")
 	while SeePlayerAndSetTarget

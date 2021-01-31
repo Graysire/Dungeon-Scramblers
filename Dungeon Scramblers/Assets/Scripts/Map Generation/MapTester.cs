@@ -67,7 +67,7 @@ public class MapTester : MonoBehaviour
             yield return new WaitForSeconds(waitTimeBetweenMaps);
         }
 
-        Debug.Log("Total Corridors: " + MapMaker.totalCorridors + ", Corner Cases: " + MapMaker.cornerCount + "\n" + "Corner Case Rate: " + (((double) MapMaker.cornerCount) / MapMaker.totalCorridors));
+        //Debug.Log("Total Corridors: " + MapMaker.totalCorridors + ", Corner Cases: " + MapMaker.cornerCount + "\n" + "Corner Case Rate: " + (((double) MapMaker.cornerCount) / MapMaker.totalCorridors));
         yield return null; 
     }
 }

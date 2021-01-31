@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Panda;
 
 
-public class AI : MonoBehaviour, HasStats, IDamageable<float>
+public class AI : HasStats, IDamageable<float>
 {
 
     // Placeholder for eventual Attack & Ability Equipables 

@@ -64,8 +64,8 @@ public class MapMaker : MonoBehaviour
     //list of all rooms created
     List<RoomInfo> rooms;
 
-    public static int cornerCount = 0;
-    public static int totalCorridors = 0;
+    //public static int cornerCount = 0;
+    //public static int totalCorridors = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -458,7 +458,7 @@ public class MapMaker : MonoBehaviour
         //checks if this corridor would connect to the corner of another room
         if (isConnector && tilemap.GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
         {
-            cornerCount++;
+            //cornerCount++;
 
             //checks if this would result in two adjacent door tiles
             if (tilemap.GetTile(endDoorPosition + corridorDirection * 2) != doorTile)
@@ -521,7 +521,7 @@ public class MapMaker : MonoBehaviour
             //StartCoroutine(GenerateRoom(doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0), doorDirection));
         }
 
-        totalCorridors++;
+        //totalCorridors++;
         return newDoors;
     }
 
