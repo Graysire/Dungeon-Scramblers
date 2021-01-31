@@ -1754,6 +1754,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 682744693, guid: 5a69a3e271f16984fb3ef78c9fdc7c79, type: 3}
+      propertyPath: AttackObjectList.Array.data[0]
+      value: 
+      objectReference: {fileID: 6497682061442774528, guid: fae1a52e74452544f880d0c1e5bdf9f2, type: 3}
+    - target: {fileID: 682744693, guid: 5a69a3e271f16984fb3ef78c9fdc7c79, type: 3}
+      propertyPath: AttackObjectList.Array.data[1]
+      value: 
+      objectReference: {fileID: 6497682061442774528, guid: dbe75519d21f2ed4e888b2a687079fbc, type: 3}
     - target: {fileID: 5763009813376832701, guid: 5a69a3e271f16984fb3ef78c9fdc7c79, type: 3}
       propertyPath: m_Name
       value: Scrambler
