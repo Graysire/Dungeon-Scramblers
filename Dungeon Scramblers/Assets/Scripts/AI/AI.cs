@@ -5,8 +5,13 @@ using UnityEngine.UI;
 using Panda;
 
 
-public class AI : MonoBehaviour, IDamageable<float>
+public class AI : MonoBehaviour, HasStats, IDamageable<float>
 {
+
+    // Placeholder for eventual Attack & Ability Equipables 
+    [SerializeField] protected List<GameObject> AttackObjectList;
+    protected List<DefaultAttackSequence> AttackList;
+
     Transform player;                           // Player that AI will target for attacks and chasing
     public Transform[] players;                 // Positions of all players in game
     public Slider healthBar;                    // Healthbar to display -- Not implemented
@@ -17,11 +22,10 @@ public class AI : MonoBehaviour, IDamageable<float>
     private List<Vector3> currentPath;          // Stores the current path being used
 
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at
-    public float health = 100.0f;               // Ai health
+    public float health = 100.0f;               // AI health
     public float speed = 0.8f;                  // Movement speed of AI
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
-    //public float damageTaken = 10.0f;           // The amount of damage that will be applied to the AI when hit
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
@@ -32,6 +36,22 @@ public class AI : MonoBehaviour, IDamageable<float>
     {
         //Get the attack ability to use for attacking
         attack = gameObject.GetComponent<DefaultAttackSequence>();
+    }
+
+    protected virtual void Awake()
+    {
+        // Instantiate attack sequences to reattach the instance to the player
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
+            AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
+        }
+
+
+        AttackList = new List<DefaultAttackSequence>();
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
+            AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
+        }
     }
 
     // Update is called once per frame
@@ -163,7 +183,7 @@ public class AI : MonoBehaviour, IDamageable<float>
                 {
                     player = p;
 
-                    //If this AI sees a player that will be the only player it'll attack
+                    //If true AI will only target this player seen
                     if (onlyAttackOnePlayer) break;
                 }
 
@@ -197,7 +217,14 @@ public class AI : MonoBehaviour, IDamageable<float>
         Task.current.Succeed();
     }
 
-    //For AI death
+    //Checks if the health is less than the given value
+    [Task]
+    public bool IsHealthLessThan(float health)
+    {
+        return this.health < health;
+    }
+
+    //Destroys AI object
     [Task]
     protected bool Death()
     {

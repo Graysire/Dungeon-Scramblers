@@ -1,4 +1,9 @@
 tree("Root")
+	parallel
+		repeat mute tree("Attack")
+		repeat mute tree("Dead")
+
+tree("Attack")
 	while SeePlayerAndSetTarget
 		fallback
 			while AttackInRange
@@ -8,4 +13,7 @@ tree("Root")
 			while not AttackInRange
 				MoveToDestination
 
-
+tree("Dead")
+	sequence
+		IsHealthLessThan(0.1)
+		Death

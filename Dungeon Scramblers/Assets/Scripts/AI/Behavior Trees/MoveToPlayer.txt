@@ -1,4 +1,0 @@
-tree("Root")
-	while SeePlayerAndSetTarget
-		MoveToDestination
-
