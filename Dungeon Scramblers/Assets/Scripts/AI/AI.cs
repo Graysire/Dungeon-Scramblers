@@ -9,32 +9,25 @@ public class AI : HasStats, IDamageable<float>
 {
 
     // Placeholder for eventual Attack & Ability Equipables 
-    [SerializeField] protected List<GameObject> AttackObjectList;
-    protected List<DefaultAttackSequence> AttackList;
+    [SerializeField] protected List<GameObject> AttackObjectList;   //Holds Attack Sequence Prefabs
+    protected List<DefaultAttackSequence> AttackList;               //Instantiates Attack Sequence Prefabs as Child to this
 
     Transform player;                           // Player that AI will target for attacks and chasing
     public Transform[] players;                 // Positions of all players in game
-    public GameObject healthBarUI;
-    public Slider healthBar;                    // Healthbar to display -- Not implemented
+    public GameObject healthBarUI;              // Healthbar Canvas Object
+    public Slider healthBar;                    // Healthbar Slider Object
 
-    public DefaultAttackSequence attack;        // The attack to call for attacking
     public Vector3 destination;                 // The destination to move to
     public Vector3 target;                      // The position, or player position, to aim at for attack
-
     protected List<Vector3> currentPath;        // Stores the current path being used
 
-    public float stoppingDistance = 0.5f;       // Distance from player AI stops at
-                      
+    public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
-
     protected float maxHealth;                  // Max AI health
 
-    //private float health = 100.0f;              // Updated AI health
-
-    //private float speed;                        // Movement speed of AI
 
     // Start is called before the first frame update
     void Start()
@@ -44,9 +37,6 @@ public class AI : HasStats, IDamageable<float>
 
         //Sets the value of health bar based on percentage of current health and max health
         healthBar.value = CalculateHealth();
-
-        //Get the attack ability to use for attacking
-        attack = gameObject.GetComponent<DefaultAttackSequence>();
     }
 
     protected virtual void Awake()
@@ -78,7 +68,7 @@ public class AI : HasStats, IDamageable<float>
             healthBar.value = CalculateHealth();
         }
 
-        //If health is greater than max then set it to max
+        //If health is greater than max then set it to max (In case of healing)
         if (stats[(int)Stats.health] > maxHealth) stats[(int)Stats.health] = maxHealth;
     }
 
@@ -236,7 +226,7 @@ public class AI : HasStats, IDamageable<float>
     protected void AttackPlayer()
     {
         Vector3 direction = target - this.transform.position;
-        attack.StartAIAttack(direction, this); //AI will attack in direction of player
+        AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
         Task.current.Succeed();
     }
 

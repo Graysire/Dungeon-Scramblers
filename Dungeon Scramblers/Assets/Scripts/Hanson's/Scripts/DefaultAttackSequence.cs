@@ -36,6 +36,7 @@ public class DefaultAttackSequence : MonoBehaviour
         if(!Attacked) StartCoroutine("AttackSequence");
     }
 
+
     protected virtual IEnumerator AttackSequence()
     {
         // Set Is currently attacking
@@ -59,7 +60,7 @@ public class DefaultAttackSequence : MonoBehaviour
         Vector3 AttackTransform = Player.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
 
         // Get instance of ability from object pooler
-        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player, AbilityAngle).transform;
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player.gameObject, AbilityAngle).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
         yield return new WaitForSeconds(Ability.GetCoolDownTime());
@@ -83,9 +84,8 @@ public class DefaultAttackSequence : MonoBehaviour
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
         
-/*        Transform AbilityTransform = Instantiate(Ability.gameObject, AttackTransform,
-            Quaternion.Euler(0, 0, AttackEnd.x >= AI.transform.position.x ? -AbilityAngle : AbilityAngle)).transform; // REPLACE THIS WITH OBJECT POOLER*/
-        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player, AbilityAngle).transform; // REPLACE THIS WITH OBJECT POOLER
+        //Creates the attack through the object pooler of AI attack
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AI.gameObject, AbilityAngle).transform;
         AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
     }
 }
