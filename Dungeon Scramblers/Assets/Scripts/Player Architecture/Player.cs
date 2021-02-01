@@ -36,6 +36,12 @@ public class Player : HasStats, IDamageable<float>
     protected SpriteRenderer sr;
     protected Animator animator;
     protected bool isFacingLeft;
+    // Experience Handling
+    protected int level = 1;
+    protected float currentExperience = 0.0f;
+    protected float expToNextLevel = 100.0f;
+
+
 
     protected virtual void Awake()
     {
@@ -189,11 +195,11 @@ public class Player : HasStats, IDamageable<float>
     }
 
 
-
     // For On-screen stick usage only
     public virtual void SetActiveIndependentJoystick(int j) {
         activeIndependentJoystick = j;
     }
+
 
     protected virtual void Attack(Vector2 d) {
         // Decide what we're attacking with (i.e. attack vs ability)
@@ -250,6 +256,18 @@ public class Player : HasStats, IDamageable<float>
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
     public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
+
+    public void AddExperience(float Experience)
+    {
+        currentExperience += Experience;
+        if(currentExperience >= expToNextLevel)
+        {
+            level++;
+            currentExperience = 0;
+            
+        }
+        Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
+    }
 }
 
 
