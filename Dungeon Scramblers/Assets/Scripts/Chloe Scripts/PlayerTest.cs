@@ -239,10 +239,11 @@ public class PlayerTest : MonoBehaviourPunCallbacks
     protected virtual void RequestAttack(int attackListIndex)
     {
       //  if (allowedToAttack)
-           // if (attackListIndex >= 0 && attackListIndex < AttackList.Count)
-               // AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
+          //  if (attackListIndex >= 0 && attackListIndex < AttackList.Count)
+             //   AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
+    //[PunRPC] //Marks function to be "monitored" by photn Systems
     public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 }

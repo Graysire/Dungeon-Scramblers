@@ -221,8 +221,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
 
+        RoomNameInputfield.gameObject.SetActive(false);
+        MaxPlayerInputfield.gameObject.SetActive(false);
+        CreateRoomButton.SetActive(false);
+        //StartButton.SetActive(true);
+        LeaveRoomButton.SetActive(true);
+
         //Display StartButton for Party Leader only
-        if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
             StartButton.SetActive(true);
         }

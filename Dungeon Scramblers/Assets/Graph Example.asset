@@ -1070,7 +1070,7 @@ MonoBehaviour:
   m_useUpdate: 0
   m_height: 200
   m_width: 216
-  m_x: -288
+  m_x: -264
   m_y: -192
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
@@ -1273,13 +1273,13 @@ MonoBehaviour:
   m_onEnterShowViews:
   - Category: Matchmaking
     InstantAction: 0
-    Name: Lobby Finder
+    Name: GamerTag
   m_onEnterHideViews: []
   m_onExitShowViews: []
   m_onExitHideViews:
   - Category: Matchmaking
     InstantAction: 0
-    Name: Lobby Finder
+    Name: CreateRoom
 --- !u!114 &7752457006250340463
 MonoBehaviour:
   m_ObjectHideFlags: 1

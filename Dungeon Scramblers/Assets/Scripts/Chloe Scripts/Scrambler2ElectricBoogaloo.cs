@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Scrambler2ElectricBoogaloo : PlayerTest, IPunObservable
+public class Scrambler2ElectricBoogaloo : Player, IPunObservable
 {
     protected override void OnEnable()
     {

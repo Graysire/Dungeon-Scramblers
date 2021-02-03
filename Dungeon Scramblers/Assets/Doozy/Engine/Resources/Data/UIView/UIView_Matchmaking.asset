@@ -15,9 +15,6 @@ MonoBehaviour:
   CategoryName: Matchmaking
   DatabaseType: 2
   Names:
-  - PlayerName
-  - GameOptions
+  - GamerTag
+  - LobbyListings
   - CreateRoom
-  - Lobby Finder
-=======
-  - JoinRoom
