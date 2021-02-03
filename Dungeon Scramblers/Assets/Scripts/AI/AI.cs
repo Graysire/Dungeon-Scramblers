@@ -111,9 +111,8 @@ public class AI : HasStats, IDamageable<float>
     //Send EXP to Game Manager to send to all players
     protected void DisperseEXP()
     {
-        /*
-         * TO DO
-         */
+        //Get the game manager to disperse the exp to players
+        GameManager.ManagerInstance.DistributeExperience(expOnDeath);
     }
 
 

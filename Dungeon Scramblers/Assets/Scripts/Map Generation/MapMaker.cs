@@ -61,6 +61,14 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int maxCorridorSize;
 
+    //Frequency of AI spawns (1 Cluster per X tiles in a room)
+    [SerializeField]
+    int spawnFrequency;
+
+    //the AI Clusters that can be spawned
+    [SerializeField]
+    List<AISpawnClusterInfo> spawnAI;
+
     //list of all rooms created
     List<RoomInfo> rooms;
 
@@ -76,12 +84,6 @@ public class MapMaker : MonoBehaviour
             StartCoroutine("GenerateMap");
         }
         //GenerateMap();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     //generates a dungeon map, assumes the tilemap is currently empty
@@ -130,73 +132,14 @@ public class MapMaker : MonoBehaviour
         //Add floors to all rooms
         foreach (RoomInfo room in rooms)
         {
-            for (int x = room.lowerLeft.x; x <= room.upperRight.x; x++)
-            {
-                    for (int y = room.lowerLeft.y; y <= room.upperRight.y; y++)
-                    {
-                        /*//check if a door should exist in a location, and place it if so
-                        if ((x == room.lowerLeft.x - 1 || x == room.upperRight.x + 1 || y == room.lowerLeft.y - 1 || y == room.upperRight.y + 1))
-                        {
-                            //if the location is not a floor, no door should exist here
-                            if (tilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile)
-                            {
-                                continue;
-                            }
-                            //check to see if the tile has 2 adjacent walls, if so place a door
-                            int adjacentWalls = 0;
-                            for (int x2 = -1; x2 <= 1; x2++)
-                            {
-                                for (int y2 = -1; y2 <= 1; y2++)
-                                {
-                                    if (x2 != y2 && tilemap.GetTile(new Vector3Int(x + x2, y + y2, 0)) == wallTile)
-                                    {
-                                        adjacentWalls++;
-                                    }
-                                }
-                            }
-
-                            if (adjacentWalls == 2)
-                            {
-                                tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
-                            }
-                        }*/
-                        //ensure that the starting room is never combined with other rooms and fill each room with floor tiles
-                        if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
-                        {
-                            //fill the room with floor tiles
-                            tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
-                        }
-                    }
-
-
-            }
+            FillRoom(room, floorTile);
             yield return new WaitForSeconds(waitTime);
         }
 
         //Add doors to all entrances to all rooms
         foreach (RoomInfo room in rooms)
         {
-            for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
-            {
-                for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y -1))
-                {
-                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x,y))
-                    {
-                        tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
-                    }
-                }
-            }
-
-            for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y++)
-            {
-                for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
-                {
-                    if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
-                    {
-                        tilemap.SetTile(new Vector3Int(x, y, 0), doorTile);
-                    }
-                }
-            }
+            AddDoors(room, doorTile);
         }
 
 
@@ -321,11 +264,11 @@ public class MapMaker : MonoBehaviour
                 {
                     //PlaceTile(new Vector3Int(x, y, 0), floorTile);
                 }*/
-                
+
             }
         }
 
-        
+
         //fill the area of the room with wall tiles
         //tilemap.BoxFill(new Vector3Int(startX, startY, 0), wallTile, startX - 1, startY - 1, startX + randX, startY + randY);
         //fill the inside of the room with floor tiles
@@ -338,14 +281,14 @@ public class MapMaker : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {
             //if the wall being checked is not the wall being entered from
-            if (Mathf.Abs(i - (int) door.facing) != 2)
+            if (Mathf.Abs(i - (int)door.facing) != 2)
             {
                 //check if new door should be generated
                 if (Random.Range(1, 10000) <= GetDoorChance())
                 {
                     currentDoorNum++;
                     //determine location of the new door
-                    switch ((Facing) i)
+                    switch ((Facing)i)
                     {
                         case Facing.North:
                             randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0);
@@ -355,7 +298,7 @@ public class MapMaker : MonoBehaviour
                             break;
                         case Facing.South:
                             randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY, 0);
-                            
+
                             break;
                         case Facing.West:
                             randDoorLocation = new Vector3Int(startX, startY + Random.Range(1, randY - 1), 0);
@@ -367,10 +310,10 @@ public class MapMaker : MonoBehaviour
                     if (tilemap.GetTile(randDoorLocation) == wallTile)
                     {
                         tilemap.SetTile(randDoorLocation, floorTile);
-                        newDoors.Add(new DoorInfo(randDoorLocation, (Facing) i));
+                        newDoors.Add(new DoorInfo(randDoorLocation, (Facing)i));
                     }
                 }
-            } 
+            }
         }
 
         return newDoors;
@@ -533,12 +476,55 @@ public class MapMaker : MonoBehaviour
         }
     }
 
+    //fills the given room with the given tiles
+    void FillRoom(RoomInfo room, TileBase tile)
+    {
+        for (int x = room.lowerLeft.x; x <= room.upperRight.x; x++)
+        {
+            for (int y = room.lowerLeft.y; y <= room.upperRight.y; y++)
+            {
+                //ensure that the starting room is never combined with other rooms and fill each room with tiles
+                if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                {
+                    //fill the room with floor tiles
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                }
+            }
+        }
+    }
+
+    //adds doors to a given room using the given tile
+    void AddDoors(RoomInfo room, TileBase tile)
+    {
+        for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+        {
+            for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y - 1))
+            {
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                }
+            }
+        }
+
+        for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y++)
+        {
+            for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
+            {
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                {
+                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                }
+            }
+        }
+    }
+
     //gets the chance of a new door being created based on the number of doors that exist
     int GetDoorChance()
     {
 
         //Debug.Log("Num:" + currentDoorNum + ", C:" + ((100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors)) - (currentDoorNum >= softMaximumDoors ? softMaximumPenalty : 0) / 100) + "%");
-        return (int) (100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors) * 100) - (currentDoorNum >= softMaximumDoors? softMaximumPenalty:0);
+        return (int) (100.0 / Mathf.Log(currentDoorNum + 1, minimumDoors) * 100) - (currentDoorNum >= softMaximumDoors ? softMaximumPenalty : 0);
     }
 
     // 100 / ((1-minDoors) * x)
@@ -603,6 +589,7 @@ public class MapMaker : MonoBehaviour
         }
     }
 
+    //the location of a rooms floor corners
     struct RoomInfo
     {
         //the position of the lower left floor corner on the tilemap
@@ -611,10 +598,34 @@ public class MapMaker : MonoBehaviour
         public Vector3Int upperRight;
     }
 
+    //struct containing the information used to spawn groups of AI
+    [System.Serializable]
+    struct AISpawnClusterInfo
+    {
+        //list of all AI that will be spawned and their number
+        public List<AISpawnInfo> spawns;
+        //the relative frequency of this AI Cluster (i.e. frequency = 2 occurs twice as often as frequency = 1)
+        public int frequency;
+    }
+
+    //struct containing information used to spawn an individual AI
+    [System.Serializable]
+    struct AISpawnInfo
+    {
+        //the AI gameobject to instantiate
+        public GameObject spawnAI;
+        //the minimum number to spawn
+        public int minSpawned;
+        //the maximum number to spawn
+        public int maxSpawned;
+    }
+
+
     //the direction a door faces to lead out of a room or corridor
     //North is up, East is right, South is down, West is left
     enum Facing
     {
         North, East, South, West
     }
+
 }

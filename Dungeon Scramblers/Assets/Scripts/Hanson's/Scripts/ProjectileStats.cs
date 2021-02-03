@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability : MonoBehaviour
+public class ProjectileStats : MonoBehaviour
 {
     // Define the range of the the ability before destroying itself
     [SerializeField]
