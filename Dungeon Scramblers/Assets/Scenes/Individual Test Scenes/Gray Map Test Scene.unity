@@ -169,6 +169,26 @@ MonoBehaviour:
   maxRoomSize: 20
   minCorridorSize: 5
   maxCorridorSize: 15
+  spawnFrequency: 40
+  spawnAI:
+  - spawns:
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 5
+  - spawns:
+    - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      minSpawned: 3
+      maxSpawned: 6
+    frequency: 5
+  - spawns:
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 2
 --- !u!4 &888398644
 Transform:
   m_ObjectHideFlags: 0
