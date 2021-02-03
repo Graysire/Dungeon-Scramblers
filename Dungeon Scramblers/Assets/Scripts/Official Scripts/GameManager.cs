@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     // Players stats
     bool isPlayerDead;
-    public Player[] Scramblers; // = new Scrambler class array of 4;
+    Player[] Scramblers; // = new Scrambler class array of 4;
     Player Overlord; // = new Overlord class;
 
     private void Awake()
@@ -30,6 +30,14 @@ public class GameManager : MonoBehaviour
             _managerInstance = this;
         }
         Scramblers = FindObjectsOfType<Scrambler>();
+    }
+
+    public void DistributeExperience(float experience)
+    {
+        foreach(Scrambler scrambler in Scramblers)
+        {
+            scrambler.AddExperience(experience);
+        }
     }
 
     void GenerateLevel()

@@ -7,7 +7,7 @@ public class Dummy : MonoBehaviour, IDamageable<float>
     public void Damage(float damageTaken)
     {
         Debug.Log(gameObject + " Hit For " + damageTaken + " Damage.");
-        GameManager.ManagerInstance.Scramblers[0].AddExperience(10);
+        GameManager.ManagerInstance.DistributeExperience(10.0f);
     }
 
     // Start is called before the first frame update
