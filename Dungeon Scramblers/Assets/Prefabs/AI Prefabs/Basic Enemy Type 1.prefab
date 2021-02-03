@@ -62,7 +62,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 3.2, y: 2.563}
   m_EdgeRadius: 0
 --- !u!212 &4248649116176859040
 SpriteRenderer:
