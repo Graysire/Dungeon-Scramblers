@@ -5,7 +5,7 @@ using UnityEngine;
 public class DefaultAttackSequence : MonoBehaviour
 {
     [SerializeField]
-    protected Ability Ability;
+    protected ProjectileStats Projectile;
     protected ObjectPooler AbilityPooler;
     //protected bool needsMoreInstances;
 
@@ -43,7 +43,7 @@ public class DefaultAttackSequence : MonoBehaviour
         Player.SetAllowedToAttack(false);
         Attacked = true;
         // Wait for ability casting time before proceeding
-        yield return new WaitForSeconds(Ability.GetCastingTime());
+        yield return new WaitForSeconds(Projectile.GetCastingTime());
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
 
         Vector3 AttackEnd = Player.transform.position + AttackDirection;
@@ -57,13 +57,13 @@ public class DefaultAttackSequence : MonoBehaviour
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackNormal = (AttackEnd - Player.transform.position).normalized;
         // Transform vector with quick if statements for returning offset for attacks
-        Vector3 AttackTransform = Player.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
+        Vector3 AttackTransform = Player.transform.position + (RelativeAttackEnd.normalized * Projectile.GetOffsetScale());
 
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player.gameObject, AbilityAngle).transform;
-        AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
-        yield return new WaitForSeconds(Ability.GetCoolDownTime());
+        yield return new WaitForSeconds(Projectile.GetCoolDownTime());
         Attacked = false;
     }
 
@@ -82,10 +82,10 @@ public class DefaultAttackSequence : MonoBehaviour
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackNormal = (AttackEnd - AI.transform.position).normalized;
         // Transform vector with quick if statements for returning offset for attacks
-        Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Ability.GetOffsetScale());
+        Vector3 AttackTransform = AI.transform.position + (RelativeAttackEnd.normalized * Projectile.GetOffsetScale());
         
         //Creates the attack through the object pooler of AI attack
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AI.gameObject, AbilityAngle).transform;
-        AbilityTransform.GetComponent<Ability>().SetUp(AttackNormal);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
     }
 }

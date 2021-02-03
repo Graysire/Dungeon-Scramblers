@@ -1023,7 +1023,7 @@ Internal:
 *** Version 3.0.0.6
 - Fixed: SendOutgoingCommands now returns true if commands are remaining in outgoing queues (UDP only sends one package per call, TCP will send anything outgoing).
 - Added: New "RoomCache" for Events. The EventCaching enum allows you to use it. Events in this cache will keep the order in which they arrived in the server. A filter makes deleting them very flexible.
-- Internal: Ability to make lib send only ACKs and nothing else. This is probably a temp solution as it might be better to make sending and calling ops completely thread safe.
+- Internal: ProjectileStats to make lib send only ACKs and nothing else. This is probably a temp solution as it might be better to make sending and calling ops completely thread safe.
 - Internal: PhotonPeer.IsSendingOnlyAcks, which is locked with the sending (not changing while sending). This makes SendOutgoingCommands() thread safe, which is good if you need a separate thread to keep connection. You could call operations while sending.
 - Internal: Unity3d's connection now also syncs socket usage
 
