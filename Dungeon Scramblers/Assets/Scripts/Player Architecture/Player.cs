@@ -24,10 +24,9 @@ public class Player : HasStats, IDamageable<float>
     //Netowkring Variables
     protected Vector2 networkPosition;  //Network position for lag Compensation
     protected Quaternion networkRotation;
-    protected Vector3 movement;
     // Movement Variables
-    protected CharacterController controller;
-    protected Vector3 direction = Vector3.zero;
+    protected Vector2 movement;
+    protected Vector2 direction = Vector2.zero;
     protected Rigidbody2D rb;
     // Attack Variables
     protected Vector3 AttackDirection;
@@ -41,8 +40,6 @@ public class Player : HasStats, IDamageable<float>
     protected float currentExperience = 0.0f;
     protected float expToNextLevel = 100.0f;
 
-
-
     protected virtual void Awake()
     {
         // UNCOMMENT THE SECTION BELOW FOR THE REAL BUILD
@@ -53,11 +50,9 @@ public class Player : HasStats, IDamageable<float>
 
         // Instantiate attack sequences to reattach the instance to the player
         for(int i = 0; i < AttackObjectList.Count; i++)
-        {
             AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
-        }
         
-
+        // Pool the objects needed for the attack sequence
         AttackList = new List<DefaultAttackSequence>();
         for (int i = 0; i < AttackObjectList.Count; i++) {
             AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
@@ -76,19 +71,19 @@ public class Player : HasStats, IDamageable<float>
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());
         controls.PlayerMovement.Movement.canceled += ctx => Move(ctx.ReadValue<Vector2>());
-        if (usingOnScreenControls) {
+        if (usingOnScreenControls)
+        {
             /* Multiple Joystick Reference: https://forum.unity.com/threads/create-two-virtual-joysticks-touch-with-the-new-input-system.853072/ */
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<Vector2>()); // Will need to now fire either attack or ability based on the joystick moved
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<Vector2>());
         }
-        else {
+        else
+        {
             controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
             controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<float>());
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>());
             controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<float>());
         }
-            
-        controller = GetComponent<CharacterController>();
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         allowedToAttack = true;
@@ -96,11 +91,26 @@ public class Player : HasStats, IDamageable<float>
         rb = GetComponent<Rigidbody2D>();
 
     }
+    // Update and Fixed Update handlers (event & delegate)
+    protected virtual void OnEnable()
+    {
+        controls.Enable();
+        UpdateHandler.UpdateOccurred += Die;
+        UpdateHandler.FixedUpdateOccurred += ApplyMove;
+        UpdateHandler.FixedUpdateOccurred += PhotonPhysicsUpdate;
+    }
+    protected virtual void OnDisable()
+    {
+        controls.Disable();
+        UpdateHandler.UpdateOccurred -= Die;
+        UpdateHandler.FixedUpdateOccurred -= ApplyMove;
+        UpdateHandler.FixedUpdateOccurred -= PhotonPhysicsUpdate;
+    }
 
     #region Pun/Unity Callbacks
-    public void FixedUpdate()
-    {
-/*        if (!photonView.IsMine)
+    protected void PhotonPhysicsUpdate() {
+/*        UNCOMMENT IN BUILD WITH NETWORKING
+ *        if (!photonView.IsMine)
         {
             rb.position = Vector3.MoveTowards(rb.position, networkPosition, Time.fixedDeltaTime);
             //rb.rotation = Quaternion.RotateTowards(rb., networkRotation, Time.fixedDeltaTime * 100.0f);
@@ -126,20 +136,6 @@ public class Player : HasStats, IDamageable<float>
         }
     }
     #endregion
-
-
-    protected virtual void OnEnable()
-    {
-        controls.Enable();
-        UpdateHandler.UpdateOccurred += Die;
-        UpdateHandler.FixedUpdateOccurred += ApplyMove;
-    }
-    protected virtual void OnDisable()
-    {
-        controls.Disable();
-        UpdateHandler.UpdateOccurred -= Die;
-        UpdateHandler.FixedUpdateOccurred -= ApplyMove;
-    }
     protected virtual void Move(Vector2 d) {
         // Animation changes
         // Not moving
@@ -182,24 +178,20 @@ public class Player : HasStats, IDamageable<float>
             }
         }
         // Actual movement
-
-        direction = new Vector3(d.x, d.y, 0);
+        direction = new Vector2(d.x, d.y);
         direction = transform.TransformDirection(direction);
         direction *= stats[(int)Stats.movespeed];
     }
 
-
     protected virtual void ApplyMove() {
-       controller.Move(direction * Time.deltaTime);
-       //rb.velocity
+        rb.MovePosition((direction * Time.fixedDeltaTime) + rb.position);
+        Debug.Log("This is called");
     }
-
 
     // For On-screen stick usage only
     public virtual void SetActiveIndependentJoystick(int j) {
         activeIndependentJoystick = j;
     }
-
 
     protected virtual void Attack(Vector2 d) {
         // Decide what we're attacking with (i.e. attack vs ability)

@@ -16,7 +16,8 @@ public class UpdateHandler : MonoBehaviour
                                                       * }
                                                       */
 
-    public static event onUpdate FixedUpdateOccurred; // Physics-based updates
+    public delegate void onFixedUpdate();
+    public static event onFixedUpdate FixedUpdateOccurred; // Physics-based updates
     // Start delegate: not entirely necessary but a precaution for the heavy number of objects being
     // pooled at the beginning of each game
     public delegate void onStart();
