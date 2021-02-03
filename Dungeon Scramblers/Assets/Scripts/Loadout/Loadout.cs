@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Loadout : MonoBehaviour
 {
+
     public List<Equippable> Equippables;    //Stores all equippables a player has
 
 
@@ -23,5 +24,17 @@ public class Loadout : MonoBehaviour
     public void AddEquippable(Equippable e)
     {
         Equippables.Add(e);
+    }
+
+    //Removes the equippable from the loadout given the name of the equippable
+    public void DeleteEquippable(string uniqueName)
+    {
+        for (int i = 0; i < Equippables.Count; ++i)
+        {
+            if (string.Equals(Equippables[i].GetEquippableName(), uniqueName))
+            {
+                Equippables.RemoveAt(i);
+            }
+        }
     }
 }
