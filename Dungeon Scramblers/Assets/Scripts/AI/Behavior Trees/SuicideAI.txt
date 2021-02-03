@@ -13,7 +13,7 @@ tree("Attack")
 					Wait(0.5)
 					Death
 			while not AttackInRange
-				MoveToDestination
+				MoveToPlayer
 
 tree("Dead")
 	sequence

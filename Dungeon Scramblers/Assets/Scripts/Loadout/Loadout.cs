@@ -11,12 +11,14 @@ public class Loadout : MonoBehaviour
 
 
     //Adds the given equippable into the loadout
+    //Should be used for inventory management on main menu
     public void AddEquippable(Equippable e)
     {
         Equippables.Add(e);
     }
 
     //Removes the equippable from the loadout given the name of the equippable
+    //Should be used for inventory management on main menu
     public void DeleteEquippable(string uniqueName)
     {
         for (int i = 0; i < Equippables.Count; ++i)
