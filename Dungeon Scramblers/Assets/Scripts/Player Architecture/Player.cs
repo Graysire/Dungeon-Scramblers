@@ -185,7 +185,6 @@ public class Player : HasStats, IDamageable<float>
 
     protected virtual void ApplyMove() {
         rb.MovePosition((direction * Time.fixedDeltaTime) + rb.position);
-        Debug.Log("This is called");
     }
 
     // For On-screen stick usage only
@@ -198,7 +197,7 @@ public class Player : HasStats, IDamageable<float>
         // Joystick.getJoystickNumber
         if (activeIndependentJoystick < 0 || activeIndependentJoystick >= AttackList.Count)
         {
-            Debug.Log("Invalid Joystick number.");
+            Debug.Log("Invalid Joystick number: " + activeIndependentJoystick);
             return;
         }
         if (d.x == 0 && d.y == 0) { // Stop Attacking if joystick is at <0, 0>
