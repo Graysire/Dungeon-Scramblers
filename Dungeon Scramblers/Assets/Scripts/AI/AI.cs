@@ -118,7 +118,7 @@ public class AI : HasStats, IDamageable<float>
 
     //Has AI move to given destination - currently the destination is the seen player
     [Task]
-    protected void MoveToDestination()
+    protected void MoveToPlayer()
     {
         //Get path to player
         currentPath = GetPath(this.transform.position, player.transform.position);

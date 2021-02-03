@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Parent class of DefaultAttackSequence, Armor and Perk classes.
+    //Will be used to identify the equippable type and name so that it can be retrived
+    //by Game Manager for player stat/abilities instantiation
 public class Equippable : MonoBehaviour
 {
-    protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME*
+    [SerializeField]
+    protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME FOR LOADOUT SYSTEM*
 
     //Enum for determining the type of the equippable
     [SerializeField]

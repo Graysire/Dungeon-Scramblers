@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefaultAttackSequence : MonoBehaviour
+public class DefaultAttackSequence : Equippable
 {
     [SerializeField]
     protected ProjectileStats Projectile;

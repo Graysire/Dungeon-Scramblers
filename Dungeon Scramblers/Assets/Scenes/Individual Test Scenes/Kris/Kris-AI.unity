@@ -298,6 +298,8 @@ MonoBehaviour:
   maxRoomSize: 20
   minCorridorSize: 5
   maxCorridorSize: 15
+  spawnFrequency: 0
+  spawnAI: []
 --- !u!4 &149493825
 Transform:
   m_ObjectHideFlags: 0
@@ -341,7 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability: {fileID: 6437745037534223780, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  uniqueName: 
+  Projectile: {fileID: 0}
 --- !u!4 &249369881
 Transform:
   m_ObjectHideFlags: 0
@@ -1986,6 +1989,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8332080629846319896, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      propertyPath: scripts.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: c23811f37520d8a44bbb0e3d88039215, type: 3}
     - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: players.Array.size
       value: 1
@@ -2031,6 +2038,10 @@ PrefabInstance:
       propertyPath: players.Array.data[0]
       value: 
       objectReference: {fileID: 417361228}
+    - target: {fileID: 4248649116176859042, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      propertyPath: scripts.Array.data[0]
+      value: 
+      objectReference: {fileID: 4900000, guid: cb9b1ddfa0635164cb601a9bf9c3b962, type: 3}
     - target: {fileID: 4248649116176859046, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.8615499
