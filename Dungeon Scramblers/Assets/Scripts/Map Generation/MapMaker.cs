@@ -9,6 +9,8 @@ public class MapMaker : MonoBehaviour
     //generates a map on intilization of the object
     [SerializeField]
     bool generateMapOnStart = true;
+    [SerializeField]
+    bool generateAI = false;
 
     //whether or not the map has finished generating
     bool mapFinished = false;
@@ -69,15 +71,29 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     List<AISpawnClusterInfo> spawnAI;
 
+    //the total frequency of all AI Clusters, used to determine which CLuster is placed
+    int totalClusterFrequency = 0;
+    //the minimum number of tiles the AI can spawn from the edge of a room
+    int spawnBuffer = 0;
+
     //list of all rooms created
     List<RoomInfo> rooms;
 
     //public static int cornerCount = 0;
     //public static int totalCorridors = 0;
 
+    private void Awake()
+    {
+        foreach (AISpawnClusterInfo cluster in spawnAI)
+        {
+            totalClusterFrequency += cluster.frequency;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
@@ -136,18 +152,25 @@ public class MapMaker : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
+        //generate the pathfinding grid
+        Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+
         //Add doors to all entrances to all rooms
         foreach (RoomInfo room in rooms)
         {
             AddDoors(room, doorTile);
+            if (generateAI && spawnAI.Count > 0)
+            {
+                SpawnAIClusters(room);
+            }
+            yield return new WaitForSeconds(waitTime);
         }
 
 
 
 
 
-        //generate the pathfinding grid
-        Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+        
         mapFinished = true;
         yield return null;
     }
@@ -466,6 +489,127 @@ public class MapMaker : MonoBehaviour
 
         //totalCorridors++;
         return newDoors;
+    }
+
+    void SpawnAIClusters(RoomInfo room)
+    {
+        //Debug.Log("Starting AI Spawn");
+
+        //the size of the room in x and y directions
+        Vector2Int roomSize = new Vector2Int(room.upperRight.x - room.lowerLeft.x + 1, room.upperRight.y - room.lowerLeft.y + 1);
+        //total size of the room
+        int totalTiles = roomSize.x * roomSize.y;
+
+        //the total number of AI Clusters being spawned
+        int numSpawns = totalTiles / spawnFrequency;
+        //any fraction in the number of clusters to spawn is used as a percent chance to spawn
+        if (Random.Range(1, 1000) <= ((totalTiles / (float) spawnFrequency) % 1) * 1000)
+        {
+            numSpawns++;
+        }
+
+        //the room is divided into equal size rectangles, one for each cluster being spawned
+        //this vector is the value added to the starting corners of the spawn area
+        Vector2Int spawnAreaSize = new Vector2Int(roomSize.x > roomSize.y? ((roomSize.x - spawnBuffer) / numSpawns) : 0, roomSize.x <= roomSize.y ? ((roomSize.y - spawnBuffer) / numSpawns) : 0);
+        //*DEPRECATED* divide up the room based on its longest edge
+        /*if (roomSize.x > roomSize.y)
+        {
+            spawnAreaSize.x /= numSpawns;
+        }
+        else
+        {
+            spawnAreaSize.y /= numSpawns;
+        }*/
+
+        //if the spawn area is too small, report the error and associated information
+        if (spawnAreaSize.x == 0 && spawnAreaSize.y == 0)
+        {
+            Debug.Log("Spawn Area too small to spawn AI, aborting AI spawning for this room");
+            Debug.Log("Room Size: " + roomSize.x + ", " + roomSize.y + ", TOTAL: " + totalTiles + "\n" +
+            "Num Spawns: " + (totalTiles / (float)spawnFrequency) + ", Actual Spawns: " + numSpawns + "\n" +
+            "Spawn Area Estimated Size: " + (roomSize.x / (float)numSpawns) + ", " + (roomSize.y / (float)numSpawns));
+        }
+
+        
+        //starts at the lower left corner of the room
+        Vector2Int currentLowerLeft = new Vector2Int(room.lowerLeft.x + spawnBuffer, room.lowerLeft.y + spawnBuffer);
+        //starts as the upper right of the spawn area, if the x area is greater than y, then the x value is based on SpawnAreaSize and the y is just the height of the room and vice versa if x <= y
+        Vector2Int currentUpperRight = new Vector2Int(roomSize.x > roomSize.y ? (currentLowerLeft.x + spawnAreaSize.x) : (room.upperRight.x - spawnBuffer), 
+            roomSize.x <= roomSize.y ? (currentLowerLeft.y + spawnAreaSize.y) : (room.upperRight.y - spawnBuffer));
+        int spawnLimit = (roomSize.x - spawnBuffer * 2) * (roomSize.y - spawnBuffer * 2) / numSpawns; 
+
+
+        //for each cluster that must be spawned
+        for (int i = 0; i < numSpawns; i++)
+        {
+            //Debug.Log("Starting Cluster Spawn");
+            //randomly select a cluster to spawn
+            int clusterSelect = Random.Range(1, totalClusterFrequency);
+            //if no cluster is selected due to error, select the first cluster
+            AISpawnClusterInfo selectedCluster = spawnAI[0];
+            for (int x = 0; x < spawnAI.Count; x++)
+            {
+                clusterSelect -= spawnAI[x].frequency;
+                if (clusterSelect <= 0)
+                {
+                    selectedCluster = spawnAI[x];
+                }
+            }
+
+            //list of locations that an ai has already been sapwned in
+            List<Vector3> closedLocations = new List<Vector3>();
+            int numSpawned = 0;
+
+            //for each ai in the cluster, generate how many should be placed
+            foreach (AISpawnInfo ai in selectedCluster.spawns)
+            {
+                //Debug.Log("Starting Individual Spawn");
+                int numToSpawn = Random.Range(ai.minSpawned, ai.maxSpawned);
+                
+
+                for (int x = 0; x < numToSpawn; x++)
+                {
+                    if (numSpawned >= spawnLimit)
+                    {
+                        break;
+                    }
+
+                    //generate random spawn location
+                    int randX = Random.Range(currentLowerLeft.x, currentUpperRight.x);
+                    int randY = Random.Range(currentLowerLeft.y, currentUpperRight.y);
+                    Vector3Int randLocation = new Vector3Int(randX, randY, 0);
+
+                    //if the spawn location has been used, generate a new one
+                    while (closedLocations.Contains(randLocation))
+                    {
+                         //Debug.Log("relocate");
+                         randX = Random.Range(currentLowerLeft.x, currentUpperRight.x);
+                         randY = Random.Range(currentUpperRight.y, currentUpperRight.y);
+                         randLocation = new Vector3Int(randX, randY, 0);
+                    }
+
+                    //convert random location to world location
+                    Vector3 worldLocation = tilemap.GetCellCenterWorld(randLocation); 
+
+                    //instantiate AI
+                    Instantiate(ai.spawnAI, worldLocation, new Quaternion());
+                    closedLocations.Add(randLocation);
+                }
+                if (numSpawned >= spawnLimit)
+                {
+                    break;
+                }
+            }
+
+            currentLowerLeft += spawnAreaSize;
+            currentUpperRight += spawnAreaSize;
+        }
+
+        //Debug.Log("[" + room.lowerLeft.x  + ", " + room.lowerLeft.y + "], [" + room.upperRight.x + ", " + room.upperRight.y + "]");
+        /*Debug.Log("Room Size: " + roomSize.x + ", " + roomSize.y + ", TOTAL: " + totalTiles + "\n" +
+            "Num Spawns: " + (totalTiles / (float) spawnFrequency) + ", Actual Spawns: " + numSpawns + "\n" +
+            "Spawn Area Size: " + spawnAreaSize.x + ", " + spawnAreaSize.y);*/
+
     }
 
     void PlaceTile(Vector3Int position, TileBase tile)

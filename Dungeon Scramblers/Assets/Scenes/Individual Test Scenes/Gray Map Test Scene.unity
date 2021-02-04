@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generateMapOnStart: 0
+  generateAI: 1
   maxIterations: 10
   minimumDoors: 3
   softMaximumDoors: 10
@@ -228,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 50
-  waitTimeBetweenMaps: 5
+  waitTimeBetweenMaps: 100
   startingSeed: 2
   mapper: {fileID: 888398643}
 --- !u!1 &1873881674
