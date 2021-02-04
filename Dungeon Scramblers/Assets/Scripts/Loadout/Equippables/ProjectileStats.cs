@@ -24,6 +24,7 @@ public class ProjectileStats : MonoBehaviour
     private float OffsetScale;
 
 
+
     // Use to calculate direction for movement of the ability
     private Vector3 AttackDir;
     // Use to calculate decay time for the ability
@@ -31,7 +32,9 @@ public class ProjectileStats : MonoBehaviour
     // Use to calculate the position traveled to destroy object
     private Vector3 PositionTraveled = Vector3.zero;
     // Use to handle collision to effect health or other sysem
-    Collider2D Collider;
+    private Collider2D Collider;
+    // Use to handle movement of the projectile and collision
+    private Rigidbody2D rb;
 
     // Return the casting time for the ability as a float
     // This is an interface function that the player call with nessarily finding the object
@@ -57,20 +60,21 @@ public class ProjectileStats : MonoBehaviour
     // Take in the attack direction from the player to move the ability
     public void SetUp(Vector3 AttackDir)
     {
-        this.AttackDir = AttackDir;    
+        this.AttackDir = AttackDir;
+        rb = GetComponent<Rigidbody2D>();
     }
 
 
     // This update will be added to update handler when all the ability function is ready to transition
-    void Update()
+    void FixedUpdate()
     {
         // Check if Attack Direction exist
         if (AttackDir != null)
         {
             // Increment time passed, position of the object, and position traveled
-            totalTime += Time.deltaTime;
-            transform.position += AttackDir * Time.deltaTime * MoveSpeed;
-            PositionTraveled += AttackDir * Time.deltaTime * MoveSpeed;
+            totalTime += Time.fixedDeltaTime;
+            rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
+            PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
