@@ -47,6 +47,7 @@ public class ObjectPooler : MonoBehaviour
     }
 
     public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
+        //initialize this object since it is new
         if (objectsPooled == null)
         {
             PoolObjectAtStart();
