@@ -67,14 +67,17 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int spawnFrequency;
 
+    //the minimum number of tiles the AI can spawn from the edge of a room
+    [SerializeField]
+    int spawnBuffer = 0;
+
     //the AI Clusters that can be spawned
     [SerializeField]
     List<AISpawnClusterInfo> spawnAI;
 
     //the total frequency of all AI Clusters, used to determine which CLuster is placed
     int totalClusterFrequency = 0;
-    //the minimum number of tiles the AI can spawn from the edge of a room
-    int spawnBuffer = 0;
+    
 
     //list of all rooms created
     List<RoomInfo> rooms;
@@ -522,7 +525,7 @@ public class MapMaker : MonoBehaviour
         }*/
 
         //if the spawn area is too small, report the error and associated information
-        if (spawnAreaSize.x == 0 && spawnAreaSize.y == 0)
+        if (spawnAreaSize.x <= 0 && spawnAreaSize.y <= 0)
         {
             Debug.Log("Spawn Area too small to spawn AI, aborting AI spawning for this room");
             Debug.Log("Room Size: " + roomSize.x + ", " + roomSize.y + ", TOTAL: " + totalTiles + "\n" +
@@ -534,14 +537,35 @@ public class MapMaker : MonoBehaviour
         //starts at the lower left corner of the room
         Vector2Int currentLowerLeft = new Vector2Int(room.lowerLeft.x + spawnBuffer, room.lowerLeft.y + spawnBuffer);
         //starts as the upper right of the spawn area, if the x area is greater than y, then the x value is based on SpawnAreaSize and the y is just the height of the room and vice versa if x <= y
-        Vector2Int currentUpperRight = new Vector2Int(roomSize.x > roomSize.y ? (currentLowerLeft.x + spawnAreaSize.x) : (room.upperRight.x - spawnBuffer), 
-            roomSize.x <= roomSize.y ? (currentLowerLeft.y + spawnAreaSize.y) : (room.upperRight.y - spawnBuffer));
+        Vector2Int currentUpperRight = new Vector2Int(roomSize.x > roomSize.y ? (currentLowerLeft.x + spawnAreaSize.x - 1) : (room.upperRight.x - spawnBuffer), 
+            roomSize.x <= roomSize.y ? (currentLowerLeft.y + spawnAreaSize.y - 1) : (room.upperRight.y - spawnBuffer));
         int spawnLimit = (roomSize.x - spawnBuffer * 2) * (roomSize.y - spawnBuffer * 2) / numSpawns; 
 
 
         //for each cluster that must be spawned
         for (int i = 0; i < numSpawns; i++)
         {
+            if (currentUpperRight.x >= room.upperRight.x - spawnBuffer)
+            {
+                currentUpperRight.x = room.upperRight.x - spawnBuffer;
+                if (currentLowerLeft.x >= currentUpperRight.x)
+                {
+                    Debug.Log("Not enough space to spawn");
+                    break;
+                }
+            }
+            else if (currentUpperRight.y >= room.upperRight.y - spawnBuffer)
+            {
+                currentUpperRight.y = room.upperRight.y - spawnBuffer;
+                if (currentLowerLeft.y >= currentUpperRight.y)
+                {
+                    Debug.Log("Not enough space to spawn");
+                    break;
+                }
+            }
+
+            
+
             //Debug.Log("Starting Cluster Spawn");
             //randomly select a cluster to spawn
             int clusterSelect = Random.Range(1, totalClusterFrequency);
@@ -560,6 +584,13 @@ public class MapMaker : MonoBehaviour
             List<Vector3> closedLocations = new List<Vector3>();
             int numSpawned = 0;
 
+            //if (room.lowerLeft == rooms[12].lowerLeft)
+            //{
+                tilemap.SetTile(new Vector3Int(currentLowerLeft.x, currentLowerLeft.y, 0), doorTile);
+                tilemap.SetTile(new Vector3Int(currentUpperRight.x, currentUpperRight.y, 0), doorTile);
+                //Debug.Log(currentLowerLeft + " " + currentUpperRight);
+            //}
+
             //for each ai in the cluster, generate how many should be placed
             foreach (AISpawnInfo ai in selectedCluster.spawns)
             {
@@ -575,21 +606,34 @@ public class MapMaker : MonoBehaviour
                     }
 
                     //generate random spawn location
-                    int randX = Random.Range(currentLowerLeft.x, currentUpperRight.x);
-                    int randY = Random.Range(currentLowerLeft.y, currentUpperRight.y);
+                    int randX = Random.Range(currentLowerLeft.x, currentUpperRight.x + 1);
+                    int randY = Random.Range(currentLowerLeft.y, currentUpperRight.y + 1);
                     Vector3Int randLocation = new Vector3Int(randX, randY, 0);
+
+                    int count = 0;
 
                     //if the spawn location has been used, generate a new one
                     while (closedLocations.Contains(randLocation))
                     {
                          //Debug.Log("relocate");
-                         randX = Random.Range(currentLowerLeft.x, currentUpperRight.x);
-                         randY = Random.Range(currentUpperRight.y, currentUpperRight.y);
+                         randX = Random.Range(currentLowerLeft.x, currentUpperRight.x + 1);
+                         randY = Random.Range(currentLowerLeft.y, currentUpperRight.y + 1);
                          randLocation = new Vector3Int(randX, randY, 0);
+                        count++;
+                        if (count > 50)
+                        {
+                            Debug.Log("50 Attempts");
+                            break;
+                        }
                     }
 
                     //convert random location to world location
-                    Vector3 worldLocation = tilemap.GetCellCenterWorld(randLocation); 
+                    Vector3 worldLocation = tilemap.GetCellCenterWorld(randLocation);
+
+                    //if (room.lowerLeft == rooms[12].lowerLeft)
+                    //{
+                    //    Debug.Log(randLocation + " " + worldLocation);
+                    //}
 
                     //instantiate AI
                     Instantiate(ai.spawnAI, worldLocation, new Quaternion());
@@ -603,12 +647,13 @@ public class MapMaker : MonoBehaviour
 
             currentLowerLeft += spawnAreaSize;
             currentUpperRight += spawnAreaSize;
+            
         }
 
         //Debug.Log("[" + room.lowerLeft.x  + ", " + room.lowerLeft.y + "], [" + room.upperRight.x + ", " + room.upperRight.y + "]");
-        /*Debug.Log("Room Size: " + roomSize.x + ", " + roomSize.y + ", TOTAL: " + totalTiles + "\n" +
-            "Num Spawns: " + (totalTiles / (float) spawnFrequency) + ", Actual Spawns: " + numSpawns + "\n" +
-            "Spawn Area Size: " + spawnAreaSize.x + ", " + spawnAreaSize.y);*/
+        //Debug.Log("Room Size: " + roomSize.x + ", " + roomSize.y + ", TOTAL: " + totalTiles + "\n" +
+        //    "Num Spawns: " + (totalTiles / (float) spawnFrequency) + ", Actual Spawns: " + numSpawns + "\n" +
+        //    "Spawn Area Size: " + spawnAreaSize.x + ", " + spawnAreaSize.y);//*/
 
     }
 

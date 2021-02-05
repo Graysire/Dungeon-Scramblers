@@ -161,7 +161,7 @@ MonoBehaviour:
   softMaximumDoors: 10
   softMaximumPenalty: 2000
   currentDoorNum: 0
-  waitTime: 0.3
+  waitTime: 0
   tilemap: {fileID: 2100146500}
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
@@ -171,6 +171,7 @@ MonoBehaviour:
   minCorridorSize: 5
   maxCorridorSize: 15
   spawnFrequency: 40
+  spawnBuffer: 2
   spawnAI:
   - spawns:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
@@ -431,7 +432,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
