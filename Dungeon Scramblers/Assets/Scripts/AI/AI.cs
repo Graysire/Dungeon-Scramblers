@@ -29,9 +29,22 @@ public class AI : HasStats, IDamageable<float>
     protected float maxHealth;                  // Max AI health
 
 
+    public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
+
+
+    /*
+     * Note to self: If the player is dead how do we know?
+     * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe befor implementing
+     * 
+     */
+
+
+
     // Start is called before the first frame update
     void Start()
     {
+
+
         //set the max health
         maxHealth = stats[(int)Stats.health];
 
@@ -41,6 +54,10 @@ public class AI : HasStats, IDamageable<float>
 
     protected virtual void Awake()
     {
+        //Get the list of players
+        players = GameManager.ManagerInstance.GetPlayerTransforms();
+
+
         // Instantiate attack sequences to reattach the instance to the player
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
@@ -71,6 +88,14 @@ public class AI : HasStats, IDamageable<float>
         //If health is greater than max then set it to max (In case of healing)
         if (stats[(int)Stats.health] > maxHealth) stats[(int)Stats.health] = maxHealth;
     }
+
+    //Takes an array of all player transforms so AI can track players in the game
+    public void CopyPlayersTransformList(Transform[] players)
+    {
+        this.players = players;
+    }
+
+
 
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
@@ -256,5 +281,25 @@ public class AI : HasStats, IDamageable<float>
         DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);
         return true;
+    }
+
+    //Spawns the selected AI type into the game scene
+    [Task]
+    protected void SpawnMinion()
+    {
+        //If the enemy type is not set return fail
+        if (enemyTypeToSpawn == null)
+        {
+            Debug.Log("Enemy type not set for spawning!");
+            Task.current.Fail();
+        }
+        //Spawn the enemy and pass player transforms
+        else
+        {
+            Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
+
+
+            Task.current.Succeed();
+        }
     }
 }

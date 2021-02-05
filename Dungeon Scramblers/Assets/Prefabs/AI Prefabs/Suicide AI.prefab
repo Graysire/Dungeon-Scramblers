@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 8332080629846319897}
   - component: {fileID: 8332080629846319902}
   - component: {fileID: 8332080629846319903}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Suicide AI
-  m_TagString: Untagged
+  m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,6 +157,7 @@ MonoBehaviour:
   attackRange: 1.25
   expOnDeath: 10
   onlyAttackOnePlayer: 1
+  enemyTypeToSpawn: {fileID: 0}
 --- !u!114 &8332080629846319896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,7 +225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ability: {fileID: 6437745037534223780, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  uniqueName: 
+  Projectile: {fileID: 0}
 --- !u!1 &8332080629955179806
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +239,7 @@ GameObject:
   - component: {fileID: 8332080629955179802}
   - component: {fileID: 8332080629955179803}
   - component: {fileID: 8332080629955179800}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthBarUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,7 +336,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8332080630735973272}
   - component: {fileID: 8332080630735973273}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -422,7 +424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8332080630765112058}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Handle Slide Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +461,7 @@ GameObject:
   - component: {fileID: 8332080630896179366}
   - component: {fileID: 8332080630896179360}
   - component: {fileID: 8332080630896179361}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +534,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8332080631000063704}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -570,7 +572,7 @@ GameObject:
   - component: {fileID: 8332080631438422991}
   - component: {fileID: 8332080631438422985}
   - component: {fileID: 8332080631438422990}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
