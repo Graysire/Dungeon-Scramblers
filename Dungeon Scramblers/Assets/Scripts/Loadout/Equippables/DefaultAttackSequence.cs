@@ -61,6 +61,7 @@ public class DefaultAttackSequence : Equippable
 
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player.gameObject, AbilityAngle).transform;
+        AbilityTransform.gameObject.layer = gameObject.layer;
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
         yield return new WaitForSeconds(Projectile.GetCoolDownTime());
