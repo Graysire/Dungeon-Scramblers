@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     // Players stats
     bool isPlayerDead;
     Player[] Scramblers; // = new Scrambler class array of 4;
+    Transform[] PlayerTransforms;   //List of Scrambler positions for AI purposes
+    Player[] AliveScramblers; // list of alive Scramblers
     Player Overlord; // = new Overlord class;
 
     private void Awake()
@@ -30,6 +32,14 @@ public class GameManager : MonoBehaviour
             _managerInstance = this;
         }
         Scramblers = FindObjectsOfType<Scrambler>();
+
+
+        PlayerTransforms = new Transform[Scramblers.Length];
+
+        for (int i = 0; i < Scramblers.Length; i++)
+        {
+            PlayerTransforms[i] = Scramblers[i].transform;
+        }
     }
 
     public void DistributeExperience(float experience)
@@ -53,5 +63,12 @@ public class GameManager : MonoBehaviour
     void ApplyPerk()
     {
         
+    }
+
+    //Returns a list of ALIVE Scrambler transforms
+        //Is called by AIManager to update AI
+    public Transform[] GetPlayerTransforms()
+    {
+        return PlayerTransforms;
     }
 }
