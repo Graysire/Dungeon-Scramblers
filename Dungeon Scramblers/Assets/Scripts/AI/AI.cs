@@ -38,11 +38,10 @@ public class AI : HasStats, IDamageable<float>
      * 
      */
 
-
-
     // Start is called before the first frame update
     void Start()
     {
+
         //Get the list of players
         players = GameManager.ManagerInstance.GetPlayerTransforms();
 
