@@ -143,6 +143,19 @@ public class AI : HasStats, IDamageable<float>
     [Task]
     protected bool SeePlayerAndSetTarget()
     {
+
+        //This removes error log whith no players assigned
+        bool playersIsNull = true;
+        //If there are no assigned players to attack then stop looking
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] != null) { playersIsNull = false; break; }
+        }
+        if (players.Length <= 0 || playersIsNull)
+        {
+            return false;
+        }
+
         bool playerSeen = false;
 
         //If this AI targets only one player and they were already found then don't find a new target
