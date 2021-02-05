@@ -87,6 +87,7 @@ public class DefaultAttackSequence : Equippable
         
         //Creates the attack through the object pooler of AI attack
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AI.gameObject, AbilityAngle).transform;
+        AbilityTransform.gameObject.layer = gameObject.layer;
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
     }
 }

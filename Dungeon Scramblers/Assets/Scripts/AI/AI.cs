@@ -43,7 +43,8 @@ public class AI : HasStats, IDamageable<float>
     // Start is called before the first frame update
     void Start()
     {
-
+        //Get the list of players
+        players = GameManager.ManagerInstance.GetPlayerTransforms();
 
         //set the max health
         maxHealth = stats[(int)Stats.health];
@@ -54,10 +55,6 @@ public class AI : HasStats, IDamageable<float>
 
     protected virtual void Awake()
     {
-        //Get the list of players
-        players = GameManager.ManagerInstance.GetPlayerTransforms();
-
-
         // Instantiate attack sequences to reattach the instance to the player
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
@@ -68,7 +65,10 @@ public class AI : HasStats, IDamageable<float>
         AttackList = new List<DefaultAttackSequence>();
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
+            //Set the layer of the attack sequecne to Overlord
+            AttackObjectList[i].layer = this.gameObject.layer;
             AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
+
         }
     }
 
@@ -252,7 +252,7 @@ public class AI : HasStats, IDamageable<float>
         target = player.transform.position;
         Vector3 distance = target - this.transform.position;
 
-        if (distance.magnitude < attackRange)
+        if (distance.magnitude <= attackRange)
             return true;
 
         return false;
@@ -285,21 +285,19 @@ public class AI : HasStats, IDamageable<float>
 
     //Spawns the selected AI type into the game scene
     [Task]
-    protected void SpawnMinion()
+    protected bool SpawnMinion()
     {
-        //If the enemy type is not set return fail
+        //If the enemy type is not set return a fail
         if (enemyTypeToSpawn == null)
         {
             Debug.Log("Enemy type not set for spawning!");
-            Task.current.Fail();
+            return false;
         }
-        //Spawn the enemy and pass player transforms
+        //Spawn the enemy
         else
         {
             Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
-
-
-            Task.current.Succeed();
+            return true;
         }
     }
 }

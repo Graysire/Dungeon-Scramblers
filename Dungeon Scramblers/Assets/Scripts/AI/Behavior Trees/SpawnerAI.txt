@@ -1,0 +1,16 @@
+tree("Root")
+	parallel
+		repeat mute tree("Dead")
+		repeat mute tree("Spawn")
+		
+
+tree("Spawn")
+	while SeePlayerAndSetTarget
+		sequence
+			SpawnMinion()
+			Wait(5.0)
+
+tree("Dead")
+	sequence
+		IsHealthLessThan(0.1)
+		Death
