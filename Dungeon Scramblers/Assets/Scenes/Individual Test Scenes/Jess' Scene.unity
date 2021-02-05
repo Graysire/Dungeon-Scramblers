@@ -549,7 +549,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249768869}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.71, y: -0.019033628, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 350695845}
@@ -3680,6 +3680,10 @@ PrefabInstance:
       propertyPath: PlayerOnScreenControls
       value: 
       objectReference: {fileID: 1626109075}
+    - target: {fileID: 2866247930749979868, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
+      propertyPath: usingOnScreenControls
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2866247930749979869, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
