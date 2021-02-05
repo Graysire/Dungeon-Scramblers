@@ -513,7 +513,8 @@ public class MapMaker : MonoBehaviour
 
         //the room is divided into equal size rectangles, one for each cluster being spawned
         //this vector is the value added to the starting corners of the spawn area
-        Vector2Int spawnAreaSize = new Vector2Int(roomSize.x > roomSize.y? ((roomSize.x - spawnBuffer) / numSpawns) : 0, roomSize.x <= roomSize.y ? ((roomSize.y - spawnBuffer) / numSpawns) : 0);
+        Vector2 spawnAreaSize = new Vector2(roomSize.x > roomSize.y? ((roomSize.x - spawnBuffer * 2) / (float)numSpawns) : 0, roomSize.x <= roomSize.y ? ((roomSize.y - spawnBuffer * 2) / (float)numSpawns) : 0);
+        //Debug.Log(spawnAreaSize);
         //*DEPRECATED* divide up the room based on its longest edge
         /*if (roomSize.x > roomSize.y)
         {
@@ -535,9 +536,9 @@ public class MapMaker : MonoBehaviour
 
         
         //starts at the lower left corner of the room
-        Vector2Int currentLowerLeft = new Vector2Int(room.lowerLeft.x + spawnBuffer, room.lowerLeft.y + spawnBuffer);
+        Vector2 currentLowerLeft = new Vector2(room.lowerLeft.x + spawnBuffer, room.lowerLeft.y + spawnBuffer);
         //starts as the upper right of the spawn area, if the x area is greater than y, then the x value is based on SpawnAreaSize and the y is just the height of the room and vice versa if x <= y
-        Vector2Int currentUpperRight = new Vector2Int(roomSize.x > roomSize.y ? (currentLowerLeft.x + spawnAreaSize.x - 1) : (room.upperRight.x - spawnBuffer), 
+        Vector2 currentUpperRight = new Vector2(roomSize.x > roomSize.y ? (currentLowerLeft.x + spawnAreaSize.x - 1) : (room.upperRight.x - spawnBuffer), 
             roomSize.x <= roomSize.y ? (currentLowerLeft.y + spawnAreaSize.y - 1) : (room.upperRight.y - spawnBuffer));
         int spawnLimit = (roomSize.x - spawnBuffer * 2) * (roomSize.y - spawnBuffer * 2) / numSpawns; 
 
@@ -586,8 +587,8 @@ public class MapMaker : MonoBehaviour
 
             //if (room.lowerLeft == rooms[12].lowerLeft)
             //{
-                tilemap.SetTile(new Vector3Int(currentLowerLeft.x, currentLowerLeft.y, 0), doorTile);
-                tilemap.SetTile(new Vector3Int(currentUpperRight.x, currentUpperRight.y, 0), doorTile);
+                //tilemap.SetTile(new Vector3Int(Mathf.FloorToInt(currentLowerLeft.x), Mathf.FloorToInt(currentLowerLeft.y), 0), doorTile);
+                //tilemap.SetTile(new Vector3Int(Mathf.FloorToInt(currentUpperRight.x), Mathf.FloorToInt(currentUpperRight.y), 0), doorTile);
                 //Debug.Log(currentLowerLeft + " " + currentUpperRight);
             //}
 
@@ -606,8 +607,8 @@ public class MapMaker : MonoBehaviour
                     }
 
                     //generate random spawn location
-                    int randX = Random.Range(currentLowerLeft.x, currentUpperRight.x + 1);
-                    int randY = Random.Range(currentLowerLeft.y, currentUpperRight.y + 1);
+                    int randX = Random.Range(Mathf.FloorToInt(currentLowerLeft.x), Mathf.FloorToInt(currentUpperRight.x) + 1);
+                    int randY = Random.Range(Mathf.FloorToInt(currentLowerLeft.y), Mathf.FloorToInt(currentUpperRight.y) + 1);
                     Vector3Int randLocation = new Vector3Int(randX, randY, 0);
 
                     int count = 0;
@@ -615,10 +616,10 @@ public class MapMaker : MonoBehaviour
                     //if the spawn location has been used, generate a new one
                     while (closedLocations.Contains(randLocation))
                     {
-                         //Debug.Log("relocate");
-                         randX = Random.Range(currentLowerLeft.x, currentUpperRight.x + 1);
-                         randY = Random.Range(currentLowerLeft.y, currentUpperRight.y + 1);
-                         randLocation = new Vector3Int(randX, randY, 0);
+                        //Debug.Log("relocate");
+                        randX = Random.Range(Mathf.FloorToInt(currentLowerLeft.x), Mathf.FloorToInt(currentUpperRight.x) + 1);
+                        randY = Random.Range(Mathf.FloorToInt(currentLowerLeft.y), Mathf.FloorToInt(currentUpperRight.y) + 1);
+                        randLocation = new Vector3Int(randX, randY, 0);
                         count++;
                         if (count > 50)
                         {
