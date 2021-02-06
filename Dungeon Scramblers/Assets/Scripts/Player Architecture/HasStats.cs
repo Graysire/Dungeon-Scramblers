@@ -19,4 +19,16 @@ public class HasStats : MonoBehaviourPunCallbacks
     [SerializeField] protected float[] stats = new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+
+    //Getter for affected stats
+    public float[] GetAffectedStats()
+    {
+        return affectedStats;
+    }
+
+    //Getter for stats
+    public float[] GetStats()
+    {
+        return stats;
+    }
 }

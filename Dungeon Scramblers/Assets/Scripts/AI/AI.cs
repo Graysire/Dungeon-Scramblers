@@ -30,7 +30,7 @@ public class AI : HasStats, IDamageable<float>
 
 
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
-
+    protected StatusEffect[] statusEffects;     //Status effects being applied to the AI
 
     /*
      * Note to self: If the player is dead how do we know?
