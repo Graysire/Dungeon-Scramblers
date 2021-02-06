@@ -91,5 +91,13 @@ PrefabInstance:
       propertyPath: DecayTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+      propertyPath: Range
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+      propertyPath: MoveSpeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a416b108477c75468618e8fd3212436, type: 3}
