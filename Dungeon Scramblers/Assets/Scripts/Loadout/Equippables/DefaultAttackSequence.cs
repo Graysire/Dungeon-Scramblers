@@ -61,7 +61,7 @@ public class DefaultAttackSequence : Equippable
 
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Player.gameObject, AbilityAngle).transform;
-        AbilityTransform.gameObject.layer = gameObject.layer;
+        SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
         Player.SetAllowedToAttack(true);
         yield return new WaitForSeconds(Projectile.GetCoolDownTime());
@@ -87,7 +87,16 @@ public class DefaultAttackSequence : Equippable
         
         //Creates the attack through the object pooler of AI attack
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AI.gameObject, AbilityAngle).transform;
-        AbilityTransform.gameObject.layer = gameObject.layer;
+        SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
+    }
+
+    //Applies the layer for the attacks based on what layer the attack instigator is 
+    private void SetBulletLayer(Transform AbilityTransform)
+    {
+        if (gameObject.layer == LayerMask.NameToLayer("Scrambler"))
+            AbilityTransform.gameObject.layer = LayerMask.NameToLayer("ScramblerBullet");
+        else if (gameObject.layer == LayerMask.NameToLayer("Overlord"))
+            AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
     }
 }
