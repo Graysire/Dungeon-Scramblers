@@ -402,8 +402,10 @@ public class MapMaker : MonoBehaviour
         //check if this corridor should connect to a room
         for (int i = 1; i <= length + 1; i++)
         {
+            
             if (tilemap.HasTile(door.position + i * corridorDirection))
             {
+                //Debug.Log("Connector Case 1");
                 endDoorPosition = door.position + i * corridorDirection;
                 length = i - 1;
                 isConnector = true;
@@ -411,14 +413,16 @@ public class MapMaker : MonoBehaviour
             }
         }
 
-        if (tilemap.HasTile(endDoorPosition + corridorDirection) && !isConnector)
+        if (tilemap.HasTile(endDoorPosition + corridorDirection) && tilemap.HasTile(endDoorPosition + 2 * corridorDirection) && !isConnector)
         {
+           // Debug.Log("Connector Case 2");
             endDoorPosition += corridorDirection;
             isConnector = true;
             length++;
         }
-        else if (tilemap.HasTile(endDoorPosition + 2 * corridorDirection) && !isConnector)
+        else if (tilemap.HasTile(endDoorPosition + 2 * corridorDirection) && tilemap.HasTile(endDoorPosition + 3 * corridorDirection) && !isConnector)
         {
+            //Debug.Log("Connector Case 3");
             endDoorPosition += 2 * corridorDirection;
             isConnector = true;
             length += 2;
