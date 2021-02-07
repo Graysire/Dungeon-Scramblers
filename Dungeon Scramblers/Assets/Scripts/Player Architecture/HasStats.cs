@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class HasStats : MonoBehaviourPunCallbacks
+public class HasStats : MonoBehaviourPunCallbacks, IDamageable<float>
 {
     protected enum Stats
     {
@@ -31,4 +31,7 @@ public class HasStats : MonoBehaviourPunCallbacks
     {
         return stats;
     }
+
+    //reduces the health by damageTaken
+    public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 }
