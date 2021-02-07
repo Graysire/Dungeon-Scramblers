@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 4823538436004081160}
   - component: {fileID: 6951493725146800694}
   m_Layer: 0
-  m_Name: Jess's Scrambler Protoype
+  m_Name: Jess's Scrambler Protoype 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
