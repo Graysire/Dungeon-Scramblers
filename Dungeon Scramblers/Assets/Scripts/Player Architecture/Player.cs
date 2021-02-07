@@ -250,7 +250,7 @@ public class Player : HasStats, IDamageable<float>
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
-    //public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
+    public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 
     public void AddExperience(float Experience)
     {

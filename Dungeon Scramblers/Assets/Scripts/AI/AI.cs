@@ -103,10 +103,10 @@ public class AI : HasStats, IDamageable<float>
     }
 
     //When ability hits AI it takes damage
-    /*public void Damage(float damageTaken)
+    public void Damage(float damageTaken)
     {
         stats[(int)Stats.health] -= damageTaken;
-    }*/
+    }
 
     //Updates the AI health
     protected void UpdateHealth()
