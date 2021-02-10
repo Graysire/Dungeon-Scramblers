@@ -11,11 +11,11 @@ tree("Attack")
 				sequence
 					AttackPlayer
 					Wait(0.5)
-					Death
+					Die
 			while not AttackInRange
 				MoveToPlayer
 
 tree("Dead")
 	sequence
 		IsHealthLessThan(0.1)
-		Death
+		Die

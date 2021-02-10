@@ -399,33 +399,18 @@ public class MapMaker : MonoBehaviour
         Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
-        //check if this corridor should connect to a room
-        for (int i = 1; i <= length + 1; i++)
+        //check if this corridor should connect to a room, due to overlap or starting just shoprt
+        for (int i = 1; i <= length + 1 + minRoomSize / 2; i++)
         {
             
-            if (tilemap.HasTile(door.position + i * corridorDirection))
+            if (tilemap.HasTile(door.position + i * corridorDirection) && tilemap.HasTile(door.position + (i + 1) * corridorDirection))
             {
-                //Debug.Log("Connector Case 1");
+                Debug.Log("Connector Case 1");
                 endDoorPosition = door.position + i * corridorDirection;
                 length = i - 1;
                 isConnector = true;
                 break;
             }
-        }
-
-        if (tilemap.HasTile(endDoorPosition + corridorDirection) && tilemap.HasTile(endDoorPosition + 2 * corridorDirection) && !isConnector)
-        {
-           // Debug.Log("Connector Case 2");
-            endDoorPosition += corridorDirection;
-            isConnector = true;
-            length++;
-        }
-        else if (tilemap.HasTile(endDoorPosition + 2 * corridorDirection) && tilemap.HasTile(endDoorPosition + 3 * corridorDirection) && !isConnector)
-        {
-            //Debug.Log("Connector Case 3");
-            endDoorPosition += 2 * corridorDirection;
-            isConnector = true;
-            length += 2;
         }
 
         //checks if this corridor would connect to the corner of another room
@@ -480,7 +465,7 @@ public class MapMaker : MonoBehaviour
         {
             Vector3Int tileLoc = door.position + i * corridorDirection;
 
-            PlaceTile(tileLoc, floorTile);
+            tilemap.SetTile(tileLoc, floorTile);
             PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), wallTile);
             PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), wallTile);
 
