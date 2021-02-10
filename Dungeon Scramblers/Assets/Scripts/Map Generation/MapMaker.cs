@@ -162,7 +162,7 @@ public class MapMaker : MonoBehaviour
         foreach (RoomInfo room in rooms)
         {
             AddDoors(room, doorTile);
-            if (generateAI && spawnAI.Count > 0)
+            if (generateAI && spawnAI.Count > 0 && room.lowerLeft != rooms[0].lowerLeft)
             {
                 SpawnAIClusters(room);
             }
@@ -219,8 +219,15 @@ public class MapMaker : MonoBehaviour
         switch (door.facing)
         {
             case Facing.North:
-                //startX -= (int)Mathf.Floor(randX / 2f);
-                startX -= Random.Range(1, randX);
+                //ensure the first room is not random in its generation location
+                if (rooms.Count == 0)
+                {
+                    startX -= (int)Mathf.Floor(randX / 2f);
+                }
+                else
+                {
+                    startX -= Random.Range(1, randX);
+                }
                 break;
             case Facing.East:
                 //startY -= (int)Mathf.Floor(randY / 2f);
@@ -253,12 +260,6 @@ public class MapMaker : MonoBehaviour
         //the end locations of the room
         int endX = startX + randX;
         int endY = startY + randY;
-
-        //add this room's information to the list of rooms
-        RoomInfo thisRoom;
-        thisRoom.lowerLeft = new Vector3Int(startX + 1, startY + 1, 0);
-        thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
-        rooms.Add(thisRoom);
 
         //place all the walls that make up the room
         for (int x = startX; x <= endX; x++)
@@ -306,6 +307,12 @@ public class MapMaker : MonoBehaviour
         //for each wall of the room except the entering wall, check for creation of new doors and add any new doors to the list of new doors
         for (int i = 0; i < 4; i++)
         {
+            //ensure that the first room generates its door the same direction it as generated from(i.e. starting room is generated Northward, so its door is northward)
+            if (rooms.Count == 0)
+            {
+                i = (int)door.facing;
+            }
+
             //if the wall being checked is not the wall being entered from
             if (Mathf.Abs(i - (int)door.facing) != 2)
             {
@@ -338,9 +345,20 @@ public class MapMaker : MonoBehaviour
                         tilemap.SetTile(randDoorLocation, floorTile);
                         newDoors.Add(new DoorInfo(randDoorLocation, (Facing)i));
                     }
+                    //the first room has only one door, so break
+                    if (rooms.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
         }
+
+        //add this room's information to the list of rooms
+        RoomInfo thisRoom;
+        thisRoom.lowerLeft = new Vector3Int(startX + 1, startY + 1, 0);
+        thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
+        rooms.Add(thisRoom);
 
         return newDoors;
     }
