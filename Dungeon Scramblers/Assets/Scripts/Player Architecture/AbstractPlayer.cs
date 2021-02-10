@@ -10,6 +10,16 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
+    protected virtual void Awake()
+    {
+        //set player affectedStats equal to their stats
+        for (int i = 0; i < stats.Length; i++)
+        {
+            affectedStats[i] = stats[i];
+        }
+    }
+
+
     //Getter for affected stats
     public float[] GetAffectedStats()
     {

@@ -518,6 +518,11 @@ public class MapMaker : MonoBehaviour
             numSpawns++;
         }
 
+        if (numSpawns == 0)
+        {
+            return;
+        }
+
         //the room is divided into equal size rectangles, one for each cluster being spawned
         //this vector is the value added to the starting corners of the spawn area
         Vector2 spawnAreaSize = new Vector2(roomSize.x > roomSize.y? ((roomSize.x - spawnBuffer * 2) / (float)numSpawns) : 0, roomSize.x <= roomSize.y ? ((roomSize.y - spawnBuffer * 2) / (float)numSpawns) : 0);
