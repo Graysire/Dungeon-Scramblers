@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Panda;
 
 
-public class AI : HasStats, IDamageable<float>
+public class AI : AbstractPlayer
 {
 
     // Placeholder for eventual Attack & Ability Equipables 
@@ -100,12 +100,6 @@ public class AI : HasStats, IDamageable<float>
     protected float CalculateHealth()
     {
         return stats[(int)Stats.health] / maxHealth;
-    }
-
-    //When ability hits AI it takes damage
-    public void Damage(float damageTaken)
-    {
-        stats[(int)Stats.health] -= damageTaken;
     }
 
     //Updates the AI health
@@ -274,8 +268,9 @@ public class AI : HasStats, IDamageable<float>
     }
 
     //Destroys AI object
+    //NOTE: If AI.Die() is called while AI is being referenced as AbstractPlayer, AbstractPlayer.Die() will be used instead
     [Task]
-    protected bool Death()
+    public new bool Die()
     {
         DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);

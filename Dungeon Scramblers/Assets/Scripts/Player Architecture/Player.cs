@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class Player : HasStats, IDamageable<float>
+public class Player : AbstractPlayer
 {
     // Placeholder for eventual Attack & Ability Equipables 
     [SerializeField] protected List<GameObject> AttackObjectList;
@@ -231,7 +231,7 @@ public class Player : HasStats, IDamageable<float>
         // Use ability from list
         Debug.Log("Start attacking");
     }
-    protected virtual void Die() {
+    public override void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
             Debug.Log("Do something that indicates the player is dead...");
             isDead = true;
@@ -247,7 +247,6 @@ public class Player : HasStats, IDamageable<float>
     }
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
-    public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 
     
 }
