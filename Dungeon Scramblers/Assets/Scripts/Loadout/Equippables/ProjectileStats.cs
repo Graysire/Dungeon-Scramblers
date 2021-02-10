@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ProjectileStats : MonoBehaviour
 {
+    // Define the damage of the the ability
+    [SerializeField]
+    private float Damage = 5.0f;
     // Define the range of the the ability before destroying itself
     [SerializeField]
     private float Range;
@@ -87,7 +90,7 @@ public class ProjectileStats : MonoBehaviour
     }
 
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         //get Damageable from collision object
         IDamageable<float> damageable = collision.GetComponent<IDamageable<float>>();
@@ -98,7 +101,7 @@ public class ProjectileStats : MonoBehaviour
         Debug.Log("Hit " + collision);
 
         //Apply damage to object
-        damageable.Damage(5.0f);
+        damageable.Damage(Damage);
         
     }
 }

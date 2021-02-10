@@ -645,6 +645,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generateMapOnStart: 1
+  generateAI: 0
   maxIterations: 2
   minimumDoors: 20
   softMaximumDoors: 20
@@ -660,6 +661,7 @@ MonoBehaviour:
   minCorridorSize: 5
   maxCorridorSize: 15
   spawnFrequency: 0
+  spawnBuffer: 0
   spawnAI: []
 --- !u!4 &228386972
 Transform:
@@ -1110,6 +1112,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Scrambler '
       objectReference: {fileID: 0}
+    - target: {fileID: 2866247930749979868, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
+      propertyPath: AttackObjectList.Array.data[0]
+      value: 
+      objectReference: {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
+    - target: {fileID: 2866247930749979868, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
+      propertyPath: AttackObjectList.Array.data[1]
+      value: 
+      objectReference: {fileID: 6497682061442774528, guid: fae1a52e74452544f880d0c1e5bdf9f2, type: 3}
     - target: {fileID: 2866247930749979869, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
