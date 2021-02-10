@@ -175,10 +175,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Range: 10
-  DecayTime: 0.3
+  DecayTime: 0.2
   MoveSpeed: 0
   CastingTime: 0.1
-  CoolDown: 0.4
+  CoolDown: 0.25
   OffsetScale: 2
 --- !u!50 &7663104008351997961
 Rigidbody2D:

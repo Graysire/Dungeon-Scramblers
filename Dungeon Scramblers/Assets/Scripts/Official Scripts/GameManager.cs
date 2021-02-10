@@ -15,10 +15,15 @@ public class GameManager : MonoBehaviour
 
     // Players stats
     bool isPlayerDead;
-    Player[] Scramblers; // = new Scrambler class array of 4;
+    Scrambler[] Scramblers; // = new Scrambler class array of 4;
     Transform[] PlayerTransforms;   //List of Scrambler positions for AI purposes
-    Player[] AliveScramblers; // list of alive Scramblers
-    Player Overlord; // = new Overlord class;
+    Scrambler[] AliveScramblers; // list of alive Scramblers
+    Overlord Overlord; // = new Overlord class;
+
+    // Experience Handling Variables
+    int level = 1;
+    float currentExperience = 0.0f;
+    float expToNextLevel = 100.0f;
 
     private void Awake()
     {
@@ -44,10 +49,22 @@ public class GameManager : MonoBehaviour
 
     public void DistributeExperience(float experience)
     {
-        foreach(Scrambler scrambler in Scramblers)
+        currentExperience += experience;
+        if (currentExperience >= expToNextLevel)
         {
-            scrambler.AddExperience(experience);
+            level++;
+            // Change the value of base stats
+            foreach (Scrambler scrambler in Scramblers)
+            {
+                scrambler.LevelUp();
+            }
+
+            currentExperience = 0;
+
         }
+        Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
+
+        
     }
 
     void GenerateLevel()

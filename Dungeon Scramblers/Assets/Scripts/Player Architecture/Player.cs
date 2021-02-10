@@ -35,10 +35,7 @@ public class Player : HasStats, IDamageable<float>
     protected SpriteRenderer sr;
     protected Animator animator;
     protected bool isFacingLeft;
-    // Experience Handling
-    protected int level = 1;
-    protected float currentExperience = 0.0f;
-    protected float expToNextLevel = 100.0f;
+    
 
     protected virtual void Awake()
     {
@@ -252,17 +249,7 @@ public class Player : HasStats, IDamageable<float>
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
     public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 
-    public void AddExperience(float Experience)
-    {
-        currentExperience += Experience;
-        if(currentExperience >= expToNextLevel)
-        {
-            level++;
-            currentExperience = 0;
-            
-        }
-        Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
-    }
+    
 }
 
 
