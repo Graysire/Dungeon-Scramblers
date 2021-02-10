@@ -35,10 +35,7 @@ public class Player : HasStats, IDamageable<float>
     protected SpriteRenderer sr;
     protected Animator animator;
     protected bool isFacingLeft;
-    // Experience Handling
-    protected int level = 1;
-    protected float currentExperience = 0.0f;
-    protected float expToNextLevel = 100.0f;
+    
 
     protected virtual void Awake()
     {
@@ -252,39 +249,7 @@ public class Player : HasStats, IDamageable<float>
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
     public void Damage(float damageTaken) => affectedStats[(int)Stats.health] -= damageTaken;
 
-    public void AddExperience(float Experience)
-    {
-        currentExperience += Experience;
-        if(currentExperience >= expToNextLevel)
-        {
-            level++;
-            // Change the value of base stats
-            
-            // Change base stats of heatlh
-            stats[0] += stats[0] * 0.1f;
-            Debug.Log("Health: " + stats[0]);
-            // Change base stats of attack damage
-            stats[2] += stats[2] * 0.1f;
-            Debug.Log("Attack Damage: " + stats[2]);
-            // Change base stats of attack speed
-            stats[3] += stats[3] * 0.1f;
-            Debug.Log("Attack Speed: " + stats[3]);
-            // Change base stats of ability damage
-            stats[4] += stats[4] * 0.1f;
-            Debug.Log("Ability Damage: " + stats[4]);
-
-            // Refresh the affected stats
-            affectedStats[0] += stats[0] * 0.1f;
-            // refresh the affected stats upon level up
-            affectedStats[2] = stats[2];
-            affectedStats[3] = stats[3];
-            affectedStats[4] = stats[4];
-
-            currentExperience = 0;
-            
-        }
-        Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
-    }
+    
 }
 
 
