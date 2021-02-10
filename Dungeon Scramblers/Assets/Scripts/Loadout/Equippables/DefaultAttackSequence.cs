@@ -29,7 +29,7 @@ public class DefaultAttackSequence : Equippable
         }
     }
 
-    public void StartAttack(Vector3 AttackDirection, Player Player)
+    public virtual void StartAttack(Vector3 AttackDirection, Player Player)
     {
         this.AttackDirection = AttackDirection;
         this.Player = Player;

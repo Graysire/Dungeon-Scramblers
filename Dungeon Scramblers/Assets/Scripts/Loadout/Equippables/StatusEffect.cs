@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusEffect : HasStats
+public class StatusEffect : MonoBehaviour
 {
     /* This class is responsible for storing information on a status effect that will be applied to players/AI */
     /* The HasStats class is used to apply those values to the player it effects */
@@ -10,7 +10,7 @@ public class StatusEffect : HasStats
 
 
 
-    public string uniqueStatusName;             //The name of this status effect
+    //public string uniqueStatusName;             //The name of this status effect
 
     public bool doesUpdate = false;             //If true then the value to apply to player will be applied again
     public float waitTimeToApplyAgain = 0.0f;   //If this effect updates then after this many seconds it will apply the values again
@@ -20,21 +20,28 @@ public class StatusEffect : HasStats
     public float timeTillEnd = 0.0f;    //The amount of time for this effect to last till worn off
     private float endTimeLeft;          //Used to determine when time ends
 
-    private HasStats stats;             //gets the stats list of the affected unit
+    //private float[] stats;             //gets the stats list of the affected unit
 
-    private GameObject affectedUnit;    //The player or AI being affected
-    private bool isActive;              //Determines if this effect is still active, when not it will be removed
-    public bool resetStatOnEnd = false; //If true then when this stat ends it will reapply the original stat value it affected
-    private float statValToReset;       //Stores the stat value player originally had to reapply it
+    public float valueOfEffect;         //The value of this status effect to apply
     public int statNumToAffect;         //The HasStat enum value to effect on the Player/AI. Reference below:
-                                        /*  health = 0,
-                                            movespeed = 1,
-                                            attackdmg = 2,
-                                            attackspeed = 3,
-                                            abilitydmg = 4,
-                                            abilitycd = 5,
-                                            defense = 6
-                                         */
+    /*  health = 0,
+        movespeed = 1,
+        attackdmg = 2,
+        attackspeed = 3,
+        abilitydmg = 4,
+        abilitycd = 5,
+        defense = 6
+     */
+
+    private AbstractPlayer unit;        //The player or AI to effect
+    
+
+    [SerializeField]
+    private bool resetStatOnEnd = false; //If true then when this stat ends it will reapply the original stat value it affected
+    private float statValToReset;       //Stores the stat value player originally had to reapply it
+    private bool isActive;              //Determines if this effect is still active, when not it will be removed
+
+
 
     protected void OnEnable(){
         UpdateHandler.UpdateOccurred += StatusUpdate;
@@ -63,7 +70,7 @@ public class StatusEffect : HasStats
         if (timeLeft <= 0.0f)
         {
             //reset the stat value
-            if (resetStatOnEnd) { stats.GetAffectedStats()[statNumToAffect] = statValToReset; }
+            if (resetStatOnEnd) { unit.GetAffectedStats()[statNumToAffect] = statValToReset; }
 
             //set this to end
             isActive = false;
@@ -102,23 +109,57 @@ public class StatusEffect : HasStats
     //Applies the status effect values to the player
     private void ApplyStatusEffectValue()
     {
-        //If affected unit has stats to affect
-        if (affectedUnit.GetType().IsSubclassOf(typeof(HasStats)))
-        {
-            stats = affectedUnit.GetComponent<HasStats>();
 
-            //Save the original stat value to apply when status ends
-            if (resetStatOnEnd) { statValToReset = stats.GetAffectedStats()[statNumToAffect]; }
+        //Save the original stat value to apply when status ends
+        if (resetStatOnEnd) { statValToReset = unit.GetAffectedStats()[statNumToAffect]; }
 
-            //Apply the stat from this status effect onto the affected units stat
-            stats.GetAffectedStats()[statNumToAffect] += this.affectedStats[statNumToAffect];
-        }
+        //Apply the stat from this status effect onto the affected units stat
+        unit.GetAffectedStats()[statNumToAffect] += valueOfEffect;
     }
 
 
     //This is called when player is hit
-    public void SetAffectedPlayer(GameObject affectedUnit)
+    public void SetAffectedPlayer(AbstractPlayer unit)
     {
-        this.affectedUnit = affectedUnit;
+        this.unit = unit;
     }
 }
+
+
+
+
+/*  Graysons Recomnedation using a OnTick implementation
+statsToAffect[] = (HasStats.Stats.Health, -10), (moveSpeed, -20000)
+bool reversedOnEnd
+
+(stat, effectValue)
+
+Player calls OnTick(Player.affectedStats)
+
+
+Tick(Stats targetStats)
+    for each statAffected
+        target.Stats += statEffect
+    duration--;
+    if(duration == 0 && reversedOnEnd)
+        Reverse(targetStats)
+
+Reverse(targetStats)
+    for each statAffected
+        targetStats -= statEffect * originalDuration
+
+
+
+
+struct statTuples
+{
+    public hasStats.Stats
+}
+
+
+Player.OnTick()
+{
+    for each Effect e in Effects
+        effect.apply(
+}
+*/
