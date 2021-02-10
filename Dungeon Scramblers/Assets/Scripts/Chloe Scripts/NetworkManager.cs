@@ -8,6 +8,10 @@ using Doozy.Engine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+
+    [Header("Player Data Prefab")]
+    public GameObject PlayerDataGO;
+
     [Header("Login UI Panel")]
     public UIView PlayerNamePanel;
     public InputField playerNameInput;
@@ -44,6 +48,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject StartButton;
 
 
+
     //Dictionary for PlayerRoomListings
     private Dictionary<string, RoomInfo> cachedRoomList;
     //Dictionary for PlayerRoomListings as instantiated
@@ -58,7 +63,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         RoomListGameObjects = new Dictionary<string, GameObject>();
 
 
-        //All clients in the same room will load the same scene
+        //All clients in the same room will load the same scene synced as best as possible
         PhotonNetwork.AutomaticallySyncScene = true;
     }
     #endregion
@@ -81,6 +86,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Invalid Name: " + playerName + " please try again");
         }
+
+        //Spawn Player Data Object
+        Instantiate(PlayerDataGO);
+        PlayerDataGO.GetComponent<PlayerData>().PlayerName = playerName;
     }
 
 
@@ -179,6 +188,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
+
+    public void OnReadyUpButtonClicked()
+    {
+        // check actor number of player
+        //set our player listings prefab to ready
+    }
     #endregion
 
     #region Photon Callbacks
@@ -212,6 +227,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomButton.SetActive(false);
         //StartButton.SetActive(true);
         LeaveRoomButton.SetActive(true);
+
+        //Create GameManger Instance
         
     }
 
@@ -254,16 +271,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
             GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
             //playerListGameObject.transform.localScale = Vector3.one;
+            playerListGameObject.GetComponent<PlayerListEntryInitializer>().Initialize(player.ActorNumber, player.NickName);
+            ////Specialize PlayerListings to display proper name and PlayerIndicator
+            //playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
 
-            //Specialize PlayerListings to display proper name and PlayerIndicator
-            playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
+            //if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            //{
+            //    playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
+            //}
 
-            if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
-            }
-
-            PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
+            //PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
         }
 
     }

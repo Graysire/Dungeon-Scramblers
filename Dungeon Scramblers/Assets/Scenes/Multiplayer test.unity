@@ -3005,7 +3005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 664.6001, y: -419.7}
+  m_AnchoredPosition: {x: 665, y: -419.7}
   m_SizeDelta: {x: 270.60535, y: 52.905922}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &300670932
@@ -11682,7 +11682,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00000997094, y: 0.000119932214}
+  m_AnchoredPosition: {x: -0.00000997094, y: 4.5071583}
   m_SizeDelta: {x: 15.468445, y: 582.4469}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &555166288
@@ -11819,6 +11819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051cd6709d1f98244a584875de36c064, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerDataGO: {fileID: 6524268599181438531, guid: 7c28ecf47cb445645a5cafef95ba5c3b, type: 3}
   PlayerNamePanel: {fileID: 502516450}
   playerNameInput: {fileID: 2015384181}
   RoomLisitngsView: {fileID: 1865869852}
@@ -36488,7 +36489,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 160958571}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999725
+  m_Size: 0.94008875
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -39070,7 +39071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000451844}
+  m_AnchoredPosition: {x: 0, y: 2.321384}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1865869854
@@ -44188,7 +44189,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1116405770}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999879
+  m_Size: 0.97415495
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
