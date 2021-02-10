@@ -9,7 +9,7 @@ using UnityEngine;
 
 public static class SaveLoad
 {
-    public static List<Loadout> savedLoadouts = new List<Loadout>; // Stores the list of loadouts that a player will have
+    public static List<Loadout> savedLoadouts = new List<Loadout>(); // Stores the list of loadouts that a player will have
 
 
     //Saves the loadout information to a file for future use
