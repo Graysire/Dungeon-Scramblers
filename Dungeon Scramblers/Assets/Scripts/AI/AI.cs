@@ -26,7 +26,6 @@ public class AI : AbstractPlayer
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
-    protected float maxHealth;                  // Max AI health
 
 
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
@@ -45,15 +44,14 @@ public class AI : AbstractPlayer
         //Get the list of players
         players = GameManager.ManagerInstance.GetPlayerTransforms();
 
-        //set the max health
-        maxHealth = stats[(int)Stats.health];
-
         //Sets the value of health bar based on percentage of current health and max health
         healthBar.value = CalculateHealth();
     }
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // Instantiate attack sequences to reattach the instance to the player
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
@@ -78,14 +76,14 @@ public class AI : AbstractPlayer
         if (healthBar != null)
         {
             //Set the health bar active once damage is taken
-            if (stats[(int)Stats.health] < maxHealth) healthBarUI.SetActive(true);
+            if (affectedStats[(int)Stats.health] < stats[(int)Stats.health]) healthBarUI.SetActive(true);
 
             //set the health bar value
             healthBar.value = CalculateHealth();
         }
 
         //If health is greater than max then set it to max (In case of healing)
-        if (stats[(int)Stats.health] > maxHealth) stats[(int)Stats.health] = maxHealth;
+        if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) affectedStats[(int)Stats.health] = stats[(int)Stats.health];
     }
 
     //Takes an array of all player transforms so AI can track players in the game
@@ -99,16 +97,7 @@ public class AI : AbstractPlayer
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
     {
-        return stats[(int)Stats.health] / maxHealth;
-    }
-
-    //Updates the AI health
-    protected void UpdateHealth()
-    {
-        if (stats[(int)Stats.health] < 100)
-        {
-            stats[(int)Stats.health]++;
-        }
+        return affectedStats[(int)Stats.health] / stats[(int)Stats.health];
     }
 
     //Gets the path given the start position and target position
@@ -149,7 +138,7 @@ public class AI : AbstractPlayer
             {
                 break;
             }
-            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], stats[(int)Stats.movespeed] * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
         }
         Task.current.Succeed();
     }
@@ -264,7 +253,7 @@ public class AI : AbstractPlayer
     [Task]
     public bool IsHealthLessThan(float health)
     {
-        return stats[(int)Stats.health] < health;
+        return affectedStats[(int)Stats.health] < health;
     }
 
     //Destroys AI object
