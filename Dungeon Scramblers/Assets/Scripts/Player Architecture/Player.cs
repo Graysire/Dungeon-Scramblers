@@ -80,10 +80,10 @@ public class Player : AbstractPlayer
         }
         else
         {
-            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>());
-            controls.PlayerMovement.UseAbility.performed += ctx => UseAbility(ctx.ReadValue<float>());
-            controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>());
-            controls.PlayerMovement.UseAbility.canceled += ctx => UseAbility(ctx.ReadValue<float>());
+            controls.PlayerMovement.Attack.performed += ctx => Attack(ctx.ReadValue<float>(), 0);
+            controls.PlayerMovement.UseAbility.performed += ctx => Attack(ctx.ReadValue<float>(), 1);
+            controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>(), 0);
+            controls.PlayerMovement.UseAbility.canceled += ctx => Attack(ctx.ReadValue<float>(), 1);
         }
         sr = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -212,25 +212,17 @@ public class Player : AbstractPlayer
         Debug.Log("Attack " + activeIndependentJoystick + " on phone");
     }
 
-    protected virtual void Attack(float f) { // Basic attack using mouse
+    protected virtual void Attack(float f, int abilityIndex) { // Basic attack using mouse
         if (f < 1)
             Debug.Log("Stop ability");
         else if (f == 1)
-            ApplyAttack(f, 0);
+        { 
+            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
+            RequestAttack(abilityIndex);
+        }
     }
-    protected virtual void UseAbility(float f) { // Ability cast using mouse, different way to implement?
-        if (f < 1)
-            Debug.Log("Stop ability");
-        else if (f == 1)
-            ApplyAttack(f, 1);
-    }
-    protected virtual void ApplyAttack(float f, int abilityIndex) {
-        Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        AttackDirection = new Vector3(MouseWorldCoord.x - transform.position.x, MouseWorldCoord.y - transform.position.y, 0);
-        RequestAttack(abilityIndex);
-        // Use ability from list
-        Debug.Log("Start attacking");
-    }
+
     public override void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
             Debug.Log("Do something that indicates the player is dead...");
