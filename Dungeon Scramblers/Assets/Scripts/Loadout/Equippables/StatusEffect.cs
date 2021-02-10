@@ -27,19 +27,25 @@ public class StatusEffect : HasStats
     public bool resetStatOnEnd = false; //If true then when this stat ends it will reapply the original stat value it affected
     private float statValToReset;       //Stores the stat value player originally had to reapply it
     public int statNumToAffect;         //The HasStat enum value to effect on the Player/AI. Reference below:
-                                                        /*  health = 0,
-                                                            movespeed = 1,
-                                                            attackdmg = 2,
-                                                            attackspeed = 3,
-                                                            abilitydmg = 4,
-                                                            abilitycd = 5,
-                                                            defense = 6
-                                                         */
+                                        /*  health = 0,
+                                            movespeed = 1,
+                                            attackdmg = 2,
+                                            attackspeed = 3,
+                                            abilitydmg = 4,
+                                            abilitycd = 5,
+                                            defense = 6
+                                         */
 
+    protected void OnEnable(){
+        UpdateHandler.UpdateOccurred += StatusUpdate;
+        UpdateHandler.StartOccurred += StatusStart;
+    }
+    private void OnDisable(){
+        UpdateHandler.UpdateOccurred -= StatusUpdate;
+        UpdateHandler.StartOccurred -= StatusStart;
+    }
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    protected void StatusStart() {
         isActive = true;
 
         //Get the time left till it will end
@@ -49,11 +55,7 @@ public class StatusEffect : HasStats
         ApplyStatusEffectValue();
     }
 
-
-
-    // Update is called once per frame
-    void Update()
-    {
+    protected void StatusUpdate() {
         //Get the time left till status ends
         float timeLeft = endTimeLeft - Time.deltaTime;
 
