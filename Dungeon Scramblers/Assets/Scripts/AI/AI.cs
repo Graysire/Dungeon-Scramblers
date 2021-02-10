@@ -100,15 +100,6 @@ public class AI : AbstractPlayer
         return affectedStats[(int)Stats.health] / stats[(int)Stats.health];
     }
 
-    //Updates the AI health
-    protected void UpdateHealth()
-    {
-        if (stats[(int)Stats.health] < 100)
-        {
-            stats[(int)Stats.health]++;
-        }
-    }
-
     //Gets the path given the start position and target position
     protected List<Vector3> GetPath(Vector3 startPos, Vector3 targetPos)
     {
@@ -147,7 +138,7 @@ public class AI : AbstractPlayer
             {
                 break;
             }
-            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], stats[(int)Stats.movespeed] * Time.deltaTime);
+            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
         }
         Task.current.Succeed();
     }
