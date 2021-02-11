@@ -17,6 +17,8 @@ public class DumbAITest : MonoBehaviour
     [Range(30, 90)]
     float visAngle = 60f;
 
+    private float Health = 10;
+
     private Rigidbody2D rb;
 
     //Get list of players from Initializer

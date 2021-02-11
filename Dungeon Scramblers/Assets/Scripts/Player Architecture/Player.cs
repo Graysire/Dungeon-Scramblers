@@ -37,8 +37,9 @@ public class Player : AbstractPlayer
     protected bool isFacingLeft;
     
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         // UNCOMMENT THE SECTION BELOW FOR THE REAL BUILD
         /*if (SystemInfo.deviceType == DeviceType.Handheld)
                     usingOnScreenControls = true;

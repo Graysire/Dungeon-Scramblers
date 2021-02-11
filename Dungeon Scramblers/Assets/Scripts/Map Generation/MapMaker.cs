@@ -37,7 +37,7 @@ public class MapMaker : MonoBehaviour
 
     //tilemap to generate dungeon on
     [SerializeField]
-    Tilemap tilemap;
+    public Tilemap tilemap;
 
     //default tile used for the floor
     [SerializeField]
@@ -80,7 +80,7 @@ public class MapMaker : MonoBehaviour
     
 
     //list of all rooms created
-    List<RoomInfo> rooms;
+    public List<RoomInfo> rooms;
 
     //public static int cornerCount = 0;
     //public static int totalCorridors = 0;
@@ -162,7 +162,7 @@ public class MapMaker : MonoBehaviour
         foreach (RoomInfo room in rooms)
         {
             AddDoors(room, doorTile);
-            if (generateAI && spawnAI.Count > 0)
+            if (generateAI && spawnAI.Count > 0 && room.lowerLeft != rooms[0].lowerLeft)
             {
                 SpawnAIClusters(room);
             }
@@ -172,7 +172,8 @@ public class MapMaker : MonoBehaviour
 
 
 
-
+        Debug.Log(rooms[0].lowerLeft);
+        Debug.Log(rooms[0].upperRight);
         
         mapFinished = true;
         yield return null;
@@ -219,8 +220,15 @@ public class MapMaker : MonoBehaviour
         switch (door.facing)
         {
             case Facing.North:
-                //startX -= (int)Mathf.Floor(randX / 2f);
-                startX -= Random.Range(1, randX);
+                //ensure the first room is not random in its generation location
+                if (rooms.Count == 0)
+                {
+                    startX -= (int)Mathf.Floor(randX / 2f);
+                }
+                else
+                {
+                    startX -= Random.Range(1, randX);
+                }
                 break;
             case Facing.East:
                 //startY -= (int)Mathf.Floor(randY / 2f);
@@ -253,12 +261,6 @@ public class MapMaker : MonoBehaviour
         //the end locations of the room
         int endX = startX + randX;
         int endY = startY + randY;
-
-        //add this room's information to the list of rooms
-        RoomInfo thisRoom;
-        thisRoom.lowerLeft = new Vector3Int(startX + 1, startY + 1, 0);
-        thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
-        rooms.Add(thisRoom);
 
         //place all the walls that make up the room
         for (int x = startX; x <= endX; x++)
@@ -306,6 +308,12 @@ public class MapMaker : MonoBehaviour
         //for each wall of the room except the entering wall, check for creation of new doors and add any new doors to the list of new doors
         for (int i = 0; i < 4; i++)
         {
+            //ensure that the first room generates its door the same direction it as generated from(i.e. starting room is generated Northward, so its door is northward)
+            if (rooms.Count == 0)
+            {
+                i = (int)door.facing;
+            }
+
             //if the wall being checked is not the wall being entered from
             if (Mathf.Abs(i - (int)door.facing) != 2)
             {
@@ -338,9 +346,20 @@ public class MapMaker : MonoBehaviour
                         tilemap.SetTile(randDoorLocation, floorTile);
                         newDoors.Add(new DoorInfo(randDoorLocation, (Facing)i));
                     }
+                    //the first room has only one door, so break
+                    if (rooms.Count == 0)
+                    {
+                        break;
+                    }
                 }
             }
         }
+
+        //add this room's information to the list of rooms
+        RoomInfo thisRoom;
+        thisRoom.lowerLeft = new Vector3Int(startX + 1, startY + 1, 0);
+        thisRoom.upperRight = new Vector3Int(endX - 1, endY - 1, 0);
+        rooms.Add(thisRoom);
 
         return newDoors;
     }
@@ -498,6 +517,11 @@ public class MapMaker : MonoBehaviour
         if (Random.Range(1, 1000) <= ((totalTiles / (float) spawnFrequency) % 1) * 1000)
         {
             numSpawns++;
+        }
+
+        if (numSpawns == 0)
+        {
+            return;
         }
 
         //the room is divided into equal size rectangles, one for each cluster being spawned
@@ -663,7 +687,8 @@ public class MapMaker : MonoBehaviour
             for (int y = room.lowerLeft.y; y <= room.upperRight.y; y++)
             {
                 //ensure that the starting room is never combined with other rooms and fill each room with tiles
-                if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                //if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                if (x < rooms[0].lowerLeft.x - 1 || x > rooms[0].upperRight.x + 1 || y < rooms[0].lowerLeft.y - 1 || y > rooms[0].upperRight.y + 1 || room.lowerLeft == rooms[0].lowerLeft)
                 {
                     //fill the room with floor tiles
                     tilemap.SetTile(new Vector3Int(x, y, 0), tile);
@@ -769,7 +794,7 @@ public class MapMaker : MonoBehaviour
     }
 
     //the location of a rooms floor corners
-    struct RoomInfo
+    public struct RoomInfo
     {
         //the position of the lower left floor corner on the tilemap
         public Vector3Int lowerLeft;
