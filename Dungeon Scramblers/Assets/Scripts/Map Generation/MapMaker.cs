@@ -172,7 +172,8 @@ public class MapMaker : MonoBehaviour
 
 
 
-
+        Debug.Log(rooms[0].lowerLeft);
+        Debug.Log(rooms[0].upperRight);
         
         mapFinished = true;
         yield return null;
@@ -686,7 +687,8 @@ public class MapMaker : MonoBehaviour
             for (int y = room.lowerLeft.y; y <= room.upperRight.y; y++)
             {
                 //ensure that the starting room is never combined with other rooms and fill each room with tiles
-                if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                //if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
+                if (x < rooms[0].lowerLeft.x - 1 || x > rooms[0].upperRight.x + 1 || y < rooms[0].lowerLeft.y - 1 || y > rooms[0].upperRight.y + 1 || room.lowerLeft == rooms[0].lowerLeft)
                 {
                     //fill the room with floor tiles
                     tilemap.SetTile(new Vector3Int(x, y, 0), tile);
