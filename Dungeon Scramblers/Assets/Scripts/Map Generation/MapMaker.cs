@@ -37,7 +37,7 @@ public class MapMaker : MonoBehaviour
 
     //tilemap to generate dungeon on
     [SerializeField]
-    Tilemap tilemap;
+    public Tilemap tilemap;
 
     //default tile used for the floor
     [SerializeField]
@@ -80,7 +80,7 @@ public class MapMaker : MonoBehaviour
     
 
     //list of all rooms created
-    List<RoomInfo> rooms;
+    public List<RoomInfo> rooms;
 
     //public static int cornerCount = 0;
     //public static int totalCorridors = 0;
@@ -794,7 +794,7 @@ public class MapMaker : MonoBehaviour
     }
 
     //the location of a rooms floor corners
-    struct RoomInfo
+    public struct RoomInfo
     {
         //the position of the lower left floor corner on the tilemap
         public Vector3Int lowerLeft;

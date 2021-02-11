@@ -2,28 +2,56 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PrefabSingleton<T> : MonoBehaviour where T : PrefabSingleton<T>
+public class PrefabSingleton : MonoBehaviour
 {
-    private const string m_AssetPath = "Singletons/";
-    private static T m_Instance = null;
-    public static T Instance
+    public List<PlayerData> Players = new List<PlayerData>();
+    private static PrefabSingleton _instance;
+    public static PrefabSingleton Instance
     {
         get
         {
-            if (m_Instance == null)
+            if (_instance == null)
             {
-                m_Instance = FindObjectOfType<T>();
-                if (m_Instance == null)
+                _instance = FindObjectOfType<PrefabSingleton>();
+                if (_instance == null)
                 {
-                    var prefab = Resources.Load<T>(m_AssetPath + typeof(T).Name);
-                    if (prefab == null)
-                        Debug.LogError("singleton prefab missing: " + m_AssetPath + typeof(T).Name);
-                    else
-                        m_Instance = Instantiate(prefab);
+                    var GO = new GameObject("SingletonPrefab");
+                    _instance = GO.AddComponent<PrefabSingleton>();
                 }
-                DontDestroyOnLoad(m_Instance.gameObject);
+                DontDestroyOnLoad(_instance.gameObject);
             }
-            return m_Instance;
+            return _instance;
         }
     }
+
+    private void Awake()
+    {
+        if(Instance != this)
+        {
+            Debug.Log($"Singleton Prefab Duplicate, deleting {this.name}", this);
+            DestroyImmediate(this.gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(this.gameObject);
+        }
+    }
+
+    public void GetPlayers()
+    {
+        //For players in lobby ,add them to list
+        //foreach()
+    }
+
+    public void GetPlayerInfo()
+    {
+        //Get neccessary player info related to their loadouts
+    }
+
+    public void AddPlayer(PlayerData player)
+    {
+        Players.Add(player);
+        Debug.Log("Player: " + player.PlayerName + " has been added");
+    }
 }
+
