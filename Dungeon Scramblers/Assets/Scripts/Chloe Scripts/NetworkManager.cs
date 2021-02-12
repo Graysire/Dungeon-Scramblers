@@ -8,6 +8,11 @@ using Doozy.Engine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
+
+    [Header("Player Data")]
+    public GameObject PlayerDataGO;
+    public GameObject SingletonPrefab;
+
     [Header("Login UI Panel")]
     public UIView PlayerNamePanel;
     public InputField playerNameInput;
@@ -43,6 +48,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject LeaveRoomButton;
     public GameObject StartButton;
 
+    private List<PlayerData> playerDatas = new List<PlayerData>();
 
     //Dictionary for PlayerRoomListings
     private Dictionary<string, RoomInfo> cachedRoomList;
@@ -58,7 +64,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         RoomListGameObjects = new Dictionary<string, GameObject>();
 
 
-        //All clients in the same room will load the same scene
+        //All clients in the same room will load the same scene synced as best as possible
         PhotonNetwork.AutomaticallySyncScene = true;
     }
     #endregion
@@ -81,6 +87,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("Invalid Name: " + playerName + " please try again");
         }
+
+        //Spawn Player Data Object
+
     }
 
 
@@ -140,6 +149,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PhotonNetwork.JoinLobby();
             GameOptionsPanel.Hide();
             JoinRoomListingPanels.Show();
+           
         }
 
     }
@@ -179,6 +189,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
+
+    public void OnReadyUpButtonClicked()
+    {
+        // check actor number of player
+        //set our player listings prefab to ready
+    }
     #endregion
 
     #region Photon Callbacks
@@ -212,7 +228,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomButton.SetActive(false);
         //StartButton.SetActive(true);
         LeaveRoomButton.SetActive(true);
-        
+
+        //Create GameManger Instance
+        Instantiate(SingletonPrefab);
+        //Adding Players to Singleton
+        Instantiate(PlayerDataGO);
+        PlayerDataGO.GetComponent<PlayerData>().PlayerName = PhotonNetwork.LocalPlayer.NickName;
+        PlayerDataGO.GetComponent<PlayerData>().player = PhotonNetwork.LocalPlayer;
     }
 
     //Callback function for Debug.Log when Joining Room
@@ -220,6 +242,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     {
         //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
+
+        //Adding Players to Singleton
+        PhotonNetwork.Instantiate(PlayerDataGO.name, Vector3.zero, new Quaternion());
+        PlayerDataGO.GetComponent<PlayerData>().PlayerName = PhotonNetwork.LocalPlayer.NickName;
+        PlayerDataGO.GetComponent<PlayerData>().player = PhotonNetwork.LocalPlayer;
+        Debug.Log("Player data: " + PlayerDataGO.GetComponent<PlayerData>().player);
+        PrefabSingleton.Instance.AddPlayer(PlayerDataGO.GetComponent<PlayerData>());
+
+
 
         RoomNameInputfield.gameObject.SetActive(false);
         MaxPlayerInputfield.gameObject.SetActive(false);
@@ -252,18 +283,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         foreach (Photon.Realtime.Player player in PhotonNetwork.PlayerList)
         {
 
+
             GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
             //playerListGameObject.transform.localScale = Vector3.one;
+            playerListGameObject.GetComponent<PlayerListEntryInitializer>().Initialize(player.ActorNumber, player.NickName);
+            ////Specialize PlayerListings to display proper name and PlayerIndicator
+            //playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
 
-            //Specialize PlayerListings to display proper name and PlayerIndicator
-            playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
+            //if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+            //{
+            //    playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
+            //}
 
-            if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-            {
-                playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
-            }
-
-            PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
+            //PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
         }
 
     }
@@ -366,7 +398,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             StartButton.SetActive(true);
         }
 
-
+        //Remove player from PlayerDatas;
     }
 
     //When "we" or the player that started the room leaves the room
