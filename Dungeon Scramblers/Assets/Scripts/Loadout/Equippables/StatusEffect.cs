@@ -12,18 +12,16 @@ public class StatusEffect : MonoBehaviour
 
     //public string uniqueStatusName;             //The name of this status effect
 
-    public bool doesUpdate = false;             //If true then the value to apply to player will be applied again
-    public float waitTimeToApplyAgain = 0.0f;   //If this effect updates then after this many seconds it will apply the values again
+    public bool doesReapply = false;            //If true then the value to apply to unit will be applied again
+    public float waitTimeToApplyAgain = 0.0f;   //If this effect updates then after this many SECONDS it will apply the values again
     private float waitTimeLeft;                 //Used to determine when to apply the status effect values again
 
-    public int statToEffect;            //Uses this value to effect the stat is relates to
-    public float timeTillEnd = 0.0f;    //The amount of time for this effect to last till worn off
-    private float endTimeLeft;          //Used to determine when time ends
+    public float timeTillEnd = 0.0f;            //The amount of time in SECONDS for this effect to last till worn off
+    private float endTimeLeft;                  //Used to determine when time ends
 
-    //private float[] stats;             //gets the stats list of the affected unit
 
-    public float valueOfEffect;         //The value of this status effect to apply
-    public int statNumToAffect;         //The HasStat enum value to effect on the Player/AI. Reference below:
+    public float valueOfEffect;                 //The value of this status effect to apply
+    public int statNumToAffect;                 //The HasStat enum value to effect on the Player/AI. Reference below:
     /*  health = 0,
         movespeed = 1,
         attackdmg = 2,
@@ -41,46 +39,70 @@ public class StatusEffect : MonoBehaviour
     private float statValToReset;       //Stores the stat value player originally had to reapply it
     private bool isActive;              //Determines if this effect is still active, when not it will be removed
 
-
+    //Returns if this effect is active
+    public bool IsActive()
+    {
+        return isActive;
+    }
 
     protected void OnEnable(){
+        isActive = true;
         UpdateHandler.UpdateOccurred += StatusUpdate;
         UpdateHandler.StartOccurred += StatusStart;
     }
     private void OnDisable(){
+        isActive = false;
         UpdateHandler.UpdateOccurred -= StatusUpdate;
         UpdateHandler.StartOccurred -= StatusStart;
     }
 
-    protected void StatusStart() {
-        isActive = true;
+    private void Start()
+    {
+        //Sets this gameobject as active 
+        gameObject.SetActive(true);
+    }
 
+    /*
+     * Add the status effects to a player through the OnTriggerEnter2D function inside ProjectileStats.
+     * ProjectileStats will contain a list of status effects that we add. 
+     * Player will store their StatusEffects applied to them until they are inactive.
+     */
+
+    //Starts the Status Effect to update
+    protected void StatusStart() 
+    {
         //Get the time left till it will end
         ResetStatusTime();
 
         //Apply the status effect
         ApplyStatusEffectValue();
+
+        //Sets this gameobject as inactive
+        gameObject.SetActive(false);
     }
 
-    protected void StatusUpdate() {
+
+    //Update Function for checking if time has ended for this status
+        //or to update the value applied
+    protected void StatusUpdate() 
+    {
         //Get the time left till status ends
         float timeLeft = endTimeLeft - Time.deltaTime;
 
-        //If the time left is over then effect ends
+        //If the time left is over, then the effect ends
         if (timeLeft <= 0.0f)
         {
-            //reset the stat value
+            //reset the stat value to its original value
             if (resetStatOnEnd) { unit.GetAffectedStats()[statNumToAffect] = statValToReset; }
 
-            //set this to end
-            isActive = false;
+            gameObject.SetActive(false);
         }
 
         //Get the time left to apply effect values again
         timeLeft = waitTimeLeft - Time.deltaTime;
 
-        //If this effect updates then apply the vale when the timer ends
-        if (doesUpdate && timeLeft <= 0.0f)
+        //If this effect reapplies, then apply the value when the wait timer ends
+        if (doesReapply && timeLeft <= 0.0f)
         {
             //Apply the status effect
             ApplyStatusEffectValue();

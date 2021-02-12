@@ -25,8 +25,9 @@ public class ProjectileStats : MonoBehaviour
     // Define the offset of the ability from the orgin of the user in the direction of the attack
     [SerializeField]
     protected float OffsetScale;
-
-
+    // List of Status Effects to apply to enemy hit
+    [SerializeField]
+    protected List<StatusEffect> StatusEffects;
 
     // Use to calculate direction for movement of the ability
     protected Vector3 AttackDir;
