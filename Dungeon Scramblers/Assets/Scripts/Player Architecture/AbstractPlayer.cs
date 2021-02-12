@@ -9,16 +9,22 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
 
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
-    [SerializeField] protected List<StatusEffect> statusEffects;
+
+    //The list of status effects applied to the player
+    protected List<StatusEffect> statusEffects;
 
     //Adds the given status effect into the list of status effects
-    public void AddStatusEffect(StatusEffect se)
+        //instantiates the objects, preps it for use, and sets it to active
+    public void AddStatusEffect(StatusEffect statusEffectPrefab)
     {
-        statusEffects.Add(se);
+        StatusEffect statusEffect = Instantiate(statusEffectPrefab);
+        statusEffects.Add(statusEffect);
+        statusEffect.SetAffectedPlayer(this);
     }
 
+
     //Removes inactive status effects
-    public void SearchForInactveStatusEffects()
+    public void RemoveInactiveStatusEffects()
     {
         for (int i = 0; i < statusEffects.Count; ++i)
         {
@@ -28,6 +34,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
             }
         }
     }
+
 
     protected virtual void Awake()
     {
