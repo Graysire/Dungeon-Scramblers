@@ -91,6 +91,13 @@ public class ProjectileStats : MonoBehaviour
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if(collision.tag == "Shield")
+        {
+            ResetProjectiles();
+            return;
+        }
+
         //get Damageable from collision object
         IDamageable<float> damageable = collision.GetComponent<IDamageable<float>>();
 

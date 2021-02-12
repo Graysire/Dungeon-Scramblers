@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 4427557190297321068, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
-  amountToPool: 0
+  amountToPool: 2
 --- !u!1 &6497682061442774528
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueName: Shield
-  Projectile: {fileID: 4237854939122927952, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
+  Projectile: {fileID: -2382444479167826345, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}

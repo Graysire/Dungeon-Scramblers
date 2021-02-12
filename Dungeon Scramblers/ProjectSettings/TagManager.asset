@@ -8,6 +8,7 @@ TagManager:
   - IndependentJoystick
   - Object Pooler
   - AI
+  - Shield
   layers:
   - Default
   - TransparentFX

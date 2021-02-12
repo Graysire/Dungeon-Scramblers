@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 8097073362365693786, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
-  amountToPool: 0
+  amountToPool: 2
 --- !u!1 &2527594498822936197
 GameObject:
   m_ObjectHideFlags: 0
