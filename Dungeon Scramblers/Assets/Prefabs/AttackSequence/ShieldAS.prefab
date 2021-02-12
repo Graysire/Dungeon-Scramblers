@@ -90,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueName: Shield
-  Projectile: {fileID: 4983767609826630315, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
+  Projectile: {fileID: 4237854939122927952, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}

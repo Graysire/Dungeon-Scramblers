@@ -6,38 +6,38 @@ public class ProjectileStats : MonoBehaviour
 {
     // Define the damage of the the ability
     [SerializeField]
-    private float Damage = 5.0f;
+    protected float Damage = 5.0f;
     // Define the range of the the ability before destroying itself
     [SerializeField]
-    private float Range;
+    protected float Range;
     // Define the Decay time of the ability before destroying itself
     [SerializeField]
-    private float DecayTime;
+    protected float DecayTime;
     // Define the move speed of the ability in unity units
     [SerializeField]
-    private float MoveSpeed;
+    protected float MoveSpeed;
     // Define the casting time after calling the ability
     [SerializeField]
-    private float CastingTime;
+    protected float CastingTime;
     // Define the cooldown for every ability before being able to use it again
     [SerializeField]
-    private float CoolDown;
+    protected float CoolDown;
     // Define the offset of the ability from the orgin of the user in the direction of the attack
     [SerializeField]
-    private float OffsetScale;
+    protected float OffsetScale;
 
 
 
     // Use to calculate direction for movement of the ability
-    private Vector3 AttackDir;
+    protected Vector3 AttackDir;
     // Use to calculate decay time for the ability
-    private float totalTime = 0;
+    protected float totalTime = 0;
     // Use to calculate the position traveled to destroy object
-    private Vector3 PositionTraveled = Vector3.zero;
+    protected Vector3 PositionTraveled = Vector3.zero;
     // Use to handle collision to effect health or other sysem
-    private Collider2D Collider;
+    protected Collider2D Collider;
     // Use to handle movement of the projectile and collision
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
     // Return the casting time for the ability as a float
     // This is an interface function that the player call with nessarily finding the object
@@ -81,9 +81,7 @@ public class ProjectileStats : MonoBehaviour
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
-                this.gameObject.SetActive(false);
-                totalTime = 0f;
-                PositionTraveled = Vector3.zero;
+                ResetProjectiles();
             }
         }
 
@@ -103,5 +101,12 @@ public class ProjectileStats : MonoBehaviour
         //Apply damage to object
         damageable.Damage(Damage);
         
+    }
+
+    public void ResetProjectiles()
+    {
+        this.gameObject.SetActive(false);
+        totalTime = 0f;
+        PositionTraveled = Vector3.zero;
     }
 }
