@@ -29,7 +29,6 @@ public class AI : AbstractPlayer
 
 
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
-    protected StatusEffect[] statusEffects;     //Status effects being applied to the AI
 
     /*
      * Note to self: If the player is dead how do we know?
@@ -72,6 +71,9 @@ public class AI : AbstractPlayer
     // Update is called once per frame
     void Update()
     {
+        //Removes inactive status effects in the AI
+        RemoveInactiveStatusEffects();
+
         // Updates the position and value of the healthbar for this AI
         if (healthBar != null)
         {

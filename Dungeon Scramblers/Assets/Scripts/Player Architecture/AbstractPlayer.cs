@@ -26,6 +26,9 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     //Removes inactive status effects
     public void RemoveInactiveStatusEffects()
     {
+        //ends if there are no status effects to check end
+        if (statusEffects == null) return;
+
         for (int i = 0; i < statusEffects.Count; ++i)
         {
             if (!statusEffects[i].IsActive())
