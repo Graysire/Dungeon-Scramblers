@@ -98,6 +98,7 @@ public class Player : AbstractPlayer
     {
         controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
+        UpdateHandler.UpdateOccured += RemoveInactiveStatusEffects;
         UpdateHandler.FixedUpdateOccurred += ApplyMove;
         UpdateHandler.FixedUpdateOccurred += PhotonPhysicsUpdate;
     }
@@ -105,6 +106,7 @@ public class Player : AbstractPlayer
     {
         controls.Disable();
         UpdateHandler.UpdateOccurred -= Die;
+        UpdateHandler.UpdateOccured -= RemoveInactiveStatusEffects;
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
         UpdateHandler.FixedUpdateOccurred -= PhotonPhysicsUpdate;
     }

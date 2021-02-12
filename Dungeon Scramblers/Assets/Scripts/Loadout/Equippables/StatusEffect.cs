@@ -56,11 +56,6 @@ public class StatusEffect : MonoBehaviour
         UpdateHandler.StartOccurred -= StatusStart;
     }
 
-    private void Start()
-    {
-        //Sets this gameobject as active 
-        gameObject.SetActive(true);
-    }
 
     /*
      * Add the status effects to a player through the OnTriggerEnter2D function inside ProjectileStats.
@@ -78,7 +73,7 @@ public class StatusEffect : MonoBehaviour
         ApplyStatusEffectValue();
 
         //Sets this gameobject as inactive
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
     }
 
 
@@ -86,29 +81,33 @@ public class StatusEffect : MonoBehaviour
         //or to update the value applied
     protected void StatusUpdate() 
     {
-        //Get the time left till status ends
-        float timeLeft = endTimeLeft - Time.deltaTime;
-
-        //If the time left is over, then the effect ends
-        if (timeLeft <= 0.0f)
+        //Only update if player information is given
+        if (unit != null)
         {
-            //reset the stat value to its original value
-            if (resetStatOnEnd) { unit.GetAffectedStats()[statNumToAffect] = statValToReset; }
+            //Get the time left till status ends
+            float timeLeft = endTimeLeft - Time.deltaTime;
 
-            gameObject.SetActive(false);
-        }
+            //If the time left is over, then the effect ends
+            if (timeLeft <= 0.0f)
+            {
+                //reset the stat value to its original value
+                if (resetStatOnEnd) { unit.GetAffectedStats()[statNumToAffect] = statValToReset; }
 
-        //Get the time left to apply effect values again
-        timeLeft = waitTimeLeft - Time.deltaTime;
+                gameObject.SetActive(false);
+            }
 
-        //If this effect reapplies, then apply the value when the wait timer ends
-        if (doesReapply && timeLeft <= 0.0f)
-        {
-            //Apply the status effect
-            ApplyStatusEffectValue();
+            //Get the time left to apply effect values again
+            timeLeft = waitTimeLeft - Time.deltaTime;
 
-            //reset the wait time
-            ResetWaitTime();
+            //If this effect reapplies, then apply the value when the wait timer ends
+            if (doesReapply && timeLeft <= 0.0f)
+            {
+                //Apply the status effect
+                ApplyStatusEffectValue();
+
+                //reset the wait time
+                ResetWaitTime();
+            }
         }
     }
 
