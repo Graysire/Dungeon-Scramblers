@@ -320,6 +320,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8983c15016ca4b9f07f399a116974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AttackObjectList: []
+  usingOnScreenControls: 0
+  PlayerOnScreenControls: {fileID: 0}
   stats:
   - 1
   - 1
@@ -336,9 +339,6 @@ MonoBehaviour:
   - 1
   - 1
   - 1
-  AttackObjectList: []
-  usingOnScreenControls: 0
-  PlayerOnScreenControls: {fileID: 0}
   isDead: 0
 --- !u!50 &4823538436004081160
 Rigidbody2D:

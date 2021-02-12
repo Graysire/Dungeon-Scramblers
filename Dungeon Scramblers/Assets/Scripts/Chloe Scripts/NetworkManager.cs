@@ -1,9 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
-using Photon.Realtime;
 using Doozy.Engine.UI;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
@@ -35,6 +35,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public UIView CreateRoomPanel;
     public InputField RoomNameInputfield;
     public InputField MaxPlayerInputfield;
+
+    [Header("Loadout Panel")]
+    public UIView LoadoutPanel;
+    public UIButton LoadOutBackButton;
 
     [Header("Inside Room")]
     public Text RoomInfoText;
@@ -195,10 +199,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         // check actor number of player
         //set our player listings prefab to ready
     }
+
+    public void OnLoadoutButtonClicked()
+    {
+        LoadoutPanel.Show();
+    }
+
+    public void OnLoadoutBackButtonPressed()
+    {
+        LoadoutPanel.Hide();
+    }
     #endregion
 
     #region Photon Callbacks
-
     public override void OnConnected()
     {
         Debug.Log("Player has connected to internet");
@@ -228,7 +241,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomButton.SetActive(false);
         //StartButton.SetActive(true);
         LeaveRoomButton.SetActive(true);
-
+        //PhotonNetwork.CurrentRoom.BroadcastPropertiesChangeToAll;
         //Create GameManger Instance
         Instantiate(SingletonPrefab);
         //Adding Players to Singleton
@@ -244,11 +257,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
 
         //Adding Players to Singleton
-        PhotonNetwork.Instantiate(PlayerDataGO.name, Vector3.zero, new Quaternion());
-        PlayerDataGO.GetComponent<PlayerData>().PlayerName = PhotonNetwork.LocalPlayer.NickName;
-        PlayerDataGO.GetComponent<PlayerData>().player = PhotonNetwork.LocalPlayer;
-        Debug.Log("Player data: " + PlayerDataGO.GetComponent<PlayerData>().player);
-        PrefabSingleton.Instance.AddPlayer(PlayerDataGO.GetComponent<PlayerData>());
+        //PhotonNetwork.Instantiate(PlayerDataGO.name, Vector3.zero, new Quaternion());
+        //PlayerDataGO.GetComponent<PlayerData>().PlayerName = PhotonNetwork.LocalPlayer.NickName;
+        //PlayerDataGO.GetComponent<PlayerData>().player = PhotonNetwork.LocalPlayer;
+        //Debug.Log("Player data: " + PlayerDataGO.GetComponent<PlayerData>().player);
+        //PrefabSingleton.Instance.AddPlayer(PlayerDataGO.GetComponent<PlayerData>());
 
 
 
@@ -366,12 +379,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //playerListGameObject.transform.localScale = Vector3.one;
 
         //Specialize PlayerListings to display proper name and PlayerIndicator
-        playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = newPlayer.NickName;
-
-        if (newPlayer.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-        {
-            playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
-        }
+        //playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = newPlayer.NickName;
+        playerListGameObject.GetComponent<PlayerListEntryInitializer>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+        //if (newPlayer.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
+        //{
+        //    playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
+        //}
 
         PlayerListGameObjects.Add(newPlayer.ActorNumber, playerListGameObject);
 

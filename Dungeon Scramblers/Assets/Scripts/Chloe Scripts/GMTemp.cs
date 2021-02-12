@@ -7,7 +7,7 @@ using Cinemachine;
 
 public class GMTemp : MonoBehaviour
 {
-    public GameObject PlayerTest;
+    public GameObject[] PlayerPrefabs;
     public GameObject EnemyTest;
     public CinemachineVirtualCamera vcam;
     public GameObject Map;
@@ -16,26 +16,45 @@ public class GMTemp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(SpawnPlayers());
 
-        SetupSpawning();
-
+    }
+    IEnumerator SpawnPlayers()
+    {
+        yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            if(PlayerTest != null)
-            {
-               
-                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerTest.name, worldLocation, Quaternion.identity);
+            //if(PlayerTest != null)
+            //{
 
-                vcam.m_Follow = PlayerGO.transform;
-                //Refresh int randX and randY
-                Debug.Log("Player Spawning");
-              
+            //    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerTest.name, worldLocation, Quaternion.identity);
+
+            //    vcam.m_Follow = PlayerGO.transform;
+            //    //Refresh int randX and randY
+            //    Debug.Log("Player Spawning");
+
+            //}
+            object PlayerSelectionNumber;
+            if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
+            {
+                Debug.Log("Player Number: " + (int)PlayerSelectionNumber);
+
+                int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, SetupSpawning(), Quaternion.identity);
+
             }
-            
+            else
+            {
+                Debug.Log("Default Player Spawning");
+
+                int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, SetupSpawning(), Quaternion.identity);
+            }
         }
     }
-
-    void SetupSpawning()
+    Vector3 SetupSpawning()
     {
         //Get Start Roomn from MapMaker
         MapMaker.RoomInfo StartRoom = Map.GetComponent<MapMaker>().rooms[0];
@@ -47,6 +66,9 @@ public class GMTemp : MonoBehaviour
         //Translate to world space
         Vector3Int randLocation = new Vector3Int(randX, randY, 0);
         worldLocation = Map.GetComponent<MapMaker>().tilemap.GetCellCenterWorld(randLocation);
+        return worldLocation;
     }
+
+
 
 }
