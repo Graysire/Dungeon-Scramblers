@@ -39,10 +39,18 @@ public class StatusEffect : MonoBehaviour
     /*
      * BUG: When player dies then if hit by status effect, instead of reapplying it creates new instances of it.
      */
+    private void OnEnable()
+    {
+        StatusStart();
+        UpdateHandler.UpdateOccurred += UpdateEffect;
+    }
+    private void OnDisable()
+    {
+        UpdateHandler.UpdateOccurred -= UpdateEffect;
+    }
 
 
-
-    private void Start()
+    private void StatusStart()
     {
         Debug.Log(statusName + " created...");
 
@@ -53,7 +61,7 @@ public class StatusEffect : MonoBehaviour
         ApplyStatusEffectValue();
     }
 
-    private void Update()
+    private void UpdateEffect()
     {
         Debug.Log("In Status Effect Update...");
 
@@ -71,6 +79,7 @@ public class StatusEffect : MonoBehaviour
                 //reset the stat value to its original value
                 if (resetStatOnEnd) { unit.GetAffectedStats()[statValueToAffect] = statValToReset; }
 
+                gameObject.SetActive(false);
                 Destroy(gameObject);
             }
 
