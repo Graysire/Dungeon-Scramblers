@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 8332080629846319896}
   - component: {fileID: 8332080629846319897}
   - component: {fileID: 8332080629846319902}
-  - component: {fileID: 8332080629846319903}
   m_Layer: 11
   m_Name: Suicide AI
   m_TagString: AI
@@ -213,20 +212,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8332080629846319903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8332080629846319900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueName: 
-  Projectile: {fileID: 0}
 --- !u!1 &8332080629955179806
 GameObject:
   m_ObjectHideFlags: 0

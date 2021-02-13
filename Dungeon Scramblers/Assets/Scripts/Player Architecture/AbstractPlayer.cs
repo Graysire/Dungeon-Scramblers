@@ -11,12 +11,13 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
     //The list of status effects applied to the player
-    protected List<StatusEffect> statusEffects = new List<StatusEffect>();
+    public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     //Adds the given status effect into the list of status effects
         //instantiates the objects, preps it for use, and sets it to active
     public void AddStatusEffect(StatusEffect statusEffectPrefab)
     {
+        //If the status effect is null then fire debug message
         if (statusEffectPrefab == null)
         {
             Debug.Log("Given Status Effect is null...");
@@ -28,10 +29,14 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
         //If this object doesnt exist
         if (existingInstance == null)
         {
-            Debug.Log("CREATING NEW INSTANCE OF STATUS EFFECT");
+            //Debug.Log("CREATING NEW INSTANCE OF STATUS EFFECT");
+
             //Create instance of this object
             StatusEffect statusEffect = Instantiate(statusEffectPrefab, gameObject.GetComponentInParent<Transform>());
             statusEffects.Add(statusEffect);
+
+            //Debug.Log("SETTING PLAYER INFORMATION INTO INSTANCE");
+
             statusEffect.SetAffectedPlayer(this);
         }
         else if (existingInstance.resetEffectOnHit)
@@ -53,6 +58,10 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
 
         for (int i = 0; i < statusEffects.Count; ++i)
         {
+            //skip if null
+            if (statusEffects[i] == null) { continue; }
+
+            //compare names
             if (statusEffects[i].statusName == statusEffect.statusName)
             {
                 return statusEffects[i];
