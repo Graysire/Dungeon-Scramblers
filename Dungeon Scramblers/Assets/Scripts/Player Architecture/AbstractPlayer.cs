@@ -11,31 +11,54 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
     //The list of status effects applied to the player
-    protected List<StatusEffect> statusEffects;
+    protected List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     //Adds the given status effect into the list of status effects
         //instantiates the objects, preps it for use, and sets it to active
     public void AddStatusEffect(StatusEffect statusEffectPrefab)
     {
-        StatusEffect statusEffect = Instantiate(statusEffectPrefab);
-        statusEffects.Add(statusEffect);
-        statusEffect.SetAffectedPlayer(this);
+        if (statusEffectPrefab == null)
+        {
+            Debug.Log("Given Status Effect is null...");
+        }
+
+        //Find instance of this object already created
+        StatusEffect existingInstance = FoundInstanceOfStatusEffect(statusEffectPrefab);
+        
+        //If this object doesnt exist
+        if (existingInstance == null)
+        {
+            Debug.Log("CREATING NEW INSTANCE OF STATUS EFFECT");
+            //Create instance of this object
+            StatusEffect statusEffect = Instantiate(statusEffectPrefab, gameObject.GetComponentInParent<Transform>());
+            statusEffects.Add(statusEffect);
+            statusEffect.SetAffectedPlayer(this);
+        }
+        else if (existingInstance.resetEffectOnHit)
+        {
+            Debug.Log("RESETTING INSTANCE OF STATUS EFFECT");
+
+            //if this object is already made then reset its timer apply for full duration again
+            existingInstance.ResetStatusTime();
+        }
     }
 
-
-    //Removes inactive status effects
-    public void RemoveInactiveStatusEffects()
+    //Checks if the given status effect is already applied to a player
+    //if exists - returns the object
+    //else - null
+    private StatusEffect FoundInstanceOfStatusEffect(StatusEffect statusEffect)
     {
-        //ends if there are no status effects to check end
-        if (statusEffects == null) return;
+        //If there is not instantiated status effects or the given status effect is null
+        if (statusEffect == null || statusEffects == null) return null;
 
         for (int i = 0; i < statusEffects.Count; ++i)
         {
-            if (!statusEffects[i].IsActive())
+            if (statusEffects[i].statusName == statusEffect.statusName)
             {
-                statusEffects.RemoveAt(i);
+                return statusEffects[i];
             }
         }
+        return null;
     }
 
 

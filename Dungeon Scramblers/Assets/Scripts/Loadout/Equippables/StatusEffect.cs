@@ -8,20 +8,18 @@ public class StatusEffect : MonoBehaviour
     /* The HasStats class is used to apply those values to the player it effects */
     /* Note: The effected GameObject (Player, AI, etc.) MUST have the HasStats class to apply the effects */
 
-
-
-    //public string uniqueStatusName;             //The name of this status effect
+    public string statusName;                   //Unique name for this status effect
 
     public bool doesReapply = false;            //If true then the value to apply to unit will be applied again
+    public bool resetEffectOnHit = false;       //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
     public float waitTimeToApplyAgain = 0.0f;   //If this effect updates then after this many SECONDS it will apply the values again
     private float waitTimeLeft;                 //Used to determine when to apply the status effect values again
 
     public float timeTillEnd = 0.0f;            //The amount of time in SECONDS for this effect to last till worn off
     private float endTimeLeft;                  //Used to determine when time ends
 
-
     public float valueOfEffect;                 //The value of this status effect to apply
-    public int statNumToAffect;                 //The HasStat enum value to effect on the Player/AI. Reference below:
+    public int statValueToAffect;               //The HasStat enum value to effect on the Player/AI. Reference below:
     /*  health = 0,
         movespeed = 1,
         attackdmg = 2,
@@ -31,77 +29,59 @@ public class StatusEffect : MonoBehaviour
         defense = 6
      */
 
-    private AbstractPlayer unit;        //The player or AI to effect
-    
+    private AbstractPlayer unit;                //The player or AI to effect
 
     [SerializeField]
-    private bool resetStatOnEnd = false; //If true then when this stat ends it will reapply the original stat value it affected
-    private float statValToReset;       //Stores the stat value player originally had to reapply it
-    private bool isActive;              //Determines if this effect is still active, when not it will be removed
-
-    //Returns if this effect is active
-    public bool IsActive()
-    {
-        return isActive;
-    }
-
-    protected void OnEnable(){
-        isActive = true;
-        UpdateHandler.UpdateOccurred += StatusUpdate;
-        UpdateHandler.StartOccurred += StatusStart;
-    }
-    private void OnDisable(){
-        isActive = false;
-        UpdateHandler.UpdateOccurred -= StatusUpdate;
-        UpdateHandler.StartOccurred -= StatusStart;
-    }
+    private bool resetStatOnEnd = false;        //If true then when this stat ends it will reapply the original stat value it affected
+    private float statValToReset;               //Stores the stat value player originally had to reapply it once status effect ends
 
 
     /*
-     * Add the status effects to a player through the OnTriggerEnter2D function inside ProjectileStats.
-     * ProjectileStats will contain a list of status effects that we add. 
-     * Player will store their StatusEffects applied to them until they are inactive.
+     * BUG: When player dies then if hit by status effect, instead of reapplying it creates new instances of it.
      */
 
-    //Starts the Status Effect to update
-    protected void StatusStart() 
+
+
+    private void Start()
     {
+        Debug.Log(statusName + " created...");
+
         //Get the time left till it will end
         ResetStatusTime();
 
         //Apply the status effect
         ApplyStatusEffectValue();
-
-        //Sets this gameobject as inactive
-        gameObject.SetActive(true);
     }
 
-
-    //Update Function for checking if time has ended for this status
-        //or to update the value applied
-    protected void StatusUpdate() 
+    private void Update()
     {
+        Debug.Log("In Status Effect Update...");
+
         //Only update if player information is given
         if (unit != null)
         {
             //Get the time left till status ends
-            float timeLeft = endTimeLeft - Time.deltaTime;
+            float timeLeft = endTimeLeft - Time.time;
+            Debug.Log("Time left for status effect to end: " + timeLeft);
 
             //If the time left is over, then the effect ends
             if (timeLeft <= 0.0f)
             {
+                Debug.Log("Status Effect Ending...");
                 //reset the stat value to its original value
-                if (resetStatOnEnd) { unit.GetAffectedStats()[statNumToAffect] = statValToReset; }
+                if (resetStatOnEnd) { unit.GetAffectedStats()[statValueToAffect] = statValToReset; }
 
-                gameObject.SetActive(false);
+                Destroy(gameObject);
             }
 
             //Get the time left to apply effect values again
-            timeLeft = waitTimeLeft - Time.deltaTime;
+            timeLeft = waitTimeLeft - Time.time;
+            Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
 
             //If this effect reapplies, then apply the value when the wait timer ends
             if (doesReapply && timeLeft <= 0.0f)
             {
+                Debug.Log("Applying Status Effect Again");
                 //Apply the status effect
                 ApplyStatusEffectValue();
 
@@ -115,14 +95,18 @@ public class StatusEffect : MonoBehaviour
         //If status is applied to same player again then time is reset -- subject to change
     public void ResetStatusTime()
     {
-        endTimeLeft = timeTillEnd + Time.deltaTime; //Time till the status ends
-        ResetWaitTime(); //Set the wait time
+        endTimeLeft = timeTillEnd + Time.time; //Time till the status ends
+       // Debug.Log("End Time TIME: " + Time.time);
+       // Debug.Log("End Time Set to: " + endTimeLeft);
+        ResetWaitTime(); //Set the wait time as well
     }
 
     //Resets the wait time for applying effect values again
     private void ResetWaitTime()
     {
-        waitTimeLeft = waitTimeToApplyAgain + Time.deltaTime; //Time till the status applies its values again
+        waitTimeLeft = waitTimeToApplyAgain + (Time.time); //Time till the status applies its values again
+        //Debug.Log("Wait Time TIME: " + Time.time);
+        //Debug.Log("Wait Time Set to: " + waitTimeLeft);
     }
 
 
@@ -130,12 +114,13 @@ public class StatusEffect : MonoBehaviour
     //Applies the status effect values to the player
     private void ApplyStatusEffectValue()
     {
+        //Debug.Log("Applying Damage: " + valueOfEffect); 
 
         //Save the original stat value to apply when status ends
-        if (resetStatOnEnd) { statValToReset = unit.GetAffectedStats()[statNumToAffect]; }
+        if (resetStatOnEnd) { statValToReset = unit.GetAffectedStats()[statValueToAffect]; }
 
         //Apply the stat from this status effect onto the affected units stat
-        unit.GetAffectedStats()[statNumToAffect] += valueOfEffect;
+        unit.GetAffectedStats()[statValueToAffect] += valueOfEffect;
     }
 
 
@@ -145,42 +130,3 @@ public class StatusEffect : MonoBehaviour
         this.unit = unit;
     }
 }
-
-
-
-
-/*  Graysons Recomnedation using a OnTick implementation
-statsToAffect[] = (HasStats.Stats.Health, -10), (moveSpeed, -20000)
-bool reversedOnEnd
-
-(stat, effectValue)
-
-Player calls OnTick(Player.affectedStats)
-
-
-Tick(Stats targetStats)
-    for each statAffected
-        target.Stats += statEffect
-    duration--;
-    if(duration == 0 && reversedOnEnd)
-        Reverse(targetStats)
-
-Reverse(targetStats)
-    for each statAffected
-        targetStats -= statEffect * originalDuration
-
-
-
-
-struct statTuples
-{
-    public hasStats.Stats
-}
-
-
-Player.OnTick()
-{
-    for each Effect e in Effects
-        effect.apply(
-}
-*/
