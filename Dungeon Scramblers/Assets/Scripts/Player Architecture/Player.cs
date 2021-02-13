@@ -241,7 +241,32 @@ public class Player : AbstractPlayer
     public Vector3 GetAttackDirection() => AttackDirection;
     public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
 
-    
+    //adds an attack ot the list of attacks at a specified index
+    //index 0 is basic attack, index 1 is Ability 1 and so on
+    public void AddAttack(DefaultAttackSequence atk, int abilitySlot)
+    {
+        //while the AttackList is too short to add the ability, add placeholder nulls
+        while (AttackList.Count <= abilitySlot)
+        {
+            AttackList.Add(null);
+        }
+        //Add the attack at its designated slot
+        AttackList[abilitySlot] = atk;
+        
+    }
+
+    //Removes the attack from the list and setting its ability slot to null
+    public void RemoveAttack(DefaultAttackSequence atk, int abilitySlot)
+    {
+        if (AttackList.Count > abilitySlot)
+        {
+            AttackList[abilitySlot] = null;
+        }
+        else
+        {
+            Debug.Log("No Attack to Remove");
+        }
+    }
 }
 
 

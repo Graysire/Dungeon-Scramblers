@@ -13,6 +13,9 @@ public class DefaultAttackSequence : Equippable
     protected Vector3 AttackDirection;
 
     protected bool Attacked = false;
+    [SerializeField]
+    //the slot this fills when given to a player, i.e. 0 is basic attack
+    protected int abilitySlot = 0;
 
     private void Start()
     {
@@ -98,5 +101,17 @@ public class DefaultAttackSequence : Equippable
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("ScramblerBullet");
         else if (gameObject.layer == LayerMask.NameToLayer("Overlord"))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
+    }
+
+    public override void Equip(Player player)
+    {
+        base.Equip(player);
+        player.AddAttack(this, abilitySlot);
+    }
+
+    public override void Unequip(Player player)
+    {
+        base.Unequip(player);
+        player.RemoveAttack(this, abilitySlot);
     }
 }

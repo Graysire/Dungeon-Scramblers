@@ -5,7 +5,7 @@ using UnityEngine;
 //Parent class of DefaultAttackSequence, Armor and Perk classes.
     //Will be used to identify the equippable type and name so that it can be retrived
     //by Game Manager for player stat/abilities instantiation
-public class Equippable : MonoBehaviour
+public class Equippable : HasStats
 {
     [SerializeField]
     protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME FOR LOADOUT SYSTEM*
@@ -24,5 +24,23 @@ public class Equippable : MonoBehaviour
     public string GetEquippableName()
     {
         return uniqueName;
+    }
+
+    //applies all changes to the player such as changing their stats
+    public virtual void Equip(Player player)
+    {
+        for (int i = 0; i < stats.Length; i++)
+        {
+            player.GetStats()[i] += stats[i];
+        }
+    }
+
+    //reverses all changes to the playersuch as changing their stats
+    public virtual void Unequip(Player player)
+    {
+        for (int i = 0; i < stats.Length; i++)
+        {
+            player.GetStats()[i] -= stats[i];
+        }
     }
 }
