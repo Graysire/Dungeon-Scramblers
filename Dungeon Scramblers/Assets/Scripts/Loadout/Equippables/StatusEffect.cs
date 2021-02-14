@@ -108,7 +108,7 @@ public class StatusEffect : MonoBehaviour
             //If this effect reapplies, then apply the value when the wait timer ends
             if (doesReapply && timeLeft <= 0.0f)
             {
-                Debug.Log("Applying Status Effect Again");
+                //Debug.Log("Applying Status Effect Again");
 
                 //Apply the status effect
                 StartCoroutine(ApplyStatusEffectValue());

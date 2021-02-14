@@ -45,9 +45,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusName: Poison
   doesReapply: 1
-  resetEffectOnHit: 1
+  resetEffectOnHit: 0
   waitTimeToApplyAgain: 2
   timeTillEnd: 10
-  valueOfEffect: 1
+  valueOfEffect: -1
   statValueToAffect: 0
   resetOriginalStatValueOnEnd: 0

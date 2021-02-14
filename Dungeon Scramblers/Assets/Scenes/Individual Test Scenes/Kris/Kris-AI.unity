@@ -350,8 +350,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
+  - 1
   uniqueName: 
   Projectile: {fileID: 0}
+  abilitySlot: 0
 --- !u!4 &249369881
 Transform:
   m_ObjectHideFlags: 0
@@ -1907,6 +1916,10 @@ PrefabInstance:
     - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_Mass
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: m_Constraints
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_Name
