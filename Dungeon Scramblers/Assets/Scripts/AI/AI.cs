@@ -37,6 +37,12 @@ public class AI : AbstractPlayer
      * Note to self: Vector3 movement is expensive for networking (according to Hanson). Have to change it to use rigidbody2D
      */
 
+
+    /*
+     * Issue with AI movement: When we get into attack range AI may fail to stop movement before it attacks.
+     * Possible solution may come when with resturctureing the Behavior Tree for the AI, or add methods to check if we are moving when we shouldn't
+     */
+
     // Start is called before the first frame update
     void Start()
     {
@@ -189,10 +195,7 @@ public class AI : AbstractPlayer
         {
             //Get distance from AI and player
             Vector3 distance = p.transform.position - this.transform.position;
-            /*
-             * Issue with AI movement: When we get into attack range AI may fail to stop movement before it attacks.
-             * Possible solution may come when with resturctureing the Behavior Tree for the AI, or add methods to check if we are moving when we shouldn't
-             */
+
 
             //Use raycast to determine if player is in sight
             RaycastHit hit;

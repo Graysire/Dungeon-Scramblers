@@ -1933,6 +1933,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Debuff AI
       objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958044, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: players.Array.data[0]
       value: 
@@ -2162,7 +2166,7 @@ PrefabInstance:
       objectReference: {fileID: 4900000, guid: cb9b1ddfa0635164cb601a9bf9c3b962, type: 3}
     - target: {fileID: 4248649116176859046, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.37
+      value: 1.83
       objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859046, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2210,7 +2214,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
