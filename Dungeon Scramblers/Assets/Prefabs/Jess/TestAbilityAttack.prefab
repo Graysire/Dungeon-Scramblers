@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uniqueName: 
   Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
 --- !u!1 &8892859850966458452
 GameObject:
@@ -89,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 4427557190297321068, guid: 1a416b108477c75468618e8fd3212436, type: 3}
-  amountToPool: 0
+  amountToPool: 1

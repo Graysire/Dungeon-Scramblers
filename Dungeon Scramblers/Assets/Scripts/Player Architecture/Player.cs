@@ -203,14 +203,13 @@ public class Player : AbstractPlayer
             return;
         }
         if (d.x == 0 && d.y == 0) { // Stop Attacking if joystick is at <0, 0>
-            Debug.Log("End Attack " + activeIndependentJoystick);
             activeIndependentJoystick = -1;
             return;
         }
-        AttackDirection = new Vector3(-d.x, d.y, 0);
-        RequestAttack(activeIndependentJoystick);
-        // Call attack based on joystick number
-        Debug.Log("Attack " + activeIndependentJoystick + " on phone");
+        AttackDirection = new Vector3(d.x, d.y, 0);
+        Debug.Log("Direction: " + AttackDirection);
+        if(allowedToAttack)
+            RequestAttack(activeIndependentJoystick);
     }
 
     protected virtual void Attack(float f, int abilityIndex) { // Basic attack using mouse
