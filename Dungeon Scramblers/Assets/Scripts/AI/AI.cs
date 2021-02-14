@@ -34,6 +34,7 @@ public class AI : AbstractPlayer
      * Note to self: If the player is dead how do we know?
      * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe befor implementing
      * 
+     * Note to self: Vector3 movement is expensive for networking (according to Hanson). Have to change it to use rigidbody2D
      */
 
     // Start is called before the first frame update

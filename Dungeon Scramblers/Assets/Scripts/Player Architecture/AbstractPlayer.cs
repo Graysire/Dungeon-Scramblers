@@ -33,7 +33,19 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
 
             //Create instance of this object
             StatusEffect statusEffect = Instantiate(statusEffectPrefab, gameObject.GetComponentInParent<Transform>());
-            statusEffects.Add(statusEffect);
+
+            //Add item into empty slot or append at end
+            bool added = false;
+            for (int i = 0; i < statusEffects.Count; ++i)
+            {
+                if (statusEffects[i] == null)
+                {
+                    statusEffects[i] = statusEffect;
+                    added = true;
+                }
+            }
+            if (!added)
+                statusEffects.Add(statusEffect);
 
             //Debug.Log("SETTING PLAYER INFORMATION INTO INSTANCE");
 

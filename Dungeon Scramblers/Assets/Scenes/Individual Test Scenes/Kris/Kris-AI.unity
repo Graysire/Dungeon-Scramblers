@@ -1241,6 +1241,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  statusEffects: []
   AttackObjectList: []
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 1294233350}
@@ -1902,6 +1903,10 @@ PrefabInstance:
     - target: {fileID: 4028327533559958035, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: m_Mass
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_Name
