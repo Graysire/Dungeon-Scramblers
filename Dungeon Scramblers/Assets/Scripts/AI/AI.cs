@@ -27,7 +27,7 @@ public class AI : AbstractPlayer
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
-
+    private Rigidbody2D rb;
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
     /*
@@ -40,6 +40,8 @@ public class AI : AbstractPlayer
     // Start is called before the first frame update
     void Start()
     {
+        //Get the rigidbody
+        rb = GetComponent<Rigidbody2D>();
 
         //Get the list of players
         players = GameManager.ManagerInstance.GetPlayerTransforms();
@@ -109,7 +111,8 @@ public class AI : AbstractPlayer
     //Determines if the AI is at the stopping distance from the player
     protected bool AtStoppingDistance()
     {
-        Vector3 distance = player.transform.position - this.transform.position;
+        Vector3 distance = player.transform.position - transform.position;
+        Debug.Log("Distance from Player: " + distance.magnitude);
         if (distance.magnitude < stoppingDistance)
             return true;
         return false;
@@ -127,7 +130,7 @@ public class AI : AbstractPlayer
     [Task]
     protected void MoveToPlayer()
     {
-        //Get path to player
+        //Get shortest path to player
         currentPath = GetPath(this.transform.position, player.transform.position);
 
         //Move to each path node until reaching stopping distance
@@ -136,9 +139,22 @@ public class AI : AbstractPlayer
             //Stop moving if at the stopping distance
             if (AtStoppingDistance())
             {
+                //Set velocity to zero to stop AI movement
+                rb.velocity = Vector2.zero;
                 break;
             }
-            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
+
+            //Get vector to node
+            Vector2 movementDir = (currentPath[i] - transform.position).normalized;
+
+            //Make vector scaled to movement speed
+            Vector2 nextFramePosition = movementDir * affectedStats[(int)Stats.movespeed];
+
+            //Set the AI's velocity toward that position
+            rb.velocity = nextFramePosition;
+
+            //Old movement implementation
+            //this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
         }
         Task.current.Succeed();
     }
@@ -173,7 +189,10 @@ public class AI : AbstractPlayer
         {
             //Get distance from AI and player
             Vector3 distance = p.transform.position - this.transform.position;
-
+            /*
+             * Issue with AI movement: When we get into attack range AI may fail to stop movement before it attacks.
+             * Possible solution may come when with resturctureing the Behavior Tree for the AI, or add methods to check if we are moving when we shouldn't
+             */
 
             //Use raycast to determine if player is in sight
             RaycastHit hit;

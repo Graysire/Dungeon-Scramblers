@@ -1919,7 +1919,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_Constraints
-      value: 7
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958041, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_Name
@@ -1933,6 +1941,22 @@ PrefabInstance:
       propertyPath: AttackObjectList.Array.data[0]
       value: 
       objectReference: {fileID: 2527594498822936197, guid: 502ade73776305640808fb7c645cc335, type: 3}
+    - target: {fileID: 4028327533559958044, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: stats.Array.data[0]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958044, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: stats.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958044, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: stoppingDistance
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4028327533559958044, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: attackRange
+      value: 3.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
 --- !u!1001 &6823708276367668135

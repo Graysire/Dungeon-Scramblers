@@ -53,7 +53,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
         }
         else if (existingInstance.resetEffectOnHit)
         {
-            Debug.Log("RESETTING INSTANCE OF STATUS EFFECT");
+            //Debug.Log("RESETTING INSTANCE OF STATUS EFFECT");
 
             //if this object is already made then reset its timer apply for full duration again
             existingInstance.ResetStatusTime();
