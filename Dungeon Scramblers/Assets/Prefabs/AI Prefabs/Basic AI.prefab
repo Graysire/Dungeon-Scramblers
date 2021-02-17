@@ -153,6 +153,7 @@ MonoBehaviour:
   stoppingDistance: 2
   visibleRange: 8
   attackRange: 2.5
+  timeBeforeNextAttack: 1
   expOnDeath: 10
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}

@@ -11,6 +11,7 @@ tree("Attack")
 			while AttackInRange
 				sequence
 					AttackPlayer
+					EnsureDeath
 					Wait(0.5)
 					Die
 

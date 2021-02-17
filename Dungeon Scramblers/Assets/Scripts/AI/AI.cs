@@ -24,28 +24,20 @@ public class AI : AbstractPlayer
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
+    public float timeBeforeNextAttack = 0.5f;   // The time AI must waif before it can attack again
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
-    private Rigidbody2D rb;
+    private bool ableToAttack = true;           // Determines if the AI is able to perform an attack
+
+    private Rigidbody2D rb;                     // This AI's rigidbody2D
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
     /*
      * Note to self: If the player is dead how do we know?
      * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe befor implementing
-     * 
-     * Note to self: Vector3 movement is expensive for networking (according to Hanson). Have to change it to use rigidbody2D
      */
 
-
-    /*
-     * Issue with AI movement: When we get into attack range AI may fail to stop movement before it attacks.
-     * Possible solution may come when with resturctureing the Behavior Tree for the AI, or add methods to check if we are moving when we shouldn't
-     */
-
-    /*
-     * Change AI attacking as same format as players so that they cannot attack multiple times (occurs as a bug when player walks away from player)
-     */
 
     // Start is called before the first frame update
     void Start()
@@ -135,7 +127,6 @@ public class AI : AbstractPlayer
         return false;
     }
 
-
     //Has AI move to given destination - currently the destination is the seen player
     [Task]
     protected void MoveToPlayer()
@@ -177,7 +168,6 @@ public class AI : AbstractPlayer
     [Task]
     protected bool SeePlayerAndSetTarget()
     {
-
         //This removes error log whith no players assigned
         bool playersIsNull = true;
         //If there are no assigned players to attack then stop looking
@@ -271,9 +261,26 @@ public class AI : AbstractPlayer
     [Task]
     protected void AttackPlayer()
     {
-        Vector3 direction = target - this.transform.position;
-        AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
-        Task.current.Succeed();
+        if (ableToAttack)
+        {
+            ableToAttack = false; // Sets next attack to fail
+            StartCoroutine(SetAttackTimer());   // Set timer to reset ableToAttack bool
+
+            Vector3 direction = target - this.transform.position; //Get vector towards player to hit
+            AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
+
+            Task.current.Succeed();
+        }
+        else
+        {
+            Task.current.Fail();
+        }
+    }
+
+    IEnumerator SetAttackTimer()
+    {
+        yield return new WaitForSecondsRealtime(timeBeforeNextAttack);
+        ableToAttack = true;
     }
 
     //Checks if the health is less than the given value
@@ -309,5 +316,18 @@ public class AI : AbstractPlayer
             Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
             return true;
         }
+    }
+
+
+    //NOTE: This current implementation seems "Hacky", so think of alternative solution...
+    //Method used to ensure the triggering of an AI's death so that it will not move after attacking
+        //This directly affects SuicidAI so that it will die after attack
+    [Task]
+    protected void EnsureDeath()
+    {
+        //Make attack range high so that when player moves away, instead of moving back
+            //towards the player to attack again it will just attack then die
+        attackRange = 100; 
+        Task.current.Succeed();
     }
 }

@@ -11,7 +11,7 @@ tree("Attack")
 			while AttackInRange
 				sequence
 					AttackPlayer
-					Wait(0.5)
+					
 
 tree("Dead")
 	sequence
