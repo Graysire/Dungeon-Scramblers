@@ -43,6 +43,10 @@ public class AI : AbstractPlayer
      * Possible solution may come when with resturctureing the Behavior Tree for the AI, or add methods to check if we are moving when we shouldn't
      */
 
+    /*
+     * Change AI attacking as same format as players so that they cannot attack multiple times (occurs as a bug when player walks away from player)
+     */
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,8 +104,6 @@ public class AI : AbstractPlayer
         this.players = players;
     }
 
-
-
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
     {
@@ -114,21 +116,23 @@ public class AI : AbstractPlayer
         return Pathfinder.GetPath(startPos, targetPos, 90000);
     }
 
-    //Determines if the AI is at the stopping distance from the player
-    protected bool AtStoppingDistance()
-    {
-        Vector3 distance = player.transform.position - transform.position;
-        Debug.Log("Distance from Player: " + distance.magnitude);
-        if (distance.magnitude < stoppingDistance)
-            return true;
-        return false;
-    }
-
     //Send EXP to Game Manager to send to all players
     protected void DisperseEXP()
     {
         //Get the game manager to disperse the exp to players
         GameManager.ManagerInstance.DistributeExperience(expOnDeath);
+    }
+
+    //Determines if the AI is at the stopping distance from the player
+    [Task]
+    protected bool AtStoppingDistance()
+    {
+        Vector3 distance = player.transform.position - transform.position;
+        if (distance.magnitude < stoppingDistance)
+        {
+            return true;
+        }
+        return false;
     }
 
 
@@ -142,14 +146,6 @@ public class AI : AbstractPlayer
         //Move to each path node until reaching stopping distance
         for (int i = 0; i < currentPath.Count; i++)
         {
-            //Stop moving if at the stopping distance
-            if (AtStoppingDistance())
-            {
-                //Set velocity to zero to stop AI movement
-                rb.velocity = Vector2.zero;
-                break;
-            }
-
             //Get vector to node
             Vector2 movementDir = (currentPath[i] - transform.position).normalized;
 
@@ -162,6 +158,15 @@ public class AI : AbstractPlayer
             //Old movement implementation
             //this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
         }
+        Task.current.Succeed();
+    }
+
+    //Stops the AI from moving
+    [Task]
+    protected void StopMoving()
+    {
+        //Set velocity to zero to stop AI movement
+        rb.velocity = Vector2.zero;
         Task.current.Succeed();
     }
 

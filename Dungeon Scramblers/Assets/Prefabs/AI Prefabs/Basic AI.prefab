@@ -142,17 +142,17 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
-  players:
-  - {fileID: 0}
+  players: []
   healthBarUI: {fileID: 8640546345716192724}
   healthBar: {fileID: 8640546346855551714}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
-  stoppingDistance: 0.5
+  stoppingDistance: 2
   visibleRange: 8
-  attackRange: 4
+  attackRange: 2.5
   expOnDeath: 10
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
