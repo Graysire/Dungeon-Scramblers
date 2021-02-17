@@ -276,7 +276,7 @@ public class AI : AbstractPlayer
             Task.current.Fail();
         }
     }
-
+    //note
     IEnumerator SetAttackTimer()
     {
         yield return new WaitForSecondsRealtime(timeBeforeNextAttack);
