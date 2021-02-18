@@ -119,6 +119,7 @@ public class AI : AbstractPlayer
     [Task]
     protected bool AtStoppingDistance()
     {
+        if (player == null) return false;
         Vector3 distance = player.transform.position - transform.position;
         if (distance.magnitude < stoppingDistance)
         {
@@ -145,9 +146,6 @@ public class AI : AbstractPlayer
 
             //Set the AI's velocity toward that position
             rb.velocity = nextFramePosition;
-
-            //Old movement implementation
-            //this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
         }
         Task.current.Succeed();
     }
@@ -265,9 +263,9 @@ public class AI : AbstractPlayer
         {
             ableToAttack = false; // Sets next attack to fail
             StartCoroutine(SetAttackTimer());   // Set timer to reset ableToAttack bool
-
+            Debug.Log("Firing Attack!");
             Vector3 direction = target - this.transform.position; //Get vector towards player to hit
-            AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
+            AttackList[0].StartAttack(direction, this); //AI will attack in direction of player
 
             Task.current.Succeed();
         }
@@ -276,6 +274,7 @@ public class AI : AbstractPlayer
             Task.current.Fail();
         }
     }
+
 
     IEnumerator SetAttackTimer()
     {
@@ -295,6 +294,7 @@ public class AI : AbstractPlayer
     [Task]
     public new bool Die()
     {
+        Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);
         return true;
@@ -325,9 +325,10 @@ public class AI : AbstractPlayer
     [Task]
     protected void EnsureDeath()
     {
-        //Make attack range high so that when player moves away, instead of moving back
-            //towards the player to attack again it will just attack then die
-        attackRange = 100; 
+        gameObject.GetComponent<SpriteRenderer>().enabled = !enabled; //disables the sprite renderer
+        gameObject.GetComponent<BoxCollider2D>().enabled = !enabled; //disables the box collider
+        attackRange = 100;      //Ensures AI will not move after it triggers death
+        stoppingDistance = 10;  //Ensures AI to stop moving
         Task.current.Succeed();
     }
 }

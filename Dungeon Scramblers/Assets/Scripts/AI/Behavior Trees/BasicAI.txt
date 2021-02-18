@@ -15,7 +15,7 @@ tree("Attack")
 
 tree("Dead")
 	sequence
-		IsHealthLessThan(0.1)
+		IsHealthLessThan(0.0)
 		Die
 
 tree("Move")

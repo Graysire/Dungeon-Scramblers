@@ -1155,6 +1155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scrambler
       objectReference: {fileID: 0}
+    - target: {fileID: 2866247930749979864, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2866247930749979869, guid: 41bc402a256d98a4e97da58914bf83d3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.84
@@ -2057,11 +2061,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 8332080629846319892, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.26
+      value: 1.65
       objectReference: {fileID: 0}
     - target: {fileID: 8332080629846319892, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 20.91
+      value: 21.4
       objectReference: {fileID: 0}
     - target: {fileID: 8332080629846319892, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2099,45 +2103,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8332080629846319896, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: scripts.Array.data[0]
-      value: 
-      objectReference: {fileID: 4900000, guid: c23811f37520d8a44bbb0e3d88039215, type: 3}
-    - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: players.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: players.Array.data[0]
       value: 
       objectReference: {fileID: 203367736}
     - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: players.Array.data[1]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: attackRange
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8332080629846319899, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: stats.Array.data[0]
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: m_Name
       value: Suicide AI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8332080629955179806, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8332080630896179366, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
@@ -2148,6 +2124,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4248649116176859041, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859046, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.18

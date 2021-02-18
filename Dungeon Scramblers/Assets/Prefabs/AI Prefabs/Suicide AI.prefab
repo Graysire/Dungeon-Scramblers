@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats:
-  - 4
+  - 2
   - 1
   - 1
   - 1
@@ -142,18 +142,19 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  statusEffects: []
   AttackObjectList:
-  - {fileID: 6298499292749407882, guid: 85fcd90147f0cf547bf81ef5c7c20b1e, type: 3}
+  - {fileID: 6125647232567267168, guid: 85fcd90147f0cf547bf81ef5c7c20b1e, type: 3}
   players:
-  - {fileID: 0}
   - {fileID: 0}
   healthBarUI: {fileID: 8332080629955179806}
   healthBar: {fileID: 8332080630735973273}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
-  stoppingDistance: 0.1
+  stoppingDistance: 0.4
   visibleRange: 10
-  attackRange: 1.25
+  attackRange: 2
+  timeBeforeNextAttack: 0
   expOnDeath: 10
   onlyAttackOnePlayer: 1
   enemyTypeToSpawn: {fileID: 0}
@@ -468,7 +469,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
