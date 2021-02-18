@@ -388,7 +388,7 @@ public class MapMaker : MonoBehaviour
                     }
                 }
 
-                Debug.Log("Overlap " + startX + " " + startY + " " + endX + " " + endY);
+                //Debug.Log("Overlap " + startX + " " + startY + " " + endX + " " + endY);
             }
 
 
@@ -583,6 +583,18 @@ public class MapMaker : MonoBehaviour
         Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
+        //vector to check whether this corridor has space to generate a room
+        Vector3Int maxOverlapPosition = endDoorPosition + corridorDirection * (minRoomSize+ 1);
+
+        if (maxOverlapPosition.x <= rooms[0].upperRight.x + minRoomSize && maxOverlapPosition.x >= rooms[0].lowerLeft.x - minRoomSize &&
+            maxOverlapPosition.y <= rooms[0].upperRight.y + minRoomSize && maxOverlapPosition.y >= rooms[0].lowerLeft.y - minRoomSize)
+        {
+            tilemap.SetTile(door.position, wallTile);
+            currentDoorNum--;
+            //Debug.Log("OVERLAP");
+            return newDoors;
+        }
+
         //check if this corridor should connect to a room, due to overlap or starting just short
         for (int i = 1; i <= length + 1 + minRoomSize / 2; i++)
         {
@@ -605,7 +617,7 @@ public class MapMaker : MonoBehaviour
             //checks if this would result in two adjacent door tiles
             if (tilemap.GetTile(endDoorPosition + corridorDirection * 2) != doorTile)
             {
-                Debug.Log("Corner case");
+                //Debug.Log("Corner case");
                 tilemap.SetTile(endDoorPosition, floorTile);
                 //tilemap.SetTile(endDoorPosition + corridorDirection, floorTile);
 
@@ -953,6 +965,10 @@ public class MapMaker : MonoBehaviour
         tilemap.ClearAllTiles();
         tilemap.CompressBounds();
         Pathfinder.ClearGrid();
+        foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
+        {
+           Destroy(ai);
+        }
     }
 
     //The position and facing of a door
