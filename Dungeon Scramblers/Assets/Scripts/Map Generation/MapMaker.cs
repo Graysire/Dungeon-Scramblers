@@ -278,7 +278,7 @@ public class MapMaker : MonoBehaviour
                             //If the room is generated facing south and it overlaps the middle-right of the starting room
                             //shift the west wall right, otherwise shift the south wall up
                             case Facing.South:
-                                if (endY <= rooms[0].upperRight.y)
+                                if (endY <= rooms[0].upperRight.y + minRoomSize)
                                 {
                                     startX = rooms[0].upperRight.x + 1;
                                 }
@@ -295,7 +295,7 @@ public class MapMaker : MonoBehaviour
                             //If the room is generated facing west and it overlaps the top-middle of the starting room
                             //shift the south wall up, otherwise shift the west wall right
                             case Facing.West:
-                                if (endX <= rooms[0].upperRight.x)
+                                if (endX <= rooms[0].upperRight.x + minRoomSize)
                                 {
                                     startY = rooms[0].upperRight.y + 1;
                                 }
@@ -327,7 +327,7 @@ public class MapMaker : MonoBehaviour
                             //If the room is generated facing west and it overlaps the lower right corner of the starting room
                             //shift the west wall right, otherwise shift the north wall down
                             case Facing.West:
-                                if (endX >= rooms[0].upperRight.x)
+                                if (endX >= rooms[0].upperRight.x + minRoomSize)
                                 {
                                     startX = rooms[0].upperRight.x + 1;
                                 }
@@ -347,7 +347,7 @@ public class MapMaker : MonoBehaviour
                         //If the room is generated facing north and it overlaps the lower left corner of the starting room
                         //shift the north wall down, otherwise shift the east wall left
                         case Facing.North:
-                            if (startY <= rooms[0].lowerLeft.y)
+                            if (startY <= rooms[0].lowerLeft.y + minRoomSize)
                             {
                                 endY = rooms[0].lowerLeft.y - 1;
                             }
@@ -359,7 +359,7 @@ public class MapMaker : MonoBehaviour
                         //If the room is generated facing south and it overlaps the upper left corner of the starting room
                         //shift the south wall up, otherwise shift the east wall left
                         case Facing.South:
-                            if (endY >= rooms[0].upperRight.y)
+                            if (endY >= rooms[0].upperRight.y + minRoomSize)
                             {
                                 startY = rooms[0].upperRight.y + 1;
                             }
@@ -376,7 +376,7 @@ public class MapMaker : MonoBehaviour
                         //shift the north wall down, otherwise shift the south wall up
                         //This facing should be impossible for the middle-left overlap case
                         case Facing.West:
-                            if (startY <= rooms[0].lowerLeft.y)
+                            if (startY <= rooms[0].lowerLeft.y + minRoomSize)
                             {
                                 endY = rooms[0].lowerLeft.y - 1;
                             }
