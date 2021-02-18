@@ -583,7 +583,7 @@ public class MapMaker : MonoBehaviour
         Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
-        //check if this corridor should connect to a room, due to overlap or starting just shoprt
+        //check if this corridor should connect to a room, due to overlap or starting just short
         for (int i = 1; i <= length + 1 + minRoomSize / 2; i++)
         {
             
@@ -607,7 +607,7 @@ public class MapMaker : MonoBehaviour
             {
                 Debug.Log("Corner case");
                 tilemap.SetTile(endDoorPosition, floorTile);
-
+                //tilemap.SetTile(endDoorPosition + corridorDirection, floorTile);
 
 
                 endDoorPosition += corridorDirection;
@@ -649,7 +649,8 @@ public class MapMaker : MonoBehaviour
         {
             Vector3Int tileLoc = door.position + i * corridorDirection;
 
-            tilemap.SetTile(tileLoc, floorTile);
+            //tilemap.SetTile(tileLoc, floorTile);
+            PlaceTile(tileLoc, floorTile);
             PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), wallTile);
             PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), wallTile);
 
@@ -869,9 +870,9 @@ public class MapMaker : MonoBehaviour
         {
             for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    PlaceDoor(x, y, tile);
                 }
             }
         }
@@ -880,9 +881,9 @@ public class MapMaker : MonoBehaviour
         {
             for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    PlaceDoor(x, y, tile);
                 }
             }
         }
@@ -918,15 +919,26 @@ public class MapMaker : MonoBehaviour
     }
 
     //checks if a given tile is a doorway, meaning that one wall tile exists on either side of it
-    bool IsDoorway(int startX, int startY)
+    //if the door would lead to nowhere place a wall, otherwise place a door
+    void PlaceDoor(int startX, int startY, TileBase door)
     {
-        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls, return true
+
+
+        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls
         if (tilemap.GetTile(new Vector3Int(startX - 1, startY, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX + 1, startY, 0)) == wallTile
             || tilemap.GetTile(new Vector3Int(startX, startY - 1, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX, startY + 1, 0)) == wallTile)
         {
-            return true;
+            //check to ensure all cardinally adjacent tiles are filled, if yes, return true, otherwise return false and replace this doorway with a wall
+            if (tilemap.HasTile(new Vector3Int(startX - 1, startY, 0)) && tilemap.HasTile(new Vector3Int(startX + 1, startY, 0))
+                && tilemap.HasTile(new Vector3Int(startX, startY - 1, 0)) && tilemap.HasTile(new Vector3Int(startX, startY + 1, 0)))
+            {
+                tilemap.SetTile(new Vector3Int(startX, startY, 0), door);
+            }
+            else
+            {
+                tilemap.SetTile(new Vector3Int(startX, startY, 0), wallTile);
+            }
         }
-        return false;
     }
 
     //returns whether the map has finished generating
