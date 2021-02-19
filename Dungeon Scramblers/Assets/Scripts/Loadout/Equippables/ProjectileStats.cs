@@ -100,15 +100,24 @@ public class ProjectileStats : MonoBehaviour
 
         //get Damageable from collision object
         IDamageable<float> damageable = collision.GetComponent<IDamageable<float>>();
-
         //if the collision does not exist or damageable is not on the object
         if (collision == null || damageable == null)  return;
+
+
+        //If the colliding object inherits from Abstract player then apply the status effect(s)
+        AbstractPlayer unit = collision.gameObject.GetComponent<AbstractPlayer>();
+        if (unit != null)
+        {
+            for (int i = 0; i < StatusEffects.Count; ++i)
+            {
+                unit.AddStatusEffect(StatusEffects[i]);
+            }
+        }
 
         Debug.Log("Hit " + collision);
 
         //Apply damage to object
         damageable.Damage(Damage);
-        
     }
 
     public void ResetProjectiles()

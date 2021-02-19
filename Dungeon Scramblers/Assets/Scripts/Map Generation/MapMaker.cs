@@ -168,12 +168,6 @@ public class MapMaker : MonoBehaviour
             }
             yield return new WaitForSeconds(waitTime);
         }
-
-
-
-
-        Debug.Log(rooms[0].lowerLeft);
-        Debug.Log(rooms[0].upperRight);
         
         mapFinished = true;
         yield return null;
@@ -262,6 +256,168 @@ public class MapMaker : MonoBehaviour
         int endX = startX + randX;
         int endY = startY + randY;
 
+        //check to make sure it doesn't overlap with the first room
+        if (rooms.Count > 0)
+        {
+            //this statement detects that an overlap exists
+            if (startX <= rooms[0].upperRight.x && startY <= rooms[0].upperRight.y && endX >= rooms[0].lowerLeft.x && endY >= rooms[0].lowerLeft.y)
+            {
+                //5 of the 8 overlap cases require this to be true (overlapping the middle from the top or bottom, and overlapping on the right side
+                if (startX >= rooms[0].lowerLeft.x)
+                {
+                    //3 of the 5 cases require this to be true(overlapping top-middle, top-right, middle-right)
+                    if (startY >= rooms[0].lowerLeft.y)
+                    {
+                        switch (door.facing)
+                        {
+                            //In all cases, if the room is generated facing north shift the west wall right
+                            //This facing should be impossible for the top-middle overlap (which itself should be extremely rare)
+                            case Facing.North:
+                                startX = rooms[0].upperRight.x + 1;
+                                break;
+                            //If the room is generated facing south and it overlaps the middle-right of the starting room
+                            //shift the west wall right, otherwise shift the south wall up
+                            case Facing.South:
+                                if (endY <= rooms[0].upperRight.y + minRoomSize)
+                                {
+                                    startX = rooms[0].upperRight.x + 1;
+                                }
+                                else
+                                {
+                                    startY = rooms[0].upperRight.y + 1;
+                                }
+                                break;
+                            //In all cases, if the room is gneerated facing east shift the south wall up
+                            //This facing should be impossible for middle-right overlap
+                            case Facing.East:
+                                startY = rooms[0].upperRight.y + 1;
+                                break;
+                            //If the room is generated facing west and it overlaps the top-middle of the starting room
+                            //shift the south wall up, otherwise shift the west wall right
+                            case Facing.West:
+                                if (endX <= rooms[0].upperRight.x + minRoomSize)
+                                {
+                                    startY = rooms[0].upperRight.y + 1;
+                                }
+                                else
+                                {
+                                    startX = rooms[0].upperRight.x + 1;
+                                }
+                                break;
+                        }
+                    }
+                    //the other 2 cases, bottom-middle and bottom-right
+                    else
+                    {
+                        switch (door.facing)
+                        {
+                            //In all cases, if the room is generated facing north shift the north wall down
+                            case Facing.North:
+                                endY = rooms[0].lowerLeft.y - 1;
+                                break;
+                            //In all cases, if the room is generated south shift the west wall right
+                            //This facing should be impossible for bottom-middle overlap
+                            case Facing.South:
+                                startX = rooms[0].upperRight.x + 1;
+                                break;
+                            //In all cases, if the room is gneerated facing east, shift the north wall down
+                            case Facing.East:
+                                endY = rooms[0].lowerLeft.y - 1;
+                                break;
+                            //If the room is generated facing west and it overlaps the lower right corner of the starting room
+                            //shift the west wall right, otherwise shift the north wall down
+                            case Facing.West:
+                                if (endX >= rooms[0].upperRight.x + minRoomSize)
+                                {
+                                    startX = rooms[0].upperRight.x + 1;
+                                }
+                                else
+                                {
+                                    endY = rooms[0].lowerLeft.y - 1;
+                                }
+                                break;
+                        }
+                    }
+                }
+                //The other 3 overlap cases, where the starting room is overlapped on the left side
+                else
+                {
+                    switch (door.facing)
+                    {
+                        //If the room is generated facing north and it overlaps the lower left corner of the starting room
+                        //shift the north wall down, otherwise shift the east wall left
+                        case Facing.North:
+                            if (startY <= rooms[0].lowerLeft.y + minRoomSize)
+                            {
+                                endY = rooms[0].lowerLeft.y - 1;
+                            }
+                            else
+                            {
+                                endX = rooms[0].lowerLeft.x - 1;
+                            }
+                            break;
+                        //If the room is generated facing south and it overlaps the upper left corner of the starting room
+                        //shift the south wall up, otherwise shift the east wall left
+                        case Facing.South:
+                            if (endY >= rooms[0].upperRight.y + minRoomSize)
+                            {
+                                startY = rooms[0].upperRight.y + 1;
+                            }
+                            else
+                            {
+                                endX = rooms[0].lowerLeft.x - 1;
+                            }
+                            break;
+                        //In all cases, if the room is generate facing east, shift the east wall left
+                        case Facing.East:
+                            endX = rooms[0].lowerLeft.x - 1;
+                            break;
+                        //if the room is generated facing west and it overlaps the lower left corner of the starting room
+                        //shift the north wall down, otherwise shift the south wall up
+                        //This facing should be impossible for the middle-left overlap case
+                        case Facing.West:
+                            if (startY <= rooms[0].lowerLeft.y + minRoomSize)
+                            {
+                                endY = rooms[0].lowerLeft.y - 1;
+                            }
+                            else
+                            {
+                                startY = rooms[0].upperRight.y + 1;
+                            }
+                            break;
+                    }
+                }
+
+                //Debug.Log("Overlap " + startX + " " + startY + " " + endX + " " + endY);
+            }
+
+
+
+
+
+            //if (((startY >= rooms[0].lowerLeft.y && startY <= rooms[0].upperRight.y) || (endY >= rooms[0].lowerLeft.y && endY <= rooms[0].upperRight.y)) &&
+            //    ((startX >= rooms[0].lowerLeft.x && startX <= rooms[0].upperRight.x) || (endX >= rooms[0].lowerLeft.x && endX <= rooms[0].upperRight.x)))
+            //{
+            //    switch (door.facing)
+            //    {
+            //        case Facing.North:
+            //            endY = rooms[0].lowerLeft.y - 1;
+            //            break;
+            //        case Facing.South:
+            //            startY = rooms[0].upperRight.y + 1;
+            //            break;
+            //        case Facing.East:
+            //            endX = rooms[0].lowerLeft.x - 1;
+            //            break;
+            //        case Facing.West:
+            //            startX = rooms[0].upperRight.x + 1;
+            //            break;
+            //    }
+            //}
+        }
+
+       //Debug.Log("Start X: " + startX + " Start Y: " + startY + " End X: " + endX + " End Y: " + endY);
+
         //place all the walls that make up the room
         for (int x = startX; x <= endX; x++)
         {
@@ -320,15 +476,15 @@ public class MapMaker : MonoBehaviour
                 //check if new door should be generated
                 if (Random.Range(1, 10000) <= GetDoorChance())
                 {
-                    currentDoorNum++;
+                    
                     //determine location of the new door
                     switch ((Facing)i)
                     {
                         case Facing.North:
-                            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY + randY, 0);
+                            randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), endY, 0);
                             break;
                         case Facing.East:
-                            randDoorLocation = new Vector3Int(startX + randX, startY + Random.Range(1, randY - 1), 0);
+                            randDoorLocation = new Vector3Int(endX, startY + Random.Range(1, randY - 1), 0);
                             break;
                         case Facing.South:
                             randDoorLocation = new Vector3Int(startX + Random.Range(1, randX - 1), startY, 0);
@@ -339,12 +495,21 @@ public class MapMaker : MonoBehaviour
                             break;
                     }
 
+                    //if this is not the first room and the door would be on one of the walls of the starting room, do not place the door
+                    if (rooms.Count > 0 &&
+                        randDoorLocation.x >= rooms[0].lowerLeft.x - 1 && randDoorLocation.x <= rooms[0].upperRight.x + 1 &&
+                        randDoorLocation.y >= rooms[0].lowerLeft.y - 1 && randDoorLocation.y <= rooms[0].upperRight.y + 1)
+                    {
+                        continue;
+                    }
+
                     //place the new door as long as the location is inside a wall
                     //add it to the list of new doors
                     if (tilemap.GetTile(randDoorLocation) == wallTile)
                     {
                         tilemap.SetTile(randDoorLocation, floorTile);
                         newDoors.Add(new DoorInfo(randDoorLocation, (Facing)i));
+                        currentDoorNum++;
                     }
                     //the first room has only one door, so break
                     if (rooms.Count == 0)
@@ -418,11 +583,23 @@ public class MapMaker : MonoBehaviour
         Vector3Int endDoorPosition = door.position + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0);
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
-        //check if this corridor should connect to a room, due to overlap or starting just shoprt
+        //vector to check whether this corridor has space to generate a room
+        Vector3Int maxOverlapPosition = endDoorPosition + corridorDirection * (minRoomSize+ 1);
+
+        if (maxOverlapPosition.x <= rooms[0].upperRight.x + minRoomSize && maxOverlapPosition.x >= rooms[0].lowerLeft.x - minRoomSize &&
+            maxOverlapPosition.y <= rooms[0].upperRight.y + minRoomSize && maxOverlapPosition.y >= rooms[0].lowerLeft.y - minRoomSize)
+        {
+            tilemap.SetTile(door.position, wallTile);
+            currentDoorNum--;
+            //Debug.Log("OVERLAP");
+            return newDoors;
+        }
+
+        //check if this corridor should connect to a room, due to overlap or starting just short
         for (int i = 1; i <= length + 1 + minRoomSize / 2; i++)
         {
             
-            if (tilemap.HasTile(door.position + i * corridorDirection) && tilemap.HasTile(door.position + (i + 1) * corridorDirection))
+            if (tilemap.HasTile(door.position + i * corridorDirection)/* && tilemap.HasTile(door.position + (i + 1) * corridorDirection)*/)
             {
                 Debug.Log("Connector Case 1");
                 endDoorPosition = door.position + i * corridorDirection;
@@ -440,9 +617,9 @@ public class MapMaker : MonoBehaviour
             //checks if this would result in two adjacent door tiles
             if (tilemap.GetTile(endDoorPosition + corridorDirection * 2) != doorTile)
             {
-                Debug.Log("Corner case");
+                //Debug.Log("Corner case");
                 tilemap.SetTile(endDoorPosition, floorTile);
-
+                //tilemap.SetTile(endDoorPosition + corridorDirection, floorTile);
 
 
                 endDoorPosition += corridorDirection;
@@ -484,7 +661,8 @@ public class MapMaker : MonoBehaviour
         {
             Vector3Int tileLoc = door.position + i * corridorDirection;
 
-            tilemap.SetTile(tileLoc, floorTile);
+            //tilemap.SetTile(tileLoc, floorTile);
+            PlaceTile(tileLoc, floorTile);
             PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), wallTile);
             PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), wallTile);
 
@@ -704,9 +882,9 @@ public class MapMaker : MonoBehaviour
         {
             for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    PlaceDoor(x, y, tile);
                 }
             }
         }
@@ -715,9 +893,9 @@ public class MapMaker : MonoBehaviour
         {
             for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile && IsDoorway(x, y))
+                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    PlaceDoor(x, y, tile);
                 }
             }
         }
@@ -753,15 +931,26 @@ public class MapMaker : MonoBehaviour
     }
 
     //checks if a given tile is a doorway, meaning that one wall tile exists on either side of it
-    bool IsDoorway(int startX, int startY)
+    //if the door would lead to nowhere place a wall, otherwise place a door
+    void PlaceDoor(int startX, int startY, TileBase door)
     {
-        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls, return true
+
+
+        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls
         if (tilemap.GetTile(new Vector3Int(startX - 1, startY, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX + 1, startY, 0)) == wallTile
             || tilemap.GetTile(new Vector3Int(startX, startY - 1, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX, startY + 1, 0)) == wallTile)
         {
-            return true;
+            //check to ensure all cardinally adjacent tiles are filled, if yes, return true, otherwise return false and replace this doorway with a wall
+            if (tilemap.HasTile(new Vector3Int(startX - 1, startY, 0)) && tilemap.HasTile(new Vector3Int(startX + 1, startY, 0))
+                && tilemap.HasTile(new Vector3Int(startX, startY - 1, 0)) && tilemap.HasTile(new Vector3Int(startX, startY + 1, 0)))
+            {
+                tilemap.SetTile(new Vector3Int(startX, startY, 0), door);
+            }
+            else
+            {
+                tilemap.SetTile(new Vector3Int(startX, startY, 0), wallTile);
+            }
         }
-        return false;
     }
 
     //returns whether the map has finished generating
@@ -776,6 +965,10 @@ public class MapMaker : MonoBehaviour
         tilemap.ClearAllTiles();
         tilemap.CompressBounds();
         Pathfinder.ClearGrid();
+        foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
+        {
+           Destroy(ai);
+        }
     }
 
     //The position and facing of a door

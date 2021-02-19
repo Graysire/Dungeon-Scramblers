@@ -24,22 +24,26 @@ public class AI : AbstractPlayer
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
+    public float timeBeforeNextAttack = 0.5f;   // The time AI must waif before it can attack again
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
+    private bool ableToAttack = true;           // Determines if the AI is able to perform an attack
 
+    private Rigidbody2D rb;                     // This AI's rigidbody2D
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
-    protected StatusEffect[] statusEffects;     //Status effects being applied to the AI
 
     /*
      * Note to self: If the player is dead how do we know?
      * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe befor implementing
-     * 
      */
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //Get the rigidbody
+        rb = GetComponent<Rigidbody2D>();
 
         //Get the list of players
         players = GameManager.ManagerInstance.GetPlayerTransforms();
@@ -92,8 +96,6 @@ public class AI : AbstractPlayer
         this.players = players;
     }
 
-
-
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
     {
@@ -106,15 +108,6 @@ public class AI : AbstractPlayer
         return Pathfinder.GetPath(startPos, targetPos, 90000);
     }
 
-    //Determines if the AI is at the stopping distance from the player
-    protected bool AtStoppingDistance()
-    {
-        Vector3 distance = player.transform.position - this.transform.position;
-        if (distance.magnitude < stoppingDistance)
-            return true;
-        return false;
-    }
-
     //Send EXP to Game Manager to send to all players
     protected void DisperseEXP()
     {
@@ -122,24 +115,47 @@ public class AI : AbstractPlayer
         GameManager.ManagerInstance.DistributeExperience(expOnDeath);
     }
 
+    //Determines if the AI is at the stopping distance from the player
+    [Task]
+    protected bool AtStoppingDistance()
+    {
+        if (player == null) return false;
+        Vector3 distance = player.transform.position - transform.position;
+        if (distance.magnitude < stoppingDistance)
+        {
+            return true;
+        }
+        return false;
+    }
 
     //Has AI move to given destination - currently the destination is the seen player
     [Task]
     protected void MoveToPlayer()
     {
-        //Get path to player
+        //Get shortest path to player
         currentPath = GetPath(this.transform.position, player.transform.position);
 
         //Move to each path node until reaching stopping distance
         for (int i = 0; i < currentPath.Count; i++)
         {
-            //Stop moving if at the stopping distance
-            if (AtStoppingDistance())
-            {
-                break;
-            }
-            this.transform.position = Vector3.MoveTowards(transform.position, currentPath[i], affectedStats[(int)Stats.movespeed] * Time.deltaTime);
+            //Get vector to node
+            Vector2 movementDir = (currentPath[i] - transform.position).normalized;
+
+            //Make vector scaled to movement speed
+            Vector2 nextFramePosition = movementDir * affectedStats[(int)Stats.movespeed];
+
+            //Set the AI's velocity toward that position
+            rb.velocity = nextFramePosition;
         }
+        Task.current.Succeed();
+    }
+
+    //Stops the AI from moving
+    [Task]
+    protected void StopMoving()
+    {
+        //Set velocity to zero to stop AI movement
+        rb.velocity = Vector2.zero;
         Task.current.Succeed();
     }
 
@@ -150,7 +166,6 @@ public class AI : AbstractPlayer
     [Task]
     protected bool SeePlayerAndSetTarget()
     {
-
         //This removes error log whith no players assigned
         bool playersIsNull = true;
         //If there are no assigned players to attack then stop looking
@@ -244,9 +259,27 @@ public class AI : AbstractPlayer
     [Task]
     protected void AttackPlayer()
     {
-        Vector3 direction = target - this.transform.position;
-        AttackList[0].StartAIAttack(direction, this); //AI will attack in direction of player
-        Task.current.Succeed();
+        if (ableToAttack)
+        {
+            ableToAttack = false; // Sets next attack to fail
+            StartCoroutine(SetAttackTimer());   // Set timer to reset ableToAttack bool
+            Debug.Log("Firing Attack!");
+            Vector3 direction = target - this.transform.position; //Get vector towards player to hit
+            AttackList[0].StartAttack(direction, this); //AI will attack in direction of player
+
+            Task.current.Succeed();
+        }
+        else
+        {
+            Task.current.Fail();
+        }
+    }
+
+
+    IEnumerator SetAttackTimer()
+    {
+        yield return new WaitForSecondsRealtime(timeBeforeNextAttack);
+        ableToAttack = true;
     }
 
     //Checks if the health is less than the given value
@@ -261,6 +294,7 @@ public class AI : AbstractPlayer
     [Task]
     public new bool Die()
     {
+        Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);
         return true;
@@ -282,5 +316,19 @@ public class AI : AbstractPlayer
             Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
             return true;
         }
+    }
+
+
+    //NOTE: This current implementation seems "Hacky", so think of alternative solution...
+    //Method used to ensure the triggering of an AI's death so that it will not move after attacking
+        //This directly affects SuicidAI so that it will die after attack
+    [Task]
+    protected void EnsureDeath()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = !enabled; //disables the sprite renderer
+        gameObject.GetComponent<BoxCollider2D>().enabled = !enabled; //disables the box collider
+        attackRange = 100;      //Ensures AI will not move after it triggers death
+        stoppingDistance = 10;  //Ensures AI to stop moving
+        Task.current.Succeed();
     }
 }

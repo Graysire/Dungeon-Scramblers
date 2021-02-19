@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 4248649116176859042}
   - component: {fileID: 4248649116176859043}
   - component: {fileID: 9095673065596498501}
-  - component: {fileID: 9095673065596498500}
   m_Layer: 11
   m_Name: Basic AI
   m_TagString: AI
@@ -146,15 +145,15 @@ MonoBehaviour:
   statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
-  players:
-  - {fileID: 0}
+  players: []
   healthBarUI: {fileID: 8640546345716192724}
   healthBar: {fileID: 8640546346855551714}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
-  stoppingDistance: 0.5
+  stoppingDistance: 2
   visibleRange: 8
-  attackRange: 4
+  attackRange: 2.5
+  timeBeforeNextAttack: 1
   expOnDeath: 10
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
@@ -213,20 +212,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &9095673065596498500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4248649116176859052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uniqueName: SwordSlash
-  Projectile: {fileID: 4983767609826630315, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
 --- !u!1 &8640546344976906890
 GameObject:
   m_ObjectHideFlags: 0

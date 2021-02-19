@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 3000
-  waitTimeBetweenMaps: 6
+  waitTimeBetweenMaps: 2
   startingSeed: -2977
   mapper: {fileID: 888398643}
 --- !u!1 &1873881674

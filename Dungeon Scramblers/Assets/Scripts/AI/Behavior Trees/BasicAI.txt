@@ -2,6 +2,7 @@ tree("Root")
 	parallel
 		repeat mute tree("Dead")
 		repeat mute tree("Attack")
+		repeat mute tree("Move")
 		
 
 tree("Attack")
@@ -10,11 +11,16 @@ tree("Attack")
 			while AttackInRange
 				sequence
 					AttackPlayer
-					Wait(0.5)
-			while not AttackInRange
-				MoveToPlayer
+					
 
 tree("Dead")
 	sequence
-		IsHealthLessThan(0.1)
+		IsHealthLessThan(0.0)
 		Die
+
+tree("Move")
+	fallback
+		while not AtStoppingDistance
+			MoveToPlayer
+		while AtStoppingDistance
+			StopMoving

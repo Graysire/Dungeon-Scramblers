@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3b8144ef130784cbf04902d9c31296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 8097073362365693786, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
-  amountToPool: 2
+  objectToPool: {fileID: 4153920412051945467, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
+  amountToPool: 1
 --- !u!1 &2527594498822936197
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,4 +90,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueName: Poison Slap
-  Projectile: {fileID: 578330612094475165, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
+  Projectile: {fileID: 2061769827281688610, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
