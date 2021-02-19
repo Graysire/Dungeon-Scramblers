@@ -167,6 +167,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  statusEffects: []
   AttackObjectList:
   - {fileID: 3940147794213505563, guid: 925b6f5bb19d28b40a0f80cdccbbf089, type: 3}
   - {fileID: 6242800877514398001, guid: fb21cb440ed49dc4fbdf4c893481de62, type: 3}

@@ -5,6 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This class is attached to the Loadout Panel
+/// it is used to save Player Loadout Selections
+/// </summary>
 public class LoadoutSelection : MonoBehaviourPunCallbacks
 { 
 

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Doozy.Engine.UI;
+using ExitGames.Client.Photon;
 
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
@@ -300,19 +301,32 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             GameObject playerListGameObject = Instantiate(PlayerListingPrefab, PlayerListingsPanel.transform);
             //playerListGameObject.transform.localScale = Vector3.one;
             playerListGameObject.GetComponent<PlayerListEntryInitializer>().Initialize(player.ActorNumber, player.NickName);
-            ////Specialize PlayerListings to display proper name and PlayerIndicator
-            //playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = player.NickName;
 
-            //if(player.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-            //{
-            //    playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
-            //}
+            object isPlayerReady;
+            if(player.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_READY,out isPlayerReady))
+            {
+                playerListGameObject.GetComponent<PlayerListEntryInitializer>().SetPlayerReady((bool) isPlayerReady);
+            }
 
-            //PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
+            PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
         }
 
     }
-
+    //this functoin updates the Player Ready icons
+    public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        GameObject PlayerListGO;
+        //Get the player whose value has changed
+        if (PlayerListGameObjects.TryGetValue(targetPlayer.ActorNumber, out PlayerListGO))
+        {
+            object isPlayerReady;
+            //Get the Player ready value from the player we found
+            if(changedProps.TryGetValue(DungeonScramblersGame.PLAYER_READY, out isPlayerReady))
+            {
+                PlayerListGO.GetComponent<PlayerListEntryInitializer>().SetPlayerReady((bool)isPlayerReady);
+            }
+        }
+    }
 
     //Update room lisitings
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
