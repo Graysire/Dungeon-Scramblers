@@ -6,42 +6,61 @@ using UnityEngine;
 
 
 //https://gamedevelopment.tutsplus.com/tutorials/how-to-save-and-load-your-players-progress-in-unity--cms-20934
+//https://learn.unity.com/tutorial/persistence-saving-and-loading-data#
 //https://www.raywenderlich.com/418-how-to-save-and-load-a-game-in-unity
-/*
- * PlayerPrefs: 
- * This is a special caching system to keep track of simple settings for the player between game sessions. 
- * Many new programmers make the mistake of thinking they can use this as a save game system as well, but it is bad practice to do so. 
- * This should only be used for keeping track of simple things like graphics, 
- * sound settings, login info, or other basic user-related data.
- *
- *Serialization: 
- *This is the magic that makes Unity work. 
- *Serialization is the conversion of an object into a stream of bytes. 
- *That might seem vague but take a quick look at this graphic:
- *
- *Deserialization: 
- *This is exactly what it sounds like. 
- *It’s the opposite of serialization, namely the conversion of a stream of bytes into an object.
- */
 
-//This is known as an attribute and it is metadata for your code. 
-//This tells Unity that this class can be serialized, 
-//which means you can turn it into a stream of bytes and save it to a file on disk.
+
 [System.Serializable]
 public class SaveLoad
 {
+    /*
+     * This class will couple with the Menu Manager which will run calls onto here
+     */
+
+
     public Loadout[] savedLoadouts = new Loadout[4]; // Stores the list of loadouts that a player will have
 
-
-    //Saves the loadout information to a file for future use
-    public static void Save()
+    //Saves the data into a file
+    public void Save()
     {
-        /*
-        savedLoadouts.Add(savedLoadouts.current); //Will add the current 
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream loadoutFile = File.Create(Application.persistentDataPath + "/savedLoadouts.gd");
-        bf.Serialize(loadoutFile, SaveLoad.savedLoadouts);
-        file.Close();
-        */
+        BinaryFormatter bf = new BinaryFormatter(); //converts data to binary
+        FileStream file = File.Open(Application.persistentDataPath + "/savedLoadouts.dat", FileMode.Open); //Opens the file to save into
+        bf.Serialize(file, savedLoadouts); //saves this class info into the file
+        file.Close(); //close the file
+    }
+
+    //Loads the data from a file
+    public void Load()
+    {
+        if (!FileExists())
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.persistentDataPath + "/savedLoadouts.dat", FileMode.Open);
+            savedLoadouts = (Loadout[])bf.Deserialize(file);
+            file.Close();
+        }
+    }
+
+    //Checks if the data file exists
+    public bool FileExists()
+    {
+        if (File.Exists(Application.persistentDataPath + "/savedLoadouts.dat"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    //Initializes a file with data if a file doesn't already exist
+    public void InitializeFile()
+    {
+        if (!FileExists())
+        {
+            //TO DO: Fill savedLoadouts with default data
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Create(Application.persistentDataPath + "/savedLoadouts.dat");
+            bf.Serialize(file, savedLoadouts);
+            file.Close();
+        }
     }
 }
