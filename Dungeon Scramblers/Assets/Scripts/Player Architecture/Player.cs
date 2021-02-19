@@ -33,7 +33,9 @@ public class Player : AbstractPlayer
     protected bool allowedToAttack;
     // Art Variables
     protected SpriteRenderer sr;
-    protected Animator animator;
+    [SerializeField] protected List<GameObject> AnimatorList;
+    protected int enabledAnimatorInd = -1;
+    protected Animator enabledAnim;
     protected bool isFacingLeft;
     
 
@@ -86,10 +88,15 @@ public class Player : AbstractPlayer
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>(), 0);
             controls.PlayerMovement.UseAbility.canceled += ctx => Attack(ctx.ReadValue<float>(), 1);
         }
+        // Art Variables
         sr = GetComponent<SpriteRenderer>();
-        animator = GetComponent<Animator>();
-        allowedToAttack = true;
+        //animator = GetComponent<Animator>();
+        AnimatorList[0].SetActive(true);
+        enabledAnimatorInd = 0;
+        enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
         isFacingLeft = false;
+
+        allowedToAttack = true;
         rb = GetComponent<Rigidbody2D>();
 
     }
@@ -141,42 +148,51 @@ public class Player : AbstractPlayer
     protected virtual void Move(Vector2 d) {
         // Animation changes
         // Not moving
-        if (d.x == 0 && d.y == 0 && !animator.GetBool("idle"))
+        // Front [0], Back [1], Side [2]
+        //if (d.x == 0 && d.y == 0 && !enabledAnim.GetBool("idle"))
+        if (d.x == 0 && d.y == 0)
         {
-            if (animator.GetBool("facingLeft")) {
+            /*if (animator.GetBool("facingLeft")) {
                 animator.SetBool("facingLeft", false);
                 animator.SetBool("facingFront", true);
             }
-            animator.SetBool("idle", true);
+            animator.SetBool("idle", true);*/
+            if (enabledAnimatorInd == 2) 
+                SwitchAnimatorGO(0, false);
+            //enabledAnim.SetBool("idle", true);
         }
         else {
-            animator.SetBool("idle", false);
+            //enabledAnim.SetBool("idle", false);
             // Moving Down (front-facing)
-            if (d.y < 0 && d.x == 0 && !animator.GetBool("facingFront"))
+            if (d.y < 0 && d.x == 0 && enabledAnimatorInd != 0)
             {
-                animator.SetBool("facingFront", true);
+                /*animator.SetBool("facingFront", true);
                 animator.SetBool("facingBack", false);
-                animator.SetBool("facingLeft", false);
+                animator.SetBool("facingLeft", false);*/
+                SwitchAnimatorGO(0, false);
             }
             // Moving Up (back-facing)
-            else if (d.y > 0 && d.x == 0 && !animator.GetBool("facingBack"))
+            else if (d.y > 0 && d.x == 0 && enabledAnimatorInd != 1)
             {
-                animator.SetBool("facingFront", false);
+                /*animator.SetBool("facingFront", false);
                 animator.SetBool("facingBack", true);
-                animator.SetBool("facingLeft", false);
+                animator.SetBool("facingLeft", false);*/
+                SwitchAnimatorGO(1, false);
             }
             // Moving Sideways & diagonally (side-facing)
             else if (d.x != 0 )
             {
-                if (!animator.GetBool("facingLeft")) {
-                    animator.SetBool("facingFront", false);
+                if (enabledAnimatorInd != 3) {
+                    /*animator.SetBool("facingFront", false);
                     animator.SetBool("facingBack", false);
-                    animator.SetBool("facingLeft", true);
+                    animator.SetBool("facingLeft", true);*/
+                    SwitchAnimatorGO(2, true);
                 }
-                if (d.x < 0 && sr.flipX)
-                    sr.flipX = false;
-                else if (d.x > 0 && !sr.flipX)
+
+                if (d.x < 0 && !sr.flipX)
                     sr.flipX = true;
+                else if (d.x > 0 && sr.flipX)
+                    sr.flipX = false;
             }
         }
         // Actual movement
@@ -265,6 +281,15 @@ public class Player : AbstractPlayer
         {
             Debug.Log("No Attack to Remove");
         }
+    }
+
+    protected void SwitchAnimatorGO(int enAind, bool srRefernceNeeded) {
+        AnimatorList[enabledAnimatorInd].SetActive(false);
+        enabledAnimatorInd = enAind;
+        AnimatorList[enabledAnimatorInd].SetActive(true);
+        enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
+        if (srRefernceNeeded)
+            sr = AnimatorList[enabledAnimatorInd].GetComponent<SpriteRenderer>();
     }
 }
 
