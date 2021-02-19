@@ -74,8 +74,11 @@ public class Pathfinder : MonoBehaviour
         }
         else if (startNode == targetNode)
         {
-            Debug.Log("Start and Target Position are identical tiles");
-            return null;
+            //Debug.Log("Start and Target Position are identical tiles");
+            //return the node as a destination
+            List<PathNode> list = new List<PathNode>();
+            list.Add(startNode);
+            return list;
         }
 
         //reset gCost of start node

@@ -760,7 +760,8 @@ public class MapMaker : MonoBehaviour
 
             //Debug.Log("Starting Cluster Spawn");
             //randomly select a cluster to spawn
-            int clusterSelect = Random.Range(1, totalClusterFrequency);
+            int clusterSelect = Random.Range(1, totalClusterFrequency + 1);
+            //Debug.Log("Cluster: " + clusterSelect);
             //if no cluster is selected due to error, select the first cluster
             AISpawnClusterInfo selectedCluster = spawnAI[0];
             for (int x = 0; x < spawnAI.Count; x++)
@@ -769,6 +770,7 @@ public class MapMaker : MonoBehaviour
                 if (clusterSelect <= 0)
                 {
                     selectedCluster = spawnAI[x];
+                    break;
                 }
             }
 
