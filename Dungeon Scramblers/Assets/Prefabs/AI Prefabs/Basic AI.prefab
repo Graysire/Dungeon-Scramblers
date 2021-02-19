@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats:
   - 10
-  - 1
+  - 3
   - 1
   - 1
   - 1
@@ -154,7 +154,7 @@ MonoBehaviour:
   visibleRange: 8
   attackRange: 2.5
   timeBeforeNextAttack: 1
-  expOnDeath: 10
+  expOnDeath: 5
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
 --- !u!114 &4248649116176859042

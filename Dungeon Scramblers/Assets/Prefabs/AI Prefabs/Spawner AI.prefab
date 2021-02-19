@@ -241,6 +241,7 @@ MonoBehaviour:
   - 1
   - 1
   - 1
+  statusEffects: []
   AttackObjectList: []
   players:
   - {fileID: 0}
@@ -251,7 +252,8 @@ MonoBehaviour:
   stoppingDistance: 0.1
   visibleRange: 10
   attackRange: 0
-  expOnDeath: 10
+  timeBeforeNextAttack: 0.5
+  expOnDeath: 15
   onlyAttackOnePlayer: 1
   enemyTypeToSpawn: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
 --- !u!114 &3248170336281437022

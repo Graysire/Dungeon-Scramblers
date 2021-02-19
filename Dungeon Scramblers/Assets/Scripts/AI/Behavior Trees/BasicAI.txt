@@ -2,17 +2,15 @@ tree("Root")
 	parallel
 		repeat mute tree("Dead")
 		repeat mute tree("Attack")
-		
+		repeat mute tree("Move")
 		
 
 tree("Attack")
 	while SeePlayerAndSetTarget
-		parallel
-			repeat mute tree("Move")
-			fallback
-				while AttackInRange
-					sequence
-						AttackPlayer
+		fallback
+			while AttackInRange
+				sequence
+					AttackPlayer
 					
 
 tree("Dead")
@@ -22,7 +20,9 @@ tree("Dead")
 
 tree("Move")
 	fallback
-		while not AtStoppingDistance
-			MoveToPlayer
-		while AtStoppingDistance
-			StopMoving
+		while SeePlayerAndSetTarget
+			sequence
+				while not AtStoppingDistance
+					MoveToPlayer
+				while AtStoppingDistance
+					StopMoving
