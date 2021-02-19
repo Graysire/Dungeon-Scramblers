@@ -281,7 +281,7 @@ public class AI : AbstractPlayer
     [Task]
     public bool IsHealthLessThan(float health)
     {
-        return affectedStats[(int)Stats.health] < health;
+        return affectedStats[(int)Stats.health] <= health;
     }
 
     //Destroys AI object

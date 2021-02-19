@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5586896465214652326}
   - component: {fileID: 2455355680114784911}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,47 @@ MonoBehaviour:
     - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       minSpawned: 2
       maxSpawned: 4
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 2
+      maxSpawned: 5
+    frequency: 4
+  - spawns:
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 2
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 4
+      maxSpawned: 6
+    frequency: 1
+  - spawns:
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
     frequency: 2
+  - spawns:
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 1
+      maxSpawned: 5
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 2
+    - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      minSpawned: 6
+      maxSpawned: 10
+    frequency: 1
 --- !u!114 &2455355680114784911
 MonoBehaviour:
   m_ObjectHideFlags: 0
