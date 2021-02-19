@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Handles the storage of all equippables for a single player
-    //Game Manager will use this to apply equippables stats and instantiate them
-    //to the player. 
+//Game Manager will use this to apply equippables stats and instantiate them
+//to the player. 
 public class Loadout : MonoBehaviour
 {
     public List<Equippable> Equippables;    //Stores all equippables a player has
-
 
     //Adds the given equippable into the loadout
     //Should be used for inventory management on main menu

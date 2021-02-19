@@ -35,7 +35,7 @@ public class AI : AbstractPlayer
 
     /*
      * Note to self: If the player is dead how do we know?
-     * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe befor implementing
+     * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe before implementing
      */
 
 
@@ -189,14 +189,12 @@ public class AI : AbstractPlayer
             //Get distance from AI and player
             Vector3 distance = p.transform.position - this.transform.position;
 
-
             //Use raycast to determine if player is in sight
             RaycastHit hit;
             bool seeWall = false;
 
             //Create visual debug of raycast
             Debug.DrawRay(this.transform.position, distance, Color.red);
-
 
             //Checks for walls with raycast
             if (Physics.Raycast(this.transform.position, distance, out hit))
@@ -211,8 +209,6 @@ public class AI : AbstractPlayer
             {
                 Task.current.debugInfo = string.Format("wall={0}", seeWall);
             }
-
-
 
             //If player is in visible range of AI and there is no wall blocking sight
             if (distance.magnitude < visibleRange && !seeWall)
@@ -238,7 +234,6 @@ public class AI : AbstractPlayer
                 playerSeen = true;
             }
         }
-
         return playerSeen;
     }
 
