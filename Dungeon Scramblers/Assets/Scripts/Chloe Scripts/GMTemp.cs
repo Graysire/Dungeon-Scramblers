@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.Tilemaps;
 using Cinemachine;
+//using UnityEditorInternal;
 
 public class GMTemp : MonoBehaviour
 {
@@ -13,27 +14,37 @@ public class GMTemp : MonoBehaviour
     public GameObject Map;
     private Vector2Int roomSize;
     Vector3 worldLocation;
+    Random.State s;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(SpawnPlayers());
+        //Get State of Game
+        Random.State s = Random.state;
 
     }
     IEnumerator SpawnPlayers()
     {
+        //Display StartButton for Party Leader only
+        //Get Party Leader Seed for Map Generation
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            //Save seed of MasterClient
+            s = Random.state;
+            //ExitGames.Client.Photon.Hashtable MapSeed = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.MASTER_CLIENT_SEED, s } };
+            //Add Seed to hash table to save for later
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(MapSeed);
+            Debug.Log("Seed: " + s);
+        }
+
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            //if(PlayerTest != null)
-            //{
-
-            //    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerTest.name, worldLocation, Quaternion.identity);
-
-            //    vcam.m_Follow = PlayerGO.transform;
-            //    //Refresh int randX and randY
-            //    Debug.Log("Player Spawning");
-
-            //}
+            //If we aren't the master Client, give us the seed
+            if(!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                Random.state = s;
+            }
             object PlayerSelectionNumber;
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
             {

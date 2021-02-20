@@ -257,30 +257,23 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
 
-        //Adding Players to Singleton
-        //PhotonNetwork.Instantiate(PlayerDataGO.name, Vector3.zero, new Quaternion());
-        //PlayerDataGO.GetComponent<PlayerData>().PlayerName = PhotonNetwork.LocalPlayer.NickName;
-        //PlayerDataGO.GetComponent<PlayerData>().player = PhotonNetwork.LocalPlayer;
-        //Debug.Log("Player data: " + PlayerDataGO.GetComponent<PlayerData>().player);
-        //PrefabSingleton.Instance.AddPlayer(PlayerDataGO.GetComponent<PlayerData>());
-
-
-
+        //UI Panels
         RoomNameInputfield.gameObject.SetActive(false);
         MaxPlayerInputfield.gameObject.SetActive(false);
         CreateRoomButton.SetActive(false);
-        //StartButton.SetActive(true);
         LeaveRoomButton.SetActive(true);
 
         //Display StartButton for Party Leader only
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            StartButton.SetActive(true);
-        }
-        else
-        {
-            StartButton.SetActive(false);
-        }
+        //Get Party Leader Seed for Map Generation
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    //Save seed of MasterClient
+        //    Random.State s = Random.state;
+        //    ExitGames.Client.Photon.Hashtable MapSeed = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.MASTER_CLIENT_SEED,  s} };
+        //    //Add Seed to hash table to save for later
+        //    PhotonNetwork.CurrentRoom.SetCustomProperties(MapSeed);
+        //    Debug.Log("Seed: " + s.ToString());
+        //}
 
         //Change Room Text to display proper info
         RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " \n"+
@@ -311,7 +304,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             PlayerListGameObjects.Add(player.ActorNumber,playerListGameObject);
         }
 
+        //Hide Start Button
+        StartButton.SetActive(false);
     }
+
+    
     //this functoin updates the Player Ready icons
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
@@ -326,6 +323,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
                 PlayerListGO.GetComponent<PlayerListEntryInitializer>().SetPlayerReady((bool)isPlayerReady);
             }
         }
+
+        StartButton.SetActive(CheckPlayersReady());
+
     }
 
     //Update room lisitings
@@ -395,13 +395,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //Specialize PlayerListings to display proper name and PlayerIndicator
         //playerListGameObject.transform.Find("PlayerNameText").GetComponent<Text>().text = newPlayer.NickName;
         playerListGameObject.GetComponent<PlayerListEntryInitializer>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
-        //if (newPlayer.ActorNumber != PhotonNetwork.LocalPlayer.ActorNumber)
-        //{
-        //    playerListGameObject.transform.Find("PlayerIndicator").gameObject.SetActive(false);
-        //}
 
         PlayerListGameObjects.Add(newPlayer.ActorNumber, playerListGameObject);
 
+        StartButton.SetActive(CheckPlayersReady());
 
         //Code for Gathering Player info should be here ( i think)
     }
@@ -442,6 +439,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PlayerListGameObjects.Clear();
         PlayerListGameObjects = null;
 
+        //Show Start Button
+        StartButton.SetActive(CheckPlayersReady());
     }
 
     //Wipe room list to refresh after leaving Lobby Finder
@@ -479,6 +478,31 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         }
 
         RoomListGameObjects.Clear();
+    }
+
+    bool CheckPlayersReady()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            return false;
+        }
+        foreach(Photon.Realtime.Player player in PhotonNetwork.PlayerList)
+        {
+            object isPlayerReady;
+            if(player.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_READY, out isPlayerReady))
+            {
+                if(!(bool)isPlayerReady)
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+        return true;
     }
     #endregion
 }

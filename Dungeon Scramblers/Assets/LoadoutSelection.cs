@@ -11,15 +11,18 @@ using UnityEngine;
 /// </summary>
 public class LoadoutSelection : MonoBehaviourPunCallbacks
 { 
-
+    //Called on button click to select Player Character
     public void SelectPlayer(int PlayerSelectionNumber)
     {
+        //Create HashTable with our selection value
         ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { {DungeonScramblersGame.PLAYER_SELECTION_NUMBER, PlayerSelectionNumber } };
+        //Add Player Selection to hash table to save for later
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
-        //playerSelectionProp.Bro
+        
         Debug.Log("Player info received");
     }
 
+    //Funciton called when Player's Character Selection changes
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
         Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
