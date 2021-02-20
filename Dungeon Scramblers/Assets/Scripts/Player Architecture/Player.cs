@@ -91,6 +91,8 @@ public class Player : AbstractPlayer
         // Art Variables
         sr = GetComponent<SpriteRenderer>();
         //animator = GetComponent<Animator>();
+        for (int i = 0; i < AnimatorList.Count; i++)
+            AnimatorList[i].SetActive(false);
         AnimatorList[0].SetActive(true);
         enabledAnimatorInd = 0;
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();

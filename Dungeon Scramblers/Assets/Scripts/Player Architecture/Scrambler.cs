@@ -6,12 +6,25 @@ using UnityEngine.InputSystem;
 
 public class Scrambler : Player
 {
-
-    protected void Revive(float reviveHP) {
+    public void Revive(float reviveHP, bool byPercent) {
         if (isDead) {
-            affectedStats[(int)Stats.health] = 0 + reviveHP;
+            if (byPercent)
+            {
+                if (reviveHP < 0.0f)                                                            // Check for invalid heath percentages
+                    reviveHP = 0.0f;
+                else if (reviveHP > 1.0f)
+                    reviveHP = 1.0f;
+                affectedStats[(int)Stats.health] = 0 + reviveHP * (stats[(int)Stats.health]);   // Revive with a PERCENT of your health
+            }
+            else {
+                if (reviveHP < 0)                                                               // Check for invalid health values
+                    reviveHP = 0.0f;
+                else if (reviveHP > stats[(int)Stats.health])
+                    reviveHP = stats[(int)Stats.health];
+                affectedStats[(int)Stats.health] = 0 + reviveHP;                                // Revive with a STRAIGHT health value
+            }
             isDead = false;
-            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);                     // temporary color shift
         }
     }
 
