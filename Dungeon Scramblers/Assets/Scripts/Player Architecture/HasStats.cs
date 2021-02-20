@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+[System.Serializable]
 public class HasStats : MonoBehaviourPunCallbacks
 {
     protected enum Stats

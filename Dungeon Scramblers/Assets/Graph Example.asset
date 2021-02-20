@@ -378,7 +378,7 @@ MonoBehaviour:
   m_version: 1
   m_description: 
   m_id: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
-  m_lastModified: 132511880059716908
+  m_lastModified: 132583231913750594
 --- !u!114 &494938838232559868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1350,7 +1350,7 @@ MonoBehaviour:
     m_id: 54f5bcca-b346-427a-97c4-7af574d5f8db
     m_nodeId: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
     m_socketName: OutputSocket_1
-    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Armor","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Abilities","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
     m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   - m_connectionMode: 0
@@ -1369,7 +1369,7 @@ MonoBehaviour:
     m_id: 300ea53f-be1f-414d-8bab-dda232c28a4a
     m_nodeId: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
     m_socketName: OutputSocket_2
-    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Armor","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Abilities","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
     m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_nodeType: 4
@@ -1382,8 +1382,8 @@ MonoBehaviour:
   m_useUpdate: 0
   m_height: 176
   m_width: 216
-  m_x: 24
-  m_y: 276
+  m_x: -456
+  m_y: 216
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f

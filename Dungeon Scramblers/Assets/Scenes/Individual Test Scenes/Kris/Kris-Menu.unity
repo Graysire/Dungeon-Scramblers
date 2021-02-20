@@ -311,7 +311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5875211509080050722, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -800.5882
+      value: -675
       objectReference: {fileID: 0}
     - target: {fileID: 5875211509080050722, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_LocalPosition.y
@@ -352,6 +352,18 @@ PrefabInstance:
     - target: {fileID: 5875211509080050722, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449351373871605327, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: OnClick.Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449351374653857028, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_Name
+      value: View - Main Menu Page
+      objectReference: {fileID: 0}
+    - target: {fileID: 7449351375212429830, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -43.000366
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
