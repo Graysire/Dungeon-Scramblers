@@ -79,6 +79,7 @@ MonoBehaviour:
   CastingTime: 0
   CoolDown: 0.5
   OffsetScale: 0
+  maxTargetsHit: 4
   StatusEffects: []
 --- !u!50 &7656840765624131457
 Rigidbody2D:

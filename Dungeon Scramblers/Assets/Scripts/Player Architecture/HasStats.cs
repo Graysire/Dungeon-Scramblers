@@ -6,7 +6,7 @@ using Photon.Pun;
 [System.Serializable]
 public class HasStats : MonoBehaviourPunCallbacks
 {
-    protected enum Stats
+    public enum Stats
     {
         health = 0,
         movespeed = 1,

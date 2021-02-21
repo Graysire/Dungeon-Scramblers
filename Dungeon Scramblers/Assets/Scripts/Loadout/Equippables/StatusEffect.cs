@@ -19,7 +19,7 @@ public class StatusEffect : MonoBehaviour
     private float endTimeLeft;                  //Used to determine when time ends
 
     public float valueOfEffect;                 //The value of this status effect to apply
-    public int statValueToAffect;               //The HasStat enum value to effect on the Player/AI. Reference below:
+    public HasStats.Stats statValueToAffect;    //The HasStat enum value to effect on the Player/AI. Reference below:
     /*  health = 0,
         movespeed = 1,
         attackdmg = 2,
@@ -91,7 +91,7 @@ public class StatusEffect : MonoBehaviour
             {
                 //Debug.Log("Status Effect Ending...");
                 //reset the stat value to its original value
-                if (resetOriginalStatValueOnEnd) { unit.GetAffectedStats()[statValueToAffect] = statValToReset; }
+                if (resetOriginalStatValueOnEnd) { unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset; }
 
                 //Lets the update handler know this is done 
                 gameObject.SetActive(false);
@@ -146,7 +146,7 @@ public class StatusEffect : MonoBehaviour
     IEnumerator ApplyStatusEffectValue()
     {
         //Save the original stat value to apply when status ends
-        if (resetOriginalStatValueOnEnd) { statValToReset = unit.GetAffectedStats()[statValueToAffect]; }
+        if (resetOriginalStatValueOnEnd) { statValToReset = unit.GetAffectedStats()[(int)statValueToAffect]; }
 
         //wait until the unit is assigned to apply the damage
         while (unit == null) { yield return new WaitForSecondsRealtime(0.05f); }
@@ -154,7 +154,7 @@ public class StatusEffect : MonoBehaviour
         //Debug.Log("Applying effect value: " + valueOfEffect); 
         
         //Apply the stat from this status effect onto the affected units stat
-        unit.GetAffectedStats()[statValueToAffect] += valueOfEffect;
+        unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect;
     }
 
 

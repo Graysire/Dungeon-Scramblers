@@ -25,6 +25,9 @@ public class ProjectileStats : MonoBehaviour
     // Define the offset of the ability from the orgin of the user in the direction of the attack
     [SerializeField]
     protected float OffsetScale;
+    //maximum number of targets this projectile can hit
+    [SerializeField]
+    protected int maxTargetsHit = 1;
     // List of Status Effects to apply to enemy hit
     [SerializeField]
     protected List<StatusEffect> StatusEffects;
@@ -33,6 +36,8 @@ public class ProjectileStats : MonoBehaviour
     protected Vector3 AttackDir;
     // Use to calculate decay time for the ability
     protected float totalTime = 0;
+    //Used to determine if the maximum number of targets has been hitr
+    protected int numHits = 0;
     // Use to calculate the position traveled to destroy object
     protected Vector3 PositionTraveled = Vector3.zero;
     // Use to handle collision to effect health or other sysem
@@ -118,12 +123,18 @@ public class ProjectileStats : MonoBehaviour
 
         //Apply damage to object
         damageable.Damage(Damage);
+        numHits++;
+        if (numHits >= maxTargetsHit)
+        {
+            ResetProjectiles();
+        }
     }
 
     public void ResetProjectiles()
     {
         this.gameObject.SetActive(false);
         totalTime = 0f;
+        numHits = 0;
         PositionTraveled = Vector3.zero;
     }
 }

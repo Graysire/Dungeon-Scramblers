@@ -102,6 +102,15 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     //Reduces the health of the AbstractPlayer by damageTaken
     public virtual void Damage(float damageTaken)
     {
+        if (damageTaken - affectedStats[(int)Stats.defense] < 0.5f)
+        {
+            damageTaken = 0.5f;
+        }
+        else
+        {
+            damageTaken -= affectedStats[(int)Stats.defense];
+        }
+
         affectedStats[(int)Stats.health] -= damageTaken;
     }
 

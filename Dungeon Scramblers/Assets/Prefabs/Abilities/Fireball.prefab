@@ -154,12 +154,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Damage: 6
   Range: 10
   DecayTime: 0.7
   MoveSpeed: 10
   CastingTime: 0.5
   CoolDown: 0.5
   OffsetScale: 0.3
+  maxTargetsHit: 4
+  StatusEffects: []
 --- !u!50 &2692114034817282802
 Rigidbody2D:
   serializedVersion: 4
