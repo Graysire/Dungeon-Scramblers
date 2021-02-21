@@ -308,7 +308,8 @@ public class AI : AbstractPlayer
         //Spawn the enemy
         else
         {
-            Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
+            GameObject minion = Instantiate(enemyTypeToSpawn, this.transform.position, Quaternion.identity);
+            minion.GetComponent<AI>().expOnDeath = 0;
             return true;
         }
     }
