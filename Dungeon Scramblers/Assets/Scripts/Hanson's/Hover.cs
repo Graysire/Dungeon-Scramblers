@@ -67,12 +67,7 @@ public class Hover : MonoBehaviour
 
             if (node != null && !node.isObstructed)
             {
-                GameObject emptyGO = new GameObject();
-                Transform Trans = emptyGO.transform;
-     
-                Trans.SetPositionAndRotation(new Vector3(node.posX, node.posY, - 5f), Trans.rotation);
-
-                GameObject.Instantiate(EnemyInstance, Trans, false);
+                GameObject.Instantiate(EnemyInstance, new Vector3(node.posX , node.posY), Quaternion.identity);
                 
             }
             else
