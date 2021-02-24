@@ -30,7 +30,7 @@ public class Player : AbstractPlayer
     protected Rigidbody2D rb;
     // Attack Variables
     protected Vector3 AttackDirection;
-    protected bool allowedToAttack;
+    
     // Art Variables
     protected SpriteRenderer sr;
     [SerializeField] protected List<GameObject> AnimatorList;
@@ -257,7 +257,6 @@ public class Player : AbstractPlayer
                 AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
     }
     public Vector3 GetAttackDirection() => AttackDirection;
-    public void SetAllowedToAttack(bool tf) => allowedToAttack = tf;
 
     //adds an attack ot the list of attacks at a specified index
     //index 0 is basic attack, index 1 is Ability 1 and so on

@@ -28,8 +28,6 @@ public class AI : AbstractPlayer
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
 
-    private bool ableToAttack = true;           // Determines if the AI is able to perform an attack
-
     private Rigidbody2D rb;                     // This AI's rigidbody2D
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
@@ -254,10 +252,8 @@ public class AI : AbstractPlayer
     [Task]
     protected void AttackPlayer()
     {
-        if (ableToAttack)
+        if (allowedToAttack)
         {
-            ableToAttack = false; // Sets next attack to fail
-            StartCoroutine(SetAttackTimer());   // Set timer to reset ableToAttack bool
             Debug.Log("Firing Attack!");
             Vector3 direction = target - this.transform.position; //Get vector towards player to hit
             AttackList[0].StartAttack(direction, this); //AI will attack in direction of player
@@ -268,13 +264,6 @@ public class AI : AbstractPlayer
         {
             Task.current.Fail();
         }
-    }
-
-
-    IEnumerator SetAttackTimer()
-    {
-        yield return new WaitForSecondsRealtime(timeBeforeNextAttack);
-        ableToAttack = true;
     }
 
     //Checks if the health is less than the given value

@@ -36,20 +36,14 @@ public class DefaultAttackSequence : Equippable
     {
         this.AttackDirection = AttackDirection;
         this.Unit = Unit;
-        if(!Attacked) StartCoroutine("AttackSequence");
+        if (!Attacked) StartCoroutine("AttackSequence");
     }
 
 
     protected virtual IEnumerator AttackSequence()
     {
-        // Set Is currently attacking
-        //Get player component to affect whether they can attack
-        Player player = Unit.GetComponent<Player>();
-
-        if (player != null)
-        {
-            player.SetAllowedToAttack(false);
-        }
+        // Disallow further attacks while the unit is casting
+        Unit.SetAllowedToAttack(false);
 
         Attacked = true;
 
@@ -79,16 +73,16 @@ public class DefaultAttackSequence : Equippable
 
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
 
-        if (player != null)
-            player.SetAllowedToAttack(true);
+        //allow the player to attack after casting is finished
+        Unit.SetAllowedToAttack(true);
 
         if (abilitySlot == 0)
         {
-            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * player.GetAffectedStats()[(int)Stats.attackspeed]);
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * Unit.GetAffectedStats()[(int)Stats.attackspeed]);
         }
         else
         {
-            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * player.GetAffectedStats()[(int)Stats.abilitycd]);
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * Unit.GetAffectedStats()[(int)Stats.abilitycd]);
         }
 
         Attacked = false;

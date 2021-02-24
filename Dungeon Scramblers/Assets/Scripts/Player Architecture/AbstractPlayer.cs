@@ -10,6 +10,8 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
 
+    protected bool allowedToAttack = true;
+
     //The list of status effects applied to the player
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
@@ -92,6 +94,10 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
         }
     }
 
+    public void SetAllowedToAttack(bool atk)
+    {
+        allowedToAttack = atk;
+    }
 
     //Getter for affected stats
     public float[] GetAffectedStats()
@@ -111,6 +117,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
             damageTaken -= affectedStats[(int)Stats.defense];
         }
 
+        Debug.Log("Damage: " + damageTaken);
         affectedStats[(int)Stats.health] -= damageTaken;
     }
 
