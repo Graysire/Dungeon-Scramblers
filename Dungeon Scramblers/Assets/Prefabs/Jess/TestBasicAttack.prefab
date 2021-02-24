@@ -44,8 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   uniqueName: 
   Projectile: {fileID: 4983767609826630315, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  abilitySlot: 0
 --- !u!1 &6498161201760164422
 GameObject:
   m_ObjectHideFlags: 0

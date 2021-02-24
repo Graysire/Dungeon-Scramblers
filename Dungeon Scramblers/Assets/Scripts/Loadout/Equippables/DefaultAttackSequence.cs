@@ -82,7 +82,14 @@ public class DefaultAttackSequence : Equippable
         if (player != null)
             player.SetAllowedToAttack(true);
 
-        yield return new WaitForSeconds(Projectile.GetCoolDownTime());
+        if (abilitySlot == 0)
+        {
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * player.GetAffectedStats()[(int)Stats.attackspeed]);
+        }
+        else
+        {
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * player.GetAffectedStats()[(int)Stats.abilitycd]);
+        }
 
         Attacked = false;
     }

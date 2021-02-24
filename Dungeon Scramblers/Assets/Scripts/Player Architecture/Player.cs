@@ -59,7 +59,8 @@ public class Player : AbstractPlayer
         // Pool the objects needed for the attack sequence
         AttackList = new List<DefaultAttackSequence>();
         for (int i = 0; i < AttackObjectList.Count; i++) {
-            AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
+            //AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
+            AttackObjectList[i].GetComponent<DefaultAttackSequence>().Equip(this);
         }
         // Make sure on-screen controls are on/off based on what they should be
         if (usingOnScreenControls && PlayerOnScreenControls != null)
