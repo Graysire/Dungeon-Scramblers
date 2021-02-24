@@ -1574,7 +1574,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -3279,6 +3279,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6ee250c29f8bad4e817dcd1e306e70e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  generateMapOnStart: 1
+  generateAI: 0
   maxIterations: 4
   minimumDoors: 20
   softMaximumDoors: 20
@@ -3293,6 +3295,9 @@ MonoBehaviour:
   maxRoomSize: 20
   minCorridorSize: 5
   maxCorridorSize: 15
+  spawnFrequency: 0
+  spawnBuffer: 0
+  spawnAI: []
 --- !u!4 &842690992
 Transform:
   m_ObjectHideFlags: 0
@@ -3305,7 +3310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &938510059
 GameObject:
@@ -4306,7 +4311,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -6619,49 +6624,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1439585635}
   m_CullTransparentMesh: 0
---- !u!1 &1519140786
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1519140788}
-  - component: {fileID: 1519140787}
-  m_Layer: 0
-  m_Name: OverlordUI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1519140787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519140786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff6c49c6b31a4b041894136c715b4995, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1519140788
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519140786}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.49819946, y: 2.1488495, z: -289.99817}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1549119072
 GameObject:
   m_ObjectHideFlags: 0
@@ -6775,7 +6737,7 @@ Transform:
   m_Children:
   - {fileID: 87731828}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!156049354 &1569469569
 Grid:
@@ -7709,7 +7671,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -10134,7 +10096,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -12559,7 +12521,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -14984,7 +14946,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -17483,7 +17445,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
@@ -19908,7 +19870,7 @@ MonoBehaviour:
       Event:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 1519140787}
+          - m_Target: {fileID: 0}
             m_TargetAssemblyTypeName: OverlordUI, Assembly-CSharp
             m_MethodName: ObstacleClicked
             m_Mode: 2
