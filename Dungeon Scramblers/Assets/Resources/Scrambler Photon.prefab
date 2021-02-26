@@ -3192,6 +3192,8 @@ MonoBehaviour:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
+  HealthBar: {fileID: 0}
+  ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
   serializedVersion: 4
@@ -3387,6 +3389,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6493101335746573522, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
+      propertyPath: m_Follow
+      value: 
+      objectReference: {fileID: 2114680770838200919}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
 --- !u!4 &8043284018380152705 stripped

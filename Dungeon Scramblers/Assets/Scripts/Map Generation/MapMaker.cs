@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Photon.Pun;
 
 //Script to generate a dungeon map
 public class MapMaker : MonoBehaviour
@@ -830,7 +831,8 @@ public class MapMaker : MonoBehaviour
                     //}
 
                     //instantiate AI
-                    Instantiate(ai.spawnAI, worldLocation, new Quaternion());
+                    PhotonNetwork.Instantiate(ai.spawnAI.name, worldLocation, new Quaternion());
+                    //Instantiate(ai.spawnAI, worldLocation, new Quaternion());
                     closedLocations.Add(randLocation);
                 }
                 if (numSpawned >= spawnLimit)

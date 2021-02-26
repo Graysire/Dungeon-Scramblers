@@ -505,6 +505,38 @@ PrefabInstance:
       propertyPath: generateAI
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[0].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 4248649116176859052, guid: a2f2037bbf1a6474c874ab234ebfefd1, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[4].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 3248170336281437018, guid: a2ad0efb54d0ef94b8db4e6e5d29547b, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[3].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 4028327533559958043, guid: a0d8c0fdf1094604bbea2991c6dd8e50, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[2].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 4248649116176859052, guid: a2f2037bbf1a6474c874ab234ebfefd1, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[1].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 8332080629846319900, guid: a24f35f9a1eb2d441b514dae28acd7a9, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[6].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 4248649116176859052, guid: a2f2037bbf1a6474c874ab234ebfefd1, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[5].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 4248649116176859052, guid: a2f2037bbf1a6474c874ab234ebfefd1, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: spawnAI.Array.data[7].spawns.Array.data[0].spawnAI
+      value: 
+      objectReference: {fileID: 3248170336281437018, guid: a2ad0efb54d0ef94b8db4e6e5d29547b, type: 3}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -950,8 +982,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefabs:
-  - {fileID: 2866247930749979864, guid: e62454be0a86a9a459668c758e4ae7ce, type: 3}
-  - {fileID: 1072143506390651205, guid: 5f58470dbdeb12740bf881b3c1929941, type: 3}
+  - {fileID: 2114680770838200914, guid: 3faacb77c0cc68b419b442e9c267a4fa, type: 3}
+  - {fileID: 2114680770838200914, guid: 3faacb77c0cc68b419b442e9c267a4fa, type: 3}
   EnemyTest: {fileID: 7241576718249047957, guid: 549f70e5ec51f764ca218da455294a50, type: 3}
   vcam: {fileID: 523157962}
   Map: {fileID: 1001978035}
