@@ -32,7 +32,7 @@ public class Equippable : HasStats
     {
         for (int i = 0; i < stats.Length; i++)
         {
-            player.GetStats()[i] += stats[i];
+            // player.GetStats()[i] += stats[i];
         }
     }
 

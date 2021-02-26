@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     public void DistributeExperience(float experience)
     {
         currentExperience += experience;
+        
         if (currentExperience >= expToNextLevel)
         {
             level++;
@@ -61,6 +62,11 @@ public class GameManager : MonoBehaviour
 
             currentExperience = 0;
 
+        }
+
+        foreach (Scrambler scrambler in Scramblers)
+        {
+            scrambler.updateExperience(currentExperience / expToNextLevel);
         }
         Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
 

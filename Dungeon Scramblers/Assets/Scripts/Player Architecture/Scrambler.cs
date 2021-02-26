@@ -6,6 +6,22 @@ using UnityEngine.InputSystem;
 
 public class Scrambler : Player
 {
+    [SerializeField]
+    DisplayBar HealthBar;
+    [SerializeField]
+    DisplayBar ExperienceBar;
+
+    public override void Damage(float damageTaken)
+    {
+        base.Damage(damageTaken);
+        HealthBar.SetValue(affectedStats[0] / stats[0]);
+    }
+
+    public void updateExperience(float ratio)
+    {
+        ExperienceBar.SetValue(ratio);
+    }
+
     public void Revive(float reviveHP, bool byPercent) {
         if (isDead) {
             if (byPercent)
@@ -50,4 +66,6 @@ public class Scrambler : Player
         affectedStats[3] = stats[3];
         affectedStats[4] = stats[4];
     }
+
+    
 }
