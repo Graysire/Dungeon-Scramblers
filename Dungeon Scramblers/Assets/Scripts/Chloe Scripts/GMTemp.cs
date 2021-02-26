@@ -72,6 +72,7 @@ public class GMTemp : MonoBehaviour
         //Get roomsize
         roomSize = new Vector2Int(StartRoom.upperRight.x - StartRoom.lowerLeft.x + 1, StartRoom.upperRight.y - StartRoom.lowerLeft.y + 1);
         //Get Random Coords in Room
+        //Don't use floorToInt
         int randX = Random.Range(Mathf.FloorToInt(StartRoom.lowerLeft.x), Mathf.FloorToInt(StartRoom.upperRight.x) + 1);
         int randY = Random.Range(Mathf.FloorToInt(StartRoom.lowerLeft.y), Mathf.FloorToInt(StartRoom.upperRight.y) + 1);
         //Translate to world space
