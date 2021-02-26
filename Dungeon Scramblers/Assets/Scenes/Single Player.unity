@@ -335,23 +335,7 @@ PrefabInstance:
       value: Scrambler
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[5]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[4]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[3]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: stats.Array.data[2]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[6]
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}

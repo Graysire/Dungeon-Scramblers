@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 10
+  BaseDamage: 10
   Range: 1
   DecayTime: 0.7
   MoveSpeed: 0
