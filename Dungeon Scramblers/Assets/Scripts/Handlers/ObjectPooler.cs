@@ -28,8 +28,16 @@ public class ObjectPooler : MonoBehaviour
         objectsPooled = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
         {
+            GameObject go;
             //PhotonID
-            GameObject go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+            }
+            else
+            {
+                go = Instantiate(objectToPool, transform.position, new Quaternion());
+            }
             go.SetActive(false);
             objectsPooled.Add(go);
         }
