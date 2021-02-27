@@ -15,7 +15,9 @@ MonoBehaviour:
   CategoryName: Knight Loadout
   DatabaseType: 0
   Names:
-  - Ability Tab
+  - Primary Ability Tab
   - Weapon Tab
   - Practice Room
   - Save Loadout
+  - Secondary Ability Tab
+  - Armor Tab
