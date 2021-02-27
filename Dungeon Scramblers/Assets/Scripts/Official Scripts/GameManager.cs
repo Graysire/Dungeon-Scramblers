@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
 
     // Voting Stats
     float timer;
+    [SerializeField]
+    PerkList perkList;
 
     // Players stats
     bool isPlayerDead;
@@ -44,6 +46,12 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Scramblers.Length; i++)
         {
             PlayerTransforms[i] = Scramblers[i].transform;
+        }
+
+        if (perkList != null)
+        {
+            
+            ApplyPerk(perkList.GetPerk());
         }
     }
 
@@ -83,9 +91,14 @@ public class GameManager : MonoBehaviour
 
     }
 
-    void ApplyPerk()
+    //Applies the perks to each scrambler
+    void ApplyPerk(Equippable perk)
     {
-        
+        foreach (Scrambler s in Scramblers)
+        {
+            Debug.Log("Perk Applied?");
+            perk.Equip(s);
+        }
     }
 
     //Returns a list of ALIVE Scrambler transforms
