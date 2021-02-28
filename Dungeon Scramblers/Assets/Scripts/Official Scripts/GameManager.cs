@@ -96,7 +96,6 @@ public class GameManager : MonoBehaviour
     {
         foreach (Scrambler s in Scramblers)
         {
-            Debug.Log("Perk Applied?");
             perk.Equip(s);
         }
     }

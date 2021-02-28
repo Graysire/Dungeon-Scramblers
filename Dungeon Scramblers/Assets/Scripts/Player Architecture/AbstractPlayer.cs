@@ -53,7 +53,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
 
             statusEffect.SetAffectedPlayer(this);
         }
-        else if (existingInstance.resetEffectOnHit)
+        else if (existingInstance.GetResetOnHit())
         {
             //Debug.Log("RESETTING INSTANCE OF STATUS EFFECT");
 
@@ -108,7 +108,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     //Reduces the health of the AbstractPlayer by damageTaken
     public virtual void Damage(float damageTaken)
     {
-        if (damageTaken - affectedStats[(int)Stats.defense] < 0.5f)
+        if (damageTaken - affectedStats[(int)Stats.defense] < 0.5f && damageTaken != 0)
         {
             damageTaken = 0.5f;
         }
