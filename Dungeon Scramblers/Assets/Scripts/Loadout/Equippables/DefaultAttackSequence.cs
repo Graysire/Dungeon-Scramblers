@@ -78,11 +78,11 @@ public class DefaultAttackSequence : Equippable
 
         if (abilitySlot == 0)
         {
-            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * Unit.GetAffectedStats()[(int)Stats.attackspeed]);
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * (Unit.GetAffectedStats()[(int)Stats.attackspeed] / 100f));
         }
         else
         {
-            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * Unit.GetAffectedStats()[(int)Stats.abilitycd]);
+            yield return new WaitForSeconds(Projectile.GetCoolDownTime() * (Unit.GetAffectedStats()[(int)Stats.abilitycd] / 100f));
         }
 
         Attacked = false;
