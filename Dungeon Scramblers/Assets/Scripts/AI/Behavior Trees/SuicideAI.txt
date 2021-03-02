@@ -18,7 +18,7 @@ tree("Attack")
 
 tree("Dead")
 	sequence
-		IsHealthLessThan(0.0)
+		IsHealthLessThan(0)
 		AttackPlayer
 		EnsureDeath
 		Wait(1.0)

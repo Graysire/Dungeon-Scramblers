@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Dummy : AbstractPlayer
 {
-    public override void Damage(float damageTaken)
+    public override void Damage(int damageTaken)
     {
         Debug.Log(gameObject + " Hit For " + damageTaken + " Damage.");
         GameManager.ManagerInstance.DistributeExperience(10.0f);

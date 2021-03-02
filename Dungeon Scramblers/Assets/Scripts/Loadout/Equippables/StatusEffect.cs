@@ -10,16 +10,26 @@ public class StatusEffect : MonoBehaviour
 
     public string statusName;                   //Unique name for this status effect
 
-    public bool doesReapply = false;            //If true then the value to apply to unit will be applied again
-    public bool resetEffectOnHit = false;       //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
-    public float waitTimeToApplyAgain = 0.0f;   //If this effect updates then after this many SECONDS it will apply the values again
-    private float waitTimeLeft;                 //Used to determine when to apply the status effect values again
+    [SerializeField]
+    bool doesReapply = false;                   //If true then the value to apply to unit will be applied again
+    [SerializeField]
+    bool resetEffectOnHit = false;              //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
+    [SerializeField]
+    [Min(2)]
+    int waitTimeToApplyAgain = 0;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
+    private int waitTimeLeft;                   //Used to determine when to apply the status effect values again
 
-    public float timeTillEnd = 0.0f;            //The amount of time in SECONDS for this effect to last till worn off
-    private float endTimeLeft;                  //Used to determine when time ends
+    [SerializeField]
+    bool isPermanent;                           //Whether this status effect lasts forever
+    [SerializeField]
+    int timeTillEnd = 0;                         //The amount of time in hundredths of SECONDS for this effect to last till worn off
+    private int endTimeLeft;                     //Used to determine when the effect ends
+    private int timesApplied = 0;                //Number of times this effect was applied
 
-    public float valueOfEffect;                 //The value of this status effect to apply
-    public HasStats.Stats statValueToAffect;    //The HasStat enum value to effect on the Player/AI. Reference below:
+    [SerializeField]
+    int valueOfEffect;                 //The value of this status effect to apply
+    [SerializeField]
+    HasStats.Stats statValueToAffect;    //The HasStat enum value to effect on the Player/AI. Reference below:
     /*  health = 0,
         movespeed = 1,
         attackdmg = 2,
@@ -32,8 +42,8 @@ public class StatusEffect : MonoBehaviour
     private AbstractPlayer unit;                //The player or AI to effect
 
     [SerializeField]
-    private bool resetOriginalStatValueOnEnd = false;        //If true then when this stat ends it will reapply the original stat value it affected
-    private float statValToReset;               //Stores the stat value player originally had to reapply it once status effect ends
+    private bool reverseEffectOnEnd = false;        //If true then when this stat ends it will reapply the original stat value it affected
+    //private float statValToReset;               //Stores the stat value player originally had to reapply it once status effect ends
     private bool updateReady = false;           //Used to let the updater know when it can perform the necessary operations after Start has finished
 
     /*
@@ -41,8 +51,8 @@ public class StatusEffect : MonoBehaviour
      */
     private void OnEnable()
     {
-        StatusStart();
-        UpdateHandler.UpdateOccurred += Updater;
+        StartCoroutine(StatusStart());
+        
     }
     private void OnDisable()
     {
@@ -50,18 +60,20 @@ public class StatusEffect : MonoBehaviour
     }
 
 
-    private void StatusStart()
+    private IEnumerator StatusStart()
     {
         Debug.Log(statusName + " created...");
-
+        
+        if(unit == null) { yield return new WaitForSeconds(0f); }
+        //Debug.Log(unit.name);
         //Get the time left till it will end
         ResetStatusTime();
 
         //Apply the status effect
-        StartCoroutine(ApplyStatusEffectValue());
+        //ApplyStatusEffectValue();
 
         //Set the update to run
-        updateReady = true;
+        UpdateHandler.UpdateOccurred += Updater;
     }
 
     //Update for update handler 
@@ -74,24 +86,58 @@ public class StatusEffect : MonoBehaviour
     IEnumerator UpdateEffect()
     {
         //If the unit is null or its not ready for the update then wait 
-        while (unit == null || !updateReady) { yield return new WaitForSecondsRealtime(0.05f); }
+        while (unit == null) { yield return new WaitForSeconds(0.00f); }
 
         //Debug.Log("In Status Effect Update...");
 
         //Only update if player information is given
         if (unit != null)
         {
-            //Get the time left till status ends
-            float timeLeft = endTimeLeft - Time.time;
+            //Used for indepth testing of time
+            //if (Time.fixedTime <= 50)
+            //{
+            //    Debug.Log("WTF " + Time.fixedTime + " " + (waitTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100))); //+ " " + Mathf.FloorToInt(Time.time * 100) + " " + Mathf.CeilToInt(Time.time * 100f));
+            //}
+
+            //Get the time left to apply effect values again [Deprecated]
+            //int timeLeft = waitTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100);
+
+
+            //subtracts the fixed time since the last frame from the duration and time until reapplied
+            waitTimeLeft -= Mathf.CeilToInt(Time.fixedDeltaTime * 100);
+            endTimeLeft -= Mathf.CeilToInt(Time.fixedDeltaTime * 100);
+            //Debug.Log("Time " + Time.time + " Wait Left " + waitTimeLeft + " Time Left "  + timeLeft);
+
+            //Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
+
+            //If this effect reapplies, then apply the value when the wait timer ends
+            if (doesReapply && waitTimeLeft <= 0)
+            {
+                //Debug.Log("Applying Status Effect Again");
+
+                //Apply the status effect
+                ApplyStatusEffectValue();
+
+                //reset the wait time
+                ResetWaitTime();
+            }
+
+            //Get the time left till status ends [Deprecated]
+            //timeLeft = endTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100);
+            
 
             //Debug.Log("Time left for status effect to end: " + timeLeft);
 
             //If the time left is over, then the effect ends
-            if (timeLeft <= 0.0f)
+            if (endTimeLeft <= 0)
             {
                 //Debug.Log("Status Effect Ending...");
                 //reset the stat value to its original value
-                if (resetOriginalStatValueOnEnd) { unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset; }
+                if (reverseEffectOnEnd)
+                {
+                    //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
+                    unit.GetAffectedStats()[(int)statValueToAffect] += timesApplied * valueOfEffect * -1;
+                }
 
                 //Lets the update handler know this is done 
                 gameObject.SetActive(false);
@@ -100,31 +146,18 @@ public class StatusEffect : MonoBehaviour
                 Destroy(gameObject);
             }
 
-            //Get the time left to apply effect values again
-            timeLeft = waitTimeLeft - Time.time;
-
-            //Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
-
-            //If this effect reapplies, then apply the value when the wait timer ends
-            if (doesReapply && timeLeft <= 0.0f)
-            {
-                //Debug.Log("Applying Status Effect Again");
-
-                //Apply the status effect
-                StartCoroutine(ApplyStatusEffectValue());
-
-                //reset the wait time
-                ResetWaitTime();
-            }
+            
         }
+        //yield return new WaitForSecondsRealtime(0.00f);
     }
 
     //Sets the time for status to stay alive
         //If status is applied to same player again then time is reset -- subject to change
     public void ResetStatusTime()
     {
-        endTimeLeft = timeTillEnd + Time.time; //Time till the status ends
-
+        //resets how long the status will last
+        endTimeLeft = timeTillEnd;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status ends
+       
         //Debug.Log("End Time TIME: " + Time.time);
         //Debug.Log("End Time Set to: " + endTimeLeft);
 
@@ -134,27 +167,35 @@ public class StatusEffect : MonoBehaviour
     //Resets the wait time for applying effect values again
     private void ResetWaitTime()
     {
-        waitTimeLeft = waitTimeToApplyAgain + (Time.time); //Time till the status applies its values again
+        //reset the wait time
+        waitTimeLeft = waitTimeToApplyAgain;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
 
-        //Debug.Log("Wait Time TIME: " + Time.time);
+        //Debug.Log("Wait Time TIME: " + Time.fixedTime + ", " + Time.time );
         //Debug.Log("Wait Time Set to: " + waitTimeLeft);
+    }
+
+    public bool GetResetOnHit()
+    {
+        return resetEffectOnHit;
     }
 
 
 
     //Applies the status effect values to the player
-    IEnumerator ApplyStatusEffectValue()
+    //IEnumerator ApplyStatusEffectValue()
+    void ApplyStatusEffectValue()
     {
         //Save the original stat value to apply when status ends
-        if (resetOriginalStatValueOnEnd) { statValToReset = unit.GetAffectedStats()[(int)statValueToAffect]; }
+        //if (reverseEffectOnEnd) { statValToReset = unit.GetAffectedStats()[(int)statValueToAffect]; }
 
         //wait until the unit is assigned to apply the damage
-        while (unit == null) { yield return new WaitForSecondsRealtime(0.05f); }
+        //while (unit == null) { yield return new WaitForSecondsRealtime(0.00f); }
 
         //Debug.Log("Applying effect value: " + valueOfEffect); 
         
         //Apply the stat from this status effect onto the affected units stat
         unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect;
+        timesApplied++;
     }
 
 

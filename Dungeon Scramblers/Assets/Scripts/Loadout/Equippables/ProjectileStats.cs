@@ -6,9 +6,9 @@ public class ProjectileStats : MonoBehaviour
 {
     // Define the damage of the the ability before any bonuses
     [SerializeField]
-    protected float BaseDamage = 5.0f;
+    protected int BaseDamage = 5;
     //Define the dmaage of the ability with any obnuses
-    float ActualDamage;
+    int ActualDamage;
 
     // Define the range of the the ability before destroying itself
     [SerializeField]
@@ -70,7 +70,7 @@ public class ProjectileStats : MonoBehaviour
     }
       
     // Take in the attack direction from the player to move the ability
-    public void SetUp(Vector3 AttackDir, float dmg)
+    public void SetUp(Vector3 AttackDir, int dmg)
     {
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;

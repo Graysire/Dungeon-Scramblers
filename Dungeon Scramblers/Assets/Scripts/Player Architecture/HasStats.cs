@@ -17,10 +17,10 @@ public class HasStats : MonoBehaviourPunCallbacks
         defense = 6
     }
     // Permanent stats - What the player will reference to return to a "normal state" i.e. restoring to full health
-    [SerializeField] protected float[] stats = new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f };
+    [SerializeField] protected int[] stats = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
     //Getter for stats
-    public float[] GetStats()
+    public int[] GetStats()
     {
         return stats;
     }

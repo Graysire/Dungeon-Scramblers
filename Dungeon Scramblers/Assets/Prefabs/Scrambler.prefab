@@ -2454,22 +2454,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 100
-  - 4
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 10270000900100000000000000000000000000000000000000000000
+  affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 3940147794213505563, guid: 925b6f5bb19d28b40a0f80cdccbbf089, type: 3}
@@ -2481,6 +2467,8 @@ MonoBehaviour:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
+  HealthBar: {fileID: 0}
+  ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
   serializedVersion: 4

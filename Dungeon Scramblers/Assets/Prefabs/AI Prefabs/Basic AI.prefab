@@ -128,22 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 10
-  - 2.7
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: e80300000e0100000000000000000000000000000000000000000000
+  affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}

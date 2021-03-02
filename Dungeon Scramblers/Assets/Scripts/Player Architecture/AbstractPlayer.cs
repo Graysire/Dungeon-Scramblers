@@ -4,11 +4,11 @@ using UnityEngine;
 
 
 //Contains the resources shared between the AI and players such as their ability to be damaged
-public abstract class AbstractPlayer : HasStats, IDamageable<float>
+public abstract class AbstractPlayer : HasStats, IDamageable<int>
 {
 
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
-    [SerializeField] protected float[] affectedStats = new float[] { 0f, 0f, 0f, 0f, 0f, 0f, 0f };
+    [SerializeField] protected int[] affectedStats = new int[] { 0, 0, 0, 0, 0, 0, 0 };
 
     protected bool allowedToAttack = true;
 
@@ -100,17 +100,17 @@ public abstract class AbstractPlayer : HasStats, IDamageable<float>
     }
 
     //Getter for affected stats
-    public float[] GetAffectedStats()
+    public int[] GetAffectedStats()
     {
         return affectedStats;
     }
 
     //Reduces the health of the AbstractPlayer by damageTaken
-    public virtual void Damage(float damageTaken)
+    public virtual void Damage(int damageTaken)
     {
-        if (damageTaken - affectedStats[(int)Stats.defense] < 0.5f && damageTaken != 0)
+        if (damageTaken - affectedStats[(int)Stats.defense] < 5 && damageTaken != 0)
         {
-            damageTaken = 0.5f;
+            damageTaken = 5;
         }
         else
         {
