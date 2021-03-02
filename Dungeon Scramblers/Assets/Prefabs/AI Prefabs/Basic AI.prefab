@@ -144,7 +144,7 @@ MonoBehaviour:
   - 1
   statusEffects: []
   AttackObjectList:
-  - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
+  - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
   players: []
   healthBarUI: {fileID: 8640546345716192724}
   healthBar: {fileID: 8640546346855551714}
