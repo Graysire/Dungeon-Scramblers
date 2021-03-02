@@ -71,7 +71,7 @@ public class DefaultAttackSequence : Equippable
 
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
 
-        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);

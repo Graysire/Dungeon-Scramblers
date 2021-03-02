@@ -12,6 +12,10 @@ using UnityEngine;
 //https://docs.unity3d.com/Manual/script-Serialization.html
 //https://docs.unity3d.com/Manual/script-Serialization-Custom.html
 
+
+
+//Bitmasking: https://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/ | https://alemil.com/bitmask
+
 [System.Serializable]
 public class SaveLoad
 {

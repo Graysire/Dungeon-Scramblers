@@ -15,7 +15,9 @@ MonoBehaviour:
   CategoryName: Rogue Loadout
   DatabaseType: 0
   Names:
-  - Ability Tab
+  - Primary Ability Tab
   - Weapon Tab
   - Practice Room
   - Save Loadout
+  - Armor Tab
+  - Secondary Ability Tab

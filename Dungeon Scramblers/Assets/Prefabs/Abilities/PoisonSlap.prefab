@@ -72,13 +72,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damage: 5
+  BaseDamage: 2
   Range: 10
   DecayTime: 0.3
   MoveSpeed: 0
   CastingTime: 0.1
   CoolDown: 0.4
   OffsetScale: 2
+  maxTargetsHit: 1
   StatusEffects:
   - {fileID: 2652015777586013772, guid: 0905b2aede51e55499dee51b6df09faa, type: 3}
 --- !u!50 &2513873347589818176

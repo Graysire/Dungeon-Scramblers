@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class ProjectileStats : MonoBehaviour
 {
-    // Define the damage of the the ability
+    // Define the damage of the the ability before any bonuses
     [SerializeField]
-    protected float Damage = 5.0f;
+    protected float BaseDamage = 5.0f;
+    //Define the dmaage of the ability with any obnuses
+    float ActualDamage;
+
     // Define the range of the the ability before destroying itself
     [SerializeField]
     protected float Range;
@@ -67,9 +70,10 @@ public class ProjectileStats : MonoBehaviour
     }
       
     // Take in the attack direction from the player to move the ability
-    public void SetUp(Vector3 AttackDir)
+    public void SetUp(Vector3 AttackDir, float dmg)
     {
         this.AttackDir = AttackDir;
+        ActualDamage = BaseDamage + dmg;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -122,7 +126,7 @@ public class ProjectileStats : MonoBehaviour
         Debug.Log("Hit " + collision);
 
         //Apply damage to object
-        damageable.Damage(Damage);
+        damageable.Damage(ActualDamage);
         numHits++;
         if (numHits >= maxTargetsHit)
         {
@@ -135,6 +139,7 @@ public class ProjectileStats : MonoBehaviour
         this.gameObject.SetActive(false);
         totalTime = 0f;
         numHits = 0;
+        ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
     }
 }

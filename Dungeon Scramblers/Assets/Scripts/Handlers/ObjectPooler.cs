@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ObjectPooler : MonoBehaviour
 {
@@ -27,7 +28,16 @@ public class ObjectPooler : MonoBehaviour
         objectsPooled = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
         {
-            GameObject go = (GameObject)Instantiate(objectToPool, transform);
+            GameObject go;
+            //PhotonID
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+            }
+            else
+            {
+                go = Instantiate(objectToPool, transform.position, new Quaternion());
+            }
             go.SetActive(false);
             objectsPooled.Add(go);
         }
