@@ -69,8 +69,11 @@ public class StatusEffect : MonoBehaviour
         //Get the time left till it will end
         ResetStatusTime();
 
-        //Apply the status effect
-        //ApplyStatusEffectValue();
+        //Apply the status effect if this doesn't reapply
+        if (!doesReapply)
+        {
+            ApplyStatusEffectValue();
+        }
 
         //Set the update to run
         UpdateHandler.UpdateOccurred += Updater;
@@ -129,7 +132,7 @@ public class StatusEffect : MonoBehaviour
             //Debug.Log("Time left for status effect to end: " + timeLeft);
 
             //If the time left is over, then the effect ends
-            if (endTimeLeft <= 0)
+            if (endTimeLeft <= 0 && !isPermanent)
             {
                 EndEffect();
             }
