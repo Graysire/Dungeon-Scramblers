@@ -11,6 +11,11 @@ public class Equippable : HasStats
     [SerializeField]
     protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME FOR LOADOUT SYSTEM*
 
+
+    // Refer to this link for Bitcode legend: https://docs.google.com/spreadsheets/d/12xuLHZSDCkMI4G0byxqrIRxpuUSsBOtuQ4uvpDbt47w/edit#gid=0
+    [SerializeField]
+    protected string equippableBitFlag;
+
     //Enum for determining the type of the equippable
     [SerializeField]
     protected enum EquippableType
