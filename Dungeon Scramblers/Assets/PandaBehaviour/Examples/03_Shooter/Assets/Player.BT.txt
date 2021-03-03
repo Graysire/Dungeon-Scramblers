@@ -1,7 +1,8 @@
 //This Behaviour Tree controls a unit using the player inputs.
 
 tree("Root")
-	//Controll movement, aiming, firing and dying.
+	//Controll 
+	, aiming, firing and dying.
 	parallel
 		repeat mute tree("Move")
 		repeat mute tree("Aim")

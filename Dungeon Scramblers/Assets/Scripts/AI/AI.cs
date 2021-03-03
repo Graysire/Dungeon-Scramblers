@@ -26,9 +26,16 @@ public class AI : AbstractPlayer
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
     public float expOnDeath = 10.0f;            // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
+    
 
     private Rigidbody2D rb;                     // This AI's rigidbody2D
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
+
+    private bool alerted = false;
+    private SpriteRenderer currentSprite;
+    [SerializeField]
+    private Sprite mimicSprite;
+
 
     /*
      * Note to self: If the player is dead how do we know?
@@ -47,12 +54,15 @@ public class AI : AbstractPlayer
 
         //Sets the value of health bar based on percentage of current health and max health
         healthBar.value = CalculateHealth();
+
+        //set the current sprite renderer component to currentSprite
+        currentSprite = GetComponent<SpriteRenderer>();
     }
 
     protected override void Awake()
     {
         base.Awake();
-
+        
         // Instantiate attack sequences to reattach the instance to the player
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
@@ -301,11 +311,12 @@ public class AI : AbstractPlayer
             return true;
         }
     }
+    
 
 
     //NOTE: This current implementation seems "Hacky", so think of alternative solution...
     //Method used to ensure the triggering of an AI's death so that it will not move after attacking
-        //This directly affects SuicidAI so that it will die after attack
+    //This directly affects SuicidAI so that it will die after attack
     [Task]
     protected void EnsureDeath()
     {
@@ -314,5 +325,25 @@ public class AI : AbstractPlayer
         attackRange = 100;      //Ensures AI will not move after it triggers death
         stoppingDistance = 10;  //Ensures AI to stop moving
         Task.current.Succeed();
+    }
+
+    [Task]
+    // Condition statement for check if the AI has been alerted
+    protected bool Alerted()
+    {
+        return alerted;
+    }
+
+    [Task]
+    // Alert the mimic first time the player is in it range to change the sprite and visible range
+    protected void AlertMimic()
+    {
+        if (!alerted)
+        {
+            alerted = true;
+            visibleRange = 8.0f;
+            currentSprite.sprite = mimicSprite;
+
+        }
     }
 }

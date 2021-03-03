@@ -8,6 +8,8 @@ tree("Root")
 tree("Attack")
 	while SeePlayerAndSetTarget
 		fallback
+			while not Alerted
+					AlertMimic
 			while AttackInRange
 				sequence
 					AttackPlayer
