@@ -160,8 +160,10 @@ public class Player : AbstractPlayer
                 animator.SetBool("facingFront", true);
             }
             animator.SetBool("idle", true);*/
-            if (enabledAnimatorInd == 2) 
-                SwitchAnimatorGO(0, false);
+                         
+            enabledAnim.SetBool("idle", true);
+            /*if (enabledAnimatorInd == 2) 
+                SwitchAnimatorGO(0, false);*/
             //enabledAnim.SetBool("idle", true);
         }
         else {
@@ -197,6 +199,7 @@ public class Player : AbstractPlayer
                 else if (d.x > 0 && sr.flipX)
                     sr.flipX = false;
             }
+            enabledAnim.SetBool("idle", false);
         }
         // Actual movement
         direction = new Vector2(d.x, d.y);
@@ -286,12 +289,14 @@ public class Player : AbstractPlayer
     }
 
     protected void SwitchAnimatorGO(int enAind, bool srRefernceNeeded) {
+        enabledAnim.SetBool("idle", true);
         AnimatorList[enabledAnimatorInd].SetActive(false);
         enabledAnimatorInd = enAind;
         AnimatorList[enabledAnimatorInd].SetActive(true);
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
-        if (srRefernceNeeded)
+        //if (srRefernceNeeded)
             sr = AnimatorList[enabledAnimatorInd].GetComponent<SpriteRenderer>();
+        
     }
 }
 
