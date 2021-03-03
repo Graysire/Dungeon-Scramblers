@@ -96,7 +96,7 @@ public class AI : AbstractPlayer
     //Calculates the health percentage for displaying on health bar
     protected float CalculateHealth()
     {
-        return affectedStats[(int)Stats.health] / stats[(int)Stats.health];
+        return affectedStats[(int)Stats.health] / (float) stats[(int)Stats.health];
     }
 
     //Gets the path given the start position and target position
@@ -139,7 +139,7 @@ public class AI : AbstractPlayer
             Vector2 movementDir = (currentPath[i] - transform.position).normalized;
 
             //Make vector scaled to movement speed
-            Vector2 nextFramePosition = movementDir * affectedStats[(int)Stats.movespeed];
+            Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] /100f);
 
             //Set the AI's velocity toward that position
             rb.velocity = nextFramePosition;
@@ -267,7 +267,7 @@ public class AI : AbstractPlayer
 
     //Checks if the health is less than the given value
     [Task]
-    public bool IsHealthLessThan(float health)
+    public bool IsHealthLessThan(int health)
     {
         return affectedStats[(int)Stats.health] <= health;
     }

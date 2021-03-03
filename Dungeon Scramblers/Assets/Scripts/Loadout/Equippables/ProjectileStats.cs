@@ -6,9 +6,9 @@ public class ProjectileStats : MonoBehaviour
 {
     // Define the damage of the the ability before any bonuses
     [SerializeField]
-    protected float BaseDamage = 5.0f;
+    protected int BaseDamage = 5;
     //Define the dmaage of the ability with any obnuses
-    float ActualDamage;
+    int ActualDamage;
 
     // Define the range of the the ability before destroying itself
     [SerializeField]
@@ -70,7 +70,7 @@ public class ProjectileStats : MonoBehaviour
     }
       
     // Take in the attack direction from the player to move the ability
-    public void SetUp(Vector3 AttackDir, float dmg)
+    public void SetUp(Vector3 AttackDir, int dmg)
     {
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;
@@ -100,18 +100,17 @@ public class ProjectileStats : MonoBehaviour
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if(collision.tag == "Shield")
+        
+        if (collision.tag == "Shield")
         {
             ResetProjectiles();
             return;
         }
 
         //get Damageable from collision object
-        IDamageable<float> damageable = collision.GetComponent<IDamageable<float>>();
+        IDamageable<int> damageable = collision.GetComponent<IDamageable<int>>();
         //if the collision does not exist or damageable is not on the object
         if (collision == null || damageable == null)  return;
-
 
         //If the colliding object inherits from Abstract player then apply the status effect(s)
         AbstractPlayer unit = collision.gameObject.GetComponent<AbstractPlayer>();

@@ -128,22 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 1
-  - 6
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 64000000580200000000000000000000000000000000000000000000
+  affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 6125647232567267168, guid: 85fcd90147f0cf547bf81ef5c7c20b1e, type: 3}
@@ -156,7 +142,6 @@ MonoBehaviour:
   stoppingDistance: 0.4
   visibleRange: 10
   attackRange: 2
-  timeBeforeNextAttack: 0
   expOnDeath: 2
   onlyAttackOnePlayer: 1
   enemyTypeToSpawn: {fileID: 0}

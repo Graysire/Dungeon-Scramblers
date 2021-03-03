@@ -11,33 +11,39 @@ public class Scrambler : Player
     [SerializeField]
     DisplayBar ExperienceBar;
 
-    public override void Damage(float damageTaken)
+    public override void Damage(int damageTaken)
     {
         base.Damage(damageTaken);
-        HealthBar.SetValue(affectedStats[0] / stats[0]);
+        if (HealthBar != null)
+        {
+            HealthBar.SetValue(affectedStats[0] / (float)stats[0]);
+        }
     }
 
     public void updateExperience(float ratio)
     {
-        ExperienceBar.SetValue(ratio);
+        if (ExperienceBar != null)
+        {
+            ExperienceBar.SetValue(ratio);
+        }
     }
 
-    public void Revive(float reviveHP, bool byPercent) {
+    public void Revive(int reviveHP, bool byPercent) {
         if (isDead) {
             if (byPercent)
             {
-                if (reviveHP < 0.0f)                                                            // Check for invalid heath percentages
-                    reviveHP = 0.0f;
-                else if (reviveHP > 1.0f)
-                    reviveHP = 1.0f;
-                affectedStats[(int)Stats.health] = 0 + reviveHP * (stats[(int)Stats.health]);   // Revive with a PERCENT of your health
+                if (reviveHP < 0)                                                            // Check for invalid heath percentages
+                    reviveHP = 0;
+                else if (reviveHP > 1)
+                    reviveHP = 1;
+                affectedStats[(int)Stats.health] = reviveHP * stats[(int)Stats.health];   // Revive with a PERCENT of your health
             }
             else {
                 if (reviveHP < 0)                                                               // Check for invalid health values
-                    reviveHP = 0.0f;
+                    reviveHP = 0;
                 else if (reviveHP > stats[(int)Stats.health])
                     reviveHP = stats[(int)Stats.health];
-                affectedStats[(int)Stats.health] = 0 + reviveHP;                                // Revive with a STRAIGHT health value
+                affectedStats[(int)Stats.health] = reviveHP;                                // Revive with a STRAIGHT health value
             }
             isDead = false;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);                     // temporary color shift
@@ -46,24 +52,26 @@ public class Scrambler : Player
 
     public void LevelUp()
     {
+        int hpIncrease = Mathf.FloorToInt(stats[0] * 0.1f);
+
         // Change base stats of heatlh
-        stats[0] += stats[0] * 0.1f;
+        stats[0] += hpIncrease;
         Debug.Log("Health: " + stats[0]);
         // Change base stats of attack damage
-        stats[2] += stats[2] * 0.1f;
+        stats[2] += Mathf.FloorToInt(stats[2] * 0.1f);
         Debug.Log("Attack Damage: " + stats[2]);
         // Change base stats of attack speed
-        stats[3] += stats[3] * 0.1f;
+        //stats[3] += Mathf.FloorToInt(stats[3] * 0.1f);
         Debug.Log("Attack Speed: " + stats[3]);
         // Change base stats of ability damage
-        stats[4] += stats[4] * 0.1f;
+        stats[4] += Mathf.FloorToInt(stats[4] * 0.1f);
         Debug.Log("Ability Damage: " + stats[4]);
 
         // Refresh the affected stats
-        affectedStats[0] += stats[0] * 0.1f;
+        affectedStats[0] += hpIncrease;
         // refresh the affected stats upon level up
         affectedStats[2] = stats[2];
-        affectedStats[3] = stats[3];
+        //affectedStats[3] = stats[3];
         affectedStats[4] = stats[4];
     }
 

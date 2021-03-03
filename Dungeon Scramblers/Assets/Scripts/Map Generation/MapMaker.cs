@@ -831,8 +831,14 @@ public class MapMaker : MonoBehaviour
                     //}
 
                     //instantiate AI
-                    PhotonNetwork.Instantiate(ai.spawnAI.name, worldLocation, new Quaternion());
-                    //Instantiate(ai.spawnAI, worldLocation, new Quaternion());
+                    if (PhotonNetwork.CurrentRoom != null)
+                    {
+                        PhotonNetwork.Instantiate(ai.spawnAI.name, worldLocation, new Quaternion());
+                    }
+                    else
+                    {
+                        Instantiate(ai.spawnAI, worldLocation, new Quaternion());
+                    }
                     closedLocations.Add(randLocation);
                 }
                 if (numSpawned >= spawnLimit)

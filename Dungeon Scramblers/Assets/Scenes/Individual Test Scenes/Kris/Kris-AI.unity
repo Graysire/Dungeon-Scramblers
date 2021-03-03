@@ -1259,6 +1259,7 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 1294233350}
   isDead: 0
+  AnimatorList: []
 --- !u!95 &1682598759
 Animator:
   serializedVersion: 3
@@ -1873,6 +1874,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7232590026822226254, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      propertyPath: viewIdField
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4028327533559958035, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.57
@@ -2050,6 +2055,10 @@ PrefabInstance:
       propertyPath: visibleRange
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6020413315549863403, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      propertyPath: viewIdField
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8049bececd5d804287ebb07467a425a, type: 3}
 --- !u!1001 &8332080631498661853
@@ -2059,6 +2068,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 613591769853966092, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8332080629846319892, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.65
@@ -2119,6 +2132,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Suicide AI
       objectReference: {fileID: 0}
+    - target: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
 --- !u!1001 &8640546346073000114
@@ -2128,9 +2145,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8356685977181609732, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859041, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248649116176859041, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      propertyPath: timeBeforeNextAttack
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859046, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2182,7 +2207,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
