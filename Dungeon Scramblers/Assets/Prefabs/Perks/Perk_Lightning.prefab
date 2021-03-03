@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3443384552859282509
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3443384552859282511}
+  - component: {fileID: 3443384552859282510}
+  - component: {fileID: 9162275925680288198}
+  m_Layer: 0
+  m_Name: Perk_Lightning
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3443384552859282511
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443384552859282509}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6519993, y: 7.5789847, z: -267.93347}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3443384552859282510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443384552859282509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5223afa263902ba4a9baff7df7708fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
+  uniqueName: Perk_Lightning
+  effects:
+  - {fileID: 9162275925680288198}
+--- !u!114 &9162275925680288198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3443384552859282509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusName: Perk_Lightning
+  doesReapply: 0
+  resetEffectOnHit: 0
+  waitTimeToApplyAgain: 0
+  isPermanent: 0
+  timeTillEnd: 9000
+  valueOfEffect: 800
+  statValueToAffect: 1
+  reverseEffectOnEnd: 1

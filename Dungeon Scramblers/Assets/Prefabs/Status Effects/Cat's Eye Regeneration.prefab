@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6603157891914826582
+--- !u!1 &7060164809401888669
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,40 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4207889361155404324}
-  - component: {fileID: 2538135529580269523}
+  - component: {fileID: 7766048925451095550}
+  - component: {fileID: 2652015777586013772}
   m_Layer: 0
-  m_Name: Perk_Gear
+  m_Name: Cat's Eye Regeneration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4207889361155404324
+--- !u!4 &7766048925451095550
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603157891914826582}
+  m_GameObject: {fileID: 7060164809401888669}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3616729, y: 70.27097, z: -43.54244}
+  m_LocalPosition: {x: 5.287439, y: 22.343338, z: -6.0313535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2538135529580269523
+--- !u!114 &2652015777586013772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6603157891914826582}
+  m_GameObject: {fileID: 7060164809401888669}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a8b67f659b5724f926a2d6ba0c1c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: 0000000000000000000000000000000000000000dfffffff00000000
-  uniqueName: Perk_Gear
+  statusName: Perk_CatsEye
+  doesReapply: 1
+  resetEffectOnHit: 0
+  waitTimeToApplyAgain: 2
+  isPermanent: 0
+  timeTillEnd: 100
+  valueOfEffect: 1
+  statValueToAffect: 0
+  reverseEffectOnEnd: 0

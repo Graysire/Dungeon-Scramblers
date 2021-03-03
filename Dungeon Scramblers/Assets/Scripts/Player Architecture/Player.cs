@@ -204,7 +204,7 @@ public class Player : AbstractPlayer
         // Actual movement
         direction = new Vector2(d.x, d.y);
         direction = transform.TransformDirection(direction);
-        direction *= (stats[(int)Stats.movespeed] / 100f);
+        direction *= (affectedStats[(int)Stats.movespeed] / 100f);
     }
 
     protected virtual void ApplyMove() {

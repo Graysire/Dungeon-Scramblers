@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -7772620089836928857, guid: 508288614d2fc2f408e357c995335f59, type: 3}
+  m_Sprite: {fileID: -7310501140982945409, guid: b6a53ab9ef9312340b86ba1eab3c9390, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -93,7 +93,7 @@ Animator:
   m_GameObject: {fileID: 4427557188455509896}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e2f2770c7748a204fa6986351e2acc5b, type: 2}
+  m_Controller: {fileID: 9100000, guid: 45497eada4b07994780d08836ae1e926, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -114,8 +114,10 @@ GameObject:
   - component: {fileID: 3339342635295003916}
   - component: {fileID: 4983767609826630315}
   - component: {fileID: 7663104008351997961}
+  - component: {fileID: 2474031949570313932}
+  - component: {fileID: -1822781017955852271}
   m_Layer: 0
-  m_Name: Spear
+  m_Name: SwordSlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -174,14 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseDamage: 100
+  BaseDamage: 200
   Range: 10
   DecayTime: 0.2
-  MoveSpeed: 0
+  MoveSpeed: 10
   CastingTime: 0.1
   CoolDown: 0.25
-  OffsetScale: 2
-  maxTargetsHit: 1
+  OffsetScale: 1.5
+  maxTargetsHit: 2
   StatusEffects: []
 --- !u!50 &7663104008351997961
 Rigidbody2D:
@@ -204,3 +206,42 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2474031949570313932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427557190297321068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: -1822781017955852271}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &-1822781017955852271
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4427557190297321068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 1
+  m_TeleportEnabled: 1
+  m_TeleportIfDistanceGreaterThan: 3

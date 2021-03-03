@@ -17,7 +17,7 @@ public class StatusEffect : MonoBehaviour
     [SerializeField]
     [Min(2)]
     int waitTimeToApplyAgain = 0;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
-    private int waitTimeLeft;                   //Used to determine when to apply the status effect values again
+    private int waitTimeLeft = 0;                   //Used to determine when to apply the status effect values again
 
     [SerializeField]
     bool isPermanent;                           //Whether this status effect lasts forever
@@ -25,6 +25,7 @@ public class StatusEffect : MonoBehaviour
     int timeTillEnd = 0;                         //The amount of time in hundredths of SECONDS for this effect to last till worn off
     private int endTimeLeft;                     //Used to determine when the effect ends
     private int timesApplied = 0;                //Number of times this effect was applied
+    private int maxTimesApplied;
 
     [SerializeField]
     int valueOfEffect;                 //The value of this status effect to apply
@@ -69,8 +70,11 @@ public class StatusEffect : MonoBehaviour
         //Get the time left till it will end
         ResetStatusTime();
 
-        //Apply the status effect
-        //ApplyStatusEffectValue();
+        //Apply the status effect if this doesn't reapply
+        if (!doesReapply)
+        {
+            ApplyStatusEffectValue();
+        }
 
         //Set the update to run
         UpdateHandler.UpdateOccurred += Updater;
@@ -106,12 +110,15 @@ public class StatusEffect : MonoBehaviour
             //subtracts the fixed time since the last frame from the duration and time until reapplied
             waitTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
             endTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
+
+            //Debug.Log("Wait: " + waitTimeLeft + " End: " + endTimeLeft + " Applied: " + timesApplied);
+
             //Debug.Log("Time " + Time.time + " Wait Left " + waitTimeLeft + " Time Left "  + timeLeft);
 
             //Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
 
             //If this effect reapplies, then apply the value when the wait timer ends
-            if (doesReapply && waitTimeLeft <= 0)
+            while (doesReapply && waitTimeLeft <= 0 && timesApplied < maxTimesApplied)
             {
                 //Debug.Log("Applying Status Effect Again");
 
@@ -122,14 +129,16 @@ public class StatusEffect : MonoBehaviour
                 ResetWaitTime();
             }
 
+            //Debug.Log("Wait: " + waitTimeLeft + " End: " + endTimeLeft + " Applied: " + timesApplied + " Max: " + maxTimesApplied);
+
             //Get the time left till status ends [Deprecated]
             //timeLeft = endTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100);
-            
+
 
             //Debug.Log("Time left for status effect to end: " + timeLeft);
 
             //If the time left is over, then the effect ends
-            if (endTimeLeft <= 0)
+            if (endTimeLeft <= 0 && !isPermanent)
             {
                 EndEffect();
             }
@@ -145,6 +154,7 @@ public class StatusEffect : MonoBehaviour
     {
         //resets how long the status will last
         endTimeLeft = timeTillEnd;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status ends
+        maxTimesApplied += timeTillEnd / waitTimeToApplyAgain;
        
         //Debug.Log("End Time TIME: " + Time.time);
         //Debug.Log("End Time Set to: " + endTimeLeft);
