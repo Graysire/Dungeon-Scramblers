@@ -104,8 +104,8 @@ public class StatusEffect : MonoBehaviour
 
 
             //subtracts the fixed time since the last frame from the duration and time until reapplied
-            waitTimeLeft -= Mathf.CeilToInt(Time.fixedDeltaTime * 100);
-            endTimeLeft -= Mathf.CeilToInt(Time.fixedDeltaTime * 100);
+            waitTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
+            endTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
             //Debug.Log("Time " + Time.time + " Wait Left " + waitTimeLeft + " Time Left "  + timeLeft);
 
             //Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
@@ -168,7 +168,7 @@ public class StatusEffect : MonoBehaviour
     private void ResetWaitTime()
     {
         //reset the wait time
-        waitTimeLeft = waitTimeToApplyAgain;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
+        waitTimeLeft += waitTimeToApplyAgain;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
 
         //Debug.Log("Wait Time TIME: " + Time.fixedTime + ", " + Time.time );
         //Debug.Log("Wait Time Set to: " + waitTimeLeft);

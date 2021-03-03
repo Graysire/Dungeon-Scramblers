@@ -33,6 +33,7 @@ public class Equippable : HasStats
         for (int i = 0; i < stats.Length; i++)
         {
             player.GetStats()[i] += stats[i];
+            player.GetAffectedStats()[i] += stats[i];
         }
     }
 
@@ -42,6 +43,7 @@ public class Equippable : HasStats
         for (int i = 0; i < stats.Length; i++)
         {
             player.GetStats()[i] -= stats[i];
+            player.GetAffectedStats()[i] -= stats[i];
         }
     }
 }
