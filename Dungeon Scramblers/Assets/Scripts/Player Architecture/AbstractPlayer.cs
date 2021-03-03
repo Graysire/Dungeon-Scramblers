@@ -62,6 +62,29 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
         }
     }
 
+    //Removes the given status effect from the list of status effects if it exists
+    public void RemoveStatusEffect(StatusEffect statusEffectPrefab)
+    {
+        //If the status effect is null then fire debug message
+        if (statusEffectPrefab == null)
+        {
+            Debug.Log("Given Status Effect is null...");
+        }
+
+        StatusEffect effect = FoundInstanceOfStatusEffect(statusEffectPrefab);
+
+        if (effect != null)
+        {
+            effect.EndEffect();
+        }
+        else
+        {
+            Debug.Log("No Instance of Status Effect to remove");
+        }
+    }
+
+
+
     //Checks if the given status effect is already applied to a player
     //if exists - returns the object
     //else - null

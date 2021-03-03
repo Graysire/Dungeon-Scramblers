@@ -131,19 +131,7 @@ public class StatusEffect : MonoBehaviour
             //If the time left is over, then the effect ends
             if (endTimeLeft <= 0)
             {
-                //Debug.Log("Status Effect Ending...");
-                //reset the stat value to its original value
-                if (reverseEffectOnEnd)
-                {
-                    //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
-                    unit.GetAffectedStats()[(int)statValueToAffect] += timesApplied * valueOfEffect * -1;
-                }
-
-                //Lets the update handler know this is done 
-                gameObject.SetActive(false);
-
-                //Destroy this object
-                Destroy(gameObject);
+                EndEffect();
             }
 
             
@@ -179,6 +167,23 @@ public class StatusEffect : MonoBehaviour
         return resetEffectOnHit;
     }
 
+    //ends this status effect
+    public void EndEffect()
+    {
+        //Debug.Log("Status Effect Ending...");
+        //reset the stat value to its original value
+        if (reverseEffectOnEnd)
+        {
+            //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
+            unit.GetAffectedStats()[(int)statValueToAffect] += timesApplied * valueOfEffect * -1;
+        }
+
+        //Lets the update handler know this is done 
+        gameObject.SetActive(false);
+
+        //Destroy this object
+        Destroy(gameObject);
+    }
 
 
     //Applies the status effect values to the player
