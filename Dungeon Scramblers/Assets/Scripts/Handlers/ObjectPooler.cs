@@ -36,7 +36,7 @@ public class ObjectPooler : MonoBehaviour
             }
             else
             {
-                go = Instantiate(objectToPool, transform.position, new Quaternion());
+                go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
             }
             go.SetActive(false);
             objectsPooled.Add(go);
@@ -50,7 +50,7 @@ public class ObjectPooler : MonoBehaviour
                 return objectsPooled[i];
             }
         }
-        GameObject go = (GameObject)Instantiate(objectToPool, transform);
+        GameObject go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
         go.SetActive(false);
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
@@ -73,8 +73,8 @@ public class ObjectPooler : MonoBehaviour
                 return objectsPooled[i];
             }
         }
-        GameObject go = (GameObject)Instantiate(objectToPool, AttackTransform,
-                Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle), transform);
+        GameObject go =PhotonNetwork.InstantiateSceneObject(objectToPool.name, AttackTransform,
+                Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle));
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
     }
