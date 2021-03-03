@@ -3027,8 +3027,9 @@ GameObject:
   - component: {fileID: 2114680770838200913}
   - component: {fileID: 5469870026199777636}
   - component: {fileID: 424624744661482047}
+  - component: {fileID: 2208858389996876875}
   m_Layer: 10
-  m_Name: Scrambler Photon
+  m_Name: New Player Prefab
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3165,22 +3166,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 100
-  - 4
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 64000000040000000100000001000000010000000100000001000000
+  affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 3940147794213505563, guid: 925b6f5bb19d28b40a0f80cdccbbf089, type: 3}
@@ -3270,6 +3257,19 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 1
   m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &2208858389996876875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114680770838200914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd4b217668881b448b068232993eddbc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 8043284019362041551}
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,6 +3334,40 @@ Transform:
   m_Father: {fileID: 2114680770841707674}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1912998796317627559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8043284019362041548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShowDebugText: 0
+  m_ShowCameraFrustum: 1
+  m_IgnoreTimeScale: 0
+  m_WorldUpOverride: {fileID: 0}
+  m_UpdateMethod: 2
+  m_BlendUpdateMethod: 1
+  m_DefaultBlend:
+    m_Style: 1
+    m_Time: 2
+    m_CustomCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  m_CustomBlends: {fileID: 0}
+  m_CameraCutEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_CameraActivatedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &3856028442087619101
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3344,6 +3378,10 @@ PrefabInstance:
     - target: {fileID: 6493101334564136337, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 6493101334564136337, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 6493101334564136348, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3400,3 +3438,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6493101334564136348, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
   m_PrefabInstance: {fileID: 3856028442087619101}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8043284019362041548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6493101335746573521, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
+  m_PrefabInstance: {fileID: 3856028442087619101}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8043284019362041551 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6493101335746573522, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
+  m_PrefabInstance: {fileID: 3856028442087619101}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8043284019362041548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
