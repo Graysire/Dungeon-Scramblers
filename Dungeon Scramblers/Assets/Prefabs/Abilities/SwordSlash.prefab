@@ -180,7 +180,7 @@ MonoBehaviour:
   MoveSpeed: 10
   CastingTime: 0.1
   CoolDown: 0.25
-  OffsetScale: 2
+  OffsetScale: 1.5
   maxTargetsHit: 2
   StatusEffects: []
 --- !u!50 &7663104008351997961

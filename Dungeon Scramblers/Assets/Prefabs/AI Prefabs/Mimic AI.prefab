@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -8356685977181609732}
   - component: {fileID: 1704834181895476070}
   m_Layer: 11
-  m_Name: Basic AI
+  m_Name: Mimic AI
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: 102700005e0100000000000064000000000000006400000064000000
+  stats: e80300000e0100000000000064000000000000006400000064000000
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
@@ -139,8 +139,8 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 2
-  visibleRange: 2
-  attackRange: 1
+  visibleRange: 8
+  attackRange: 2.5
   expOnDeath: 5
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scripts:
-  - {fileID: 4900000, guid: d0b5e5f97462a9a4eb8782c508b7a9f0, type: 3}
+  - {fileID: 4900000, guid: cb9b1ddfa0635164cb601a9bf9c3b962, type: 3}
   autoReset: 1
   tickOn: 0
   sourceInfos:
@@ -190,7 +190,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 10000
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
