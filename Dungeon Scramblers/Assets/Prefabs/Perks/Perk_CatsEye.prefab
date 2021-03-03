@@ -46,6 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Perk_CatsEye
+  equippableBitFlag: 
   effects:
   - {fileID: 2652015777586013772, guid: 7fdacb04275cb08479ddc41604f39b22, type: 3}
 --- !u!114 &4844089854133007769
@@ -64,7 +65,7 @@ MonoBehaviour:
   doesReapply: 1
   resetEffectOnHit: 0
   waitTimeToApplyAgain: 2
-  isPermanent: 0
+  isPermanent: 1
   timeTillEnd: 100
   valueOfEffect: 1
   statValueToAffect: 0
