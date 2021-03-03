@@ -156,6 +156,170 @@ MonoBehaviour:
   m_id: 53995b80-5417-43a0-8b94-4ececccd8e62
   m_name: Application Quit
   m_notes: 
+--- !u!114 &-3126789928537783819
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840a439e06374673a9115ed02deb5a54, type: 3}
+  m_Name: UINode
+  m_EditorClassIdentifier: 
+  ErrorNodeNameIsEmpty: 0
+  ErrorDuplicateNameFoundInGraph: 0
+  m_inputSockets:
+  - m_connectionMode: 1
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 0
+    m_canBeDeleted: 0
+    m_canBeReordered: 0
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 38
+    m_id: db6d049d-39d7-4a35-b281-be11fdfb9759
+    m_nodeId: 7f3d7419-c7f8-479d-a1f6-e2a2f3f56b9f
+    m_socketName: InputSocket_0
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_outputSockets:
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 62
+    m_id: 16c7f3cf-8d8a-48b0-bf95-833c1e4a3a18
+    m_nodeId: 7f3d7419-c7f8-479d-a1f6-e2a2f3f56b9f
+    m_socketName: OutputSocket_1
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_nodeType: 4
+  m_allowDuplicateNodeName: 0
+  m_allowEmptyNodeName: 0
+  m_canBeDeleted: 1
+  m_debugMode: 0
+  m_useFixedUpdate: 0
+  m_useLateUpdate: 0
+  m_useUpdate: 0
+  m_height: 128
+  m_width: 216
+  m_x: 1296
+  m_y: 156
+  m_minimumInputSocketsCount: 1
+  m_minimumOutputSocketsCount: 1
+  m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
+  m_id: 7f3d7419-c7f8-479d-a1f6-e2a2f3f56b9f
+  m_name: Primary Ability
+  m_notes: 
+  m_onEnterShowViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Primary Abilities
+  m_onEnterHideViews: []
+  m_onExitShowViews: []
+  m_onExitHideViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Primary Abilities
+--- !u!114 &-2431365772052854261
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840a439e06374673a9115ed02deb5a54, type: 3}
+  m_Name: UINode
+  m_EditorClassIdentifier: 
+  ErrorNodeNameIsEmpty: 0
+  ErrorDuplicateNameFoundInGraph: 0
+  m_inputSockets:
+  - m_connectionMode: 1
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 0
+    m_canBeDeleted: 0
+    m_canBeReordered: 0
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 38
+    m_id: dc2edf80-d538-4934-9033-17decdbd1814
+    m_nodeId: 5fcddaf1-b589-46c2-bc81-9085a082144d
+    m_socketName: InputSocket_0
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_outputSockets:
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 62
+    m_id: e86b8936-148f-435f-b553-ae318ff25007
+    m_nodeId: 5fcddaf1-b589-46c2-bc81-9085a082144d
+    m_socketName: OutputSocket_1
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_nodeType: 4
+  m_allowDuplicateNodeName: 0
+  m_allowEmptyNodeName: 0
+  m_canBeDeleted: 1
+  m_debugMode: 0
+  m_useFixedUpdate: 0
+  m_useLateUpdate: 0
+  m_useUpdate: 0
+  m_height: 128
+  m_width: 216
+  m_x: 1296
+  m_y: 36
+  m_minimumInputSocketsCount: 1
+  m_minimumOutputSocketsCount: 1
+  m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
+  m_id: 5fcddaf1-b589-46c2-bc81-9085a082144d
+  m_name: Armor
+  m_notes: 
+  m_onEnterShowViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Armors
+  m_onEnterHideViews: []
+  m_onExitShowViews: []
+  m_onExitHideViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Armors
 --- !u!114 &-895309627532414140
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -362,6 +526,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DebugMode: 0
   m_nodes:
+  - {fileID: 5900501534597477897}
+  - {fileID: -3126789928537783819}
+  - {fileID: -2431365772052854261}
   - {fileID: -895309627532414140}
   - {fileID: 1107331238098285560}
   - {fileID: 2858376080467327424}
@@ -378,7 +545,7 @@ MonoBehaviour:
   m_version: 1
   m_description: 
   m_id: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
-  m_lastModified: 132583231913750594
+  m_lastModified: 132589448641750876
 --- !u!114 &494938838232559868
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1156,6 +1323,82 @@ MonoBehaviour:
     m_value: '{"ButtonCategory":"General","ButtonName":"Back","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
     m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 86
+    m_id: 17022c3d-e76f-42d2-af21-bbe65ac13d99
+    m_nodeId: f60157a6-ce76-4da2-adb6-7a0a57eb72e9
+    m_socketName: OutputSocket_1
+    m_value: '{"ButtonCategory":"Mage Loadout","ButtonName":"Weapon Tab","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 110
+    m_id: 29bfad8f-600f-43d1-88e9-5ec54deceb59
+    m_nodeId: f60157a6-ce76-4da2-adb6-7a0a57eb72e9
+    m_socketName: OutputSocket_2
+    m_value: '{"ButtonCategory":"Mage Loadout","ButtonName":"Armor Tab","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 134
+    m_id: 099d6b6d-cb41-4472-9a9d-921f572c3497
+    m_nodeId: f60157a6-ce76-4da2-adb6-7a0a57eb72e9
+    m_socketName: OutputSocket_3
+    m_value: '{"ButtonCategory":"Mage Loadout","ButtonName":"Primary Ability Tab","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 158
+    m_id: e158bf59-e604-47b6-b0c5-ba8efd14428e
+    m_nodeId: f60157a6-ce76-4da2-adb6-7a0a57eb72e9
+    m_socketName: OutputSocket_4
+    m_value: '{"ButtonCategory":"Mage Loadout","ButtonName":"Secondary Ability Tab","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_nodeType: 4
   m_allowDuplicateNodeName: 0
   m_allowEmptyNodeName: 0
@@ -1164,10 +1407,10 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 128
+  m_height: 224
   m_width: 216
   m_x: 1020
-  m_y: 252
+  m_y: 72
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
@@ -1184,6 +1427,88 @@ MonoBehaviour:
   - Category: Loadouts
     InstantAction: 0
     Name: Mage Loadout Page
+--- !u!114 &5900501534597477897
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 840a439e06374673a9115ed02deb5a54, type: 3}
+  m_Name: UINode
+  m_EditorClassIdentifier: 
+  ErrorNodeNameIsEmpty: 0
+  ErrorDuplicateNameFoundInGraph: 0
+  m_inputSockets:
+  - m_connectionMode: 1
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 0
+    m_canBeDeleted: 0
+    m_canBeReordered: 0
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 38
+    m_id: 6bc6253e-8449-41fd-a885-03d08b88b201
+    m_nodeId: 8458f487-6788-45ac-bd0f-d8640b79ab7e
+    m_socketName: InputSocket_0
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_outputSockets:
+  - m_connectionMode: 0
+    m_connections: []
+    m_connectionPoints:
+    - {x: -2, y: 4}
+    - {x: 202, y: 4}
+    m_direction: 1
+    m_canBeDeleted: 1
+    m_canBeReordered: 1
+    m_curveModifier: 0
+    m_height: 24
+    m_width: 216
+    m_x: 0
+    m_y: 62
+    m_id: 4eaa39b4-1aa0-4e26-838a-12fd96236333
+    m_nodeId: 8458f487-6788-45ac-bd0f-d8640b79ab7e
+    m_socketName: OutputSocket_1
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
+      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_nodeType: 4
+  m_allowDuplicateNodeName: 0
+  m_allowEmptyNodeName: 0
+  m_canBeDeleted: 1
+  m_debugMode: 0
+  m_useFixedUpdate: 0
+  m_useLateUpdate: 0
+  m_useUpdate: 0
+  m_height: 128
+  m_width: 216
+  m_x: 1296
+  m_y: 276
+  m_minimumInputSocketsCount: 1
+  m_minimumOutputSocketsCount: 1
+  m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
+  m_id: 8458f487-6788-45ac-bd0f-d8640b79ab7e
+  m_name: Secondary Ability
+  m_notes: 
+  m_onEnterShowViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Secondary Abilities
+  m_onEnterHideViews: []
+  m_onExitShowViews: []
+  m_onExitHideViews:
+  - Category: Mage Loadout Views
+    InstantAction: 0
+    Name: Secondary Abilities
 --- !u!114 &6629445225152177241
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1328,48 +1653,10 @@ MonoBehaviour:
     m_width: 216
     m_x: 0
     m_y: 62
-    m_id: d93ec3d6-a239-4f05-ada9-809c3641d017
-    m_nodeId: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
-    m_socketName: OutputSocket_0
-    m_value: '{"ButtonCategory":"General","ButtonName":"Back","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
-    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_connectionMode: 0
-    m_connections: []
-    m_connectionPoints:
-    - {x: -2, y: 4}
-    - {x: 202, y: 4}
-    m_direction: 1
-    m_canBeDeleted: 1
-    m_canBeReordered: 1
-    m_curveModifier: 0
-    m_height: 24
-    m_width: 216
-    m_x: 0
-    m_y: 86
-    m_id: 54f5bcca-b346-427a-97c4-7af574d5f8db
+    m_id: f35b00c2-0ce0-4902-a379-93512cf8a7a1
     m_nodeId: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
     m_socketName: OutputSocket_1
-    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Abilities","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
-    m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
-      Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  - m_connectionMode: 0
-    m_connections: []
-    m_connectionPoints:
-    - {x: -2, y: 4}
-    - {x: 202, y: 4}
-    m_direction: 1
-    m_canBeDeleted: 1
-    m_canBeReordered: 1
-    m_curveModifier: 0
-    m_height: 24
-    m_width: 216
-    m_x: 0
-    m_y: 110
-    m_id: 300ea53f-be1f-414d-8bab-dda232c28a4a
-    m_nodeId: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
-    m_socketName: OutputSocket_2
-    m_value: '{"ButtonCategory":"Loadout","ButtonName":"Abilities","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
+    m_value: '{"ButtonCategory":"General","ButtonName":"Unnamed","GameEvent":"","TimeDelay":3.0,"Trigger":0}'
     m_valueTypeQualifiedName: Doozy.Engine.UI.Connections.UIConnection, Assembly-CSharp,
       Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
   m_nodeType: 4
@@ -1380,41 +1667,23 @@ MonoBehaviour:
   m_useFixedUpdate: 0
   m_useLateUpdate: 0
   m_useUpdate: 0
-  m_height: 176
+  m_height: 128
   m_width: 216
-  m_x: -456
-  m_y: 216
+  m_x: 1296
+  m_y: -84
   m_minimumInputSocketsCount: 1
   m_minimumOutputSocketsCount: 1
   m_graphId: d31b3d33-3011-4f53-8a3a-c0f1688fb80f
   m_id: 650c6c46-60e8-4026-8eec-b11c1a7f98b1
-  m_name: LoadOut
+  m_name: Weapon
   m_notes: 
   m_onEnterShowViews:
-  - Category: Custom
-    InstantAction: 0
-    Name: Abilities
-  - Category: Custom
-    InstantAction: 0
-    Name: Abilities
-  - Category: Custom
+  - Category: Mage Loadout Views
     InstantAction: 0
     Name: Weapons
-  - Category: Main Menu
-    InstantAction: 0
-    Name: Main Menu Page
   m_onEnterHideViews: []
   m_onExitShowViews: []
   m_onExitHideViews:
-  - Category: Custom
-    InstantAction: 0
-    Name: Abilities
-  - Category: Custom
-    InstantAction: 0
-    Name: Abilities
-  - Category: Custom
+  - Category: Mage Loadout Views
     InstantAction: 0
     Name: Weapons
-  - Category: Main Menu
-    InstantAction: 0
-    Name: Main Menu Page

@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 4427557190297321068, guid: a8f2c25a3998a7e4c9faf677c0fee497, type: 3}
-  amountToPool: 1
+  amountToPool: 0
 --- !u!1 &6497682061442774528
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,14 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Turrent Bullet
   Projectile: {fileID: 4983767609826630315, guid: a8f2c25a3998a7e4c9faf677c0fee497, type: 3}
-  abilitySlot: 2
+  abilitySlot: 0

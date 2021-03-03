@@ -20,9 +20,12 @@ tree("Dead")
 
 tree("Move")
 	fallback
-		while SeePlayerAndSetTarget
-			sequence
-				while not AtStoppingDistance
-					MoveToPlayer
-				while AtStoppingDistance
-					StopMoving
+		sequence
+			while SeePlayerAndSetTarget
+				sequence
+					while not AtStoppingDistance
+						MoveToPlayer
+					while AtStoppingDistance
+						StopMoving
+			while not SeePlayerAndSetTarget
+				StopMoving

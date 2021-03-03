@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -8356685977181609732}
   - component: {fileID: 1704834181895476070}
   m_Layer: 11
-  m_Name: Basic AI
+  m_Name: Basic AI 1
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128,22 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 10
-  - 2.7
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 00000000000000000000000000000000000000000000000000000000
+  affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
@@ -155,7 +141,6 @@ MonoBehaviour:
   stoppingDistance: 2
   visibleRange: 8
   attackRange: 2.5
-  timeBeforeNextAttack: 1
   expOnDeath: 5
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}

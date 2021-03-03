@@ -16,6 +16,6 @@ MonoBehaviour:
   DatabaseType: 2
   Names:
   - Armors
-  - Weapons
   - Primary Abilities
   - Secondary Abilities
+  - Weapons
