@@ -13,6 +13,8 @@ public class StatusEffect : MonoBehaviour
     [SerializeField]
     bool doesReapply = false;                   //If true then the value to apply to unit will be applied again
     [SerializeField]
+    bool canStack = false;                      //If true, this effect can stack dealing its valueofEffect*stack ever application
+    [SerializeField]
     bool resetEffectOnHit = false;              //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
     [SerializeField]
     [Min(2)]
@@ -25,7 +27,9 @@ public class StatusEffect : MonoBehaviour
     int timeTillEnd = 0;                         //The amount of time in hundredths of SECONDS for this effect to last till worn off
     private int endTimeLeft;                     //Used to determine when the effect ends
     private int timesApplied = 0;                //Number of times this effect was applied
-    private int maxTimesApplied;
+    private int maxTimesApplied;                 //the maximum number of times this effect can be applied based on its duration and wait time 
+    private int totalValueApplied = 0;          //the total value of effect applied
+    private int numStacks = 0;                   //the number of times this effect gas been stacked
 
     [SerializeField]
     int valueOfEffect;                 //The value of this status effect to apply
@@ -64,7 +68,8 @@ public class StatusEffect : MonoBehaviour
     private IEnumerator StatusStart()
     {
         Debug.Log(statusName + " created...");
-        
+        numStacks++;
+
         if(unit == null) { yield return new WaitForSeconds(0f); }
         //Debug.Log(unit.name);
         //Get the time left till it will end
@@ -172,6 +177,7 @@ public class StatusEffect : MonoBehaviour
         //Debug.Log("Wait Time Set to: " + waitTimeLeft);
     }
 
+    //returns whether this statuseffect should reset on a hit
     public bool GetResetOnHit()
     {
         return resetEffectOnHit;
@@ -185,7 +191,7 @@ public class StatusEffect : MonoBehaviour
         if (reverseEffectOnEnd)
         {
             //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
-            unit.GetAffectedStats()[(int)statValueToAffect] += timesApplied * valueOfEffect * -1;
+            unit.GetAffectedStats()[(int)statValueToAffect] += totalValueApplied * -1;
         }
 
         //Lets the update handler know this is done 
@@ -209,8 +215,9 @@ public class StatusEffect : MonoBehaviour
         //Debug.Log("Applying effect value: " + valueOfEffect); 
         
         //Apply the stat from this status effect onto the affected units stat
-        unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect;
+        unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect * numStacks;
         timesApplied++;
+        totalValueApplied += valueOfEffect * numStacks;
     }
 
 
@@ -218,5 +225,27 @@ public class StatusEffect : MonoBehaviour
     public void SetAffectedPlayer(AbstractPlayer unit)
     {
         this.unit = unit;
+    }
+
+    //Reapplies this effect, adding stacks, resetting wait time and other functions as applicable
+    public void ReapplyEffect()
+    {
+        //if the duration of this effect resets on hit, reset it
+        if (resetEffectOnHit)
+        {
+            ResetStatusTime();
+        }
+
+        //if this effect can stack, add a stack
+        if (canStack)
+        {
+            numStacks++;
+            //if this effect doesn't naturally reapply, add one stack of value of effect directly
+            if (!doesReapply)
+            {
+                unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect;
+                totalValueApplied += valueOfEffect;
+            }
+        }
     }
 }
