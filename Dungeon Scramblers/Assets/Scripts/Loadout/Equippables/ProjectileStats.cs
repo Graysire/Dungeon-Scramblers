@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileStats : MonoBehaviour
+public class ProjectileStats : MonoBehaviourPunCallbacks
 {
     // Define the damage of the the ability before any bonuses
     [SerializeField]
@@ -75,6 +76,7 @@ public class ProjectileStats : MonoBehaviour
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;
         rb = GetComponent<Rigidbody2D>();
+        //Debug.Log("Attack Dir:" + AttackDir.ToString() + "\n rb: " + rb.ToString());
     }
 
 
@@ -82,7 +84,7 @@ public class ProjectileStats : MonoBehaviour
     void FixedUpdate()
     {
         // Check if Attack Direction exist
-        if (AttackDir != null)
+        if (AttackDir != null && photonView.IsMine)
         {
             // Increment time passed, position of the object, and position traveled
             totalTime += Time.fixedDeltaTime;

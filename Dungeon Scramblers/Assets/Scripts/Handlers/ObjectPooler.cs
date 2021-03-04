@@ -32,11 +32,11 @@ public class ObjectPooler : MonoBehaviour
             //PhotonID
             if (PhotonNetwork.CurrentRoom != null)
             {
-                go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+                go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
             }
             else
             {
-                go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+                go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
             }
             go.SetActive(false);
             objectsPooled.Add(go);
@@ -50,13 +50,16 @@ public class ObjectPooler : MonoBehaviour
                 return objectsPooled[i];
             }
         }
-        GameObject go = PhotonNetwork.InstantiateSceneObject(objectToPool.name, transform.position, new Quaternion());
+        GameObject go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
         go.SetActive(false);
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
     }
 
+   // [PunRPC]
     public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
+        //GetComponent<PhotonView>().RPC("GetPooledObject", RpcTarget.AllBuffered);
+
         //initialize this object since it is new
         if (objectsPooled == null)
         {
@@ -73,9 +76,10 @@ public class ObjectPooler : MonoBehaviour
                 return objectsPooled[i];
             }
         }
-        GameObject go =PhotonNetwork.InstantiateSceneObject(objectToPool.name, AttackTransform,
+        GameObject go = PhotonNetwork.Instantiate(objectToPool.name, AttackTransform,
                 Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle));
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
     }
+
 }
