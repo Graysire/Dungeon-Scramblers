@@ -84,7 +84,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     void FixedUpdate()
     {
         // Check if Attack Direction exist
-        if (AttackDir != null && photonView.IsMine)
+        if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
             // Increment time passed, position of the object, and position traveled
             totalTime += Time.fixedDeltaTime;
