@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8505140837186731163}
-  - component: {fileID: 6632481710621904964}
   - component: {fileID: 4844089854133007769}
+  - component: {fileID: 6892560536673868786}
   m_Layer: 0
   m_Name: Perk_CatsEye
   m_TagString: Untagged
@@ -32,23 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6632481710621904964
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6579558388258235054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5223afa263902ba4a9baff7df7708fc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: 00000000000000000000000000000000000000000000000000000000
-  uniqueName: Perk_CatsEye
-  equippableBitFlag: 
-  effects:
-  - {fileID: 2652015777586013772, guid: 7fdacb04275cb08479ddc41604f39b22, type: 3}
 --- !u!114 &4844089854133007769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70,3 +53,21 @@ MonoBehaviour:
   valueOfEffect: 1
   statValueToAffect: 0
   reverseEffectOnEnd: 0
+--- !u!114 &6892560536673868786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6579558388258235054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5223afa263902ba4a9baff7df7708fc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
+  uniqueName: Perk_CatsEye
+  equippableBitFlag: 
+  singleApplication: 0
+  effects:
+  - {fileID: 4844089854133007769}

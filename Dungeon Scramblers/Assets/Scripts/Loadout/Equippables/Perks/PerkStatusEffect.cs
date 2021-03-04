@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //Equippable that applies a status effect to the equipper
-public class StatusEffectEquippable : Equippable
+public class PerkStatusEffect : Perk
 {
     [SerializeField]
-    StatusEffect[] effects;
+    protected StatusEffect[] effects;
 
     public override void Equip(Player player)
     {

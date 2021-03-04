@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2959566455801917742}
   - component: {fileID: 7745534065028690799}
+  - component: {fileID: -6822691248454993149}
   m_Layer: 0
   m_Name: Perk_Steel
   m_TagString: Untagged
@@ -45,3 +46,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000002c01000000000000000000000000000000000000
   uniqueName: Perk_Steel
+  equippableBitFlag: 
+--- !u!114 &-6822691248454993149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5953156195922417558}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 209a5a397526dda4181a15321be28095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: 00000000000000002c01000000000000000000000000000000000000
+  uniqueName: Perk_Steel
+  equippableBitFlag: 
+  singleApplication: 0

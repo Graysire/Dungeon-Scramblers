@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6951593862575753603}
-  - component: {fileID: 5643437312511177596}
+  - component: {fileID: 8636471188192691365}
   m_Layer: 0
   m_Name: Perk_Aegis
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5643437312511177596
+--- !u!114 &8636471188192691365
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,8 +40,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 87776853262242831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a8b67f659b5724f926a2d6ba0c1c0f, type: 3}
+  m_Script: {fileID: 11500000, guid: 209a5a397526dda4181a15321be28095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 000000009cffffff000000000000000000000000000000002c010000
   uniqueName: Perk_Aegis
+  equippableBitFlag: 

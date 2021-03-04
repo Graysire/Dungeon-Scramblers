@@ -6,10 +6,10 @@ using UnityEngine;
 public class PerkList : MonoBehaviour
 {
     [SerializeField]
-    List<Equippable> perkList;
+    List<Perk> perkList;
 
     //returns a random perk from the list of perks
-    public Equippable GetPerk()
+    public Perk GetPerk()
     {
         return perkList[Random.Range(0, perkList.Count)];
     }

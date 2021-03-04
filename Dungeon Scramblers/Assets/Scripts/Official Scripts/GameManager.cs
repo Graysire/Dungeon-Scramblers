@@ -93,11 +93,19 @@ public class GameManager : MonoBehaviour
     }
 
     //Applies the perks to each scrambler
-    void ApplyPerk(Equippable perk)
+    void ApplyPerk(Perk perk)
     {
-        foreach (Scrambler s in Scramblers)
+        if (perk.GetSingleApplication())
         {
-            perk.Equip(s);
+            perk.Equip(Scramblers[0]);
+        }
+        else
+        {
+            foreach (Scrambler s in Scramblers)
+            {
+                perk.Equip(s);
+                Debug.Log(perk.gameObject.name);
+            }
         }
     }
 
@@ -106,5 +114,23 @@ public class GameManager : MonoBehaviour
     public Transform[] GetPlayerTransforms()
     {
         return PlayerTransforms;
+    }
+
+    //Returns a list of Scramblers in the game
+    public Player[] GetPlayers()
+    {
+        return Scramblers;
+    }
+
+    //gets the current xp multiplier
+    public int GetExperienceMultiplier()
+    {
+        return xpMultiplier;
+    }
+
+    //sets the current xp multiplier
+    public void SetExperienceMultiplier(int value)
+    {
+        xpMultiplier = value;
     }
 }
