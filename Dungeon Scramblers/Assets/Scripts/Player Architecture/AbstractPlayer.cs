@@ -27,7 +27,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
 
         //Find instance of this object already created
         StatusEffect existingInstance = FoundInstanceOfStatusEffect(statusEffectPrefab);
-        
+
         //If this object doesnt exist
         if (existingInstance == null)
         {
@@ -52,14 +52,14 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
             //Debug.Log("SETTING PLAYER INFORMATION INTO INSTANCE");
 
             statusEffect.SetAffectedPlayer(this);
+            return;
         }
-        else if (existingInstance.GetResetOnHit())
+        else
         {
-            //Debug.Log("RESETTING INSTANCE OF STATUS EFFECT");
-
-            //if this object is already made then reset its timer apply for full duration again
-            existingInstance.ResetStatusTime();
+            //ifthe effect already exists, reapply it
+            existingInstance.ReapplyEffect();
         }
+
     }
 
     //Removes the given status effect from the list of status effects if it exists
