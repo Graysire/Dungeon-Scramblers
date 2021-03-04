@@ -24,8 +24,9 @@ public class GameManager : MonoBehaviour
 
     // Experience Handling Variables
     int level = 1;
-    float currentExperience = 0.0f;
-    float expToNextLevel = 100.0f;
+    int currentExperience = 0;
+    int expToNextLevel = 10000;
+    int xpMultiplier = 100;
 
     private void Awake()
     {
@@ -55,9 +56,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void DistributeExperience(float experience)
+    public void DistributeExperience(int experience)
     {
-        currentExperience += experience;
+        currentExperience += experience * xpMultiplier / 100;
         
         if (currentExperience >= expToNextLevel)
         {
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
 
         foreach (Scrambler scrambler in Scramblers)
         {
-            scrambler.updateExperience(currentExperience / expToNextLevel);
+            scrambler.updateExperience(currentExperience / (float)expToNextLevel);
         }
         Debug.Log("Level: " + level + " | Experience: " + currentExperience + "/ " + expToNextLevel);
 

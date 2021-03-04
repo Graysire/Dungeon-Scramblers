@@ -600,7 +600,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 5014128954071806839}
-  viewIdField: 2
+  viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &5014128954071806839
@@ -644,7 +644,7 @@ MonoBehaviour:
   stoppingDistance: 1
   visibleRange: 3
   attackRange: 2
-  expOnDeath: 10
+  expOnDeath: 1000
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 21300000, guid: 2fadd18e4b1391e42b5aa2fffbbc42fb, type: 3}

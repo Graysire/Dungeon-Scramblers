@@ -142,9 +142,10 @@ MonoBehaviour:
   stoppingDistance: 0.4
   visibleRange: 10
   attackRange: 2
-  expOnDeath: 2
+  expOnDeath: 200
   onlyAttackOnePlayer: 1
   enemyTypeToSpawn: {fileID: 0}
+  mimicSprite: {fileID: 0}
 --- !u!114 &8332080629846319896
 MonoBehaviour:
   m_ObjectHideFlags: 0
