@@ -17,8 +17,10 @@ public class StatusEffect : MonoBehaviour
     [SerializeField]
     bool resetEffectOnHit = false;              //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
     [SerializeField]
+    bool appliesToBaseStats = false;            //If true, affects the stats and affected stats of a unit
+    [SerializeField]
     [Min(2)]
-    int waitTimeToApplyAgain = 0;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
+    int waitTimeToApplyAgain = 2;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
     private int waitTimeLeft = 0;                   //Used to determine when to apply the status effect values again
 
     [SerializeField]
@@ -67,7 +69,7 @@ public class StatusEffect : MonoBehaviour
 
     private IEnumerator StatusStart()
     {
-        Debug.Log(statusName + " created...");
+        //Debug.Log(statusName + " created...");
         numStacks++;
 
         if(unit == null) { yield return new WaitForSeconds(0f); }
@@ -191,7 +193,11 @@ public class StatusEffect : MonoBehaviour
         if (reverseEffectOnEnd)
         {
             //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
-            unit.GetAffectedStats()[(int)statValueToAffect] += totalValueApplied * -1;
+            unit.GetAffectedStats()[(int)statValueToAffect] -= totalValueApplied;
+            if (appliesToBaseStats)
+            {
+                unit.GetStats()[(int)statValueToAffect] -= totalValueApplied;
+            }
         }
 
         //Lets the update handler know this is done 
@@ -213,9 +219,14 @@ public class StatusEffect : MonoBehaviour
         //while (unit == null) { yield return new WaitForSecondsRealtime(0.00f); }
 
         //Debug.Log("Applying effect value: " + valueOfEffect); 
-        
+
         //Apply the stat from this status effect onto the affected units stat
+        Debug.Log(unit);
         unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect * numStacks;
+        if (appliesToBaseStats)
+        {
+            unit.GetStats()[(int)statValueToAffect] += valueOfEffect * numStacks;
+        }
         timesApplied++;
         totalValueApplied += valueOfEffect * numStacks;
     }
@@ -245,6 +256,10 @@ public class StatusEffect : MonoBehaviour
             {
                 unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect;
                 totalValueApplied += valueOfEffect;
+                if (appliesToBaseStats)
+                {
+                    unit.GetStats()[(int)statValueToAffect] += valueOfEffect;
+                }
             }
         }
     }

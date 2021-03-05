@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1657632237462955480
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2166765551097902125}
+  - component: {fileID: 8583054335787122863}
+  m_Layer: 0
+  m_Name: Perk_Focus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2166765551097902125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657632237462955480}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.8143544, y: 53.15462, z: -27.587515}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8583054335787122863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1657632237462955480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e5d23453fcf2d9428e851972eec87e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
+  uniqueName: Perk_Focus
+  equippableBitFlag: 
+  singleApplication: 1
+  effects:
+  - {fileID: 684568006157779226, guid: 2f9e7243250c62e4da3eb8db15b6a2ed, type: 3}
+  - {fileID: 5544629084021034619, guid: e5ea350b92a6a3b45b4ca1bb87885512, type: 3}
+  - {fileID: 6453608966041792397, guid: 7e058a97e8fe1bd47b123aa71ad04622, type: 3}
+  secondaryEffects:
+  - {fileID: 8685177431121216336, guid: edf8dcc64fd10a74d978ea6ded20b308, type: 3}
+  - {fileID: 4405504692723392750, guid: eb19e148089dc814498241a11a27d7d3, type: 3}
+  - {fileID: 4513043554739786812, guid: e71165f625cfebe45972034c2c4f92a1, type: 3}
+  applyToMainTargetAgain: 1

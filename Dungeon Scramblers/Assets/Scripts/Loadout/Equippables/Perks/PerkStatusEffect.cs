@@ -5,6 +5,7 @@ using UnityEngine;
 //Equippable that applies a status effect to the equipper
 public class PerkStatusEffect : Perk
 {
+    //list of effects to be applied
     [SerializeField]
     protected StatusEffect[] effects;
 

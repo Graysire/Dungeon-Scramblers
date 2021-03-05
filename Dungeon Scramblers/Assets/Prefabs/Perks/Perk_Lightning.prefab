@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3443384552859282511}
   - component: {fileID: 3443384552859282510}
-  - component: {fileID: 9162275925680288198}
   m_Layer: 0
   m_Name: Perk_Lightning
   m_TagString: Untagged
@@ -46,26 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Perk_Lightning
+  equippableBitFlag: 
+  singleApplication: 0
   effects:
-  - {fileID: 9162275925680288198}
---- !u!114 &9162275925680288198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3443384552859282509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusName: Perk_Lightning
-  doesReapply: 0
-  resetEffectOnHit: 0
-  waitTimeToApplyAgain: 0
-  isPermanent: 0
-  timeTillEnd: 9000
-  valueOfEffect: 800
-  statValueToAffect: 1
-  reverseEffectOnEnd: 1
+  - {fileID: 8189357857471724576, guid: 9ffe46e69a434ec4fb2d98217abc0323, type: 3}

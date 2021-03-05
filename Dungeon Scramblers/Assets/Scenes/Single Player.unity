@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc7adca791eaf242a852c7bc88742a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perkList: {fileID: 1674495980848193811, guid: 42eb43b99993bc5458bd9e105efb0edd, type: 3}
+  perkList: {fileID: 1674495980848193811, guid: b51a45fc3dfd2e146b0efd94609f5c6a, type: 3}
 --- !u!114 &457851448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +166,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 344e967d07d7f094f8e7116d85fe3556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  e: {fileID: 2652015777586013772, guid: 0905b2aede51e55499dee51b6df09faa, type: 3}
 --- !u!4 &457851449
 Transform:
   m_ObjectHideFlags: 0
@@ -351,14 +350,6 @@ PrefabInstance:
     - target: {fileID: 2114680770838200914, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_Name
       value: Scrambler
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[2]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
-      propertyPath: stats.Array.data[1]
-      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_LocalPosition.x
