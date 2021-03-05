@@ -135,12 +135,18 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
     public void ResetProjectiles()
     {
-        this.gameObject.SetActive(false);
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            photonView.RPC("ResetProjectiles", RpcTarget.Others);
+        }
+        
         totalTime = 0f;
         numHits = 0;
         ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
+        this.gameObject.SetActive(false);
     }
 }
