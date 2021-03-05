@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6579558388258235054
+--- !u!1 &6453608966041792394
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,44 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8505140837186731163}
-  - component: {fileID: 6892560536673868786}
+  - component: {fileID: 6453608966041792396}
+  - component: {fileID: 6453608966041792397}
   m_Layer: 0
-  m_Name: Perk_CatsEye
+  m_Name: Perk_Focus Health Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8505140837186731163
+--- !u!4 &6453608966041792396
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6579558388258235054}
+  m_GameObject: {fileID: 6453608966041792394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.6519993, y: 7.5789847, z: -267.93347}
+  m_LocalPosition: {x: -4.8143544, y: 53.15462, z: -27.587515}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6892560536673868786
+--- !u!114 &6453608966041792397
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6579558388258235054}
+  m_GameObject: {fileID: 6453608966041792394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5223afa263902ba4a9baff7df7708fc2, type: 3}
+  m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: 00000000000000000000000000000000000000000000000000000000
-  uniqueName: Perk_CatsEye
-  equippableBitFlag: 
-  singleApplication: 0
-  effects:
-  - {fileID: 1635676625713215124, guid: 6b12a1b33fc26d44eb1d6555334a268a, type: 3}
+  statusName: Perk_Focus_Health
+  doesReapply: 0
+  canStack: 1
+  resetEffectOnHit: 0
+  appliesToBaseStats: 1
+  waitTimeToApplyAgain: 2
+  isPermanent: 1
+  timeTillEnd: 2
+  valueOfEffect: 3000
+  statValueToAffect: 0
+  reverseEffectOnEnd: 1
