@@ -22,7 +22,7 @@ tree("Move")
 	fallback
 		sequence
 			while SeePlayerAndSetTarget
-				sequence
+				fallback
 					while not AtStoppingDistance
 						MoveToPlayer
 					while AtStoppingDistance
