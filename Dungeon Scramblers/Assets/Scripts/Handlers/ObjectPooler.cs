@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class ObjectPooler : MonoBehaviour
+public class ObjectPooler : MonoBehaviourPunCallbacks
 {
     // Layer assignment on instantiation 
     public static ObjectPooler sharedInstance;
     [SerializeField] protected GameObject objectToPool; // add another instance of this script on the GO to pool another object
     [SerializeField] protected int amountToPool;
     protected List<GameObject> objectsPooled;
+    
     private void Awake()
     {
         sharedInstance = this;
+
     }
     private void OnEnable()
     {
@@ -24,6 +26,7 @@ public class ObjectPooler : MonoBehaviour
         UpdateHandler.StartOccurred -= PoolObjectAtStart;
     }
 
+    [PunRPC]
     protected void PoolObjectAtStart() {
         objectsPooled = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
@@ -33,6 +36,7 @@ public class ObjectPooler : MonoBehaviour
             if (PhotonNetwork.CurrentRoom != null)
             {
                 go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
+                photonView.RPC("PoolObjectAtStart", RpcTarget.OthersBuffered);
             }
             else
             {
@@ -42,8 +46,12 @@ public class ObjectPooler : MonoBehaviour
             objectsPooled.Add(go);
         }
     }
-
+    [PunRPC]
     public GameObject GetPooledObject() {
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            photonView.RPC("GetPooledObject", RpcTarget.OthersBuffered);
+        }
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
                 objectsPooled[i].SetActive(true);
@@ -54,6 +62,8 @@ public class ObjectPooler : MonoBehaviour
         if (PhotonNetwork.CurrentRoom != null)
         {
             go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
+               
+           
         }
         else
         {
@@ -64,9 +74,9 @@ public class ObjectPooler : MonoBehaviour
         return objectsPooled[objectsPooled.Count - 1];
     }
 
-   // [PunRPC]
+    [PunRPC]
     public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
-        //GetComponent<PhotonView>().RPC("GetPooledObject", RpcTarget.AllBuffered);
+        //photonView.RPC("GetPooledObject", RpcTarget.All);
 
         //initialize this object since it is new
         if (objectsPooled == null)

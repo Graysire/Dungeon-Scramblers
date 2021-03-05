@@ -34,11 +34,10 @@ public class DefaultAttackSequence : Equippable
         }
         pV = GetComponent<PhotonView>();
     }
-   // [PunRPC]
+
     public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
-       // if (PhotonNetwork.CurrentRoom != null)
-          //  photonView.RPC("Attack", RpcTarget.AllBufferedViaServer);
+
         this.AttackDirection = AttackDirection;
         this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");

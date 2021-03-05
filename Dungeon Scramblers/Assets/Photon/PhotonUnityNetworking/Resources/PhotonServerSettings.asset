@@ -43,6 +43,8 @@ MonoBehaviour:
   - RequestAttack
   - AttackSequence
   - ResetProjectiles
+  - GetPooledObject
+  - PoolObjectAtStart
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

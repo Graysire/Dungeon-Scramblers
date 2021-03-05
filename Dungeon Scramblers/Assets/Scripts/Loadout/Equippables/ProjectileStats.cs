@@ -93,10 +93,20 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
+                //Being called multiple Times
                 ResetProjectiles();
             }
         }
 
+    }
+    private void OnDisable()
+    {
+        Debug.Log("Object Turned off");
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("");
     }
 
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
@@ -135,13 +145,13 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
+    //[PunRPC]
     public void ResetProjectiles()
     {
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            photonView.RPC("ResetProjectiles", RpcTarget.Others);
-        }
+        //if (PhotonNetwork.CurrentRoom != null)
+        //{
+        //    photonView.RPC("ResetProjectiles", RpcTarget.Others);
+        //}
         
         totalTime = 0f;
         numHits = 0;
