@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class DefaultAttackSequence : Equippable
 {
@@ -17,6 +18,7 @@ public class DefaultAttackSequence : Equippable
     //the slot this fills when given to a player, i.e. 0 is basic attack
     protected int abilitySlot = 0;
 
+    private PhotonView pV;
     private void Start()
     {
         // Find object pooler child GameObject
@@ -30,18 +32,23 @@ public class DefaultAttackSequence : Equippable
                 break;
             }
         }
+        pV = GetComponent<PhotonView>();
     }
-
+   // [PunRPC]
     public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
+       // if (PhotonNetwork.CurrentRoom != null)
+          //  photonView.RPC("Attack", RpcTarget.AllBufferedViaServer);
         this.AttackDirection = AttackDirection;
         this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
-
+    [PunRPC]
     protected virtual IEnumerator AttackSequence()
     {
+        //Call This function on other players
+
         // Disallow further attacks while the unit is casting
         Unit.SetAllowedToAttack(false);
 

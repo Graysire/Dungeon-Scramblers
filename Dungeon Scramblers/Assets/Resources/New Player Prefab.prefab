@@ -3170,8 +3170,8 @@ MonoBehaviour:
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList:
-  - {fileID: 3940147794213505563, guid: 925b6f5bb19d28b40a0f80cdccbbf089, type: 3}
-  - {fileID: 6242800877514398001, guid: fb21cb440ed49dc4fbdf4c893481de62, type: 3}
+  - {fileID: 3940147794213505563, guid: c20195ba4ed5d8e4fad0dc9b7d21b6c2, type: 3}
+  - {fileID: 6242800877514398001, guid: 9fb91e3a887c2174e9022bf72c0f559f, type: 3}
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   isDead: 0
@@ -3238,7 +3238,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 424624744661482047}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

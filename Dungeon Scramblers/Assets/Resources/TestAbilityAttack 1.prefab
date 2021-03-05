@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3940147794213505563
+--- !u!1 &6242800877514398001
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3940147794213505561}
-  - component: {fileID: 3940147794213505562}
-  - component: {fileID: -1327400690779752893}
+  - component: {fileID: 6242800877514398007}
+  - component: {fileID: 6242800877514398006}
+  - component: {fileID: -7558920546839552878}
   m_Layer: 0
-  m_Name: TestBasicAttack
+  m_Name: TestAbilityAttack 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3940147794213505561
+--- !u!4 &6242800877514398007
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3940147794213505563}
+  m_GameObject: {fileID: 6242800877514398001}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6498161201760164417}
+  - {fileID: 8892859850966458455}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3940147794213505562
+--- !u!114 &6242800877514398006
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3940147794213505563}
+  m_GameObject: {fileID: 6242800877514398001}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
@@ -48,15 +48,15 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: 
   equippableBitFlag: 
-  Projectile: {fileID: 4983767609826630315, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
-  abilitySlot: 0
---- !u!114 &-1327400690779752893
+  Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  abilitySlot: 1
+--- !u!114 &-7558920546839552878
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3940147794213505563}
+  m_GameObject: {fileID: 6242800877514398001}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
@@ -72,7 +72,7 @@ MonoBehaviour:
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!1 &6498161201760164422
+--- !u!1 &8892859850966458452
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,8 +80,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6498161201760164417}
-  - component: {fileID: 6498161201760164416}
+  - component: {fileID: 8892859850966458455}
+  - component: {fileID: 8892859850966458454}
   m_Layer: 0
   m_Name: Object Pooler
   m_TagString: Object Pooler
@@ -89,31 +89,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6498161201760164417
+--- !u!4 &8892859850966458455
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498161201760164422}
+  m_GameObject: {fileID: 8892859850966458452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3940147794213505561}
+  m_Father: {fileID: 6242800877514398007}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6498161201760164416
+--- !u!114 &8892859850966458454
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6498161201760164422}
+  m_GameObject: {fileID: 8892859850966458452}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa3b8144ef130784cbf04902d9c31296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 4427557190297321068, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
-  amountToPool: 2
+  objectToPool: {fileID: 4427557190297321068, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  amountToPool: 1
