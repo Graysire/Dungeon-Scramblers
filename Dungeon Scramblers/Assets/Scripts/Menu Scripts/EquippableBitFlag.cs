@@ -3,25 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using Doozy.Engine.UI;
 
-public class EquippableBitFlag : MonoBehaviour
+public class EquippableBitFlag : BitCategories
 {
     // Refer to this link for Bitcode legend: https://docs.google.com/spreadsheets/d/12xuLHZSDCkMI4G0byxqrIRxpuUSsBOtuQ4uvpDbt47w/edit#gid=0
 
-    public string playerBitFlag;    //Stores which player inventory to change 
-    public string bitFlagCode;      //Stores the bits of the equippable this object relates to
+    public int bitEnum;              //Determines the enum type of the ability. Must be 1, 2, 3, 4, or 5. Check BitCategories (Superclass) for representation. 
+    public string playerBitFlag;     //Stores which player inventory to change 
+    public string bitFlagCode;       //Stores the bits of the equippables this object relates to
+    public MenuManager menuManager;  //The menu manager that we want to send the info to
 
-    public UIButton armorButton;    //The button that must be pressed to set this equippable as the selected equippable for category
+    private BitCategory valueType;   //Used for getting the BitCategory enum val
 
-    // Start is called before the first frame update
-    void Start()
+    //Sends the relevant info to Menu Manager
+    public void SendBitInfo()
     {
-        
-    }
+        //Determine the type of the equippable by using the given bitEnum value
+        if (bitEnum == (int)BitCategory.ability2) { valueType = BitCategory.ability2; }
+        else if (bitEnum == (int)BitCategory.ability1) { valueType = BitCategory.ability1; }
+        else if(bitEnum == (int)BitCategory.armor) { valueType = BitCategory.armor; }
+        else if(bitEnum == (int)BitCategory.weapon) { valueType = BitCategory.weapon; }
+        else if(bitEnum == (int)BitCategory.playerType) { valueType = BitCategory.playerType; }
+        else { Debug.Log("bitEnum not set! Please set to valid value! "); }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-
+        //Send data to menu manager
+        menuManager.GetBitInfo(playerBitFlag, bitFlagCode, valueType);
     }
 }
+

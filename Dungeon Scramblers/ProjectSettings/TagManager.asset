@@ -9,6 +9,7 @@ TagManager:
   - Object Pooler
   - AI
   - Shield
+  - MenuManager
   layers:
   - Default
   - TransparentFX

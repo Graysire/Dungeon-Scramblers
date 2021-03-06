@@ -11,57 +11,40 @@ using UnityEngine;
 
 //https://docs.unity3d.com/Manual/script-Serialization.html
 //https://docs.unity3d.com/Manual/script-Serialization-Custom.html
-
-
-
 //Bitmasking: https://www.alanzucconi.com/2015/07/26/enum-flags-and-bitwise-operators/ | https://alemil.com/bitmask
 
 [System.Serializable]
 public class SaveLoad
-{
-    /*
-     * This class will couple with the Menu Manager which will run calls onto here
-     */
-
-    public Loadout[] savedLoadouts = new Loadout[4]; // Stores the list of loadouts that a player will have
-    /*  Index  |  Class Stored at Index
-     *    0             Mage
-     *    1             Knight
-     *    2             Rogue
-     *    3             Overlord 
-     */
-
-    /*
-     * Bug: Cannot save Jagged arrays. Must find way to save each loadout and read from files
-     * Possible Fix: Make a file for each loadout and other file types
-     */
-
+{ 
     //Saves the data into a file
-    public void Save(int num)
+    public void Save(BitPacket bp)
     {
         Debug.Log("Saving Data!");
 
         BinaryFormatter bf = new BinaryFormatter(); //converts data to binary
-        FileStream file = File.Open(GetFilePath(num), FileMode.Open); //Open file
-        bf.Serialize(file, savedLoadouts); //saves data into file
+        FileStream file = File.Open(GetFilePath(), FileMode.Open); //Open file
+        bf.Serialize(file, bp); //saves data into file
         file.Close(); //close the file
     }
 
+
     //Loads the data from a file
-    public void Load(int num)
+    public BitPacket Load()
     {
         Debug.Log("Loading Data!");
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(GetFilePath(num), FileMode.Open); //Open file
-        savedLoadouts = (Loadout[])bf.Deserialize(file); //Load data from file
+        FileStream file = File.Open(GetFilePath(), FileMode.Open); //Open file
+        BitPacket bp = (BitPacket)bf.Deserialize(file);   //Load data from file
         file.Close();
+        return bp;
     }
 
+
     //Checks if the data file exists
-    public bool FileExists(int num)
+    public bool FileExists()
     {
-        if (File.Exists(GetFilePath(num)))
+        if (File.Exists(GetFilePath()))
         {
             Debug.Log("File Exists!");
             return true;
@@ -70,38 +53,32 @@ public class SaveLoad
         return false;
     }
 
+
     //Initializes a file with data
-    public void InitializeFile(int num)
+    public void InitializeFile()
     {
         Debug.Log("Initializing File with Data!");
-        //TO DO: Fill savedLoadouts with default data
+
+        BitPacket bp = new BitPacket(); //bitpacket to save into file
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(GetFilePath(num));
-        bf.Serialize(file, savedLoadouts);
+        FileStream file = File.Create(GetFilePath());
+        bf.Serialize(file, bp);
         file.Close();
     }
-
-    //Sets the data of the inventory at the given index
-    public void ChangeData(int index, Loadout loadout)
-    {
-        if (index < savedLoadouts.Length && index >= 0)
-        {
-            Debug.Log("Editing data at i: " + index);
-            savedLoadouts[index] = loadout;
-        }
-    }
     
+
     //Deletes the saved file information
-    public void DeleteSaveFile(int num)
+    public void DeleteSaveFile()
     {
         Debug.Log("Deleting File");
-        File.Delete(GetFilePath(num));
+        File.Delete(GetFilePath());
     }
 
+
     //Gets the string of the file path
-    private string GetFilePath(int num)
+    private string GetFilePath()
     {
-        return Application.persistentDataPath + "/savedLoadouts" + num + ".txt";
+        return Application.persistentDataPath + "/bitPacket.txt";
     }
 }

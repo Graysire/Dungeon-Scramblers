@@ -5,7 +5,7 @@ using UnityEngine;
 //Handles the storage of all equippables for a single player
 //Game Manager will use this to apply equippables stats and instantiate them
 //to the player. 
-[System.Serializable]
+
 public class Loadout : MonoBehaviour
 {
     private List<Equippable> Equippables;    //Stores all equippables a player has

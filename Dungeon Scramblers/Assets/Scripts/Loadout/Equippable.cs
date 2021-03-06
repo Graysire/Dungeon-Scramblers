@@ -5,7 +5,7 @@ using UnityEngine;
 //Parent class of DefaultAttackSequence, Armor and Perk classes.
 //Will be used to identify the equippable type and name so that it can be retrived
 //by Game Manager for player stat/abilities instantiation
-[System.Serializable]
+
 public class Equippable : HasStats
 {
     [SerializeField]
