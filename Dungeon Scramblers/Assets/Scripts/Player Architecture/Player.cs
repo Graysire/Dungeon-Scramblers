@@ -169,12 +169,12 @@ public class Player : AbstractPlayer
                 animator.SetBool("facingFront", true);
             }
             animator.SetBool("idle", true);*/
-            if (enabledAnimatorInd == 2) 
-                SwitchAnimatorGO(0, false);
-            //enabledAnim.SetBool("idle", true);
+            /*if (enabledAnimatorInd == 2) 
+                SwitchAnimatorGO(0, false);*/
+            enabledAnim.SetBool("idle", true);
         }
         else {
-            //enabledAnim.SetBool("idle", false);
+            enabledAnim.SetBool("idle", true);
             // Moving Down (front-facing)
             if (d.y < 0 && d.x == 0 && enabledAnimatorInd != 0)
             {
@@ -206,6 +206,7 @@ public class Player : AbstractPlayer
                 else if (d.x > 0 && sr.flipX)
                     sr.flipX = false;
             }
+            enabledAnim.SetBool("idle", false);
         }
         // Actual movement
         direction = new Vector2(d.x, d.y);
