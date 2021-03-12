@@ -26,7 +26,7 @@ public class EquippableBitFlag : BitCategories
         else { Debug.Log("bitEnum not set! Please set to valid value! "); }
 
         //Send data to menu manager
-        menuManager.GetBitInfo(playerBitFlag, bitFlagCode, valueType);
+        menuManager.RetrieveBitInfo(playerBitFlag, bitFlagCode, valueType);
     }
 }
 

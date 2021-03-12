@@ -61,7 +61,7 @@ public class MenuManager : BitCategories
     }
 
     //Recieves the playertype bit flag, equippable bitflag, and BitCategory of the equippaable
-    public void GetBitInfo(string playerBitFlag, string bitFlagCode, BitCategory category)
+    public void RetrieveBitInfo(string playerBitFlag, string bitFlagCode, BitCategory category)
     {
         //mage
         if (playerBitFlag == "000")
@@ -104,26 +104,33 @@ public class MenuManager : BitCategories
     //Clears the bits for the given equippable category so it can be applied without leftover bits from previous applies
     private int ClearForApply(int valToModify, BitCategory category)
     {
-        string b = "1111";
-        int bits = Convert.ToInt32(b, 2);
+        string b = "";
         int mask = 0;
 
         //Creates the mask for the category
         if (category == BitCategory.weapon)
         {
-            mask = (bits << 25);
+            b = "11111";
+            int bits = Convert.ToInt32(b, 2);
+            mask = (bits << 24);
         }
         if (category == BitCategory.armor)
         {
-            mask = (bits << 21);
+            b = "11111";
+            int bits = Convert.ToInt32(b, 2);
+            mask = (bits << 19);
         }
         if (category == BitCategory.ability1)
         {
-            mask = (bits << 17);
+            b = "111111";
+            int bits = Convert.ToInt32(b, 2);
+            mask = (bits << 13);
         }
         if (category == BitCategory.ability2)
         {
-            mask = (bits << 13);
+            b = "111111";
+            int bits = Convert.ToInt32(b, 2);
+            mask = (bits << 7);
         }
 
         valToModify &= ~(mask);
@@ -143,21 +150,78 @@ public class MenuManager : BitCategories
         //Shifts bits to end of 32 bit integer
         if (category == BitCategory.weapon)
         {
-            inventory = inventory | (bits << 25);
+            inventory = inventory | (bits << 24);
         }
         if (category == BitCategory.armor)
         {
-            inventory = inventory | (bits << 21);
+            inventory = inventory | (bits << 19);
         }
         if (category == BitCategory.ability1)
         {
-            inventory = inventory | (bits << 17);
+            inventory = inventory | (bits << 13);
         }
         if (category == BitCategory.ability2)
         {
-            inventory = inventory | (bits << 13);
+            inventory = inventory | (bits << 7);
         }
 
         return inventory;
+    }
+
+    //Provided the player bit flag and the category of the item type wanted, this returns 
+        //the item code for the player
+    public int GetInventoryCode(string playerBitFlag, BitCategory category)
+    {
+        int code = 0;
+        //mage
+        if (playerBitFlag == "000")
+        {
+            code = GetCode(tempMageInvBitsPacked, category);
+        }
+        //knight
+        if (playerBitFlag == "001")
+        {
+            code = GetCode(tempKnightInvBitsPacked, category);
+        }
+        //rogue
+        if (playerBitFlag == "010")
+        {
+            code = GetCode(tempRogueInvBitsPacked, category);
+        }
+        //overlord
+        if (playerBitFlag == "011")
+        {
+            code = GetCode(tempOverlordInvBitsPacked, category);
+        }
+
+        return code;
+    }
+
+
+    //Retrieves the code at of the inventory given the category
+    private int GetCode(int inventory, BitCategory category)
+    {
+        int code = inventory;
+        if (category == BitCategory.weapon)
+        {
+            code = code << 3;
+            code = code >> 27;
+        }
+        if (category == BitCategory.armor)
+        {
+            code = code << 8;
+            code = code >> 27;
+        }
+        if (category == BitCategory.ability1)
+        {
+            code = code << 13;
+            code = code >> 26;
+        }
+        if (category == BitCategory.ability2)
+        {
+            code = code << 19;
+            code = code >> 26;
+        }
+        return code;
     }
 }
