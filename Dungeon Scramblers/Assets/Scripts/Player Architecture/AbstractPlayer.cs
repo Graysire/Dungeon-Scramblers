@@ -110,6 +110,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
 
     protected virtual void Awake()
     {
+        
         //set player affectedStats equal to their stats
         for (int i = 0; i < stats.Length; i++)
         {
