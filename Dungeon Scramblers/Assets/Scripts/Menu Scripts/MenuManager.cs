@@ -6,18 +6,11 @@ using System;
 public class MenuManager : MonoBehaviour
 {
 
-    /*
-     * Responsible for getting player data for Audio settings and Loadout preferences
-     * and sending the data to the SaveLoad system.
-     */
-
-
     //Bit representation document
     //https://docs.google.com/spreadsheets/d/12xuLHZSDCkMI4G0byxqrIRxpuUSsBOtuQ4uvpDbt47w/edit#gid=0
 
     SaveLoad saveLoad = new SaveLoad();         //Saves and loads data from file
     BitPacket bitPacket = new BitPacket();      //Stores the data to be saved
-    BitCategories bc = new BitCategories();     //Used for checking category of bits
 
     private int tempMageInvBitsPacked = 0;      //The saved mage bits
     private int tempKnightInvBitsPacked = 0;    //The saved knight bits
@@ -37,6 +30,8 @@ public class MenuManager : MonoBehaviour
         }
 
         LoadData(); //Load the saved data to local variables
+
+
     }
 
     //Loads the data into the temp bits
@@ -62,10 +57,10 @@ public class MenuManager : MonoBehaviour
     }
 
     //Recieves the playertype bit flag, equippable bitflag, and BitCategory of the equippaable
-    public void RetrieveBitInfo(string playerBitFlag, string bitFlagCode, BitCategories.BitCategory category)
+    public void RetrieveBitInfo(Categories.PlayerCategories playerCategory, string bitFlagCode, Categories.BitCategory category)
     {
         //mage
-        if (playerBitFlag == "000")
+        if (playerCategory == Categories.PlayerCategories.mage)
         {
             //Clear the region where we apply
             tempMageInvBitsPacked = ClearForApply(tempMageInvBitsPacked, category);
@@ -74,7 +69,7 @@ public class MenuManager : MonoBehaviour
             Debug.Log(Convert.ToString(tempMageInvBitsPacked, 2).PadLeft(32, '0'));
         }
         //knight
-        if (playerBitFlag == "001")
+        if (playerCategory == Categories.PlayerCategories.knight)
         {
             //Clear the region where we apply
             tempKnightInvBitsPacked = ClearForApply(tempKnightInvBitsPacked, category);
@@ -83,7 +78,7 @@ public class MenuManager : MonoBehaviour
             Debug.Log(Convert.ToString(tempKnightInvBitsPacked, 2).PadLeft(32, '0'));
         }
         //rogue
-        if (playerBitFlag == "010")
+        if (playerCategory == Categories.PlayerCategories.rogue)
         {
             //Clear the region where we apply
             tempRogueInvBitsPacked = ClearForApply(tempRogueInvBitsPacked, category);
@@ -92,7 +87,7 @@ public class MenuManager : MonoBehaviour
             Debug.Log(Convert.ToString(tempRogueInvBitsPacked, 2).PadLeft(32, '0'));
         }
         //overlord
-        if (playerBitFlag == "011")
+        if (playerCategory == Categories.PlayerCategories.overlord)
         {
             //Clear the region where we apply
             tempOverlordInvBitsPacked = ClearForApply(tempOverlordInvBitsPacked, category);
@@ -103,31 +98,31 @@ public class MenuManager : MonoBehaviour
     }
 
     //Clears the bits for the given equippable category so it can be applied without leftover bits from previous applies
-    private int ClearForApply(int valToModify, BitCategories.BitCategory category)
+    private int ClearForApply(int valToModify, Categories.BitCategory category)
     {
         string b = "";
         int mask = 0;
 
         //Creates the mask for the category
-        if (category == bc.weapon)
+        if (category == Categories.BitCategory.weapon)
         {
             b = "11111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 24);
         }
-        if (category == bc.armor)
+        if (category == Categories.BitCategory.armor)
         {
             b = "11111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 19);
         }
-        if (category == bc.ability1)
+        if (category == Categories.BitCategory.ability1)
         {
             b = "111111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 13);
         }
-        if (category == bc.ability2)
+        if (category == Categories.BitCategory.ability2)
         {
             b = "111111";
             int bits = Convert.ToInt32(b, 2);
@@ -140,7 +135,7 @@ public class MenuManager : MonoBehaviour
     }
 
     //Applies the data to the correct temp bitstring
-    private int ApplyBitsToTemp(string bitFlagCode, BitCategories.BitCategory category)
+    private int ApplyBitsToTemp(string bitFlagCode, Categories.BitCategory category)
     {
         int inventory = 0;
 
@@ -149,19 +144,19 @@ public class MenuManager : MonoBehaviour
 
         //Pack bits together
         //Shifts bits to end of 32 bit integer
-        if (category == bc.weapon)
+        if (category == Categories.BitCategory.weapon)
         {
             inventory = inventory | (bits << 24);
         }
-        if (category == bc.armor)
+        if (category == Categories.BitCategory.armor)
         {
             inventory = inventory | (bits << 19);
         }
-        if (category == bc.ability1)
+        if (category == Categories.BitCategory.ability1)
         {
             inventory = inventory | (bits << 13);
         }
-        if (category == bc.ability2)
+        if (category == Categories.BitCategory.ability2)
         {
             inventory = inventory | (bits << 7);
         }
@@ -169,30 +164,30 @@ public class MenuManager : MonoBehaviour
         return inventory;
     }
 
-    //Provided the player bit flag and the category of the item type wanted, this returns 
+    //Provided the player enum and the category of the item type wanted, this returns 
         //the item code for the player
-    public int GetInventoryCode(string playerBitFlag, BitCategories.BitCategory category)
+    public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.BitCategory category)
     {
         int code = 0;
         //mage
-        if (playerBitFlag == "000")
+        if (playerCategory == Categories.PlayerCategories.mage)
         {
-            code = GetCode(tempMageInvBitsPacked, category);
+            code = GetCode(bitPacket.mageInvBitsPacked, category);
         }
         //knight
-        if (playerBitFlag == "001")
+        if (playerCategory == Categories.PlayerCategories.knight)
         {
-            code = GetCode(tempKnightInvBitsPacked, category);
+            code = GetCode(bitPacket.knightInvBitsPacked, category);
         }
         //rogue
-        if (playerBitFlag == "010")
+        if (playerCategory == Categories.PlayerCategories.rogue)
         {
-            code = GetCode(tempRogueInvBitsPacked, category);
+            code = GetCode(bitPacket.rogueInvBitsPacked, category);
         }
         //overlord
-        if (playerBitFlag == "011")
+        if (playerCategory == Categories.PlayerCategories.overlord)
         {
-            code = GetCode(tempOverlordInvBitsPacked, category);
+            code = GetCode(bitPacket.overlordInvBitsPacked, category);
         }
 
         return code;
@@ -200,25 +195,25 @@ public class MenuManager : MonoBehaviour
 
 
     //Retrieves the code at of the inventory given the category
-    private int GetCode(int inventory, BitCategories.BitCategory category)
+    private int GetCode(int inventory, Categories.BitCategory category)
     {
         int code = inventory;
-        if (category == bc.weapon)
+        if (category == Categories.BitCategory.weapon)
         {
             code = code << 3;
             code = code >> 27;
         }
-        if (category == bc.armor)
+        if (category == Categories.BitCategory.armor)
         {
             code = code << 8;
             code = code >> 27;
         }
-        if (category == bc.ability1)
+        if (category == Categories.BitCategory.ability1)
         {
             code = code << 13;
             code = code >> 26;
         }
-        if (category == bc.ability2)
+        if (category == Categories.BitCategory.ability2)
         {
             code = code << 19;
             code = code >> 26;

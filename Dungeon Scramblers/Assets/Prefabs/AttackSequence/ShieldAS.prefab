@@ -89,5 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Shield
+  equippableBitFlag: 000001
+  bitCategory: 4
   Projectile: {fileID: -2382444479167826345, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
+  abilitySlot: 0

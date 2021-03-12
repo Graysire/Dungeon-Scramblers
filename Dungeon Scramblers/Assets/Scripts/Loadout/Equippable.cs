@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 //Parent class of DefaultAttackSequence, Armor and Perk classes.
 //Will be used to identify the equippable type and name so that it can be retrived
@@ -14,17 +15,11 @@ public class Equippable : HasStats
 
     // Refer to this link for Bitcode legend: https://docs.google.com/spreadsheets/d/12xuLHZSDCkMI4G0byxqrIRxpuUSsBOtuQ4uvpDbt47w/edit#gid=0
     [SerializeField]
-    protected string equippableBitFlag;
+    private string equippableBitFlag;
 
-    //Enum for determining the type of the equippable
+    // Contains categories for equippable
     [SerializeField]
-    protected enum EquippableType
-    {
-        ability = 0,    //Identifier for basic abilities a player can use
-        perk = 1,       //Identifier for passive ability or perk that players can equip
-        weapon = 2,     //Identifier for weapons that player can equip
-        armor = 3       //Identifier for armor types the player can equip
-    }
+    private Categories.BitCategory bitCategory;
 
     //Returns the name of the Equippable
     public string GetEquippableName()
@@ -50,5 +45,15 @@ public class Equippable : HasStats
             player.GetStats()[i] -= stats[i];
             player.GetAffectedStats()[i] -= stats[i];
         }
+    }
+
+
+    //Given the bit code from inventory and category of code
+        //compare with this equippable to see if they match
+    public bool CompareWith(int bitCode, Categories.BitCategory bitCategory)
+    {
+        int thisCode = Convert.ToInt32(equippableBitFlag, 2);
+        if (thisCode == bitCode && bitCategory == this.bitCategory) { return true; }
+        return false;
     }
 }

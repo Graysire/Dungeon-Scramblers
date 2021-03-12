@@ -89,5 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Fireball
+  equippableBitFlag: 000000
+  bitCategory: 4
   Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  abilitySlot: 0
