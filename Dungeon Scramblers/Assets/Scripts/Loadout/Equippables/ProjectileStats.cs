@@ -19,7 +19,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     protected float DecayTime;
     // Define the move speed of the ability in unity units
     [SerializeField]
-    protected float MoveSpeed;
+    protected float MoveSpeed = 10;
     // Define the casting time after calling the ability
     [SerializeField]
     protected float CastingTime;
@@ -81,14 +81,55 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
 
     // This update will be added to update handler when all the ability function is ready to transition
-    void FixedUpdate()
+    //void FixedUpdate()
+    //{
+    //    // Check if Attack Direction exist
+    //    if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
+    //    {
+    //        // Increment time passed, position of the object, and position traveled
+
+    //        totalTime += Time.fixedDeltaTime;
+    //        Debug.Log("Total Time:" + totalTime);
+    //        Debug.Log("Attack Direction:" + AttackDir);
+    //        Debug.Log("Position: " + rb.position);
+    //        Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
+
+    //        rb.MovePosition(new Vector2(1, 1));
+
+    //        PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
+    //        // Check if position traveled or decay time threshold was met and proceed to destroy them
+    //        if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
+    //        {
+    //            //Being called multiple Times
+    //            ResetProjectiles();
+    //        }
+    //    }
+
+    //}
+
+    private void Awake()
+    {
+        if(PhotonNetwork.CurrentRoom == null)
+        {
+            GetComponent<PhotonRigidbody2DView>().enabled = false;
+        }
+    }
+
+    void Movement()
     {
         // Check if Attack Direction exist
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
             // Increment time passed, position of the object, and position traveled
+
             totalTime += Time.fixedDeltaTime;
+            Debug.Log("Total Time:" + totalTime);
+            Debug.Log("Attack Direction:" + AttackDir);
+            Debug.Log("Position: " + rb.position);
+            Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
+
             rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
+
             PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
@@ -97,15 +138,16 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
                 ResetProjectiles();
             }
         }
-
     }
     private void OnDisable()
     {
+        UpdateHandler.FixedUpdateOccurred -= Movement;
         Debug.Log("Object Turned off");
     }
 
     private void OnEnable()
     {
+        UpdateHandler.FixedUpdateOccurred += Movement;
         Debug.Log("");
     }
 

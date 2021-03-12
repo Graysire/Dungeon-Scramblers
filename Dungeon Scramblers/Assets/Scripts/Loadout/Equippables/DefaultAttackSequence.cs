@@ -69,13 +69,16 @@ public class DefaultAttackSequence : Equippable
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackNormal = (AttackEnd - Unit.transform.position).normalized;
 
+
         // Transform vector with quick if statements for returning offset for attacks
         Vector3 AttackTransform = Unit.transform.position + (RelativeAttackEnd.normalized * Projectile.GetOffsetScale());
 
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
-
+        
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
+        
+
 
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
 
