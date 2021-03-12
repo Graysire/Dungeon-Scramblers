@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3195452892618083144
+--- !u!1 &3587165632621172052
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4539413167138957403}
-  - component: {fileID: 9205726840364043169}
+  - component: {fileID: 6704138076113207213}
+  - component: {fileID: 6207873017271409354}
   m_Layer: 0
   m_Name: ObjectPooler
   m_TagString: Object Pooler
@@ -17,13 +17,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4539413167138957403
+--- !u!4 &6704138076113207213
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195452892618083144}
+  m_GameObject: {fileID: 3587165632621172052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,20 +31,20 @@ Transform:
   m_Father: {fileID: 4445104727419502640}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9205726840364043169
+--- !u!114 &6207873017271409354
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3195452892618083144}
+  m_GameObject: {fileID: 3587165632621172052}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa3b8144ef130784cbf04902d9c31296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 4427557190297321068, guid: 26e6b3572e609104c82d764a47aec790, type: 3}
-  amountToPool: 1
+  objectToPool: {fileID: 4427557190297321068, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  amountToPool: 2
 --- !u!1 &6497682061442774528
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4445104727419502640}
   - component: {fileID: 8219607087006386220}
   m_Layer: 0
-  m_Name: SpearAS
+  m_Name: FireBallAS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73,7 +73,7 @@ Transform:
   m_LocalPosition: {x: 2.0652585, y: 4.9962473, z: 0.0026826188}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4539413167138957403}
+  - {fileID: 6704138076113207213}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -89,14 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  uniqueName: Spear
-  Projectile: {fileID: 4983767609826630315, guid: 26e6b3572e609104c82d764a47aec790, type: 3}
+  stats: 00000000000000000000000000000000000000000000000000000000
+  uniqueName: Fireball
+  equippableBitFlag: 000000
+  bitCategory: 4
+  playerCategory: 1
+  Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
   abilitySlot: 0

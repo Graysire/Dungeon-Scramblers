@@ -43,8 +43,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3b8144ef130784cbf04902d9c31296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 4427557190297321068, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
-  amountToPool: 2
+  objectToPool: {fileID: 4427557190297321068, guid: 26e6b3572e609104c82d764a47aec790, type: 3}
+  amountToPool: 1
 --- !u!1 &6497682061442774528
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4445104727419502640}
   - component: {fileID: 8219607087006386220}
   m_Layer: 0
-  m_Name: ShieldAS
+  m_Name: SpearAS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,9 +89,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: 00000000000000000000000000000000000000000000000000000000
-  uniqueName: Shield
-  equippableBitFlag: 000001
-  bitCategory: 4
-  Projectile: {fileID: -2382444479167826345, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
+  stats: 01000000010000000100000001000000010000000100000001000000
+  uniqueName: Spear
+  equippableBitFlag: 00001
+  bitCategory: 2
+  playerCategory: 2
+  Projectile: {fileID: 4983767609826630315, guid: 26e6b3572e609104c82d764a47aec790, type: 3}
   abilitySlot: 0
