@@ -123,10 +123,10 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             // Increment time passed, position of the object, and position traveled
 
             totalTime += Time.fixedDeltaTime;
-            Debug.Log("Total Time:" + totalTime);
-            Debug.Log("Attack Direction:" + AttackDir);
-            Debug.Log("Position: " + rb.position);
-            Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
+            //Debug.Log("Total Time:" + totalTime);
+            //Debug.Log("Attack Direction:" + AttackDir);
+            //Debug.Log("Position: " + rb.position);
+            //Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
 
             rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
 
@@ -142,13 +142,11 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     private void OnDisable()
     {
         UpdateHandler.FixedUpdateOccurred -= Movement;
-        Debug.Log("Object Turned off");
     }
 
     private void OnEnable()
     {
         UpdateHandler.FixedUpdateOccurred += Movement;
-        Debug.Log("");
     }
 
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D

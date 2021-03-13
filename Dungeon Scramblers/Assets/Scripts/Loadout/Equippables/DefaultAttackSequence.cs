@@ -37,7 +37,6 @@ public class DefaultAttackSequence : Equippable
 
     public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
-
         this.AttackDirection = AttackDirection;
         this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");
@@ -61,10 +60,14 @@ public class DefaultAttackSequence : Equippable
 
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - Unit.transform.position;
-        float dot = Vector3.Dot(Unit.transform.up, RelativeAttackEnd);
+        float dot = Vector3.Dot(Unit.transform.right, RelativeAttackEnd);
 
         // Calculate the angle of the ability in radians with dot product formula A dot B = |A||B|cos(theta)
-        float AbilityAngle = Mathf.Acos(dot / (Unit.transform.up.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
+        float angle = Mathf.Acos(dot / (Unit.transform.right.magnitude * RelativeAttackEnd.magnitude)) * Mathf.Rad2Deg;
+
+        // Set the angle to be positive if on the right of the object. The angle will be convertred to negative if on the left side of the object
+        // This is because angle from dot product return the result in perspective with the reference vector, unit right vector in this case and they're not negative
+        float AbilityAngle = AttackEnd.y >= Unit.transform.position.y ? angle : -angle;
 
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackNormal = (AttackEnd - Unit.transform.position).normalized;
@@ -98,7 +101,7 @@ public class DefaultAttackSequence : Equippable
     }
 
     //Applies the layer for the attacks based on what layer the attack instigator is 
-    private void SetBulletLayer(Transform AbilityTransform)
+    protected void SetBulletLayer(Transform AbilityTransform)
     {
         if (gameObject.layer == LayerMask.NameToLayer("Scrambler"))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("ScramblerBullet");
