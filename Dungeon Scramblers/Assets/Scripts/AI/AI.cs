@@ -264,7 +264,10 @@ public class AI : AbstractPlayer
         if (allowedToAttack)
         {
             Debug.Log("Firing Attack!");
-            Vector3 direction = target - this.transform.position; //Get vector towards player to hit
+            //Get vector towards player to hit
+            Vector3 direction = new Vector3(target.x - this.transform.position.x,
+                                            target.y - this.transform.position.y,
+                                            0); 
             AttackList[0].StartAttack(direction, this); //AI will attack in direction of player
 
             Task.current.Succeed();
