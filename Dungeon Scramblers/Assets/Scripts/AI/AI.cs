@@ -24,7 +24,7 @@ public class AI : AbstractPlayer
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
-    public int expOnDeath = 1000;            // The amount of experience points AI gives to Scramblers on death
+    public int expOnDeath = 1000;               // The amount of experience points AI gives to Scramblers on death
     public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
     
 

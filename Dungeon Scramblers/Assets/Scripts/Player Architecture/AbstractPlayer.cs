@@ -6,6 +6,8 @@ using UnityEngine;
 //Contains the resources shared between the AI and players such as their ability to be damaged
 public abstract class AbstractPlayer : HasStats, IDamageable<int>
 {
+    [SerializeField]
+    DisplayBar HealthBar;
 
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected int[] affectedStats = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -141,8 +143,19 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
             damageTaken -= affectedStats[(int)Stats.defense];
         }
 
+        UpdateHealthbarUI();
+
         Debug.Log("Damage: " + damageTaken);
         affectedStats[(int)Stats.health] -= damageTaken;
+    }
+
+    //Updates the players Health UI
+    public void UpdateHealthbarUI()
+    {
+        if (HealthBar != null)
+        {
+            HealthBar.SetValue(affectedStats[0] / (float)stats[0]);
+        }
     }
 
     public virtual void Die()

@@ -159,6 +159,7 @@ public class StatusEffect : MonoBehaviour
         //If status is applied to same player again then time is reset -- subject to change
     public void ResetStatusTime()
     {
+        //Debug.Log("Status Resetting");
         //resets how long the status will last
         endTimeLeft = timeTillEnd;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status ends
         maxTimesApplied += timeTillEnd / waitTimeToApplyAgain;
@@ -188,7 +189,7 @@ public class StatusEffect : MonoBehaviour
     //ends this status effect
     public void EndEffect()
     {
-        //Debug.Log("Status Effect Ending...");
+        //Debug.Log("Status Ending");
         //reset the stat value to its original value
         if (reverseEffectOnEnd)
         {
@@ -229,6 +230,12 @@ public class StatusEffect : MonoBehaviour
         }
         timesApplied++;
         totalValueApplied += valueOfEffect * numStacks;
+
+        //if this status effect updates health then update the Health UI
+        if (statValueToAffect == HasStats.Stats.health)
+        {
+            unit.UpdateHealthbarUI();
+        }
     }
 
 
@@ -241,6 +248,7 @@ public class StatusEffect : MonoBehaviour
     //Reapplies this effect, adding stacks, resetting wait time and other functions as applicable
     public void ReapplyEffect()
     {
+        //Debug.Log("Status Reapplying");
         //if the duration of this effect resets on hit, reset it
         if (resetEffectOnHit)
         {

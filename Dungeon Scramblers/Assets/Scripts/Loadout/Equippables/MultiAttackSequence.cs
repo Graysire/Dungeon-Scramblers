@@ -35,10 +35,6 @@ public class MultiAttackSequence : DefaultAttackSequence
         float AbilityAngle2 = AbilityAngle + 15;
         float AbilityAngle3 = AbilityAngle - 15;
 
-        Debug.Log("Angle 1: " + AbilityAngle);
-        Debug.Log("Angle 2: " + AbilityAngle2);
-        Debug.Log("Angle 3: " + AbilityAngle3);
-
 
         Vector3 RelativeAttackEnd2 = new Vector3(RelativeAttackEnd.magnitude * Mathf.Cos(AbilityAngle2 * Mathf.Deg2Rad), RelativeAttackEnd.magnitude * Mathf.Sin(AbilityAngle2 * Mathf.Deg2Rad), 0);
         Vector3 RelativeAttackEnd3 = new Vector3(RelativeAttackEnd.magnitude * Mathf.Cos(AbilityAngle3 * Mathf.Deg2Rad), RelativeAttackEnd.magnitude * Mathf.Sin(AbilityAngle3 * Mathf.Deg2Rad), 0);
@@ -46,17 +42,6 @@ public class MultiAttackSequence : DefaultAttackSequence
         Vector3 AttackEnd2 = Unit.transform.position + RelativeAttackEnd2;
         Vector3 AttackEnd3 = Unit.transform.position + RelativeAttackEnd3;
         
-
-        Debug.Log("RAE 1: " + RelativeAttackEnd);
-        Debug.Log("RAE 2: " + RelativeAttackEnd2);
-        Debug.Log("RAE 3: " + RelativeAttackEnd3);
-
-        Debug.Log("AE 1: " + AttackEnd);
-        Debug.Log("AE 2: " + AttackEnd2);
-        Debug.Log("AE 3: " + AttackEnd3);
-
-        Debug.Log("Mag: " + AttackDirection.magnitude);
-
         // Normalize the direction of the attack for incrementing the attack movement
         Vector3 AttackNormal = (AttackEnd - Unit.transform.position).normalized ;
         Vector3 AttackNormal2 = (AttackEnd2 - Unit.transform.position).normalized;

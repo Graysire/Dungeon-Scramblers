@@ -7,18 +7,8 @@ using UnityEngine.InputSystem;
 public class Scrambler : Player
 {
     [SerializeField]
-    DisplayBar HealthBar;
-    [SerializeField]
     DisplayBar ExperienceBar;
 
-    public override void Damage(int damageTaken)
-    {
-        base.Damage(damageTaken);
-        if (HealthBar != null)
-        {
-            HealthBar.SetValue(affectedStats[0] / (float)stats[0]);
-        }
-    }
 
     public void updateExperience(float ratio)
     {

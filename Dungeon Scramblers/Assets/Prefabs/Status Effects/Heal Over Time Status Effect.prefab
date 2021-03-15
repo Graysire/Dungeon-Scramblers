@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7060164809401888669
+--- !u!1 &4407608006631283532
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7766048925451095550}
-  - component: {fileID: 2652015777586013772}
+  - component: {fileID: 6124235072622623604}
+  - component: {fileID: 3650725708379058194}
   m_Layer: 0
-  m_Name: Poison Status Effect
+  m_Name: Heal Over Time Status Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7766048925451095550
+--- !u!4 &6124235072622623604
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7060164809401888669}
+  m_GameObject: {fileID: 4407608006631283532}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.287439, y: 22.343338, z: -6.0313535}
+  m_LocalPosition: {x: -262.6908, y: -223.65063, z: 1029.6747}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2652015777586013772
+--- !u!114 &3650725708379058194
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7060164809401888669}
+  m_GameObject: {fileID: 4407608006631283532}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusName: Poison
+  statusName: Heal Over Time
   doesReapply: 1
   canStack: 0
-  resetEffectOnHit: 1
+  resetEffectOnHit: 0
   appliesToBaseStats: 0
-  waitTimeToApplyAgain: 2
+  waitTimeToApplyAgain: 250
   isPermanent: 0
   timeTillEnd: 1000
-  valueOfEffect: -200
+  valueOfEffect: 350
   statValueToAffect: 0
   reverseEffectOnEnd: 0
