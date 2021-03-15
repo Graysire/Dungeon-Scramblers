@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4445104727419502640}
-  - component: {fileID: 8219607087006386220}
+  - component: {fileID: 4893989185102064113}
   m_Layer: 0
   m_Name: ShotgunAS
   m_TagString: Untagged
@@ -77,7 +77,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8219607087006386220
+--- !u!114 &4893989185102064113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,11 +86,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6497682061442774528}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
+  m_Script: {fileID: 11500000, guid: 72a03488f1faa3c46bbbb72e1537624f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Shotgun Bullet
   equippableBitFlag: 
+  bitCategory: 0
   Projectile: {fileID: 7107550762299682137, guid: 04727e47e2d144245a031dbfceab3b65, type: 3}
   abilitySlot: 0

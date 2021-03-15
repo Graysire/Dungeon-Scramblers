@@ -84,13 +84,16 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             PoolObjectAtStart();
         }
 
+        //Modify ability angle to account for the rightward angle of reference
+        float angle = AbilityAngle - 90;
+
         for (int i = 0; i < objectsPooled.Count; i++)
         {
             if (!objectsPooled[i].activeSelf)
             {
                 objectsPooled[i].SetActive(true);
                 objectsPooled[i].transform.position = AttackTransform;
-                objectsPooled[i].transform.rotation = Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle);
+                objectsPooled[i].transform.rotation = Quaternion.Euler(0, 0, angle);
                 return objectsPooled[i];
             }
         }
@@ -98,12 +101,12 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom != null)
         {
             go = PhotonNetwork.Instantiate(objectToPool.name, AttackTransform,
-                    Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle));
+                    Quaternion.Euler(0, 0, angle));
         }
         else
         {
             go = Instantiate(objectToPool, AttackTransform,
-                    Quaternion.Euler(0, 0, AttackEnd.x >= Player.transform.position.x ? -AbilityAngle : AbilityAngle));
+                    Quaternion.Euler(0, 0, angle));
         }
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
