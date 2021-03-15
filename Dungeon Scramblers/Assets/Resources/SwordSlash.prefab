@@ -184,7 +184,8 @@ MonoBehaviour:
   CoolDown: 0.25
   OffsetScale: 1.5
   maxTargetsHit: 2
-  StatusEffects: []
+  StatusEffects:
+  - {fileID: 7375720166961574780, guid: 61386848867cb3b44a63d03b2971dd54, type: 3}
 --- !u!50 &7663104008351997961
 Rigidbody2D:
   serializedVersion: 4
