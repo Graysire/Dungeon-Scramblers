@@ -121,7 +121,6 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
             // Increment time passed, position of the object, and position traveled
-
             totalTime += Time.fixedDeltaTime;
             //Debug.Log("Total Time:" + totalTime);
             //Debug.Log("Attack Direction:" + AttackDir);
@@ -185,18 +184,33 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
-    //[PunRPC]
+    [PunRPC]
     public void ResetProjectiles()
     {
-        //if (PhotonNetwork.CurrentRoom != null)
-        //{
-        //    photonView.RPC("ResetProjectiles", RpcTarget.Others);
-        //}
-        
-        totalTime = 0f;
-        numHits = 0;
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("ResetProjectiles", RpcTarget.Others);
+            totalTime = 0f;
+            numHits = 0;
+        }
+        else
+        {
+            totalTime = 0f;
+            numHits = 0;
+        }
+
         ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
         this.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void ShowProjectile()
+    {
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("ShowProjectile", RpcTarget.Others);
+        }
+        gameObject.SetActive(true);
     }
 }

@@ -242,8 +242,8 @@ public class Player : AbstractPlayer
     }
     
     protected virtual void Attack(float f, int abilityIndex) { // Basic attack using mouse
-        //if (f < 1)
-        //    Debug.Log("Stop ability");
+        if (f < 1)
+            Debug.Log("Stop ability");
         if ((photonView == null || photonView.IsMine))
         { 
             Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);

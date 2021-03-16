@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcaf04441179087429686450f0f7af41, type: 3}
   m_Name: DoozyWindowSettings
   m_EditorClassIdentifier: 
-  DynamicToolbarExpanded: 1
+  DynamicToolbarExpanded: 0
   DynamicToolbarButtonHeight: 48
   DynamicToolbarButtonIconSize: 16
   DynamicToolbarButtonSpacing: 2

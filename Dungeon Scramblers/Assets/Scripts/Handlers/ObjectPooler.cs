@@ -36,25 +36,27 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             if (PhotonNetwork.CurrentRoom != null)
             {
                 go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
+                go.transform.SetParent(this.gameObject.transform);
                 photonView.RPC("PoolObjectAtStart", RpcTarget.OthersBuffered);
             }
             else
             {
                 go = Instantiate(objectToPool, transform.position, new Quaternion());
             }
-            go.SetActive(false);
+            //go.SetActive(false);
             objectsPooled.Add(go);
         }
     }
-    [PunRPC]
+   [PunRPC]
     public GameObject GetPooledObject() {
-        if(PhotonNetwork.CurrentRoom != null)
+        if (PhotonNetwork.CurrentRoom != null)
         {
-            photonView.RPC("GetPooledObject", RpcTarget.OthersBuffered);
+            photonView.RPC("GetPooledObject", RpcTarget.All);
         }
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
-                objectsPooled[i].SetActive(true);
+                //objectsPooled[i].SetActive(true);
+                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile();
                 return objectsPooled[i];
             }
         }
@@ -62,6 +64,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom != null)
         {
             go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
+            go.transform.SetParent(gameObject.transform);
                
            
         }
@@ -74,9 +77,15 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         return objectsPooled[objectsPooled.Count - 1];
     }
 
-    [PunRPC]
+    //[PunRPC]
     public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
-        //photonView.RPC("GetPooledObject", RpcTarget.All);
+
+        //Call funciton for other Players to set object active
+        //if(PhotonNetwork.CurrentRoom != null)
+        //{
+        //    photonView.RPC("GetPooledObject", RpcTarget.All);
+
+        //}
 
         //initialize this object since it is new
         if (objectsPooled == null)
@@ -102,6 +111,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         {
             go = PhotonNetwork.Instantiate(objectToPool.name, AttackTransform,
                     Quaternion.Euler(0, 0, angle));
+            go.transform.SetParent(this.gameObject.transform);
         }
         else
         {
