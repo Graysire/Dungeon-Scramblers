@@ -57,7 +57,7 @@ public class MultiAttackSequence : DefaultAttackSequence
 
         Transform AbilityTransform2 = AbilityPooler.GetPooledObject(AttackTransform2, AttackEnd2, Unit.gameObject, AbilityAngle2).transform;
 
-        Transform AbilityTransform3 = AbilityPooler.GetPooledObject(AttackTransform2, AttackEnd3, Unit.gameObject, AbilityAngle3).transform;
+        Transform AbilityTransform3 = AbilityPooler.GetPooledObject(AttackTransform3, AttackEnd3, Unit.gameObject, AbilityAngle3).transform;
 
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         SetBulletLayer(AbilityTransform2);
