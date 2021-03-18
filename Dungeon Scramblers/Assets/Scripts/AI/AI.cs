@@ -319,7 +319,7 @@ public class AI : AbstractPlayer
 
     //NOTE: This current implementation seems "Hacky", so think of alternative solution...
     //Method used to ensure the triggering of an AI's death so that it will not move after attacking
-    //This directly affects SuicidAI so that it will die after attack
+    //This directly affects SuicideAI so that it will die after attack
     [Task]
     protected void EnsureDeath()
     {
