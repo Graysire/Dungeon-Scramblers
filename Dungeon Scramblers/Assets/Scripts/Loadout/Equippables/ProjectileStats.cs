@@ -76,6 +76,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log("Set Up has been called");
         //Debug.Log("Attack Dir:" + AttackDir.ToString() + "\n rb: " + rb.ToString());
     }
 
@@ -126,6 +127,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             //Debug.Log("Attack Direction:" + AttackDir);
             //Debug.Log("Position: " + rb.position);
             //Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
+            rb = GetComponent<Rigidbody2D>();
 
             rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
 
@@ -134,7 +136,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 //Being called multiple Times
-                ResetProjectiles();
+               // ResetProjectiles();
             }
         }
     }

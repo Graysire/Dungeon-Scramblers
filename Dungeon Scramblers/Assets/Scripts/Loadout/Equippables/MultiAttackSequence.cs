@@ -9,6 +9,10 @@ public class MultiAttackSequence : DefaultAttackSequence
     [PunRPC]
     protected override IEnumerator AttackSequence()
     {
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            photonView.RPC("AttackSequence", RpcTarget.Others);
+        }
         Unit.SetAllowedToAttack(false);
 
         Attacked = true;

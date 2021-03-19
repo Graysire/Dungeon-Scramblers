@@ -26,7 +26,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         UpdateHandler.StartOccurred -= PoolObjectAtStart;
     }
 
-    [PunRPC]
+    //[PunRPC]
     protected void PoolObjectAtStart() {
         objectsPooled = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
@@ -37,7 +37,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             {
                 go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
                 go.transform.SetParent(this.gameObject.transform);
-                photonView.RPC("PoolObjectAtStart", RpcTarget.OthersBuffered);
+              //  photonView.RPC("PoolObjectAtStart", RpcTarget.OthersBuffered);
             }
             else
             {
@@ -47,11 +47,11 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             objectsPooled.Add(go);
         }
     }
-   [PunRPC]
+   //[PunRPC]
     public GameObject GetPooledObject() {
         if (PhotonNetwork.CurrentRoom != null)
         {
-            photonView.RPC("GetPooledObject", RpcTarget.All);
+          //  photonView.RPC("GetPooledObject", RpcTarget.All);
         }
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
@@ -72,20 +72,14 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         {
             go = Instantiate(objectToPool, transform.position, new Quaternion());
         }
-        go.SetActive(false);
+        //go.SetActive(false);
+        go.GetComponent<ProjectileStats>().ResetProjectiles();
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
     }
 
     //[PunRPC]
     public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
-
-        //Call funciton for other Players to set object active
-        //if(PhotonNetwork.CurrentRoom != null)
-        //{
-        //    photonView.RPC("GetPooledObject", RpcTarget.All);
-
-        //}
 
         //initialize this object since it is new
         if (objectsPooled == null)
