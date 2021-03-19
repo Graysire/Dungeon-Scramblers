@@ -13,22 +13,7 @@ public class DefaultAttackSequence : Ability
     protected Vector3 AttackDirection;
     //protected bool needsMoreInstances;
 
-    private PhotonView pV;
-    private void Start()
-    {
-        // Find object pooler child GameObject
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform child = transform.GetChild(i);
-            if (child.CompareTag("Object Pooler"))
-            {
-                AbilityPooler = child.GetComponent<ObjectPooler>();
-                Debug.Log("Found pooler");
-                break;
-            }
-        }
-        pV = GetComponent<PhotonView>();
-    }
+
 
     public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
