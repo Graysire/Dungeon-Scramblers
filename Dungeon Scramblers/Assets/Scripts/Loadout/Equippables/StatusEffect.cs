@@ -14,14 +14,14 @@ public class StatusEffect : Ability
     [SerializeField]
     bool doesReapply = false;                   //If true then the value to apply to unit will be applied again
     [SerializeField]
+    [Min(2)]
+    int waitTimeToReapply = 2;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
+    [SerializeField]
     bool canStack = false;                      //If true, this effect can stack dealing its valueofEffect*stack ever application
     [SerializeField]
     bool resetEffectOnHit = false;              //If true, then when a unit is hit with the status effect already applied, then it will reset the timer on that instance.
     [SerializeField]
     bool appliesToBaseStats = false;            //If true, affects the stats and affected stats of a unit
-    [SerializeField]
-    [Min(2)]
-    int waitTimeToApplyAgain = 2;               //If this effect updates then after this many hundredths of SECONDS it will apply the values again
     private int waitTimeLeft = 0;                   //Used to determine when to apply the status effect values again
 
     [SerializeField]
@@ -58,42 +58,45 @@ public class StatusEffect : Ability
     /*
      * BUG: When player dies then if hit by status effect, instead of reapplying it creates new instances of it.
      */
-    private void OnEnable()
-    {
-        StartCoroutine(StatusStart());
-        
-    }
+
     private void OnDisable()
     {
         UpdateHandler.UpdateOccurred -= Updater;
     }
 
-
-    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    private void Start()
     {
-
-        if (!Activated)
-        {
-            Debug.Log("Applied to self");
-            Unit.AddStatusEffect(this);
-            Activated = true;
-            StartCoroutine(Cooldown());
-        }
-
+        //unit = this.GetComponentInParent<AbstractPlayer>();
     }
 
+    public void BeginStatus()
+    {
+        StartCoroutine(StatusStart());
+    }
+
+    //Adds this status effect onto the given player
+    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    {
+        //If this wasn't already activated then add status
+        if (!Activated)
+        {
+            Activated = true;
+            Unit.AddStatusEffect(this);
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    //Cooldown time to use status again
     private IEnumerator Cooldown()
     {
-        Debug.Log("Waiting...");
         yield return new WaitForSeconds(cooldownTime);
         Activated = false;
-        Debug.Log("Done waiting!");
     }
 
 
     private IEnumerator StatusStart()
     {
-        Activated = true;
+        Debug.Log("Status Started");
         //Debug.Log(statusName + " created...");
         numStacks++;
 
@@ -187,7 +190,7 @@ public class StatusEffect : Ability
         //Debug.Log("Status Resetting");
         //resets how long the status will last
         endTimeLeft = timeTillEnd;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status ends
-        maxTimesApplied += timeTillEnd / waitTimeToApplyAgain;
+        maxTimesApplied += timeTillEnd / waitTimeToReapply;
        
         //Debug.Log("End Time TIME: " + Time.time);
         //Debug.Log("End Time Set to: " + endTimeLeft);
@@ -199,7 +202,7 @@ public class StatusEffect : Ability
     private void ResetWaitTime()
     {
         //reset the wait time
-        waitTimeLeft += waitTimeToApplyAgain;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
+        waitTimeLeft += waitTimeToReapply;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
 
         //Debug.Log("Wait Time TIME: " + Time.fixedTime + ", " + Time.time );
         //Debug.Log("Wait Time Set to: " + waitTimeLeft);
@@ -225,7 +228,6 @@ public class StatusEffect : Ability
                 unit.GetStats()[(int)statValueToAffect] -= totalValueApplied;
             }
         }
-        Activated = false;
         //Lets the update handler know this is done 
         gameObject.SetActive(false);
 

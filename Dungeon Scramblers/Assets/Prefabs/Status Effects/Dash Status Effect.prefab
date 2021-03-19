@@ -49,13 +49,14 @@ MonoBehaviour:
   bitCategory: 4
   playerCategory: 3
   abilitySlot: 1
+  cooldownTime: 5
   doesReapply: 0
   canStack: 0
   resetEffectOnHit: 0
   appliesToBaseStats: 0
   waitTimeToApplyAgain: 2
   isPermanent: 0
-  timeTillEnd: 250
-  valueOfEffect: 500
+  timeTillEnd: 450
+  valueOfEffect: 600
   statValueToAffect: 1
   reverseEffectOnEnd: 1
