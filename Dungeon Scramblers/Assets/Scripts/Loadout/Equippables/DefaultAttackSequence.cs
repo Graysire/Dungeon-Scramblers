@@ -3,39 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class DefaultAttackSequence : Equippable
+public class DefaultAttackSequence : Ability
 {
+    [Header("Attack Sequence Variables")]
     [SerializeField]
     protected ProjectileStats Projectile;
-    protected ObjectPooler AbilityPooler;
-    //protected bool needsMoreInstances;
-
+    protected bool Attacked = false;
     protected AbstractPlayer Unit;
     protected Vector3 AttackDirection;
+    //protected bool needsMoreInstances;
 
-    protected bool Attacked = false;
-    [SerializeField]
-    //the slot this fills when given to a player, i.e. 0 is basic attack
-    protected int abilitySlot = 0;
 
-    private PhotonView pV;
-    private void Start()
-    {
-        // Find object pooler child GameObject
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            Transform child = transform.GetChild(i);
-            if (child.CompareTag("Object Pooler"))
-            {
-                AbilityPooler = child.GetComponent<ObjectPooler>();
-                Debug.Log("Found pooler");
-                break;
-            }
-        }
-        pV = GetComponent<PhotonView>();
-    }
-
-    public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
         this.AttackDirection = AttackDirection;
         this.Unit = Unit;
@@ -109,15 +88,5 @@ public class DefaultAttackSequence : Equippable
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
     }
 
-    public override void Equip(Player player)
-    {
-        base.Equip(player);
-        player.AddAttack(this, abilitySlot);
-    }
 
-    public override void Unequip(Player player)
-    {
-        base.Unequip(player);
-        player.RemoveAttack(this, abilitySlot);
-    }
 }

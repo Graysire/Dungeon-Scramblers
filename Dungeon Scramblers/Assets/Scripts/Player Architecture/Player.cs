@@ -11,7 +11,7 @@ public class Player : AbstractPlayer
 {
     // Placeholder for eventual Attack & Ability Equipables 
     [SerializeField] protected List<GameObject> AttackObjectList;
-    protected List<DefaultAttackSequence> AttackList;
+    protected List<Ability> AttackList;
     // ON SCREEN CONTROLS ONLY
     [SerializeField] protected bool usingOnScreenControls; // Should only be true/false once; Unity current gives errors for using both
                                                            // but real application/build should only be using one or the other
@@ -66,10 +66,10 @@ public class Player : AbstractPlayer
             
         
         // Pool the objects needed for the attack sequence
-        AttackList = new List<DefaultAttackSequence>();
+        AttackList = new List<Ability>();
         for (int i = 0; i < AttackObjectList.Count; i++) {
             //AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
-            AttackObjectList[i].GetComponent<DefaultAttackSequence>().Equip(this);
+            AttackObjectList[i].GetComponent<Ability>().Equip(this);
         }
         // Make sure on-screen controls are on/off based on what they should be
         if (usingOnScreenControls && PlayerOnScreenControls != null)
@@ -271,7 +271,7 @@ public class Player : AbstractPlayer
 
     //adds an attack ot the list of attacks at a specified index
     //index 0 is basic attack, index 1 is Ability 1 and so on
-    public void AddAttack(DefaultAttackSequence atk, int abilitySlot)
+    public void AddAttack(Ability atk, int abilitySlot)
     {
         //while the AttackList is too short to add the ability, add placeholder nulls
         while (AttackList.Count <= abilitySlot)
@@ -284,7 +284,7 @@ public class Player : AbstractPlayer
     }
 
     //Removes the attack from the list and setting its ability slot to null
-    public void RemoveAttack(DefaultAttackSequence atk, int abilitySlot)
+    public void RemoveAttack(Ability atk, int abilitySlot)
     {
         if (AttackList.Count > abilitySlot)
         {

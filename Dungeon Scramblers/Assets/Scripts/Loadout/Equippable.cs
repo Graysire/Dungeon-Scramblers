@@ -9,6 +9,7 @@ using System;
 
 public class Equippable : HasStats
 {
+    [Header("Equippable Variables")]
     [SerializeField]
     protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME FOR LOADOUT SYSTEM*
 

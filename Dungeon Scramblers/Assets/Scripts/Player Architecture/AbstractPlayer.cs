@@ -33,7 +33,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
         //If this object doesnt exist
         if (existingInstance == null)
         {
-            //Debug.Log("CREATING NEW INSTANCE OF STATUS EFFECT");
+            Debug.Log("CREATING NEW INSTANCE OF STATUS EFFECT");
 
             //Create instance of this object
             StatusEffect statusEffect = Instantiate(statusEffectPrefab, gameObject.GetComponentInParent<Transform>());
@@ -58,7 +58,8 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
         }
         else
         {
-            //ifthe effect already exists, reapply it
+            //if the effect already exists, reapply it
+            Debug.Log("Reapplying Status");
             existingInstance.ReapplyEffect();
         }
 
@@ -101,7 +102,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
             if (statusEffects[i] == null) { continue; }
 
             //compare names
-            if (statusEffects[i].statusName == statusEffect.statusName)
+            if (statusEffects[i].GetEquippableName() == statusEffect.GetEquippableName())
             {
                 return statusEffects[i];
             }

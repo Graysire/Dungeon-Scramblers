@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StatusEffect : MonoBehaviour
+public class StatusEffect : Ability
 {
     /* This class is responsible for storing information on a status effect that will be applied to players/AI */
     /* The HasStats class is used to apply those values to the player it effects */
     /* Note: The effected GameObject (Player, AI, etc.) MUST have the HasStats class to apply the effects */
 
-    public string statusName;                   //Unique name for this status effect
+    public float cooldownTime = 0.0f;           //The time to wait after activating this ability. Use this when Status Effect is an activatable ability.
 
+    [Header("Status Variables")]
     [SerializeField]
     bool doesReapply = false;                   //If true then the value to apply to unit will be applied again
     [SerializeField]
@@ -32,6 +33,7 @@ public class StatusEffect : MonoBehaviour
     private int maxTimesApplied;                 //the maximum number of times this effect can be applied based on its duration and wait time 
     private int totalValueApplied = 0;          //the total value of effect applied
     private int numStacks = 0;                   //the number of times this effect gas been stacked
+    private bool Activated = false;             //Bool for keeping player from calling ability too often
 
     [SerializeField]
     int valueOfEffect;                 //The value of this status effect to apply
@@ -67,8 +69,31 @@ public class StatusEffect : MonoBehaviour
     }
 
 
+    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    {
+
+        if (!Activated)
+        {
+            Debug.Log("Applied to self");
+            Unit.AddStatusEffect(this);
+            Activated = true;
+            StartCoroutine(Cooldown());
+        }
+
+    }
+
+    private IEnumerator Cooldown()
+    {
+        Debug.Log("Waiting...");
+        yield return new WaitForSeconds(cooldownTime);
+        Activated = false;
+        Debug.Log("Done waiting!");
+    }
+
+
     private IEnumerator StatusStart()
     {
+        Activated = true;
         //Debug.Log(statusName + " created...");
         numStacks++;
 
@@ -200,7 +225,7 @@ public class StatusEffect : MonoBehaviour
                 unit.GetStats()[(int)statValueToAffect] -= totalValueApplied;
             }
         }
-
+        Activated = false;
         //Lets the update handler know this is done 
         gameObject.SetActive(false);
 

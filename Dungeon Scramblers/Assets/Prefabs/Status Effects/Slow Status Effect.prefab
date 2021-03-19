@@ -43,7 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25faf147897ff74b808aa4213ecebde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusName: Slow
+  stats: 00000000000000000000000000000000000000000000000000000000
+  uniqueName: Slow
+  equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
+  abilitySlot: 0
   doesReapply: 0
   canStack: 0
   resetEffectOnHit: 0
