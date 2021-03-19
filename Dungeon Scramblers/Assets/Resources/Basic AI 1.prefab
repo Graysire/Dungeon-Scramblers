@@ -144,6 +144,7 @@ MonoBehaviour:
   expOnDeath: 5
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
+  mimicSprite: {fileID: 0}
 --- !u!114 &4248649116176859042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   autoReset: 1
   tickOn: 0
   sourceInfos:
-  - isFoldout: 1
+  - isFoldout: 0
     breakPoints: 
     breakPointStatuses: 
     collapsedLines: 

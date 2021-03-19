@@ -376,7 +376,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             roomListEntryGameobject.transform.Find("RoomPlayersText").GetComponent<Text>().text = room.PlayerCount + " / " + room.MaxPlayers;
 
             //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //THERE MIGHT BE A BETTER WAY TO DO THIS W/ DOOZY, BUT FOR THE SAKE OF SIMPLICITY, I'M KEEPING IT UNTIL FURHTER NOTICE////
+            //THERE MIGHT BE A BETTER WAY TO DO THIS W/ DOOZY, BUT FOR THE SAKE OF SIMPLICITY, I'M KEEPING IT UNTIL FURTHER NOTICE////
 
             roomListEntryGameobject.transform.Find("JoinRoomButton").GetComponent<Button>().onClick.AddListener(() =>OnJoinRoomButtonClicked(room.Name));
 

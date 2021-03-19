@@ -76,6 +76,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log("Set Up has been called");
         //Debug.Log("Attack Dir:" + AttackDir.ToString() + "\n rb: " + rb.ToString());
     }
 
@@ -109,7 +110,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(PhotonNetwork.CurrentRoom == null)
+        if(PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
         {
             GetComponent<PhotonRigidbody2DView>().enabled = false;
         }
@@ -121,12 +122,12 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
             // Increment time passed, position of the object, and position traveled
-
             totalTime += Time.fixedDeltaTime;
             //Debug.Log("Total Time:" + totalTime);
             //Debug.Log("Attack Direction:" + AttackDir);
             //Debug.Log("Position: " + rb.position);
             //Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
+            rb = GetComponent<Rigidbody2D>();
 
             rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
 
@@ -135,7 +136,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 //Being called multiple Times
-                ResetProjectiles();
+               // ResetProjectiles();
             }
         }
     }
@@ -185,18 +186,33 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
-    //[PunRPC]
+    [PunRPC]
     public void ResetProjectiles()
     {
-        //if (PhotonNetwork.CurrentRoom != null)
-        //{
-        //    photonView.RPC("ResetProjectiles", RpcTarget.Others);
-        //}
-        
-        totalTime = 0f;
-        numHits = 0;
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("ResetProjectiles", RpcTarget.Others);
+            totalTime = 0f;
+            numHits = 0;
+        }
+        else
+        {
+            totalTime = 0f;
+            numHits = 0;
+        }
+
         ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
         this.gameObject.SetActive(false);
+    }
+
+    [PunRPC]
+    public void ShowProjectile()
+    {
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("ShowProjectile", RpcTarget.Others);
+        }
+        gameObject.SetActive(true);
     }
 }

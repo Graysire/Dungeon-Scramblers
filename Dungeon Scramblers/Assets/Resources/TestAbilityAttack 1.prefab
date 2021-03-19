@@ -48,6 +48,7 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: 
   equippableBitFlag: 
+  bitCategory: 0
   Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
   abilitySlot: 1
 --- !u!114 &-7558920546839552878

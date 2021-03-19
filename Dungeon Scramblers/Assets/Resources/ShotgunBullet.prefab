@@ -156,14 +156,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseDamage: 600
+  BaseDamage: 300
   Range: 20
-  DecayTime: 0.7
-  MoveSpeed: 5
+  DecayTime: 1
+  MoveSpeed: 7
   CastingTime: 0.1
-  CoolDown: 0.5
+  CoolDown: 1.25
   OffsetScale: 0.3
-  maxTargetsHit: 4
+  maxTargetsHit: 2
   StatusEffects: []
 --- !u!50 &2692114034817282802
 Rigidbody2D:

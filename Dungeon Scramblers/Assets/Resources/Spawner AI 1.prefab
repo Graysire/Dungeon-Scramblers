@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 6020413315549863403}
   - component: {fileID: -1934206449702363441}
   m_Layer: 11
-  m_Name: Spawner AI
+  m_Name: Spawner AI 1
   m_TagString: AI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,22 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 25
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  affectedStats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 19000000010000000100000001000000010000000100000001000000
+  affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList: []
   players:
@@ -254,10 +240,10 @@ MonoBehaviour:
   stoppingDistance: 0.1
   visibleRange: 10
   attackRange: 0
-  timeBeforeNextAttack: 0.5
   expOnDeath: 15
   onlyAttackOnePlayer: 1
   enemyTypeToSpawn: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+  mimicSprite: {fileID: 0}
 --- !u!114 &3248170336281437022
 MonoBehaviour:
   m_ObjectHideFlags: 0

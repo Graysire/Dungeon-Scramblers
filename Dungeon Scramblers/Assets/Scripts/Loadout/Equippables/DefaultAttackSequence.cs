@@ -22,7 +22,7 @@ public class DefaultAttackSequence : Ability
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
-    [PunRPC]
+    //[PunRPC]
     protected virtual IEnumerator AttackSequence()
     {
         //Call This function on other players

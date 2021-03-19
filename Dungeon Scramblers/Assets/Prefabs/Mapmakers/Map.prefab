@@ -81,12 +81,12 @@ MonoBehaviour:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       minSpawned: 2
       maxSpawned: 4
-    frequency: 5
+    frequency: 8
   - spawns:
     - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       minSpawned: 3
       maxSpawned: 6
-    frequency: 5
+    frequency: 8
   - spawns:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       minSpawned: 1
@@ -94,7 +94,7 @@ MonoBehaviour:
     - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
       minSpawned: 2
       maxSpawned: 4
-    frequency: 3
+    frequency: 5
   - spawns:
     - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
       minSpawned: 2
@@ -107,7 +107,7 @@ MonoBehaviour:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       minSpawned: 4
       maxSpawned: 6
-    frequency: 1
+    frequency: 2
   - spawns:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       minSpawned: 1
@@ -135,6 +135,99 @@ MonoBehaviour:
       minSpawned: 6
       maxSpawned: 10
     frequency: 1
+  - spawns:
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 4
+  - spawns:
+    - spawnAI: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      minSpawned: 1
+      maxSpawned: 4
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 2
+    - spawnAI: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      minSpawned: 2
+      maxSpawned: 6
+    frequency: 2
+  - spawns:
+    - spawnAI: {fileID: 2391187506201108108, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
+      minSpawned: 3
+      maxSpawned: 5
+    - spawnAI: {fileID: 8332080629846319900, guid: 31837fb70fae76445a5f7fca0108a2f2, type: 3}
+      minSpawned: 4
+      maxSpawned: 8
+    frequency: 1
+  - spawns:
+    - spawnAI: {fileID: 2391187506201108108, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 6
+  - spawns:
+    - spawnAI: {fileID: 6125994366945273424, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 4
+  - spawns:
+    - spawnAI: {fileID: 6125994366945273424, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
+      minSpawned: 1
+      maxSpawned: 2
+    - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      minSpawned: 1
+      maxSpawned: 4
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 1
+      maxSpawned: 4
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    - spawnAI: {fileID: 2391187506201108108, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 1
+  - spawns:
+    - spawnAI: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 6125994366945273424, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
+      minSpawned: 3
+      maxSpawned: 5
+    - spawnAI: {fileID: 3248170336281437018, guid: d8049bececd5d804287ebb07467a425a, type: 3}
+      minSpawned: 1
+      maxSpawned: 3
+    - spawnAI: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 1
+  - spawns:
+    - spawnAI: {fileID: 4028327533559958043, guid: 7848808c3e69b8341b1955db698531f4, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    - spawnAI: {fileID: 2391187506201108108, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
+      minSpawned: 2
+      maxSpawned: 5
+    frequency: 3
+  - spawns:
+    - spawnAI: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      minSpawned: 2
+      maxSpawned: 4
+    frequency: 4
 --- !u!114 &2455355680114784911
 MonoBehaviour:
   m_ObjectHideFlags: 0
