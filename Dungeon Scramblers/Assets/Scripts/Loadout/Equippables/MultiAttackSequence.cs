@@ -22,6 +22,7 @@ public class MultiAttackSequence : DefaultAttackSequence
         // Get relative position of where the mouse was clicked to correctly calculate the angle for projectile
         Vector3 RelativeAttackEnd = AttackEnd - Unit.transform.position;
 
+
         float dot = Vector3.Dot(Unit.transform.right, RelativeAttackEnd);
 
         // Calculate the angle of the ability in radians with dot product formula A dot B = |A||B|cos(theta)
@@ -38,9 +39,10 @@ public class MultiAttackSequence : DefaultAttackSequence
         Debug.Log("Angle 2: " + AbilityAngle2);
         Debug.Log("Angle 3: " + AbilityAngle3);
 
+
         Vector3 RelativeAttackEnd2 = new Vector3(RelativeAttackEnd.magnitude * Mathf.Cos(AbilityAngle2 * Mathf.Deg2Rad), RelativeAttackEnd.magnitude * Mathf.Sin(AbilityAngle2 * Mathf.Deg2Rad), 0);
         Vector3 RelativeAttackEnd3 = new Vector3(RelativeAttackEnd.magnitude * Mathf.Cos(AbilityAngle3 * Mathf.Deg2Rad), RelativeAttackEnd.magnitude * Mathf.Sin(AbilityAngle3 * Mathf.Deg2Rad), 0);
-
+        
         Vector3 AttackEnd2 = Unit.transform.position + RelativeAttackEnd2;
         Vector3 AttackEnd3 = Unit.transform.position + RelativeAttackEnd3;
         
@@ -81,6 +83,9 @@ public class MultiAttackSequence : DefaultAttackSequence
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
         AbilityTransform2.GetComponent<ProjectileStats>().SetUp(AttackNormal2, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
         AbilityTransform3.GetComponent<ProjectileStats>().SetUp(AttackNormal3, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+
+
+
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
