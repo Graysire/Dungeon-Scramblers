@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: e80300005e0100000000000064000000000000006400000064000000
+  stats: e80300002c0100000000000064000000000000006400000064000000
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
@@ -548,7 +548,7 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
   stoppingDistance: 3
-  visibleRange: 3
+  visibleRange: 5
   attackRange: 3
   expOnDeath: 1000
   onlyAttackOnePlayer: 0

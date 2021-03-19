@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: e8030000000000000000000064000000000000006400000096000000
+  stats: 2c0100000000000000000000640000000000000064000000f4010000
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList:
@@ -548,7 +548,7 @@ MonoBehaviour:
   stoppingDistance: 10
   visibleRange: 10
   attackRange: 10
-  expOnDeath: 500
+  expOnDeath: 2000
   onlyAttackOnePlayer: 0
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}

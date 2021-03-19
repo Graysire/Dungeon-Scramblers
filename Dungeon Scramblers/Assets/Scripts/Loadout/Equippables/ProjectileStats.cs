@@ -110,7 +110,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(PhotonNetwork.CurrentRoom == null)
+        if(PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
         {
             GetComponent<PhotonRigidbody2DView>().enabled = false;
         }
