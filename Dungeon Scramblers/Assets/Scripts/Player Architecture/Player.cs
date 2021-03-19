@@ -211,11 +211,17 @@ public class Player : AbstractPlayer
         // Actual movement
         direction = new Vector2(d.x, d.y);
         direction = transform.TransformDirection(direction);
-        direction *= (affectedStats[(int)Stats.movespeed] / 100f);
     }
 
     protected virtual void ApplyMove() {
-        rb.MovePosition((direction * Time.fixedDeltaTime) + rb.position);
+
+        /* 
+         * Moved "(affectedStats[(int)Stats.movespeed] / 100f)" into this because when dash ability
+         *  added new movement speed the player would have to change direction to see the effect.
+         *  With this modification that is no longer the case and when ability starts player doesn'y need
+         *  to change direction to see effect.
+         */
+        rb.MovePosition((direction * Time.fixedDeltaTime * (affectedStats[(int)Stats.movespeed] / 100f)) + rb.position);
     }
 
     // For On-screen stick usage only
