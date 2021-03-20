@@ -57,7 +57,7 @@ public class MenuManager : MonoBehaviour
     }
 
     //Recieves the playertype bit flag, equippable bitflag, and BitCategory of the equippaable
-    public void RetrieveBitInfo(Categories.PlayerCategories playerCategory, string bitFlagCode, Categories.BitCategory category)
+    public void RetrieveBitInfo(Categories.PlayerCategories playerCategory, string bitFlagCode, Categories.ItemCategory category)
     {
         //mage
         if (playerCategory == Categories.PlayerCategories.mage)
@@ -98,31 +98,31 @@ public class MenuManager : MonoBehaviour
     }
 
     //Clears the bits for the given equippable category so it can be applied without leftover bits from previous applies
-    private int ClearForApply(int valToModify, Categories.BitCategory category)
+    private int ClearForApply(int valToModify, Categories.ItemCategory category)
     {
         string b = "";
         int mask = 0;
 
         //Creates the mask for the category
-        if (category == Categories.BitCategory.weapon)
+        if (category == Categories.ItemCategory.weapon)
         {
             b = "11111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 24);
         }
-        if (category == Categories.BitCategory.armor)
+        if (category == Categories.ItemCategory.armor)
         {
             b = "11111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 19);
         }
-        if (category == Categories.BitCategory.ability1)
+        if (category == Categories.ItemCategory.ability1)
         {
             b = "111111";
             int bits = Convert.ToInt32(b, 2);
             mask = (bits << 13);
         }
-        if (category == Categories.BitCategory.ability2)
+        if (category == Categories.ItemCategory.ability2)
         {
             b = "111111";
             int bits = Convert.ToInt32(b, 2);
@@ -135,7 +135,7 @@ public class MenuManager : MonoBehaviour
     }
 
     //Applies the data to the correct temp bitstring
-    private int ApplyBitsToTemp(string bitFlagCode, Categories.BitCategory category)
+    private int ApplyBitsToTemp(string bitFlagCode, Categories.ItemCategory category)
     {
         int inventory = 0;
 
@@ -144,19 +144,19 @@ public class MenuManager : MonoBehaviour
 
         //Pack bits together
         //Shifts bits to end of 32 bit integer
-        if (category == Categories.BitCategory.weapon)
+        if (category == Categories.ItemCategory.weapon)
         {
             inventory = inventory | (bits << 24);
         }
-        if (category == Categories.BitCategory.armor)
+        if (category == Categories.ItemCategory.armor)
         {
             inventory = inventory | (bits << 19);
         }
-        if (category == Categories.BitCategory.ability1)
+        if (category == Categories.ItemCategory.ability1)
         {
             inventory = inventory | (bits << 13);
         }
-        if (category == Categories.BitCategory.ability2)
+        if (category == Categories.ItemCategory.ability2)
         {
             inventory = inventory | (bits << 7);
         }
@@ -164,9 +164,10 @@ public class MenuManager : MonoBehaviour
         return inventory;
     }
 
+
     //Provided the player enum and the category of the item type wanted, this returns 
         //the item code for the player
-    public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.BitCategory category)
+    public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.ItemCategory category)
     {
         int code = 0;
         //mage
@@ -195,25 +196,25 @@ public class MenuManager : MonoBehaviour
 
 
     //Retrieves the code at of the inventory given the category
-    private int GetCode(int inventory, Categories.BitCategory category)
+    private int GetCode(int inventory, Categories.ItemCategory category)
     {
         int code = inventory;
-        if (category == Categories.BitCategory.weapon)
+        if (category == Categories.ItemCategory.weapon)
         {
             code = code << 3;
             code = code >> 27;
         }
-        if (category == Categories.BitCategory.armor)
+        if (category == Categories.ItemCategory.armor)
         {
             code = code << 8;
             code = code >> 27;
         }
-        if (category == Categories.BitCategory.ability1)
+        if (category == Categories.ItemCategory.ability1)
         {
             code = code << 13;
             code = code >> 26;
         }
-        if (category == Categories.BitCategory.ability2)
+        if (category == Categories.ItemCategory.ability2)
         {
             code = code << 19;
             code = code >> 26;

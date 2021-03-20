@@ -20,7 +20,7 @@ public class Equippable : HasStats
 
     // Contains categories for equippable
     [SerializeField]
-    private Categories.BitCategory bitCategory;
+    private Categories.ItemCategory bitCategory;
 
     [SerializeField]
     private Categories.PlayerCategories playerCategory;
@@ -54,7 +54,7 @@ public class Equippable : HasStats
 
     //Given the bit code from inventory, category of code, and player category it associates to
         //compare with this equippable to see if they match
-    public bool CompareWith(int bitCode, Categories.BitCategory bitCategory, Categories.PlayerCategories playerCategory)
+    public bool CompareWith(int bitCode, Categories.ItemCategory bitCategory, Categories.PlayerCategories playerCategory)
     {
         int thisCode = Convert.ToInt32(equippableBitFlag, 2);
         if (thisCode == bitCode && bitCategory == this.bitCategory && playerCategory == this.playerCategory) { return true; }

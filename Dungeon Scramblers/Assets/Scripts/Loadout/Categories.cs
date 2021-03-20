@@ -12,7 +12,7 @@ public class Categories : MonoBehaviour
         overlord = 4,
     }
 
-    public enum BitCategory
+    public enum ItemCategory
     {
         playerType = 1,
         weapon = 2,
