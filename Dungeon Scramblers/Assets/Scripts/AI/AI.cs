@@ -25,6 +25,7 @@ public class AI : AbstractPlayer
 
     [Header("AI Variables")]
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
+    public float retreatDistance = 0.3f;       // Distance from player AI need to retreat at
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
     public int expOnDeath = 1000;               // The amount of experience points AI gives to Scramblers on death
@@ -137,6 +138,21 @@ public class AI : AbstractPlayer
         return false;
     }
 
+    //Determines if the AI is at the rereat distance from the player
+    [Task]
+    protected bool AtRetreatDistance()
+    {
+        if (player == null) return false;
+        Vector3 distance = player.transform.position - transform.position;
+        if (distance.magnitude < retreatDistance)
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
     //Has AI move to given destination - currently the destination is the seen player
     [Task]
     protected void MoveToPlayer()
@@ -152,6 +168,28 @@ public class AI : AbstractPlayer
 
             //Make vector scaled to movement speed
             Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] /100f);
+
+            //Set the AI's velocity toward that position
+            rb.velocity = nextFramePosition;
+        }
+        Task.current.Succeed();
+    }
+
+    //Has AI move to given destination - currently the destination is the seen player
+    [Task]
+    protected void MoveAwayFromPlayer()
+    {
+        //Get shortest path to player
+        currentPath = GetPath(this.transform.position, player.transform.position);
+
+        //Move to each path node until reaching stopping distance
+        for (int i = 0; i < currentPath.Count; i++)
+        {
+            //Get vector to node
+            Vector2 movementDir = -(currentPath[i] - transform.position).normalized;
+
+            //Make vector scaled to movement speed
+            Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] / 100f);
 
             //Set the AI's velocity toward that position
             rb.velocity = nextFramePosition;
