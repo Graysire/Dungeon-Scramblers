@@ -6,7 +6,7 @@ using UnityEngine;
 //Contains the resources shared between the AI and players such as their ability to be damaged
 public abstract class AbstractPlayer : HasStats, IDamageable<int>
 {
-    [Header("Player")]
+    [Header("Player Variables")]
     [SerializeField]
     protected DisplayBar HealthBar;
 
