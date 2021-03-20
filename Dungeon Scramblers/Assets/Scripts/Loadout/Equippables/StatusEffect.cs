@@ -55,18 +55,12 @@ public class StatusEffect : Ability
     //private float statValToReset;               //Stores the stat value player originally had to reapply it once status effect ends
     private bool updateReady = false;           //Used to let the updater know when it can perform the necessary operations after Start has finished
 
-    /*
-     * BUG: When player dies then if hit by status effect, instead of reapplying it creates new instances of it.
-     */
+    [Header("Disarm")]
+    [SerializeField] private bool disarm = false; //Disarms the unit till the end of the effect
 
     private void OnDisable()
     {
         UpdateHandler.UpdateOccurred -= Updater;
-    }
-
-    private void Start()
-    {
-        //unit = this.GetComponentInParent<AbstractPlayer>();
     }
 
     public void BeginStatus()
@@ -97,11 +91,14 @@ public class StatusEffect : Ability
     private IEnumerator StatusStart()
     {
         Debug.Log("Status Started");
-        //Debug.Log(statusName + " created...");
+
+        //For disarming players
+        if (disarm) unit.SetDisarmed(true);
+
         numStacks++;
 
         if(unit == null) { yield return new WaitForSeconds(0f); }
-        //Debug.Log(unit.name);
+
         //Get the time left till it will end
         ResetStatusTime();
 
@@ -127,36 +124,17 @@ public class StatusEffect : Ability
         //If the unit is null or its not ready for the update then wait 
         while (unit == null) { yield return new WaitForSeconds(0.00f); }
 
-        //Debug.Log("In Status Effect Update...");
 
         //Only update if player information is given
         if (unit != null)
         {
-            //Used for indepth testing of time
-            //if (Time.fixedTime <= 50)
-            //{
-            //    Debug.Log("WTF " + Time.fixedTime + " " + (waitTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100))); //+ " " + Mathf.FloorToInt(Time.time * 100) + " " + Mathf.CeilToInt(Time.time * 100f));
-            //}
-
-            //Get the time left to apply effect values again [Deprecated]
-            //int timeLeft = waitTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100);
-
-
             //subtracts the fixed time since the last frame from the duration and time until reapplied
             waitTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
             endTimeLeft -= Mathf.CeilToInt(Time.deltaTime * 100);
 
-            //Debug.Log("Wait: " + waitTimeLeft + " End: " + endTimeLeft + " Applied: " + timesApplied);
-
-            //Debug.Log("Time " + Time.time + " Wait Left " + waitTimeLeft + " Time Left "  + timeLeft);
-
-            //Debug.Log("Time left for status effect to reapply affect: " + timeLeft);
-
             //If this effect reapplies, then apply the value when the wait timer ends
             while (doesReapply && waitTimeLeft <= 0 && timesApplied < maxTimesApplied)
             {
-                //Debug.Log("Applying Status Effect Again");
-
                 //Apply the status effect
                 ApplyStatusEffectValue();
 
@@ -164,36 +142,21 @@ public class StatusEffect : Ability
                 ResetWaitTime();
             }
 
-            //Debug.Log("Wait: " + waitTimeLeft + " End: " + endTimeLeft + " Applied: " + timesApplied + " Max: " + maxTimesApplied);
-
-            //Get the time left till status ends [Deprecated]
-            //timeLeft = endTimeLeft - Mathf.CeilToInt(Time.fixedTime * 100);
-
-
-            //Debug.Log("Time left for status effect to end: " + timeLeft);
-
             //If the time left is over, then the effect ends
             if (endTimeLeft <= 0 && !isPermanent)
             {
                 EndEffect();
             }
-
-            
         }
-        //yield return new WaitForSecondsRealtime(0.00f);
     }
 
     //Sets the time for status to stay alive
         //If status is applied to same player again then time is reset -- subject to change
     public void ResetStatusTime()
     {
-        //Debug.Log("Status Resetting");
         //resets how long the status will last
-        endTimeLeft = timeTillEnd;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status ends
+        endTimeLeft = timeTillEnd; //Time till the status ends
         maxTimesApplied += timeTillEnd / waitTimeToReapply;
-       
-        //Debug.Log("End Time TIME: " + Time.time);
-        //Debug.Log("End Time Set to: " + endTimeLeft);
 
         ResetWaitTime(); //Set the wait time as well
     }
@@ -202,10 +165,7 @@ public class StatusEffect : Ability
     private void ResetWaitTime()
     {
         //reset the wait time
-        waitTimeLeft += waitTimeToReapply;// + Mathf.CeilToInt(Time.fixedTime * 100); //Time till the status applies its values again
-
-        //Debug.Log("Wait Time TIME: " + Time.fixedTime + ", " + Time.time );
-        //Debug.Log("Wait Time Set to: " + waitTimeLeft);
+        waitTimeLeft += waitTimeToReapply; //Time till the status applies its values again
     }
 
     //returns whether this statuseffect should reset on a hit
@@ -217,11 +177,12 @@ public class StatusEffect : Ability
     //ends this status effect
     public void EndEffect()
     {
-        //Debug.Log("Status Ending");
+        //For rearming players
+        if (disarm) unit.SetDisarmed(false);
+
         //reset the stat value to its original value
         if (reverseEffectOnEnd)
         {
-            //unit.GetAffectedStats()[(int)statValueToAffect] = statValToReset;
             unit.GetAffectedStats()[(int)statValueToAffect] -= totalValueApplied;
             if (appliesToBaseStats)
             {
@@ -240,14 +201,6 @@ public class StatusEffect : Ability
     //IEnumerator ApplyStatusEffectValue()
     void ApplyStatusEffectValue()
     {
-        //Save the original stat value to apply when status ends
-        //if (reverseEffectOnEnd) { statValToReset = unit.GetAffectedStats()[(int)statValueToAffect]; }
-
-        //wait until the unit is assigned to apply the damage
-        //while (unit == null) { yield return new WaitForSecondsRealtime(0.00f); }
-
-        //Debug.Log("Applying effect value: " + valueOfEffect); 
-
         //Apply the stat from this status effect onto the affected units stat
         Debug.Log(unit);
         unit.GetAffectedStats()[(int)statValueToAffect] += valueOfEffect * numStacks;
@@ -275,7 +228,6 @@ public class StatusEffect : Ability
     //Reapplies this effect, adding stacks, resetting wait time and other functions as applicable
     public void ReapplyEffect()
     {
-        //Debug.Log("Status Reapplying");
         //if the duration of this effect resets on hit, reset it
         if (resetEffectOnHit)
         {

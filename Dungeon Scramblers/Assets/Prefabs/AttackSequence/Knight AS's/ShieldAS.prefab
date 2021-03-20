@@ -94,5 +94,5 @@ MonoBehaviour:
   equippableBitFlag: 000001
   bitCategory: 4
   playerCategory: 2
+  abilitySlot: 1
   Projectile: {fileID: -2382444479167826345, guid: 651f4b0892abdd640ab4f0f6650713ad, type: 3}
-  abilitySlot: 0

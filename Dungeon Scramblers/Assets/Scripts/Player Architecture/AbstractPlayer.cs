@@ -16,11 +16,19 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     protected bool allowedToAttack = true;
 
     //The list of status effects applied to the player
-    [HideInInspector]
+    //[HideInInspector]
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
+    protected bool disarmed = false;
+
+    public void SetDisarmed(bool b)
+    {
+        disarmed = b;
+    }
+
+
     //Adds the given status effect into the list of status effects
-        //instantiates the objects, preps it for use, and sets it to active
+    //instantiates the objects, preps it for use, and sets it to active
     public void AddStatusEffect(StatusEffect statusEffectPrefab)
     {
         //If the status effect is null then fire debug message

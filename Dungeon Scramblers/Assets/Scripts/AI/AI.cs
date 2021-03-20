@@ -301,7 +301,7 @@ public class AI : AbstractPlayer
     [Task]
     protected void AttackPlayer()
     {
-        if (allowedToAttack)
+        if (allowedToAttack && !disarmed)
         {
             Debug.Log("Firing Attack!");
             //Get vector towards player to hit

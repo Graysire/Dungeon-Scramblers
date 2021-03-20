@@ -243,7 +243,7 @@ public class Player : AbstractPlayer
         }
         AttackDirection = new Vector3(d.x, d.y, 0);
         Debug.Log("Direction: " + AttackDirection);
-        if(allowedToAttack)
+        if(allowedToAttack && !disarmed)
             RequestAttack(activeIndependentJoystick);
     }
     
@@ -269,7 +269,7 @@ public class Player : AbstractPlayer
     }
     
     protected virtual void RequestAttack(int attackListIndex) {
-        if (allowedToAttack)
+        if (allowedToAttack && !disarmed)
             if(attackListIndex >= 0 && attackListIndex < AttackList.Count)
                 AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
     }
