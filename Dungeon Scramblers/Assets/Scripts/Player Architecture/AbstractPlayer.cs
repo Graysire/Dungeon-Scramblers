@@ -19,10 +19,12 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     //[HideInInspector]
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
+    [SerializeField]
     protected bool disarmed = false;
 
     public void SetDisarmed(bool b)
     {
+        Debug.Log("Disarm set to " + b);
         disarmed = b;
     }
 

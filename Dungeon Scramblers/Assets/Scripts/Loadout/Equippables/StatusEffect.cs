@@ -92,12 +92,13 @@ public class StatusEffect : Ability
     {
         Debug.Log("Status Started");
 
-        //For disarming players
-        if (disarm) unit.SetDisarmed(true);
 
         numStacks++;
 
         if(unit == null) { yield return new WaitForSeconds(0f); }
+
+        //For disarming players
+        if (disarm) unit.SetDisarmed(true);
 
         //Get the time left till it will end
         ResetStatusTime();
