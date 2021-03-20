@@ -286,6 +286,7 @@ GameObject:
   - component: {fileID: 4006702138812923399}
   - component: {fileID: 4006702138812923396}
   - component: {fileID: 4006702138812923397}
+  - component: {fileID: 5292163252724484064}
   m_Layer: 11
   m_Name: HealthBarUI
   m_TagString: Untagged
@@ -373,6 +374,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &5292163252724484064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4006702138812923403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e644a89a473bb74ea1fc3f1cf0ea740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarDisplay: {fileID: 4006702137803585853}
 --- !u!1 &4006702139059070363
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,13 +550,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 2c0100000000000000000000640000000000000064000000f4010000
+  HealthBar: {fileID: 5292163252724484064}
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
   players: []
-  healthBarUI: {fileID: 4006702138812923403}
-  healthBar: {fileID: 4006702137803585853}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 10

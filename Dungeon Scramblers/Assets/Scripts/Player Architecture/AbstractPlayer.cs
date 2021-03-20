@@ -6,8 +6,9 @@ using UnityEngine;
 //Contains the resources shared between the AI and players such as their ability to be damaged
 public abstract class AbstractPlayer : HasStats, IDamageable<int>
 {
+    [Header("Player")]
     [SerializeField]
-    DisplayBar HealthBar;
+    protected DisplayBar HealthBar;
 
     // Temporary stats - The stats that the player currently has through the game i.e. 130/200 health
     [SerializeField] protected int[] affectedStats = new int[] { 0, 0, 0, 0, 0, 0, 0 };
@@ -15,6 +16,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     protected bool allowedToAttack = true;
 
     //The list of status effects applied to the player
+    [HideInInspector]
     public List<StatusEffect> statusEffects = new List<StatusEffect>();
 
     //Adds the given status effect into the list of status effects
@@ -152,7 +154,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     }
 
     //Updates the players Health UI
-    public void UpdateHealthbarUI()
+    public virtual void UpdateHealthbarUI()
     {
         if (HealthBar != null)
         {

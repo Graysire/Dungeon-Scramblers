@@ -23,6 +23,4 @@ public class OverlordUI : MonoBehaviour
         Hover.GetHover().Activate(image.sprite);
         Hover.GetHover().SetEnemyIntance(EnemyInstance);
     }
-
-   
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3248170336172586332}
   - component: {fileID: 3248170336172586333}
   - component: {fileID: 3248170336172586334}
+  - component: {fileID: 7078141315697900583}
   m_Layer: 11
   m_Name: HealthBarUI
   m_TagString: Untagged
@@ -99,6 +100,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7078141315697900583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3248170336172586328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e644a89a473bb74ea1fc3f1cf0ea740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarDisplay: {fileID: 3248170336533687263}
 --- !u!1 &3248170336281437018
 GameObject:
   m_ObjectHideFlags: 0
@@ -228,13 +242,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: c4090000000000000000000000000000000000000000000078000000
+  HealthBar: {fileID: 7078141315697900583}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList: []
   players:
   - {fileID: 0}
-  healthBarUI: {fileID: 3248170336172586328}
-  healthBar: {fileID: 3248170336533687263}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 0.1

@@ -7,20 +7,23 @@ using Panda;
 
 public class AI : AbstractPlayer
 {
-
+    [Header("Abilities")]
     // Placeholder for eventual Attack & Ability Equipables 
     [SerializeField] protected List<GameObject> AttackObjectList;   //Holds Attack Sequence Prefabs
     protected List<DefaultAttackSequence> AttackList;               //Instantiates Attack Sequence Prefabs as Child to this
 
     Transform player;                           // Player that AI will target for attacks and chasing
-    public Transform[] players;                 // Positions of all players in game
-    public GameObject healthBarUI;              // Healthbar Canvas Object
-    public Slider healthBar;                    // Healthbar Slider Object
 
+    [HideInInspector]
+    public Transform[] players;                 // Positions of all players in game
+
+    [HideInInspector]
     public Vector3 destination;                 // The destination to move to
+    [HideInInspector]
     public Vector3 target;                      // The position, or player position, to aim at for attack
     protected List<Vector3> currentPath;        // Stores the current path being used
 
+    [Header("AI Variables")]
     public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
     public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
     public float attackRange = 4.0f;            // Range AI needs to be in to attack
@@ -29,10 +32,13 @@ public class AI : AbstractPlayer
     
 
     private Rigidbody2D rb;                     // This AI's rigidbody2D
+
+    [Header("Spawner AI")]
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
     private bool alerted = false;
     private SpriteRenderer currentSprite;
+    [Header("Mimic AI")]
     [SerializeField]
     private Sprite mimicSprite;
 
@@ -53,7 +59,7 @@ public class AI : AbstractPlayer
         players = GameManager.ManagerInstance.GetPlayerTransforms();
 
         //Sets the value of health bar based on percentage of current health and max health
-        healthBar.value = CalculateHealth();
+        UpdateHealthbarUI();
 
         //set the current sprite renderer component to currentSprite
         currentSprite = GetComponent<SpriteRenderer>();
@@ -83,16 +89,6 @@ public class AI : AbstractPlayer
     // Update is called once per frame
     void Update()
     {
-        // Updates the position and value of the healthbar for this AI
-        if (healthBar != null)
-        {
-            //Set the health bar active once damage is taken
-            if (affectedStats[(int)Stats.health] < stats[(int)Stats.health]) healthBarUI.SetActive(true);
-
-            //set the health bar value
-            healthBar.value = CalculateHealth();
-        }
-
         //If health is greater than max then set it to max (In case of healing)
         if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) affectedStats[(int)Stats.health] = stats[(int)Stats.health];
     }
@@ -103,10 +99,16 @@ public class AI : AbstractPlayer
         this.players = players;
     }
 
-    //Calculates the health percentage for displaying on health bar
-    protected float CalculateHealth()
+    //Updates AI UI healthbar
+    public override void UpdateHealthbarUI()
     {
-        return affectedStats[(int)Stats.health] / (float) stats[(int)Stats.health];
+        if (HealthBar != null)
+        {
+            HealthBar.SetValue(affectedStats[0] / (float)stats[0]);
+
+            //Set the health bar active once damage is taken
+            if (affectedStats[0] < stats[0]) HealthBar.gameObject.SetActive(true);
+        }
     }
 
     //Gets the path given the start position and target position

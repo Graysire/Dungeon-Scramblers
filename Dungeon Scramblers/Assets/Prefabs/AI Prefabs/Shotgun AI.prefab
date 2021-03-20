@@ -129,13 +129,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: e8030000360100000000000064000000000000006400000064000000
+  HealthBar: {fileID: 1190697138765741721}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: c8bbd279d23a5f04bb0c81309804afcc, type: 3}
   players: []
-  healthBarUI: {fileID: 7795850378610816244}
-  healthBar: {fileID: 7795850377602560962}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 2
@@ -561,6 +560,7 @@ GameObject:
   - component: {fileID: 7795850378610816248}
   - component: {fileID: 7795850378610816251}
   - component: {fileID: 7795850378610816250}
+  - component: {fileID: 1190697138765741721}
   m_Layer: 11
   m_Name: HealthBarUI
   m_TagString: Untagged
@@ -648,3 +648,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1190697138765741721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7795850378610816244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e644a89a473bb74ea1fc3f1cf0ea740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarDisplay: {fileID: 7795850377602560962}
