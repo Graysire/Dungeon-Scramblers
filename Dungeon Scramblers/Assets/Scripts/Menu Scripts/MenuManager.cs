@@ -220,4 +220,41 @@ public class MenuManager : MonoBehaviour
         }
         return code;
     }
+
+
+    // The Folliwing Funcitons are used by the Loadout Selection Panel inside the Netwroked Room
+    // These functions are attached to loadout buttons inside the Newtorked Room to let players select they're class before a match.
+    public void GetKnightLoadout()
+    {
+        //Get Player Category Selection
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.knight;
+
+        //Debug.Log("Player Category Selected" + playerCategory);
+
+        //Debug.Log("Retrieving Bits...");
+        Debug.Log("Bits Recieved" + GetInventoryCode(playerCategory, Categories.BitCategory.weapon));
+
+    }
+
+    public void GetMageLoadout()
+    {
+        //Get Player Category Selection
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.knight;
+
+    }
+
+    public void GetRogueLoadout()
+    {
+        //Get Player Category Selection
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.rogue;
+
+    }
+
+    public void GetOverlordLoadout()
+    {
+        //Get Player Category Selection
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.overlord;
+
+    }
+
 }
