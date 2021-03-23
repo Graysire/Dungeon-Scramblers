@@ -106,6 +106,8 @@ public class MapMaker : MonoBehaviour
         //GenerateMap();
     }
 
+    #region generation functions
+
     //generates a dungeon map, assumes the tilemap is currently empty
     IEnumerator GenerateMap()
     {
@@ -859,6 +861,9 @@ public class MapMaker : MonoBehaviour
 
     }
 
+    #endregion
+
+    #region helper functions
     void PlaceTile(Vector3Int position, TileBase tile)
     {
         if (!tilemap.HasTile(position))
@@ -962,6 +967,7 @@ public class MapMaker : MonoBehaviour
             }
         }
     }
+    #endregion
 
     //returns whether the map has finished generating
     public bool IsMapFinished()
@@ -981,6 +987,7 @@ public class MapMaker : MonoBehaviour
         }
     }
 
+    #region structs and enums
     //The position and facing of a door
     struct DoorInfo
     {
@@ -996,6 +1003,7 @@ public class MapMaker : MonoBehaviour
         }
     }
 
+    
     //the location of a rooms floor corners
     public struct RoomInfo
     {
@@ -1034,5 +1042,5 @@ public class MapMaker : MonoBehaviour
     {
         North, East, South, West
     }
-
+    #endregion
 }

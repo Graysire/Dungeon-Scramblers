@@ -53,6 +53,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     public GameObject LeaveRoomButton;
     public GameObject StartButton;
 
+    [Header("Menu Manager")]
+    public GameObject MenuManagerGO;
+    private MenuManager menuManager;
     private List<PlayerData> playerDatas = new List<PlayerData>();
 
     //Dictionary for PlayerRoomListings
@@ -71,6 +74,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         //All clients in the same room will load the same scene synced as best as possible
         PhotonNetwork.AutomaticallySyncScene = true;
+
+        menuManager = MenuManagerGO.GetComponent<MenuManager>();
     }
     #endregion
 
@@ -201,9 +206,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         //set our player listings prefab to ready
     }
 
+    //display loadout Panel
     public void OnLoadoutButtonClicked()
     {
         LoadoutPanel.Show();
+        //PhotonNetwork.LocalPlayer.SetCustomProperties
+       // menuManager.RetrieveBitInfo();
     }
 
     public void OnLoadoutBackButtonPressed()
@@ -263,18 +271,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomButton.SetActive(false);
         LeaveRoomButton.SetActive(true);
 
-        //Display StartButton for Party Leader only
-        //Get Party Leader Seed for Map Generation
-        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //{
-        //    //Save seed of MasterClient
-        //    Random.State s = Random.state;
-        //    ExitGames.Client.Photon.Hashtable MapSeed = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.MASTER_CLIENT_SEED,  s} };
-        //    //Add Seed to hash table to save for later
-        //    PhotonNetwork.CurrentRoom.SetCustomProperties(MapSeed);
-        //    Debug.Log("Seed: " + s.ToString());
-        //}
-
         //Change Room Text to display proper info
         RoomInfoText.text = PhotonNetwork.CurrentRoom.Name + " \n"+
             "Players: " + PhotonNetwork.CurrentRoom.PlayerCount + "/" + PhotonNetwork.CurrentRoom.MaxPlayers;
@@ -306,6 +302,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
         //Hide Start Button
         StartButton.SetActive(false);
+
+
+
+        //Call Read Loadout Function when we're in Room
+        
     }
 
     
