@@ -36,19 +36,28 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     float waitTime = 0f;
 
-    //tilemap to generate dungeon on
+    //tilemaps to generate dungeon on
+    //tilemap 0 should be floor
+    //tilemap 1 should be walls
+    //tilemap 2 should be decoration
     [SerializeField]
-    public Tilemap tilemap;
+    public Tilemap[] tilemaps;
 
     //default tile used for the floor
     [SerializeField]
     TileBase floorTile;
-    //default tile used for walls
+    //default tile used for walls, assumed ot be aruletile that includes a shaded wall
     [SerializeField]
     TileBase wallTile;
     //default tile used for doors
     [SerializeField]
     TileBase doorTile;
+    //tiles used for shadowing the walls
+    //NOTE: Light source is assumed to be Northeast
+    //code is based on those assumptions
+    [SerializeField]
+    ShadowInfo wallShadowTiles;
+    
 
     //minimum number of floor tiles on one side of a room
     [SerializeField]
@@ -82,6 +91,8 @@ public class MapMaker : MonoBehaviour
 
     //list of all rooms created
     public List<RoomInfo> rooms;
+    //list of all corridors created
+    public List<CorridorInfo> corridors;
 
     //public static int cornerCount = 0;
     //public static int totalCorridors = 0;
@@ -112,12 +123,17 @@ public class MapMaker : MonoBehaviour
     IEnumerator GenerateMap()
     {
         mapFinished = false;
+        if (tilemaps.Length != 3)
+        {
+            Debug.LogError("Expected 3 Tilemaps, actual count: " + tilemaps.Length);
+        }
 
         //set current number of doors to 1
         currentDoorNum = 1;
 
         List<DoorInfo> doorList = new List<DoorInfo>();
         rooms = new List<RoomInfo>();
+        corridors = new List<CorridorInfo>();
 
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
 
@@ -141,11 +157,12 @@ public class MapMaker : MonoBehaviour
                     yield return new WaitForSeconds(waitTime);
                 }
             }
+            //if the iterations are about to end, remove all extraneous doors
             else
             {
                 foreach (DoorInfo door in newDoors)
                 {
-                    tilemap.SetTile(door.position, wallTile);
+                    tilemaps[1].SetTile(door.position, wallTile);
                 }
             }
         }
@@ -159,11 +176,12 @@ public class MapMaker : MonoBehaviour
         }
 
         //generate the pathfinding grid
-        Pathfinder.CreateGrid(tilemap.GetComponentInParent<Grid>(), tilemap, wallTile);
+        Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], wallTile);
 
-        //Add doors to all entrances to all rooms
+        //Add doors, spawn AI, shade walls
         foreach (RoomInfo room in rooms)
         {
+            AddWallShading(room);
             AddDoors(room, doorTile);
             if (generateAI && spawnAI.Count > 0 && room.lowerLeft != rooms[0].lowerLeft)
             {
@@ -171,8 +189,28 @@ public class MapMaker : MonoBehaviour
             }
             yield return new WaitForSeconds(waitTime);
         }
+        foreach (CorridorInfo corridor in corridors)
+        {
+            AddWallShading(corridor);
+            AddWallShadows(corridor);
+        }
+        foreach (RoomInfo room in rooms)
+        {
+            //AddWallShadows(room);
+        }
+
+        //Decorate all corridors
+        //foreach (CorridorInfo corridor in corridors)
+        //{
+        //    //AddWallDecorations(corridor);
+        //    yield return new WaitForSeconds(waitTime);
+        //}
         
         mapFinished = true;
+
+
+        tilemaps[1].RefreshAllTiles();
+
         yield return null;
     }
 
@@ -247,13 +285,6 @@ public class MapMaker : MonoBehaviour
         //Debug.Log("Start X: " + startX + " Start Y: " + startY);
         //Debug.Log("Rand X: " + randX + " Rand Y: " + randY);
         //Debug.Log("End X: " + (startX + randX - 1) + " End Y: " + (startY + randY - 1));
-
-        //if no tile exists, set a wall tile to expandthe tilemap
-        /*if (!tilemap.HasTile(new Vector3Int(startX + randX, startY + randY, 0)))
-        { 
-            tilemap.SetTile(new Vector3Int(startX + randX, startY + randY, 0), wallTile);
-        }*/
-
 
         //the end locations of the room
         int endX = startX + randX;
@@ -426,41 +457,18 @@ public class MapMaker : MonoBehaviour
         {
             for (int y = startY; y <= endY; y++)
             {
-                if (x == startX || x == endX || y == startY || y == endY)
+                //ensure the starting door isn't overwritten
+                if ((x == startX || x == endX || y == startY || y == endY) && (x != door.position.x || y != door.position.y || rooms.Count == 0))
                 {
-                    PlaceTile(new Vector3Int(x, y, 0), wallTile);
-                }
-
-                //placing floors during initial room generation is deprecated
-                /*//if a non-floor tile is found, check if it has empty spaces around it that are beyond the borders of this room
-                //if it does not, then replace the wall with floor
-                else if (tilemap.HasTile(new Vector3Int(x,y,0)) && tilemap.GetTile(new Vector3Int(x, y, 0)) != floorTile)
-                {
-                    for (int x2 = 0; x2 < 2; x2++)
+                    //PlaceTile(new Vector3Int(x, y, 0), tilemaps[1] wallTile);
+                    if (!tilemaps[0].HasTile(new Vector3Int(x, y, 0)))
                     {
-                        for (int y2 = 0; y2 < 2; y2++)
-                        {
-                            if (x2 != y2 && x2 * -1 != y2 && x + x2 >= startX && x + x2 <= endX && y + y2 >= startY && y + y2 <= endY)
-                            {
-                                //tilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
-                            }
-                        }
+                        tilemaps[1].SetTile(new Vector3Int(x, y, 0), wallTile);
                     }
                 }
-                else
-                {
-                    //PlaceTile(new Vector3Int(x, y, 0), floorTile);
-                }*/
 
             }
         }
-
-
-        //fill the area of the room with wall tiles
-        //tilemap.BoxFill(new Vector3Int(startX, startY, 0), wallTile, startX - 1, startY - 1, startX + randX, startY + randY);
-        //fill the inside of the room with floor tiles
-        //tilemap.BoxFill(new Vector3Int(startX, startY, 0), floorTile,startX,startY,startX+randX - 1,startY+randY - 1);
-
 
         Vector3Int randDoorLocation = new Vector3Int(0, 0, 0);
 
@@ -506,11 +514,11 @@ public class MapMaker : MonoBehaviour
                         continue;
                     }
 
-                    //place the new door as long as the location is inside a wall
+                    //place the new door as long as the location is inside a wall, door is placed currenlty by removing the wall
                     //add it to the list of new doors
-                    if (tilemap.GetTile(randDoorLocation) == wallTile)
+                    if (tilemaps[1].GetTile(randDoorLocation) == wallTile)
                     {
-                        tilemap.SetTile(randDoorLocation, floorTile);
+                        tilemaps[1].SetTile(randDoorLocation, null);
                         newDoors.Add(new DoorInfo(randDoorLocation, (Facing)i));
                         currentDoorNum++;
                     }
@@ -587,12 +595,12 @@ public class MapMaker : MonoBehaviour
         Vector3Int corridorDirection = new Vector3Int(xAdjust, yAdjust, 0);
 
         //vector to check whether this corridor has space to generate a room
-        Vector3Int maxOverlapPosition = endDoorPosition + corridorDirection * (minRoomSize+ 1);
+        Vector3Int maxOverlapPosition = endDoorPosition + corridorDirection * (minRoomSize + 1);
 
         if (maxOverlapPosition.x <= rooms[0].upperRight.x + minRoomSize && maxOverlapPosition.x >= rooms[0].lowerLeft.x - minRoomSize &&
             maxOverlapPosition.y <= rooms[0].upperRight.y + minRoomSize && maxOverlapPosition.y >= rooms[0].lowerLeft.y - minRoomSize)
         {
-            tilemap.SetTile(door.position, wallTile);
+            tilemaps[1].SetTile(door.position, wallTile);
             currentDoorNum--;
             //Debug.Log("OVERLAP");
             return newDoors;
@@ -601,8 +609,8 @@ public class MapMaker : MonoBehaviour
         //check if this corridor should connect to a room, due to overlap or starting just short
         for (int i = 1; i <= length + 1 + minRoomSize / 2; i++)
         {
-            
-            if (tilemap.HasTile(door.position + i * corridorDirection)/* && tilemap.HasTile(door.position + (i + 1) * corridorDirection)*/)
+
+            if (tilemaps[1].HasTile(door.position + i * corridorDirection)/* && tilemap.HasTile(door.position + (i + 1) * corridorDirection)*/)
             {
                 Debug.Log("Connector Case 1");
                 endDoorPosition = door.position + i * corridorDirection;
@@ -613,15 +621,20 @@ public class MapMaker : MonoBehaviour
         }
 
         //checks if this corridor would connect to the corner of another room
-        if (isConnector && tilemap.GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
+        //NOTE: with recent changes to the tiling system this corner case may cause issues
+        if (isConnector && tilemaps[1].GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
         {
             //cornerCount++;
 
             //checks if this would result in two adjacent door tiles
-            if (tilemap.GetTile(endDoorPosition + corridorDirection * 2) != doorTile)
+
+            if (tilemaps[1].HasTile(endDoorPosition + corridorDirection * 2))
             {
+                //Deprecated form of above if statement for doors being placed
+                /*tilemaps[1].GetTile(endDoorPosition + corridorDirection * 2) != doorTile*/
                 //Debug.Log("Corner case");
-                tilemap.SetTile(endDoorPosition, floorTile);
+                //remove the wall tile to signify a door
+                tilemaps[1].SetTile(endDoorPosition, null);
                 //tilemap.SetTile(endDoorPosition + corridorDirection, floorTile);
 
 
@@ -646,28 +659,33 @@ public class MapMaker : MonoBehaviour
          }*/
 
         //if there is floor immediately after the initial door, do not generate the corridor
-        if (tilemap.GetTile(door.position + corridorDirection) == floorTile)
+        //NOTE: this statement is likely deprecated
+        if (tilemaps[0].GetTile(door.position + corridorDirection) == floorTile)
         {
             return newDoors;
         }
         //if the corridor is too small, do not generate it
         else if (length < minCorridorSize)
         {
-            tilemap.SetTile(door.position, wallTile);
+            tilemaps[1].SetTile(door.position, wallTile);
             return newDoors;
         }
 
         //tilemap.SetTile(endDoorPosition, doorTile);
-        tilemap.SetTile(endDoorPosition, floorTile);
+        //ensure the end door position is empty as expected
+        tilemaps[1].SetTile(endDoorPosition, null);
 
+        //place the tiles that form the corridor
         for (int i = 0; i <= length + 1; i++)
         {
             Vector3Int tileLoc = door.position + i * corridorDirection;
 
             //tilemap.SetTile(tileLoc, floorTile);
-            PlaceTile(tileLoc, floorTile);
-            PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), wallTile);
-            PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), wallTile);
+            //add floor and both walls
+            PlaceTile(tileLoc, tilemaps[0], floorTile);
+            PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), tilemaps[1], wallTile);
+            PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), tilemaps[1], wallTile);
+
 
 
         }
@@ -678,6 +696,20 @@ public class MapMaker : MonoBehaviour
             newDoors.Add(new DoorInfo(endDoorPosition, door.facing));
             //StartCoroutine(GenerateRoom(doorPosition + new Vector3Int((length + 1) * xAdjust, (length + 1) * yAdjust, 0), doorDirection));
         }
+
+        CorridorInfo corridor;
+        if (door.position.x < endDoorPosition.x || door.position.y < endDoorPosition.y)
+        {
+            corridor.start = door.position;
+            corridor.end = endDoorPosition;
+        }
+        else
+        {
+            corridor.start = endDoorPosition;
+            corridor.end = door.position;
+        }
+        corridors.Add(corridor);
+
 
         //totalCorridors++;
         return newDoors;
@@ -825,7 +857,7 @@ public class MapMaker : MonoBehaviour
                     }
 
                     //convert random location to world location
-                    Vector3 worldLocation = tilemap.GetCellCenterWorld(randLocation);
+                    Vector3 worldLocation = tilemaps[0].GetCellCenterWorld(randLocation);
 
                     //if (room.lowerLeft == rooms[12].lowerLeft)
                     //{
@@ -864,7 +896,7 @@ public class MapMaker : MonoBehaviour
     #endregion
 
     #region helper functions
-    void PlaceTile(Vector3Int position, TileBase tile)
+    void PlaceTile(Vector3Int position, Tilemap tilemap, TileBase tile)
     {
         if (!tilemap.HasTile(position))
         {
@@ -883,8 +915,12 @@ public class MapMaker : MonoBehaviour
                 //if (x != rooms[0].lowerLeft.x - 1 || x != rooms[0].upperRight.x + 1 || y != rooms[0].lowerLeft.y - 1 || y != rooms[0].upperRight.y + 1)
                 if (x < rooms[0].lowerLeft.x - 1 || x > rooms[0].upperRight.x + 1 || y < rooms[0].lowerLeft.y - 1 || y > rooms[0].upperRight.y + 1 || room.lowerLeft == rooms[0].lowerLeft)
                 {
+                    //remove any outstanding wall and decoration tiles
+                    tilemaps[1].SetTile(new Vector3Int(x, y, 0), null);
+                    tilemaps[2].SetTile(new Vector3Int(x, y, 0), null);
                     //fill the room with floor tiles
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tile);
+                    tilemaps[0].SetTile(new Vector3Int(x, y, 0), tile);
+                    
                 }
             }
         }
@@ -897,7 +933,8 @@ public class MapMaker : MonoBehaviour
         {
             for (int y = room.lowerLeft.y - 1; y <= room.upperRight.y + 1; y += room.upperRight.y + 1 - (room.lowerLeft.y - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
+                //if no wall exists at theedge of aroom, it must be a door
+                if (tilemaps[1].GetTile(new Vector3Int(x, y, 0)) == null)
                 {
                     PlaceDoor(x, y, tile);
                 }
@@ -908,7 +945,8 @@ public class MapMaker : MonoBehaviour
         {
             for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x += room.upperRight.x + 1 - (room.lowerLeft.x - 1))
             {
-                if (tilemap.GetTile(new Vector3Int(x, y, 0)) == floorTile)
+                //if no wall exists at theedge of aroom, it must be a door
+                if (tilemaps[1].GetTile(new Vector3Int(x, y, 0)) == null)
                 {
                     PlaceDoor(x, y, tile);
                 }
@@ -927,46 +965,205 @@ public class MapMaker : MonoBehaviour
     // 100 / ((1-minDoors) * x)
     // 100 / (logBase MinDoors X)
 
-    //checks cardinally adjacent tiles, returns the number that match the given tile
-    int CheckAdjacentTiles(int startX, int startY, TileBase tile)
-    {
-        int adjacent = 0;
-        for (int x = -1; x <= 1; x++)
-        {
-            for (int y = -1; y <= 1; y++)
-            {
-                if (x != y && x != y * -1 && tilemap.GetTile(new Vector3Int(startX + x, startY + y, 0)) == tile)
-                {
-                    adjacent++;
-                }
-            }
-        }
-
-        return adjacent;
-    }
-
     //checks if a given tile is a doorway, meaning that one wall tile exists on either side of it
     //if the door would lead to nowhere place a wall, otherwise place a door
     void PlaceDoor(int startX, int startY, TileBase door)
     {
 
 
-        //if both tiles adjacent on the X axis are walls or both tiles adjacent on the Y axis are walls
-        if (tilemap.GetTile(new Vector3Int(startX - 1, startY, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX + 1, startY, 0)) == wallTile
-            || tilemap.GetTile(new Vector3Int(startX, startY - 1, 0)) == wallTile && tilemap.GetTile(new Vector3Int(startX, startY + 1, 0)) == wallTile)
+        //if both tiles adjacent on the X axis are walls
+        if (tilemaps[1].HasTile(new Vector3Int(startX - 1, startY, 0)) && tilemaps[1].HasTile(new Vector3Int(startX + 1, startY, 0)))
         {
-            //check to ensure all cardinally adjacent tiles are filled, if yes, return true, otherwise return false and replace this doorway with a wall
-            if (tilemap.HasTile(new Vector3Int(startX - 1, startY, 0)) && tilemap.HasTile(new Vector3Int(startX + 1, startY, 0))
-                && tilemap.HasTile(new Vector3Int(startX, startY - 1, 0)) && tilemap.HasTile(new Vector3Int(startX, startY + 1, 0)))
+            //check to ensure that floors exist above and below this tile
+            if (tilemaps[0].HasTile(new Vector3Int(startX, startY - 1, 0)) && tilemaps[0].HasTile(new Vector3Int(startX, startY + 1, 0)))
             {
-                tilemap.SetTile(new Vector3Int(startX, startY, 0), door);
+                //place the door and exit
+                tilemaps[0].SetTile(new Vector3Int(startX, startY, 0), door);
+                return;
             }
             else
             {
-                tilemap.SetTile(new Vector3Int(startX, startY, 0), wallTile);
+                tilemaps[1].SetTile(new Vector3Int(startX, startY, 0), wallTile);
+            }
+
+        }
+        //if both tiles adjacent on the Y axis are walls
+        else if (tilemaps[1].HasTile(new Vector3Int(startX, startY - 1, 0)) && tilemaps[1].HasTile(new Vector3Int(startX, startY + 1, 0)))
+        {
+            //check to ensure that floorsexist on iether side of this tile
+            if (tilemaps[0].HasTile(new Vector3Int(startX - 1, startY, 0)) && tilemaps[0].HasTile(new Vector3Int(startX + 1, startY, 0)))
+            {
+                //place the door and exit
+                tilemaps[0].SetTile(new Vector3Int(startX, startY, 0), door);
+                return;
+            }
+            else
+            {
+                tilemaps[1].SetTile(new Vector3Int(startX, startY, 0), wallTile);
+            }
+        }
+
+        
+    }
+
+    //Adds extra tiles to add depth and details to the walls of a room
+    //assumes that wallTile is a ruletile that includes shading
+    void AddWallShading(RoomInfo room)
+    {
+        for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+        {
+            for (int y = room.lowerLeft.y - 2; y <= room.upperRight.y; y += room.upperRight.y - room.lowerLeft.y + 2)
+            {
+                //if a wall exists above this spot and no floor exists above this spot, add shaded wall
+                if (tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)))
+                {
+                    //places the extra wallTile which will convert to shaded wall
+                    tilemaps[1].SetTile(new Vector3Int(x, y, 0), wallTile);
+                    //places decorative floor tiles to ensure proper coverage of the background, only needed if floor tile does not match the background
+                    if (y < room.upperRight.y)
+                    {
+                        tilemaps[0].SetTile(new Vector3Int(x, y + 1, 0), floorTile);
+                    }
+                }      
             }
         }
     }
+
+    //Adds extra tiles to add depth and details to the walls of a corridor
+    //only needed for East/West corridors
+    void AddWallShading(CorridorInfo corridor)
+    {
+        //if this is a North/South corridor, return
+        if (corridor.start.x == corridor.end.x)
+        {
+            return;
+        }
+
+        for (int x = corridor.start.x; x <= corridor.end.x; x++)
+        {
+            
+            if (tilemaps[1].HasTile(new Vector3Int(x, corridor.start.y + 1, 0)))
+            {
+                PlaceTile(new Vector3Int(x, corridor.start.y + 2, 0), tilemaps[1], wallTile);
+            }
+            //if aouthern wall tiles should be placed, do so
+            if (tilemaps[1].HasTile(new Vector3Int(x, corridor.start.y - 1, 0)))
+            {
+                PlaceTile(new Vector3Int(x, corridor.start.y - 2, 0), tilemaps[1], wallTile);
+            }
+            //place floor tiles to ensure proper background coverage
+            PlaceTile(new Vector3Int(x, corridor.start.y - 1, 0), tilemaps[0], floorTile);
+        }
+    }
+
+    //Adds shadows to the corridor to provide depth
+    void AddWallShadows(CorridorInfo corridor)
+    {
+        for (int x = corridor.start.x; x <= corridor.end.x; x++)
+        {
+            for (int y = corridor.start.y; y <= corridor.end.y; y++)
+            {
+                //if the corridor is North/South and a wall exists to the east
+                if (corridor.start.x == corridor.end.x/* && tilemaps[1].HasTile(new Vector3Int(x + 1, y, 0))*/)
+                {
+                    tilemaps[2].SetTile(new Vector3Int(x, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
+                    //if tiles would not overlap with expected wall locations, place a shadow
+                    if (y + 1 < corridor.end.y || y > corridor.start.y)
+                    {
+                        tilemaps[2].SetTile(new Vector3Int(x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
+                    }
+                }
+                else if (corridor.start.y == corridor.end.y/* && tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0))*/)
+                {
+                    tilemaps[2].SetTile(new Vector3Int(x, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
+                    //if tiles would not overlap with expected wall locations, place a shadow
+                    if (x > corridor.start.x || x < corridor.end.x)
+                    {
+                        tilemaps[2].SetTile(new Vector3Int(x, y - 3, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
+                    }
+                }
+            }
+        }
+    }
+
+    TileBase ChooseWallShadowTile(Vector3Int location)
+    {
+        //if a wall exists above this tile
+        if (tilemaps[1].HasTile(location + new Vector3Int(0,1,0)))
+        {
+            //if no wall exists to the up-right of this tile return a rightTop edge
+            if (!tilemaps[1].HasTile(location + new Vector3Int(1, 1, 0)))
+            {
+                return wallShadowTiles.rightTop;
+            }
+        }
+        return doorTile;
+    }
+
+    //void AddWallDecorations(CorridorInfo corridor, bool shadowLeftWall)
+    //{
+    //    for (int x = corridor.start.x; x <= corridor.end.x; x++)
+    //    {
+    //        for (int y = corridor.start.y; y <= corridor.end.y; y++)
+    //        {
+    //            //if this corridor is East/West, add wall shading and shadows to both walls
+    //            if (corridor.start.y == corridor.end.y)
+    //            {
+    //                //check that the corridor hasn't been overidden
+    //                if (tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0)) && tilemaps[1].HasTile(new Vector3Int(x, y - 1, 0)))
+    //                {
+    //                    //add wall shadow along corridor center
+    //                    PlaceTile(new Vector3Int(x, y, 0), tilemaps[2], wallShadowTile);
+    //                    //place walls to create shading above and below the initial walls
+    //                    PlaceTile(new Vector3Int(x, y + 2, 0), tilemaps[1], wallTile);
+    //                    PlaceTile(new Vector3Int(x, y - 2, 0), tilemaps[1], wallTile);
+    //                    //place additional shading below south wall
+    //                    if (x < corridor.end.x || x > corridor.start.x)
+    //                    {
+    //                        //PlaceTile(new Vector3Int(x, y - 3, 0), tilemaps[2], wallShadowTile);
+    //                    }
+    //                    //place decorative flooring in case background does not match floor color
+    //                    PlaceTile(new Vector3Int(x, y - 1, 0), tilemaps[2], floorTile);
+
+    //                    //remove shadowing overlapped by north wall
+    //                    tilemaps[2].SetTile(new Vector3Int(x, y + 1, 0), null);
+    //                }
+
+    //            }
+    //            //else this corridor is North/South and shadowing should be placed on all but the last few tiles
+    //            else if (tilemaps[1].HasTile(new Vector3Int(x + 1, y, 0)) && tilemaps[1].HasTile(new Vector3Int(x - 1, y, 0)))
+    //            {
+    //                Debug.Log("X:" + x + " Y:" + y);
+    //                //add wall shadow along corridor center
+    //                PlaceTile(new Vector3Int(x, y, 0), tilemaps[2], wallShadowTile);
+
+
+
+    //                //if shadowing the left wall add shadows to the right of the right corridor wall
+    //                if (shadowLeftWall)
+    //                {
+    //                    if (y + 2 < corridor.end.y)
+    //                    {
+    //                        PlaceTile(new Vector3Int(x + 2, y, 0), tilemaps[2], wallShadowTile);
+    //                    }
+    //                   tilemaps[2].SetTile(new Vector3Int(x + 1, y, 0), null);
+    //                }
+    //                //else add shadows to the left of the left corridor wall
+    //                else
+    //                {
+    //                    if (y + 2 < corridor.end.y)
+    //                    {
+    //                      PlaceTile(new Vector3Int(x - 2, y, 0), tilemaps[2], wallShadowTile);
+    //                    }
+    //                    tilemaps[2].SetTile(new Vector3Int(x - 1, y, 0), null);
+    //                }
+    //            }
+    //        }
+            
+
+    //    }
+    //}
+
     #endregion
 
     //returns whether the map has finished generating
@@ -978,8 +1175,11 @@ public class MapMaker : MonoBehaviour
     //clears the map and pathfinder
     public void ClearMap()
     {
-        tilemap.ClearAllTiles();
-        tilemap.CompressBounds();
+        foreach (Tilemap tilemap in tilemaps)
+        {
+            tilemap.ClearAllTiles();
+            tilemap.CompressBounds();
+        }
         Pathfinder.ClearGrid();
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
         {
@@ -1004,13 +1204,23 @@ public class MapMaker : MonoBehaviour
     }
 
     
-    //the location of a rooms floor corners
+    //the location of a room's floor corners
     public struct RoomInfo
     {
         //the position of the lower left floor corner on the tilemap
         public Vector3Int lowerLeft;
         //the position of the upper right floor corner on the tilemap
         public Vector3Int upperRight;
+    }
+
+    //location of a corridor's start door and end door
+    public struct CorridorInfo
+    {
+        //the position of the first door in the corridor
+        public Vector3Int start;
+        //the position of the second door in the corridor
+        public Vector3Int end;
+
     }
 
     //struct containing the information used to spawn groups of AI
@@ -1033,6 +1243,24 @@ public class MapMaker : MonoBehaviour
         public int minSpawned;
         //the maximum number to spawn
         public int maxSpawned;
+    }
+
+    //struct containing tile information used to add shadows
+    [System.Serializable]
+    struct ShadowInfo
+    {
+        public TileBase leftTop;
+        public TileBase midTop;
+        public TileBase rightTop;
+
+        public TileBase topRight;
+        public TileBase midRight;
+
+        public TileBase concaveCorner;
+        public TileBase convexCorner;
+
+
+
     }
 
 
