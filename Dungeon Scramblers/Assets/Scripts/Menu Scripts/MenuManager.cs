@@ -233,7 +233,7 @@ public class MenuManager : MonoBehaviour
         //Debug.Log("Player Category Selected" + playerCategory);
 
         //Debug.Log("Retrieving Bits...");
-        Debug.Log("Bits Recieved" + GetInventoryCode(playerCategory, Categories.BitCategory.weapon));
+        Debug.Log("Bits Recieved" + GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
 
     }
 

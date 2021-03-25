@@ -839,6 +839,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Scrambler
       objectReference: {fileID: 0}
+    - target: {fileID: 2114680770838200914, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: HealthBar
       value: 

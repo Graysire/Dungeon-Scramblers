@@ -76,7 +76,7 @@ public class GMTemp : MonoBehaviour
         int randY = Random.Range((StartRoom.lowerLeft.y), (StartRoom.upperRight.y) + 1);
         //Translate to world space
         Vector3Int randLocation = new Vector3Int(randX, randY, 0);
-        worldLocation = Map.GetComponent<MapMaker>().tilemap.GetCellCenterWorld(randLocation);
+        //worldLocation = Map.GetComponent<MapMaker>().tilemap.GetCellCenterWorld(randLocation);
         return worldLocation;
     }
 
