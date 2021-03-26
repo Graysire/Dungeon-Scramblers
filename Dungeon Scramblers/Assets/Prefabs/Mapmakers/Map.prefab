@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 1088189847048068813}
   - component: {fileID: 7677637472705892817}
   - component: {fileID: 6714544175490117060}
+  - component: {fileID: 7083597659865246094}
   m_Layer: 0
   m_Name: Wallmap
   m_TagString: Untagged
@@ -236,6 +237,22 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
+--- !u!19719996 &7083597659865246094
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045835795397899788}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0.00001
 --- !u!1 &9102455188174619586
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +517,6 @@ GameObject:
   - component: {fileID: 9102455188203375849}
   - component: {fileID: 9102455188203375855}
   - component: {fileID: 9102455188203375848}
-  - component: {fileID: 9102455188203375854}
   m_Layer: 0
   m_Name: Tilemap
   m_TagString: Untagged
@@ -608,19 +624,3 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!19719996 &9102455188203375854
-TilemapCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9102455188203375850}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_MaximumTileChangeCount: 1000
-  m_ExtrusionFactor: 0.00001
