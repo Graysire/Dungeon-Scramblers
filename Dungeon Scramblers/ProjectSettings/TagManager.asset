@@ -10,6 +10,7 @@ TagManager:
   - AI
   - Shield
   - MenuManager
+  - MiniLord
   layers:
   - Default
   - TransparentFX
