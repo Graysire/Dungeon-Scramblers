@@ -32,9 +32,6 @@ public class DefaultAttackSequence : Ability
 
         Attacked = true;
 
-        // Wait for ability casting time before proceeding
-        yield return new WaitForSeconds(Projectile.GetCastingTime());
-
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
         Vector3 AttackEnd = Unit.transform.position + AttackDirection;
 
@@ -62,8 +59,13 @@ public class DefaultAttackSequence : Ability
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         
 
-
+        //Send indicator of the charge direction
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+
+        // Wait for ability casting time before proceeding
+        yield return new WaitForSeconds(Projectile.GetCastingTime());
+
+
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
