@@ -52,11 +52,19 @@ public class MapMaker : MonoBehaviour
     //default tile used for doors
     [SerializeField]
     TileBase doorTile;
+    //default tile used for decorations scattered through the rooms
+    [SerializeField]
+    TileBase decorationTile;
+    //expected number of tiles per floor decoration, lower to increase number of decorations
+    [Min(1)]
+    [SerializeField]
+    int decorationFrequency;
     //tiles used for shadowing the walls
     //NOTE: Light source is assumed to be Northeast
     //code is based on those assumptions
     [SerializeField]
     ShadowInfo wallShadowTiles;
+    
     
 
     //minimum number of floor tiles on one side of a room
@@ -85,7 +93,7 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     List<AISpawnClusterInfo> spawnAI;
 
-    //the total frequency of all AI Clusters, used to determine which CLuster is placed
+    //the total frequency of all AI Clusters, used to determine which Cluster is placed
     int totalClusterFrequency = 0;
     
 
@@ -197,6 +205,7 @@ public class MapMaker : MonoBehaviour
         foreach (RoomInfo room in rooms)
         {
             AddWallShadows(room);
+            DecorateRoom(room);
         }
 
         //Decorate all corridors
@@ -1174,6 +1183,18 @@ public class MapMaker : MonoBehaviour
         return null;
     }
 
+    //Adds random decorations to a room
+    void DecorateRoom(RoomInfo room)
+    {
+        int area = (room.upperRight.x - room.lowerLeft.x) * (room.upperRight.y - room.lowerLeft.y);
+        for (int i = 0; i < area / decorationFrequency; i++)
+        {
+            int x = Random.Range(room.lowerLeft.x, room.upperRight.x);
+            int y = Random.Range(room.lowerLeft.y, room.upperRight.y - 1);
+            tilemaps[2].SetTile(new Vector3Int(x, y, 0), decorationTile);
+        }
+    }
+
     #endregion
 
     //returns whether the map has finished generating
@@ -1266,8 +1287,6 @@ public class MapMaker : MonoBehaviour
 
         public TileBase concaveCorner;
         public TileBase convexCorner;
-
-
 
     }
 
