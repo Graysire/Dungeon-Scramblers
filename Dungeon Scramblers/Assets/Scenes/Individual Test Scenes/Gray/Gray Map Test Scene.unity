@@ -176,8 +176,9 @@ MonoBehaviour:
   floorTile: {fileID: 11400000, guid: 56a68adf875063644ab1417c92dc324b, type: 2}
   wallTile: {fileID: 11400000, guid: 4a419a839ba16b74b807ddd3674246a5, type: 2}
   doorTile: {fileID: 11400000, guid: f3e2eee4c248c744a84a3300070c17ab, type: 2}
+  decorationTile: {fileID: 0}
+  decorationFrequency: 0
   wallShadowTiles:
-    leftTop: {fileID: 0}
     midTop: {fileID: 0}
     rightTop: {fileID: 0}
     topRight: {fileID: 0}
@@ -236,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 3000
-  waitTimeBetweenMaps: 2
+  waitTimeBetweenMaps: 20000
   startingSeed: 0
   mapper: {fileID: 337241789}
 --- !u!1 &1873881674
@@ -341,6 +342,10 @@ PrefabInstance:
       propertyPath: wallShadowTile
       value: 
       objectReference: {fileID: 11400000, guid: b76b4ca3f85771646a6b57933078d6ec, type: 2}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: decorationFrequency
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
