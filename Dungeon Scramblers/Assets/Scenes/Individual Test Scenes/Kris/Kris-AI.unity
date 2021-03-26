@@ -991,7 +991,7 @@ GameObject:
   - component: {fileID: 1176459202}
   - component: {fileID: 1176459201}
   m_Layer: 11
-  m_Name: Overlord
+  m_Name: Minatour Overlord
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1144,7 +1144,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  m_Color: {r: 0.17577429, g: 0.4716981, b: 0.45784003, a: 1}
+  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1172,10 +1172,10 @@ MonoBehaviour:
   statusEffects: []
   disarmed: 0
   AttackObjectList:
-  - {fileID: 6497682061442774528, guid: c8bbd279d23a5f04bb0c81309804afcc, type: 3}
-  - {fileID: 6497682061442774528, guid: fae1a52e74452544f880d0c1e5bdf9f2, type: 3}
-  - {fileID: 6497682061442774528, guid: 430ce629882610348ad174cb86ff270b, type: 3}
-  - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
+  - {fileID: 874235849800391331, guid: 9c1ec4b403f485b44bdad8e38c546980, type: 3}
+  - {fileID: 840058070121385367, guid: c50289ab55840c74aa5ffb985b211de7, type: 3}
+  - {fileID: 1799514350308552235, guid: 54d3223bd13495744a1428ec02c26ed5, type: 3}
+  - {fileID: 204065285454857657, guid: ce24feba51074f84ca7330b426290f17, type: 3}
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 2560322437646083898, guid: 65b3ded9073cc1148a36739e5deb8c95, type: 3}
   isDead: 0

@@ -6,8 +6,8 @@ using Photon.Pun;
 public class Ability : Equippable
 {
     protected ObjectPooler AbilityPooler;
-    private PhotonView pV;
-    private void Start()
+    protected PhotonView pV;
+    protected void Awake()
     {
         // Find object pooler child GameObject
         for (int i = 0; i < transform.childCount; i++)
