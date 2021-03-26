@@ -96,4 +96,4 @@ MonoBehaviour:
   playerCategory: 0
   abilitySlot: 1
   Projectile: {fileID: 7107550762299682137, guid: 390079ea827316b4fa68ec5a368de439, type: 3}
-  LaunchingForce: 1000
+  LaunchingForce: 500

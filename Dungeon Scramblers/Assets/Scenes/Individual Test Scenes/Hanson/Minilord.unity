@@ -310,7 +310,7 @@ Transform:
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &219356410
 Rigidbody2D:
@@ -600,7 +600,7 @@ Transform:
   m_Children:
   - {fileID: 109749638}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &725621110
 GameObject:
@@ -657,7 +657,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &748137194
 GameObject:
@@ -817,6 +817,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Basic AI
       objectReference: {fileID: 0}
+    - target: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
 --- !u!1 &1319425386
@@ -947,7 +951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1457,7 +1461,7 @@ Transform:
   - {fileID: 2114680769725213155}
   - {fileID: 2114680769578861619}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2114680768803883559
 MonoBehaviour:
@@ -1528,7 +1532,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2114680768859543332
 MonoBehaviour:
@@ -3488,7 +3492,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4524522104739553951, guid: e3a232ef7f81d6642a20fe35b71721ae, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4524522104739553951, guid: e3a232ef7f81d6642a20fe35b71721ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3563,6 +3567,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Turrent AI
       objectReference: {fileID: 0}
+    - target: {fileID: 8828729408068310131, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8828729408068310137, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.81
@@ -3593,7 +3601,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8828729408068310137, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8828729408068310137, guid: fcecdd5ce5a85714a80da4f493ce454f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4305,6 +4313,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shotgun AI
       objectReference: {fileID: 0}
+    - target: {fileID: 2391187506201108108, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da8514f473f8a2643adb013bc4f57291, type: 3}
 --- !u!4 &7996408221719513383
@@ -4335,6 +4347,10 @@ PrefabInstance:
     - target: {fileID: 6125994366945273424, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
       propertyPath: m_Name
       value: Mimic AI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125994366945273424, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6125994366945273434, guid: 6da1eff633b46ff4cbbc064650eb6077, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4612,7 +4628,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4536677181648069041, guid: 357d3f700be34444c968148cdfe8d976, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4536677181648069041, guid: 357d3f700be34444c968148cdfe8d976, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4629,6 +4645,10 @@ PrefabInstance:
     - target: {fileID: 4536677181648069051, guid: 357d3f700be34444c968148cdfe8d976, type: 3}
       propertyPath: m_Name
       value: RangeAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536677181648069051, guid: 357d3f700be34444c968148cdfe8d976, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 357d3f700be34444c968148cdfe8d976, type: 3}

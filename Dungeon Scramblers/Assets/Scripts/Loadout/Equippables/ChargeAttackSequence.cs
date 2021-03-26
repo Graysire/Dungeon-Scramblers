@@ -6,11 +6,9 @@ using Photon.Pun;
 public class ChargeAttackSequence : DefaultAttackSequence
 {
     private Rigidbody2D rigidBody;
-    public float LaunchingForce;
-    private void Awake()
-    {
-        rigidBody = Unit.GetComponent<Rigidbody2D>();
-    }
+    public float LaunchingForce = 1000;
+    private bool bLaunch = false;
+    private Vector3 AttackNormal;
 
     [PunRPC]
     protected override IEnumerator AttackSequence()
@@ -43,7 +41,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
         float AbilityAngle = AttackEnd.y >= Unit.transform.position.y ? angle : -angle;
 
         // Normalize the direction of the attack for incrementing the attack movement
-        Vector3 AttackNormal = (AttackEnd - Unit.transform.position).normalized;
+        AttackNormal = (AttackEnd - Unit.transform.position).normalized;
 
 
         // Transform vector with quick if statements for returning offset for attacks
@@ -58,9 +56,12 @@ public class ChargeAttackSequence : DefaultAttackSequence
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Projectile.GetCastingTime());
 
-        rigidBody.AddForce(AttackNormal * LaunchingForce);
+        rigidBody = Unit.GetComponent<Rigidbody2D>();
+        bLaunch = true;
 
+        yield return new WaitForSeconds(1.0f);
 
+        bLaunch = false;
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
@@ -77,9 +78,12 @@ public class ChargeAttackSequence : DefaultAttackSequence
         Attacked = false;
     }
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
     {
-        
+        if(bLaunch)
+        {
+            Unit.GetComponent<Rigidbody2D>().AddForce(AttackNormal * LaunchingForce);
+        }
     }
 }
