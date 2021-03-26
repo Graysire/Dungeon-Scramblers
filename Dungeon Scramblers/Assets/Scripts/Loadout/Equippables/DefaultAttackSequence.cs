@@ -8,9 +8,19 @@ public class DefaultAttackSequence : Ability
     [Header("Attack Sequence Variables")]
     [SerializeField]
     protected ProjectileStats Projectile;
+    [SerializeField]
+    protected bool SlowPlayerOnCast = false;
+    [SerializeField]
+    protected bool ChangePlayerColorOnCast;
+    [SerializeField]
+    protected Color PlayerCastColor;
+
+    protected SpriteRenderer PlayerSprite;
+    protected Color PlayerOriginalColor;
     protected bool Attacked = false;
     protected AbstractPlayer Unit;
     protected Vector3 AttackDirection;
+    protected int originalSpeed;
     //protected bool needsMoreInstances;
 
 
@@ -31,6 +41,31 @@ public class DefaultAttackSequence : Ability
         Unit.SetAllowedToAttack(false);
 
         Attacked = true;
+
+        //Change player sprite color for cast
+        if (ChangePlayerColorOnCast)
+        {
+            PlayerSprite = Unit.GetComponent<SpriteRenderer>();
+            if (PlayerSprite != null)
+            {
+                PlayerOriginalColor = PlayerSprite.color;
+                PlayerSprite.color = PlayerCastColor;
+            }
+            else
+            {
+                Debug.Log("No player sprite assigned!");
+            }
+        }
+
+        //If slow on cast then reduce speed by half
+        if (SlowPlayerOnCast)
+        {
+            originalSpeed = Unit.GetAffectedStats()[1];
+            Unit.GetAffectedStats()[1] = originalSpeed / 2;
+        }
+
+        // Wait for ability casting time before proceeding
+        yield return new WaitForSeconds(Projectile.GetCastingTime());
 
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
         Vector3 AttackEnd = Unit.transform.position + AttackDirection;
@@ -62,10 +97,20 @@ public class DefaultAttackSequence : Ability
         //Send indicator of the charge direction
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
 
-        // Wait for ability casting time before proceeding
-        yield return new WaitForSeconds(Projectile.GetCastingTime());
+        //Change player sprite color back
+        if (ChangePlayerColorOnCast)
+        {
+            if (PlayerSprite != null)
+            {
+                PlayerSprite.color = PlayerOriginalColor;
+            }
+        }
 
-
+        //Reset original speed
+        if (SlowPlayerOnCast)
+        {
+            Unit.GetAffectedStats()[1] = originalSpeed;
+        }
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
@@ -90,6 +135,4 @@ public class DefaultAttackSequence : Ability
         else if (gameObject.layer == LayerMask.NameToLayer("Overlord"))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
     }
-
-
 }
