@@ -196,7 +196,7 @@ public class MapMaker : MonoBehaviour
         }
         foreach (RoomInfo room in rooms)
         {
-            //AddWallShadows(room);
+            AddWallShadows(room);
         }
 
         //Decorate all corridors
@@ -1057,112 +1057,122 @@ public class MapMaker : MonoBehaviour
     }
 
     //Adds shadows to the corridor to provide depth
+    //Assumedto go before AddWallShadows(RoomInfo)
     void AddWallShadows(CorridorInfo corridor)
     {
-        for (int x = corridor.start.x; x <= corridor.end.x; x++)
+        //if the corridor is North/South and a wall exists to the east
+        //draw a line of shadows through the middle and on the west side of the west wall
+        if (corridor.start.x == corridor.end.x)
         {
-            for (int y = corridor.start.y; y <= corridor.end.y; y++)
+            for (int y = corridor.start.y - 1; y <= corridor.end.y; y++)
             {
-                //if the corridor is North/South and a wall exists to the east
-                if (corridor.start.x == corridor.end.x/* && tilemaps[1].HasTile(new Vector3Int(x + 1, y, 0))*/)
+                //draw the line of shadows through the middle of the corridor
+                tilemaps[2].SetTile(new Vector3Int(corridor.start.x, y, 0), ChooseWallShadowTile(new Vector3Int(corridor.start.x, y, 0)));
+                //draw the line to the west of the west side
+                if (y + 2 < corridor.end.y && y >= corridor.start.y)
                 {
-                    tilemaps[2].SetTile(new Vector3Int(x, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
-                    //if tiles would not overlap with expected wall locations, place a shadow
-                    if (y + 1 < corridor.end.y || y > corridor.start.y)
-                    {
-                        tilemaps[2].SetTile(new Vector3Int(x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
-                    }
-                }
-                else if (corridor.start.y == corridor.end.y/* && tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0))*/)
-                {
-                    tilemaps[2].SetTile(new Vector3Int(x, y, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
-                    //if tiles would not overlap with expected wall locations, place a shadow
-                    if (x > corridor.start.x || x < corridor.end.x)
-                    {
-                        tilemaps[2].SetTile(new Vector3Int(x, y - 3, 0), ChooseWallShadowTile(new Vector3Int(x, y, 0)));
-                    }
+                    tilemaps[2].SetTile(new Vector3Int(corridor.start.x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(corridor.start.x - 2, y, 0)));
                 }
             }
         }
+        //else the corridor is East/West
+        //draw a line of shadows through the middle and on the south side of the south wall
+        else
+        {
+            for (int x = corridor.start.x; x <= corridor.end.x; x++)
+            {
+                //draw the line of shadws through the middle of the corridor
+                tilemaps[2].SetTile(new Vector3Int(x, corridor.start.y, 0), ChooseWallShadowTile(new Vector3Int(x, corridor.start.y, 0)));
+                //draw the line to the south of the south side
+                if (x > corridor.start.x || x < corridor.end.x)
+                {
+                    tilemaps[2].SetTile(new Vector3Int(x, corridor.start.y - 3, 0), ChooseWallShadowTile(new Vector3Int(x, corridor.start.y - 3, 0)));
+                }
+            }
+        }
+
+
+       
     }
 
+    //Adds shadows to the corridor to provide depth
+    void AddWallShadows(RoomInfo room)
+    {
+        //draw a line of shadows across the south side of the north and south walls
+        for (int x = room.lowerLeft.x - 1; x <= room.upperRight.x + 1; x++)
+        {
+            //draw the north wall shadow
+            if (x >= room.lowerLeft.x && x <= room.upperRight.x)
+            {
+                tilemaps[2].SetTile(new Vector3Int(x, room.upperRight.y - 1, 0), ChooseWallShadowTile(new Vector3Int(x, room.upperRight.y - 1, 0)));
+            }
+            //draw the south wall shadow ignoring tiles where a wall exists
+            if (!tilemaps[1].HasTile(new Vector3Int(x, room.lowerLeft.y - 3, 0)))
+            {
+                tilemaps[2].SetTile(new Vector3Int(x, room.lowerLeft.y - 3, 0), ChooseWallShadowTile(new Vector3Int(x, room.lowerLeft.y - 3, 0)));
+            }
+        }
+
+        //draw a line of shadows across the west side of the west and east walls
+        for (int y = room.lowerLeft.y - 3; y <= room.upperRight.y + 1; y++)
+        {
+            //draw the east wall shadow
+            if (y >= room.lowerLeft.y - 1 && y <= room.upperRight.y - 1)
+            {
+                tilemaps[2].SetTile(new Vector3Int(room.upperRight.x, y, 0), ChooseWallShadowTile(new Vector3Int(room.upperRight.x, y, 0)));
+            }
+            //draw the south wall shadow including the corner
+            tilemaps[2].SetTile(new Vector3Int(room.lowerLeft.x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(room.lowerLeft.x - 2, y, 0)));
+
+        }
+    }
+
+    //takes in a vector3Int tile location and returns a shadow decoration based on the location of walls around that point
+    //returns null if no shadow sohuld be placed
     TileBase ChooseWallShadowTile(Vector3Int location)
     {
-        //if a wall exists above this tile
-        if (tilemaps[1].HasTile(location + new Vector3Int(0,1,0)))
+        //if a wall exists above this tile, add a shadow for the top
+        if (tilemaps[1].HasTile(location + new Vector3Int(0, 1, 0)))
         {
             //if no wall exists to the up-right of this tile return a rightTop edge
             if (!tilemaps[1].HasTile(location + new Vector3Int(1, 1, 0)))
             {
                 return wallShadowTiles.rightTop;
             }
+            //if a wall exists to the east of this tile, returen a concave corner
+            else if (tilemaps[1].HasTile(location + new Vector3Int(1, 0, 0)))
+            {
+                return wallShadowTiles.concaveCorner;
+            }
+            //otherwise return the middle top tile
+            else
+            {
+                return wallShadowTiles.midTop;
+            }
         }
-        return doorTile;
+        //else if a wall exists east of this tile, add a shadow for the east
+        else if (tilemaps[1].HasTile(location + new Vector3Int(1, 0, 0)))
+        {
+            //if no wall exists to the northeast of this tile, return a topright corner
+            if (!tilemaps[1].HasTile(location + new Vector3Int(1, 1, 0)))
+            {
+                return wallShadowTiles.topRight;
+            }
+            //otherwise return a middle right tile
+            else
+            {
+                return wallShadowTiles.midRight;
+            }
+        }
+        //else if a tile exists to the northeast of this tile return a convex corner
+        else if (tilemaps[1].HasTile(location + new Vector3Int(1, 1, 0)))
+        {
+            return wallShadowTiles.convexCorner;
+        }
+
+        //if none of theabove are true, no shadow should exist, reutrn null
+        return null;
     }
-
-    //void AddWallDecorations(CorridorInfo corridor, bool shadowLeftWall)
-    //{
-    //    for (int x = corridor.start.x; x <= corridor.end.x; x++)
-    //    {
-    //        for (int y = corridor.start.y; y <= corridor.end.y; y++)
-    //        {
-    //            //if this corridor is East/West, add wall shading and shadows to both walls
-    //            if (corridor.start.y == corridor.end.y)
-    //            {
-    //                //check that the corridor hasn't been overidden
-    //                if (tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0)) && tilemaps[1].HasTile(new Vector3Int(x, y - 1, 0)))
-    //                {
-    //                    //add wall shadow along corridor center
-    //                    PlaceTile(new Vector3Int(x, y, 0), tilemaps[2], wallShadowTile);
-    //                    //place walls to create shading above and below the initial walls
-    //                    PlaceTile(new Vector3Int(x, y + 2, 0), tilemaps[1], wallTile);
-    //                    PlaceTile(new Vector3Int(x, y - 2, 0), tilemaps[1], wallTile);
-    //                    //place additional shading below south wall
-    //                    if (x < corridor.end.x || x > corridor.start.x)
-    //                    {
-    //                        //PlaceTile(new Vector3Int(x, y - 3, 0), tilemaps[2], wallShadowTile);
-    //                    }
-    //                    //place decorative flooring in case background does not match floor color
-    //                    PlaceTile(new Vector3Int(x, y - 1, 0), tilemaps[2], floorTile);
-
-    //                    //remove shadowing overlapped by north wall
-    //                    tilemaps[2].SetTile(new Vector3Int(x, y + 1, 0), null);
-    //                }
-
-    //            }
-    //            //else this corridor is North/South and shadowing should be placed on all but the last few tiles
-    //            else if (tilemaps[1].HasTile(new Vector3Int(x + 1, y, 0)) && tilemaps[1].HasTile(new Vector3Int(x - 1, y, 0)))
-    //            {
-    //                Debug.Log("X:" + x + " Y:" + y);
-    //                //add wall shadow along corridor center
-    //                PlaceTile(new Vector3Int(x, y, 0), tilemaps[2], wallShadowTile);
-
-
-
-    //                //if shadowing the left wall add shadows to the right of the right corridor wall
-    //                if (shadowLeftWall)
-    //                {
-    //                    if (y + 2 < corridor.end.y)
-    //                    {
-    //                        PlaceTile(new Vector3Int(x + 2, y, 0), tilemaps[2], wallShadowTile);
-    //                    }
-    //                   tilemaps[2].SetTile(new Vector3Int(x + 1, y, 0), null);
-    //                }
-    //                //else add shadows to the left of the left corridor wall
-    //                else
-    //                {
-    //                    if (y + 2 < corridor.end.y)
-    //                    {
-    //                      PlaceTile(new Vector3Int(x - 2, y, 0), tilemaps[2], wallShadowTile);
-    //                    }
-    //                    tilemaps[2].SetTile(new Vector3Int(x - 1, y, 0), null);
-    //                }
-    //            }
-    //        }
-            
-
-    //    }
-    //}
 
     #endregion
 
@@ -1203,7 +1213,6 @@ public class MapMaker : MonoBehaviour
         }
     }
 
-    
     //the location of a room's floor corners
     public struct RoomInfo
     {
@@ -1249,7 +1258,6 @@ public class MapMaker : MonoBehaviour
     [System.Serializable]
     struct ShadowInfo
     {
-        public TileBase leftTop;
         public TileBase midTop;
         public TileBase rightTop;
 
