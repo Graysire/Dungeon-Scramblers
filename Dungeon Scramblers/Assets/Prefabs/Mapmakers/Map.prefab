@@ -328,8 +328,9 @@ MonoBehaviour:
   floorTile: {fileID: 11400000, guid: f7a4d9a9d43fe584b89c6645886073c0, type: 2}
   wallTile: {fileID: 11400000, guid: 200c09ab3d7443c4a8d8715b70aa3194, type: 2}
   doorTile: {fileID: 11400000, guid: f3e2eee4c248c744a84a3300070c17ab, type: 2}
+  decorationTile: {fileID: 11400000, guid: 300bc770a53c73f4b994c8bd99966fa4, type: 2}
+  decorationFrequency: 3
   wallShadowTiles:
-    leftTop: {fileID: 11400000, guid: 2326b211fc529674aa591655dbcc2887, type: 2}
     midTop: {fileID: 11400000, guid: a48b19afa80d2814a9392a44e5f8ba61, type: 2}
     rightTop: {fileID: 11400000, guid: 910495484a70d154f822a457d7701264, type: 2}
     topRight: {fileID: 11400000, guid: 45a6ed913d2119a41a342814b824542e, type: 2}
