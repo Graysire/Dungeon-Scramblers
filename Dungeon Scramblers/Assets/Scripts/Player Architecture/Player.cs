@@ -98,6 +98,7 @@ public class Player : AbstractPlayer
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>(), 0);
             controls.PlayerMovement.UseAbility.canceled += ctx => Attack(ctx.ReadValue<float>(), 1);
         }
+        /*
         // Art Variables
         sr = GetComponent<SpriteRenderer>();
         //animator = GetComponent<Animator>();
@@ -107,10 +108,10 @@ public class Player : AbstractPlayer
         enabledAnimatorInd = 0;
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
         isFacingLeft = false;
+        */
 
         allowedToAttack = true;
         rb = GetComponent<Rigidbody2D>();
-
     }
     // Update and Fixed Update handlers (event & delegate)
     protected virtual void OnEnable()
