@@ -17,6 +17,9 @@ public class MultiAttackSequence : DefaultAttackSequence
 
         Attacked = true;
 
+        ApplyColorChange();
+        ApplySlow();
+
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Projectile.GetCastingTime());
 
@@ -69,12 +72,13 @@ public class MultiAttackSequence : DefaultAttackSequence
 
 
 
-        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
-        AbilityTransform2.GetComponent<ProjectileStats>().SetUp(AttackNormal2, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
-        AbilityTransform3.GetComponent<ProjectileStats>().SetUp(AttackNormal3, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+        AbilityTransform2.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal2, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+        AbilityTransform3.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal3, abilitySlot == 0 ? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
 
 
-
+        RevertColorChange();
+        RevertSlow();
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);

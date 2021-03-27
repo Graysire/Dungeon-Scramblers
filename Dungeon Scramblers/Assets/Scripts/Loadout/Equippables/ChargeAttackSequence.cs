@@ -51,7 +51,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
 
-        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, 0);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
 
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Projectile.GetCastingTime());

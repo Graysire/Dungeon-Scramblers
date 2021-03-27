@@ -42,27 +42,9 @@ public class DefaultAttackSequence : Ability
 
         Attacked = true;
 
-        //Change player sprite color for cast
-        if (ChangePlayerColorOnCast)
-        {
-            PlayerSprite = Unit.GetComponent<SpriteRenderer>();
-            if (PlayerSprite != null)
-            {
-                PlayerOriginalColor = PlayerSprite.color;
-                PlayerSprite.color = PlayerCastColor;
-            }
-            else
-            {
-                Debug.Log("No player sprite assigned!");
-            }
-        }
+        ApplyColorChange();
+        ApplySlow();
 
-        //If slow on cast then reduce speed by half
-        if (SlowPlayerOnCast)
-        {
-            originalSpeed = Unit.GetAffectedStats()[1];
-            Unit.GetAffectedStats()[1] = originalSpeed / 2;
-        }
 
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Projectile.GetCastingTime());
@@ -95,22 +77,11 @@ public class DefaultAttackSequence : Ability
         
 
         //Send indicator of the charge direction
-        AbilityTransform.GetComponent<ProjectileStats>().SetUp(AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
+        AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, abilitySlot == 0? Unit.GetAffectedStats()[(int)Stats.attackdmg] : Unit.GetAffectedStats()[(int)Stats.abilitydmg]);
 
-        //Change player sprite color back
-        if (ChangePlayerColorOnCast)
-        {
-            if (PlayerSprite != null)
-            {
-                PlayerSprite.color = PlayerOriginalColor;
-            }
-        }
 
-        //Reset original speed
-        if (SlowPlayerOnCast)
-        {
-            Unit.GetAffectedStats()[1] = originalSpeed;
-        }
+        RevertColorChange();
+        RevertSlow();
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
@@ -134,5 +105,54 @@ public class DefaultAttackSequence : Ability
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("ScramblerBullet");
         else if (gameObject.layer == LayerMask.NameToLayer("Overlord"))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
+    }
+
+    protected void ApplyColorChange()
+    {
+        //Change player sprite color for cast
+        if (ChangePlayerColorOnCast)
+        {
+            PlayerSprite = Unit.GetComponent<SpriteRenderer>();
+            if (PlayerSprite != null)
+            {
+                PlayerOriginalColor = PlayerSprite.color;
+                PlayerSprite.color = PlayerCastColor;
+            }
+            else
+            {
+                Debug.Log("No player sprite assigned!");
+            }
+        }
+    }
+
+    protected void ApplySlow()
+    {
+        //If slow on cast then reduce speed by half
+        if (SlowPlayerOnCast)
+        {
+            originalSpeed = Unit.GetAffectedStats()[1];
+            Unit.GetAffectedStats()[1] = originalSpeed / 2;
+        }
+    }
+
+    protected void RevertColorChange()
+    {
+        //Change player sprite color back
+        if (ChangePlayerColorOnCast)
+        {
+            if (PlayerSprite != null)
+            {
+                PlayerSprite.color = PlayerOriginalColor;
+            }
+        }
+    }
+
+    protected void RevertSlow()
+    {
+        //Reset original speed
+        if (SlowPlayerOnCast)
+        {
+            Unit.GetAffectedStats()[1] = originalSpeed;
+        }
     }
 }

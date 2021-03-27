@@ -48,6 +48,8 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     protected Collider2D Collider;
     // Use to handle movement of the projectile and collision
     protected Rigidbody2D rb;
+    //The player creating this ability
+    protected AbstractPlayer Owner;
 
     // Return the casting time for the ability as a float
     // This is an interface function that the player call with nessarily finding the object
@@ -71,8 +73,9 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     }
       
     // Take in the attack direction from the player to move the ability
-    public void SetUp(Vector3 AttackDir, int dmg)
+    public void SetUp(AbstractPlayer Owner, Vector3 AttackDir, int dmg)
     {
+        this.Owner = Owner;
         this.AttackDir = AttackDir;
         ActualDamage = BaseDamage + dmg;
         rb = GetComponent<Rigidbody2D>();
@@ -172,6 +175,16 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             for (int i = 0; i < StatusEffects.Count; ++i)
             {
                 unit.AddStatusEffect(StatusEffects[i]);
+            }
+        }
+
+        //If overlord has a retribution ability then apply to player that cast this ability
+        Overlord o = collision.gameObject.GetComponent<Overlord>();
+        if (o != null)
+        {
+            if (o.HasRetributionAbility)
+            {
+                o.ApplyRetributionAbility(Owner);
             }
         }
 

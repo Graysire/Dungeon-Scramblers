@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Overlord : Player
 {
+    [Header("Overlord Values")]
+    [SerializeField]
+    public bool HasRetributionAbility = false;  //refers to an effect that gets applied to players that hit them.
+    [SerializeField]
+    protected int RetributionAbilityIndex;  // The index of the retribution ability or status effect to apply
+
     protected override void Awake()
     {
         base.Awake();
@@ -15,8 +21,14 @@ public class Overlord : Player
         }
     }
 
+    //Applies a status effect to the player that hits this overlord
+    public void ApplyRetributionAbility(AbstractPlayer player)
+    {
+        player.AddStatusEffect((StatusEffect)AttackList[RetributionAbilityIndex]);
+    }
 
-    protected override void Move(Vector2 d)
+
+protected override void Move(Vector2 d)
     {
         // Animation changes
         // Not moving
