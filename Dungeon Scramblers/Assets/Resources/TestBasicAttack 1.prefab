@@ -49,8 +49,12 @@ MonoBehaviour:
   uniqueName: 
   equippableBitFlag: 
   bitCategory: 0
-  Projectile: {fileID: 4983767609826630315, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  playerCategory: 0
   abilitySlot: 0
+  Projectile: {fileID: 4983767609826630315, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-1327400690779752893
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3223,8 +3223,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 64000000900100006400000064000000640000006400000064000000
+  HealthBar: {fileID: 0}
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
   - {fileID: 3940147794213505563, guid: c20195ba4ed5d8e4fad0dc9b7d21b6c2, type: 3}
   - {fileID: 6242800877514398001, guid: 9fb91e3a887c2174e9022bf72c0f559f, type: 3}
@@ -3235,7 +3237,6 @@ MonoBehaviour:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
-  HealthBar: {fileID: 0}
   ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:

@@ -51,10 +51,12 @@ public class Player : AbstractPlayer
         // Instantiate attack sequences to reattach the instance to the player
         for(int i = 0; i < AttackObjectList.Count; i++)
         {
-            if(PhotonNetwork.CurrentRoom != null)
+            if (PhotonNetwork.CurrentRoom != null)
             {
-                AttackObjectList[i] = PhotonNetwork.Instantiate(AttackObjectList[i].name, gameObject.transform.position, new Quaternion() );
+                AttackObjectList[i] = PhotonNetwork.InstantiateRoomObject(AttackObjectList[i].name, gameObject.transform.position, new Quaternion());
                 AttackObjectList[i].layer = gameObject.layer;
+
+
             }
             else
             {
@@ -98,8 +100,8 @@ public class Player : AbstractPlayer
             controls.PlayerMovement.Attack.canceled += ctx => Attack(ctx.ReadValue<float>(), 0);
             controls.PlayerMovement.UseAbility.canceled += ctx => Attack(ctx.ReadValue<float>(), 1);
         }
-        /*
-        // Art Variables
+
+        //Art Variables
         sr = GetComponent<SpriteRenderer>();
         //animator = GetComponent<Animator>();
         for (int i = 0; i < AnimatorList.Count; i++)
@@ -108,7 +110,7 @@ public class Player : AbstractPlayer
         enabledAnimatorInd = 0;
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
         isFacingLeft = false;
-        */
+
 
         allowedToAttack = true;
         rb = GetComponent<Rigidbody2D>();

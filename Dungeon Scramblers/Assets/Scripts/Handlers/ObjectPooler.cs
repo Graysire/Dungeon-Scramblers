@@ -26,7 +26,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         UpdateHandler.StartOccurred -= PoolObjectAtStart;
     }
 
-    //[PunRPC]
+
     protected void PoolObjectAtStart() {
         objectsPooled = new List<GameObject>();
         for (int i = 0; i < amountToPool; i++)
@@ -35,9 +35,10 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             //PhotonID
             if (PhotonNetwork.CurrentRoom != null)
             {
-                go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
-                go.transform.SetParent(this.gameObject.transform);
-              //  photonView.RPC("PoolObjectAtStart", RpcTarget.OthersBuffered);
+                float angle = 0;
+                object[] SpawnGoParams = new object[] {transform.position, angle };
+                go = SpawnGO(SpawnGoParams);
+                PhotonNetwork.AllocateViewID(go);
             }
             else
             {
@@ -47,26 +48,23 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             objectsPooled.Add(go);
         }
     }
-   //[PunRPC]
+
     public GameObject GetPooledObject() {
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-          //  photonView.RPC("GetPooledObject", RpcTarget.All);
-        }
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
                 //objectsPooled[i].SetActive(true);
-                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile();
+                int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
+                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
                 return objectsPooled[i];
             }
         }
         GameObject go;
         if (PhotonNetwork.CurrentRoom != null)
         {
-            go = PhotonNetwork.Instantiate(objectToPool.name, transform.position, new Quaternion());
-            go.transform.SetParent(gameObject.transform);
-               
-           
+            float angle = 0;
+            object[] SpawnGoParams = new object[] { objectToPool, transform.position, angle };
+            go = SpawnGO(SpawnGoParams);
+            PhotonNetwork.AllocateViewID(go);
         }
         else
         {
@@ -78,8 +76,9 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         return objectsPooled[objectsPooled.Count - 1];
     }
 
-    //[PunRPC]
-    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle) {
+
+    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle)
+    {
 
         //initialize this object since it is new
         if (objectsPooled == null)
@@ -94,7 +93,9 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         {
             if (!objectsPooled[i].activeSelf)
             {
-                objectsPooled[i].SetActive(true);
+                int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
+                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                //objectsPooled[i].SetActive(true);
                 objectsPooled[i].transform.position = AttackTransform;
                 objectsPooled[i].transform.rotation = Quaternion.Euler(0, 0, angle);
                 return objectsPooled[i];
@@ -103,9 +104,9 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         GameObject go;
         if (PhotonNetwork.CurrentRoom != null)
         {
-            go = PhotonNetwork.Instantiate(objectToPool.name, AttackTransform,
-                    Quaternion.Euler(0, 0, angle));
-            go.transform.SetParent(this.gameObject.transform);
+            object[] SpawnGoParams = new object[] { AttackTransform, angle };
+            go = SpawnGO(SpawnGoParams);
+            PhotonNetwork.AllocateViewID(go);
         }
         else
         {
@@ -114,6 +115,24 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         }
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
+    }
+
+    //Spawns GOs  Across Networks
+    GameObject SpawnGO(object[] SpawnParams)
+    {
+        //Get position from data[]
+        Vector3 position = (Vector3)SpawnParams[0];
+       // Debug.Log("Position:" + position);
+        //Get angle from data[]
+        float angle = (float)SpawnParams[1];
+        //Debug.Log("angle:" + angle);
+        //Spawn object at this location
+        GameObject goSpawned = PhotonNetwork.InstantiateRoomObject(objectToPool.name, position,
+          Quaternion.Euler(0, 0, angle));
+        //Set Parent
+        goSpawned.transform.SetParent(gameObject.transform);
+        //return for GO reference
+        return goSpawned;
     }
 
 }

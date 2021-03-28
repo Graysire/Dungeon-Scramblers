@@ -71,7 +71,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     {
         return OffsetScale;
     }
-      
+
     // Take in the attack direction from the player to move the ability
     public void SetUp(AbstractPlayer Owner, Vector3 AttackDir, int dmg)
     {
@@ -113,7 +113,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
-        if(PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
+        if (PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
         {
             GetComponent<PhotonRigidbody2DView>().enabled = false;
         }
@@ -121,6 +121,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     void Movement()
     {
+        //Debug.Log("Photonview is mine:")
         // Check if Attack Direction exist
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
@@ -139,9 +140,25 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 //Being called multiple Times
-               // ResetProjectiles();
+                ResetProjectiles();
+                int PhotonID = gameObject.GetPhotonView().ViewID;
+                TurnOffProjectile(PhotonID);
             }
         }
+    }
+
+    //Function to exclusively set Gameobject inactive
+    [PunRPC]
+    void TurnOffProjectile(int go)
+    {
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("TurnOffProjectile", RpcTarget.Others, go);
+        }
+        GameObject GOReset = PhotonView.Find(go).gameObject;
+
+        GOReset.SetActive(false);
+        Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
     }
     private void OnDisable()
     {
@@ -156,7 +173,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        
+
         if (collision.tag == "Shield")
         {
             ResetProjectiles();
@@ -166,7 +183,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         //get Damageable from collision object
         IDamageable<int> damageable = collision.GetComponent<IDamageable<int>>();
         //if the collision does not exist or damageable is not on the object
-        if (collision == null || damageable == null)  return;
+        if (collision == null || damageable == null) return;
 
         //If the colliding object inherits from Abstract player then apply the status effect(s)
         AbstractPlayer unit = collision.gameObject.GetComponent<AbstractPlayer>();
@@ -198,34 +215,27 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             ResetProjectiles();
         }
     }
-
     [PunRPC]
     public void ResetProjectiles()
     {
-        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
-        {
-            photonView.RPC("ResetProjectiles", RpcTarget.Others);
-            totalTime = 0f;
-            numHits = 0;
-        }
-        else
-        {
-            totalTime = 0f;
-            numHits = 0;
-        }
-
+        totalTime = 0f;
+        numHits = 0;
         ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
     }
 
     [PunRPC]
-    public void ShowProjectile()
+    public void ShowProjectile(int go)
     {
         if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
         {
-            photonView.RPC("ShowProjectile", RpcTarget.Others);
+            photonView.RPC("ShowProjectile", RpcTarget.Others, go);
         }
-        gameObject.SetActive(true);
+        GameObject GOReset = PhotonView.Find(go).gameObject;
+        GOReset.SetActive(true);
+        //GOReset.SetActive(false);
+        Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
     }
+
 }

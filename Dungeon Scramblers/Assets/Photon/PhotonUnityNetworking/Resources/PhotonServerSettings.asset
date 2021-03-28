@@ -47,6 +47,8 @@ MonoBehaviour:
   - PoolObjectAtStart
   - Movement
   - ShowProjectile
+  - SpawnGO
+  - TurnOffProjectile
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
