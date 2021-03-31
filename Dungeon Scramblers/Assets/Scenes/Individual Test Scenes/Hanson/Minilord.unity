@@ -1379,6 +1379,8 @@ MonoBehaviour:
   - {fileID: 2114680770075490120}
   - {fileID: 2114680769725213152}
   - {fileID: 2114680769578861616}
+  HasRetributionAbility: 0
+  RetributionAbilityIndex: 0
 --- !u!212 &2114680768803883554
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4648,7 +4650,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4536677181648069051, guid: 357d3f700be34444c968148cdfe8d976, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 357d3f700be34444c968148cdfe8d976, type: 3}

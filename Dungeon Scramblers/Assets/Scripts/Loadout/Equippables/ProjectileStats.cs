@@ -111,7 +111,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     //}
 
-    private void Awake()
+    protected virtual void Awake()
     {
         if (PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
         {
@@ -119,7 +119,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
-    void Movement()
+    protected virtual void Update()
     {
         //Debug.Log("Photonview is mine:")
         // Check if Attack Direction exist
@@ -149,7 +149,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
 
     //Function to exclusively set Gameobject inactive
     [PunRPC]
-    void TurnOffProjectile(int go)
+    protected void TurnOffProjectile(int go)
     {
         if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
         {
@@ -162,12 +162,12 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     }
     private void OnDisable()
     {
-        UpdateHandler.FixedUpdateOccurred -= Movement;
+        //UpdateHandler.FixedUpdateOccurred -= Movement;
     }
 
     private void OnEnable()
     {
-        UpdateHandler.FixedUpdateOccurred += Movement;
+        //UpdateHandler.FixedUpdateOccurred += Movement;
     }
 
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D

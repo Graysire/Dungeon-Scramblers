@@ -5,10 +5,21 @@ using Photon.Pun;
 
 public class ChargeAttackSequence : DefaultAttackSequence
 {
+    // public changable variable
+    [SerializeField]
+    private ProjectileStats Indicator;
+    [SerializeField]
+    private ObjectPooler IndicatorPooler;
+
+    [SerializeField]
+    private float chargingDuration = 1.0f;
+    [SerializeField]
+    private float launchingForce = 1000;
+
     private Rigidbody2D rigidBody;
-    public float LaunchingForce = 1000;
     private bool bLaunch = false;
     private Vector3 AttackNormal;
+
 
     [PunRPC]
     protected override IEnumerator AttackSequence()
@@ -20,6 +31,11 @@ public class ChargeAttackSequence : DefaultAttackSequence
         Unit.SetAllowedToAttack(false);
 
         Attacked = true;
+
+        ApplyColorChange();
+        ApplySlow();
+
+        Overlord overlord = (Overlord)Unit;
 
         // Get the overlord initial speed to change the 
         int PlayerSpeed = (Unit.GetAffectedStats()[(int)Stats.movespeed] / 100);
@@ -46,25 +62,31 @@ public class ChargeAttackSequence : DefaultAttackSequence
 
         // Transform vector with quick if statements for returning offset for attacks
         // In chargin attack case, this will act as an indicator for where the minilord is charging
-        Vector3 AttackTransform = Unit.transform.position + (RelativeAttackEnd.normalized * Projectile.GetOffsetScale());
+        Vector3 AttackTransform = Unit.transform.position + (RelativeAttackEnd.normalized * Indicator.GetOffsetScale());
 
         // Get instance of ability from object pooler
+        Transform IndicatorTransform = IndicatorPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+
+        IndicatorTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
+
+        // Wait for ability casting time before proceeding
+        yield return new WaitForSeconds(Indicator.GetCastingTime());
+
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
 
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
 
-        // Wait for ability casting time before proceeding
-        yield return new WaitForSeconds(Projectile.GetCastingTime());
+        AbilityTransform.GetComponent<ChargingProjectileStats>().SetPlayer(Unit);
 
-        rigidBody = Unit.GetComponent<Rigidbody2D>();
         bLaunch = true;
 
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(chargingDuration);
 
         bLaunch = false;
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
+
 
         if (abilitySlot == 0)
         {
@@ -83,7 +105,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
     {
         if(bLaunch)
         {
-            Unit.GetComponent<Rigidbody2D>().AddForce(AttackNormal * LaunchingForce);
+            Unit.GetComponent<Rigidbody2D>().AddForce(AttackNormal * launchingForce);
         }
     }
 }

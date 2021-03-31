@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Overlord : Player
 {
+
+    private bool bCharging = false;
+
     [Header("Overlord Values")]
     [SerializeField]
     public bool HasRetributionAbility = false;  //refers to an effect that gets applied to players that hit them.
@@ -28,62 +31,77 @@ public class Overlord : Player
     }
 
 
-protected override void Move(Vector2 d)
-    {
-        // Animation changes
-        // Not moving
-        // Front [0], Back [1], Side [2]
-        //if (d.x == 0 && d.y == 0 && !enabledAnim.GetBool("idle"))
-        if (d.x == 0 && d.y == 0)
+    protected override void Move(Vector2 d)
         {
-            /*if (animator.GetBool("facingLeft")) {
-                animator.SetBool("facingLeft", false);
-                animator.SetBool("facingFront", true);
-            }
-            animator.SetBool("idle", true);*/
-            /*if (enabledAnimatorInd == 2) 
-                SwitchAnimatorGO(0, false);*/
-            //enabledAnim.SetBool("idle", true);
-        }
-        else
-        {
-            //enabledAnim.SetBool("idle", true);
-            // Moving Down (front-facing)
-            if (d.y < 0 && d.x == 0 && enabledAnimatorInd != 0)
+            // Animation changes
+            // Not moving
+            // Front [0], Back [1], Side [2]
+            //if (d.x == 0 && d.y == 0 && !enabledAnim.GetBool("idle"))
+            if (d.x == 0 && d.y == 0)
             {
-                /*animator.SetBool("facingFront", true);
-                animator.SetBool("facingBack", false);
-                animator.SetBool("facingLeft", false);*/
-                //SwitchAnimatorGO(0, false);
+                /*if (animator.GetBool("facingLeft")) {
+                    animator.SetBool("facingLeft", false);
+                    animator.SetBool("facingFront", true);
+                }
+                animator.SetBool("idle", true);*/
+                /*if (enabledAnimatorInd == 2) 
+                    SwitchAnimatorGO(0, false);*/
+                //enabledAnim.SetBool("idle", true);
             }
-            // Moving Up (back-facing)
-            else if (d.y > 0 && d.x == 0 && enabledAnimatorInd != 1)
+            else
             {
-                /*animator.SetBool("facingFront", false);
-                animator.SetBool("facingBack", true);
-                animator.SetBool("facingLeft", false);*/
-                //SwitchAnimatorGO(1, false);
-            }
-            // Moving Sideways & diagonally (side-facing)
-            else if (d.x != 0)
-            {
-                if (enabledAnimatorInd != 3)
+                //enabledAnim.SetBool("idle", true);
+                // Moving Down (front-facing)
+                if (d.y < 0 && d.x == 0 && enabledAnimatorInd != 0)
+                {
+                    /*animator.SetBool("facingFront", true);
+                    animator.SetBool("facingBack", false);
+                    animator.SetBool("facingLeft", false);*/
+                    //SwitchAnimatorGO(0, false);
+                }
+                // Moving Up (back-facing)
+                else if (d.y > 0 && d.x == 0 && enabledAnimatorInd != 1)
                 {
                     /*animator.SetBool("facingFront", false);
-                    animator.SetBool("facingBack", false);
-                    animator.SetBool("facingLeft", true);*/
-                    //SwitchAnimatorGO(2, true);
+                    animator.SetBool("facingBack", true);
+                    animator.SetBool("facingLeft", false);*/
+                    //SwitchAnimatorGO(1, false);
                 }
+                // Moving Sideways & diagonally (side-facing)
+                else if (d.x != 0)
+                {
+                    if (enabledAnimatorInd != 3)
+                    {
+                        /*animator.SetBool("facingFront", false);
+                        animator.SetBool("facingBack", false);
+                        animator.SetBool("facingLeft", true);*/
+                        //SwitchAnimatorGO(2, true);
+                    }
 
-                //if (d.x < 0 && !sr.flipX)
-                //    sr.flipX = true;
-                //else if (d.x > 0 && sr.flipX)
-                //    sr.flipX = false;
+                    //if (d.x < 0 && !sr.flipX)
+                    //    sr.flipX = true;
+                    //else if (d.x > 0 && sr.flipX)
+                    //    sr.flipX = false;
+                }
+               // enabledAnim.SetBool("idle", false);
             }
-           // enabledAnim.SetBool("idle", false);
+            // Actual movement
+            direction = new Vector2(d.x, d.y);
+            direction = transform.TransformDirection(direction);
         }
-        // Actual movement
-        direction = new Vector2(d.x, d.y);
-        direction = transform.TransformDirection(direction);
+
+    void toggleCharging()
+    {
+        bCharging = !bCharging;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Layer 11 is Overlord
+        if(collision.gameObject.layer == 11)
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
     }
 }
+
