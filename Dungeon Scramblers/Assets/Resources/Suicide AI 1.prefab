@@ -129,17 +129,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 01000000060000000100000001000000010000000100000001000000
+  HealthBar: {fileID: 0}
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
   - {fileID: 6125647232567267168, guid: 85fcd90147f0cf547bf81ef5c7c20b1e, type: 3}
   players:
   - {fileID: 0}
-  healthBarUI: {fileID: 8332080629955179806}
-  healthBar: {fileID: 8332080630735973273}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 0.4
+  retreatDistance: 0.3
   visibleRange: 10
   attackRange: 2
   expOnDeath: 2

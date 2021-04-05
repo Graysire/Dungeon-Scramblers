@@ -60,7 +60,7 @@ public class GMTemp : MonoBehaviour
                 Debug.Log("Default Player Spawning");
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-
+                yield return new WaitForSeconds(1f);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, SetupSpawning(), Quaternion.identity);
             }
         }

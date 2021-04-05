@@ -11,6 +11,7 @@ public class PlayerListEntryInitializer : MonoBehaviour
     public Button PlayerReadyButton;
     public Button PlayerReadyPopUp;
     public Button PlayerIndicator;
+    public Button OverlordIndicator;
 
     private bool isPlayerReady = false;
 
@@ -25,6 +26,7 @@ public class PlayerListEntryInitializer : MonoBehaviour
             PlayerReadyButton.gameObject.SetActive(false);
             PlayerReadyPopUp.gameObject.SetActive(false);
             PlayerIndicator.gameObject.SetActive(false);
+
         }
         //This is our Player
         else
@@ -62,6 +64,22 @@ public class PlayerListEntryInitializer : MonoBehaviour
         }
     }
 
+    //Turn off Visual indicator for Player Ready Value
+    public void SetOverlord(bool isOverlord)
+    {
+
+
+        if (isOverlord)
+        {
+            OverlordIndicator.gameObject.SetActive(true);
+        }
+        else
+        {
+            OverlordIndicator.gameObject.SetActive(false);
+        }
+    }
+
+
     public void IsPlayerReady()
     {
         Debug.Log("Player Ready Clicked");
@@ -73,4 +91,5 @@ public class PlayerListEntryInitializer : MonoBehaviour
         //Update Hash table
         PhotonNetwork.LocalPlayer.SetCustomProperties(newProps);
     }
+
 }

@@ -8,7 +8,7 @@ public class DungeonScramblersGame
 {
     public const string PLAYER_READY = "isPlayerReady";
     public const string PLAYER_SELECTION_NUMBER = "Player_Selection_Number";
-
+    public const string PLAYER_OVERLORD = "isPlayerOverlord";
    // public const string P
 
 }
