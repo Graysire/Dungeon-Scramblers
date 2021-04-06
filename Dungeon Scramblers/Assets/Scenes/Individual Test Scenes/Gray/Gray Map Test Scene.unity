@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfMaps: 3000
-  waitTimeBetweenMaps: 20000
-  startingSeed: 0
+  waitTimeBetweenMaps: 5
+  startingSeed: 25
   mapper: {fileID: 337241789}
 --- !u!1 &1873881674
 GameObject:
@@ -330,6 +330,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5393356189860475531, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: m_Name
+      value: ShadowMap
+      objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: generateAI
       value: 0
@@ -343,9 +347,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: b76b4ca3f85771646a6b57933078d6ec, type: 2}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
-      propertyPath: decorationFrequency
-      value: 3
-      objectReference: {fileID: 0}
+      propertyPath: doorTile
+      value: 
+      objectReference: {fileID: 11400000, guid: f3e2eee4c248c744a84a3300070c17ab, type: 2}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
