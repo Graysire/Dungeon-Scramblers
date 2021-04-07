@@ -236,13 +236,22 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //Debug.Log("Retrieving Bits...");
         Debug.Log("Bits Recieved" + GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.knight);
+
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetMageLoadout()
     {
         //Get Player Category Selection
-        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.knight;
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.mage;
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.mage);
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetRogueLoadout()
@@ -250,14 +259,24 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //Get Player Category Selection
         Categories.PlayerCategories playerCategory = Categories.PlayerCategories.rogue;
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.rogue);
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetOverlordLoadout()
     {
         //Get Player Category Selection
         Categories.PlayerCategories playerCategory = Categories.PlayerCategories.overlord;
-        SelectPlayer(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
+
+        //Store and set loadout info
+        SelectPlayer((int) Categories.PlayerCategories.overlord);
+
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
+
 
 
     //Called on button click to select Player Character
@@ -265,6 +284,18 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         //Create HashTable with our selection value
         ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.PLAYER_SELECTION_NUMBER, PlayerSelectionNumber } };
+        //Add Player Selection to hash table to save for later
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
+
+        Debug.Log("Player Character received");
+    }
+
+
+    // Set loadout for Player after character selected
+    public void SetLoadout(int Loadout)
+    {
+        //Create HashTable with our selection value
+        ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.PLAYER_LOADOUT, Loadout } };
         //Add Player Selection to hash table to save for later
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
 

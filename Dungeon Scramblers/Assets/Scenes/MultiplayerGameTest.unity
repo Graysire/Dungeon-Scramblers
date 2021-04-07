@@ -503,7 +503,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: generateAI
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: spawnAI.Array.data[0].spawns.Array.data[0].spawnAI
@@ -982,7 +982,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerPrefabs:
+  - {fileID: 2114680770838200914, guid: b98169dfa1642694486b6e190e7fa705, type: 3}
+  - {fileID: 2114680770838200914, guid: 63007a58cf2b3c04b9271ad246bc251a, type: 3}
   - {fileID: 2114680770838200914, guid: 3faacb77c0cc68b419b442e9c267a4fa, type: 3}
+  - {fileID: 2114680770838200914, guid: e40ca5bcf9555dc448f3e39562023326, type: 3}
   - {fileID: 2114680770838200914, guid: 3faacb77c0cc68b419b442e9c267a4fa, type: 3}
   EnemyTest: {fileID: 7241576718249047957, guid: 549f70e5ec51f764ca218da455294a50, type: 3}
   vcam: {fileID: 523157962}
