@@ -59,8 +59,8 @@ public class GMTemp : MonoBehaviour
                 Debug.Log("Saved Player Type:" + SavedPlayerType);
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-
-                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, SetupSpawning(), Quaternion.identity);
+                Vector3 Spawn = SetupSpawning();
+                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
 
 
 
@@ -68,10 +68,10 @@ public class GMTemp : MonoBehaviour
             else
             {
                 Debug.Log("Default Player Spawning");
-
+                Vector3 Spawn = SetupSpawning();
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 yield return new WaitForSeconds(1f);
-                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, SetupSpawning(), Quaternion.identity);
+                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
     }
@@ -107,7 +107,7 @@ public class GMTemp : MonoBehaviour
             Debug.Log("We have:" + PC);
             code = 2;
         }
-        //rogue
+        //roguea
         if (PC == Categories.PlayerCategories.rogue)
         {
             Debug.Log("We have:" + PC);

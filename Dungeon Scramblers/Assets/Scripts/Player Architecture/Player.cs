@@ -53,7 +53,7 @@ public class Player : AbstractPlayer
         {
             if (PhotonNetwork.CurrentRoom != null)
             {
-                AttackObjectList[i] = PhotonNetwork.InstantiateRoomObject(AttackObjectList[i].name, gameObject.transform.position, new Quaternion());
+                AttackObjectList[i] = PhotonNetwork.Instantiate(AttackObjectList[i].name, gameObject.transform.position, new Quaternion());
                 AttackObjectList[i].layer = gameObject.layer;
 
 

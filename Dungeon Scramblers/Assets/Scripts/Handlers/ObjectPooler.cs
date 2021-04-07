@@ -38,7 +38,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
                 float angle = 0;
                 object[] SpawnGoParams = new object[] {transform.position, angle };
                 go = SpawnGO(SpawnGoParams);
-                PhotonNetwork.AllocateViewID(go);
+                //PhotonNetwork.AllocateViewID(go);
             }
             else
             {
@@ -58,7 +58,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
                     int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
                     objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
                 }
-                Debug.Log("Returning Object");
+                //Debug.Log("Returning Object");
                 return objectsPooled[i];
             }
         }
@@ -68,14 +68,14 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
             float angle = 0;
             object[] SpawnGoParams = new object[] { objectToPool, transform.position, angle };
             go = SpawnGO(SpawnGoParams);
-            PhotonNetwork.AllocateViewID(go);
+           // PhotonNetwork.AllocateViewID(go);
         }
         else
         {
             go = Instantiate(objectToPool, transform.position, new Quaternion());
         }
         //go.SetActive(false);
-        go.GetComponent<ProjectileStats>().ResetProjectiles();
+        //go.GetComponent<ProjectileStats>().ResetProjectiles();
         objectsPooled.Add(go);
         return objectsPooled[objectsPooled.Count - 1];
     }
@@ -117,7 +117,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         {
             object[] SpawnGoParams = new object[] { AttackTransform, angle };
             go = SpawnGO(SpawnGoParams);
-            PhotonNetwork.AllocateViewID(go);
+            //PhotonNetwork.AllocateViewID(go);
         }
         else
         {
@@ -138,7 +138,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         float angle = (float)SpawnParams[1];
         //Debug.Log("angle:" + angle);
         //Spawn object at this location
-        GameObject goSpawned = PhotonNetwork.InstantiateRoomObject(objectToPool.name, position,
+        GameObject goSpawned = PhotonNetwork.Instantiate(objectToPool.name, position,
           Quaternion.Euler(0, 0, angle));
         //Set Parent
         goSpawned.transform.SetParent(gameObject.transform);
