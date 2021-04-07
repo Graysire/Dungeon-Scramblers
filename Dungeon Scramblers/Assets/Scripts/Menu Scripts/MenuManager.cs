@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
-public class MenuManager : MonoBehaviour
+public class MenuManager : MonoBehaviourPunCallbacks
 {
 
     //Bit representation document
@@ -223,8 +224,8 @@ public class MenuManager : MonoBehaviour
     }
 
 
-    // The Folliwing Funcitons are used by the Loadout Selection Panel inside the Netwroked Room
-    // These functions are attached to loadout buttons inside the Newtorked Room to let players select they're class before a match.
+    // The Following Funcitons are used by the Loadout Selection Panel inside the Networked Room
+    // These functions are attached to loadout buttons inside the Room to let players select they're class before a match.
     public void GetKnightLoadout()
     {
         //Get Player Category Selection
@@ -235,13 +236,22 @@ public class MenuManager : MonoBehaviour
         //Debug.Log("Retrieving Bits...");
         Debug.Log("Bits Recieved" + GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.knight);
+
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetMageLoadout()
     {
         //Get Player Category Selection
-        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.knight;
+        Categories.PlayerCategories playerCategory = Categories.PlayerCategories.mage;
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.mage);
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetRogueLoadout()
@@ -249,6 +259,10 @@ public class MenuManager : MonoBehaviour
         //Get Player Category Selection
         Categories.PlayerCategories playerCategory = Categories.PlayerCategories.rogue;
 
+        //Cast to int value to store for later
+        SelectPlayer((int)Categories.PlayerCategories.rogue);
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
     public void GetOverlordLoadout()
@@ -256,6 +270,42 @@ public class MenuManager : MonoBehaviour
         //Get Player Category Selection
         Categories.PlayerCategories playerCategory = Categories.PlayerCategories.overlord;
 
+        //Store and set loadout info
+        SelectPlayer((int) Categories.PlayerCategories.overlord);
+
+        //Store and set loadout info
+        SetLoadout(GetInventoryCode(playerCategory, Categories.ItemCategory.weapon));
     }
 
+
+
+    //Called on button click to select Player Character
+    public void SelectPlayer(int PlayerSelectionNumber)
+    {
+        //Create HashTable with our selection value
+        ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.PLAYER_SELECTION_NUMBER, PlayerSelectionNumber } };
+        //Add Player Selection to hash table to save for later
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
+
+        Debug.Log("Player Character received");
+    }
+
+
+    // Set loadout for Player after character selected
+    public void SetLoadout(int Loadout)
+    {
+        //Create HashTable with our selection value
+        ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.PLAYER_LOADOUT, Loadout } };
+        //Add Player Selection to hash table to save for later
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
+
+        Debug.Log("Player info received");
+    }
+
+    //Funciton called when Player's Character Selection changes
+    public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
+    {
+        Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
+
+    }
 }

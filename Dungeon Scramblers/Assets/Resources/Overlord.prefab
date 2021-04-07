@@ -1127,7 +1127,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d34b44dd43df3e646af91275187bd064, type: 3}
+  m_Sprite: {fileID: 1538504223091633801, guid: 8cc179d5e5be5a94791d674bc7406797, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1227,8 +1227,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: idle
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &2114680769526637722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,7 +1577,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  m_Sprite: {fileID: 1538504223091633801, guid: 8cc179d5e5be5a94791d674bc7406797, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1931,7 +1936,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 11eb77f64d767994fa19c67fc6b47f88, type: 3}
+  m_Sprite: {fileID: 1538504223091633801, guid: 8cc179d5e5be5a94791d674bc7406797, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3085,7 +3090,7 @@ GameObject:
   - component: {fileID: 424624744661482047}
   - component: {fileID: 2208858389996876875}
   m_Layer: 10
-  m_Name: New Player Prefab
+  m_Name: Rogue 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

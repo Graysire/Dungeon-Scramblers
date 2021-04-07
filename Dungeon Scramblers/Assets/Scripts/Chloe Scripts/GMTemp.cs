@@ -8,6 +8,7 @@ using Cinemachine;
 
 public class GMTemp : MonoBehaviour
 {
+    BitPacket bitPacket = new BitPacket();
     public GameObject[] PlayerPrefabs;
     public GameObject EnemyTest;
     public CinemachineVirtualCamera vcam;
@@ -16,13 +17,14 @@ public class GMTemp : MonoBehaviour
     Vector3 worldLocation;
     Random.State s;
     // Start is called before the first frame update
+
     void Start()
     {
         StartCoroutine(SpawnPlayers());
-        //Get State of Game
-        //Random.State s = Random.state;
 
     }
+
+    //Coroutine for debugging purposes
     IEnumerator SpawnPlayers()
     {
         //Display StartButton for Party Leader only
@@ -31,10 +33,8 @@ public class GMTemp : MonoBehaviour
         {
             //Save seed of MasterClient
             s = Random.state;
-            //ExitGames.Client.Photon.Hashtable MapSeed = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.MASTER_CLIENT_SEED, s } };
             //Add Seed to hash table to save for later
-            //PhotonNetwork.LocalPlayer.SetCustomProperties(MapSeed);
-            Debug.Log("Seed: " + s);
+            //Debug.Log("Seed: " + s);
         }
 
         yield return new WaitForSeconds(2);
@@ -45,14 +45,24 @@ public class GMTemp : MonoBehaviour
             {
                 Random.state = s;
             }
+
+            //Player Spawning
             object PlayerSelectionNumber;
+            //Check if player has an available loadout
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
             {
                 Debug.Log("Player Number: " + (int)PlayerSelectionNumber);
 
+                //Get Player Category, save for later for loadout implementation
+                Categories.PlayerCategories SavedPlayerType = GetPlayerCategory((int)PlayerSelectionNumber);
+
+                Debug.Log("Saved Player Type:" + SavedPlayerType);
+
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
 
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, SetupSpawning(), Quaternion.identity);
+
+
 
             }
             else
@@ -60,11 +70,12 @@ public class GMTemp : MonoBehaviour
                 Debug.Log("Default Player Spawning");
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-
+                yield return new WaitForSeconds(1f);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, SetupSpawning(), Quaternion.identity);
             }
         }
     }
+
     Vector3 SetupSpawning()
     {
         //Get Start Roomn from MapMaker
@@ -81,5 +92,104 @@ public class GMTemp : MonoBehaviour
     }
 
 
+    public int PlayerType(Categories.PlayerCategories PC)
+    {
+        int code = 0;
+        //mage
+        if (PC == Categories.PlayerCategories.mage)
+        {
+            Debug.Log("We have:" + PC);
+            code = 1;
+        }
+        //knight
+        if (PC == Categories.PlayerCategories.knight)
+        {
+            Debug.Log("We have:" + PC);
+            code = 2;
+        }
+        //rogue
+        if (PC == Categories.PlayerCategories.rogue)
+        {
+            Debug.Log("We have:" + PC);
+            code = 3;
+        }
+        //overlord
+        if (PC == Categories.PlayerCategories.overlord)
+        {
+            Debug.Log("We have:" + PC);
+            code = 4;
+        }
 
+        return code;
+    }
+
+    #region Inventory Reading
+
+
+    public Categories.PlayerCategories GetPlayerCategory(int playerCat)
+    {
+        Categories.PlayerCategories playerCategory = (Categories.PlayerCategories) playerCat;
+
+
+        return playerCategory;
+    }
+
+
+    //Provided the player enum and the category of the item type wanted, this returns 
+    //the item code for the player
+    public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.ItemCategory category)
+    {
+        int code = 0;
+        //mage
+        if (playerCategory == Categories.PlayerCategories.mage)
+        {
+            code = GetCode(bitPacket.mageInvBitsPacked, category);
+        }
+        //knight
+        if (playerCategory == Categories.PlayerCategories.knight)
+        {
+            code = GetCode(bitPacket.knightInvBitsPacked, category);
+        }
+        //rogue
+        if (playerCategory == Categories.PlayerCategories.rogue)
+        {
+            code = GetCode(bitPacket.rogueInvBitsPacked, category);
+        }
+        //overlord
+        if (playerCategory == Categories.PlayerCategories.overlord)
+        {
+            code = GetCode(bitPacket.overlordInvBitsPacked, category);
+        }
+
+        return code;
+    }
+
+    //Retrieves the code at of the inventory given the category
+    private int GetCode(int inventory, Categories.ItemCategory category)
+    {
+        int code = inventory;
+        if (category == Categories.ItemCategory.weapon)
+        {
+            code = code << 3;
+            code = code >> 27;
+        }
+        if (category == Categories.ItemCategory.armor)
+        {
+            code = code << 8;
+            code = code >> 27;
+        }
+        if (category == Categories.ItemCategory.ability1)
+        {
+            code = code << 13;
+            code = code >> 26;
+        }
+        if (category == Categories.ItemCategory.ability2)
+        {
+            code = code << 19;
+            code = code >> 26;
+        }
+        return code;
+    }
+
+    #endregion
 }

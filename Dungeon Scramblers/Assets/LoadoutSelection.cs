@@ -28,4 +28,12 @@ public class LoadoutSelection : MonoBehaviourPunCallbacks
         Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
         
     }
+
+    public void SetOverlord(int PlayerOverlord)
+    {
+        ExitGames.Client.Photon.Hashtable playerSelectionProp = new ExitGames.Client.Photon.Hashtable() { { DungeonScramblersGame.PLAYER_OVERLORD, PlayerOverlord } };
+        //Add Player Selection to hash table to save for later
+        PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
+    }
+
 }
