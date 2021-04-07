@@ -146,7 +146,10 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
                     int PhotonID = gameObject.GetPhotonView().ViewID;
                     TurnOffProjectile(PhotonID);
                 }
-                
+                else
+                {
+                    ResetProjectiles();
+                }
             }
         }
     }
