@@ -148,19 +148,20 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     //Reduces the health of the AbstractPlayer by damageTaken
     public virtual void Damage(int damageTaken)
     {
+        Debug.Log("Damage Taken: " + damageTaken);
         if (damageTaken - affectedStats[(int)Stats.defense] < 5 && damageTaken != 0)
         {
             damageTaken = 5;
         }
-        else
+        else if (damageTaken != 0)
         {
             damageTaken -= affectedStats[(int)Stats.defense];
         }
 
-        UpdateHealthbarUI();
-
         Debug.Log("Damage: " + damageTaken);
         affectedStats[(int)Stats.health] -= damageTaken;
+
+        UpdateHealthbarUI();
     }
 
     //Updates the players Health UI
