@@ -67,13 +67,19 @@ public class ChargeAttackSequence : DefaultAttackSequence
         // Get instance of ability from object pooler
         Transform IndicatorTransform = IndicatorPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
 
+        SetBulletLayer(IndicatorTransform);
+
         IndicatorTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
+
+       
 
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Indicator.GetCastingTime());
 
 
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+
+        SetBulletLayer(AbilityTransform);
 
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
 

@@ -13,11 +13,14 @@ public class ChargingProjectileStats : ProjectileStats
         this.ChargingPlayer = ChargingPlayer;
     }
 
-    protected override void Update()
+    protected override void FixedUpdate()
     {
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
         {
+            // Increment time passed, position of the object, and position traveled
+            totalTime += Time.fixedDeltaTime;
 
+            PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
             rb = GetComponent<Rigidbody2D>();
 
             rb.MovePosition(ChargingPlayer.transform.position + (AttackDir * GetOffsetScale()));
@@ -26,9 +29,16 @@ public class ChargingProjectileStats : ProjectileStats
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 //Being called multiple Times
-                ResetProjectiles();
-                int PhotonID = gameObject.GetPhotonView().ViewID;
-                TurnOffProjectile(PhotonID);
+                //ResetProjectiles();
+                if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+                {
+                    int PhotonID = gameObject.GetPhotonView().ViewID;
+                    TurnOffProjectile(PhotonID);
+                }
+                else
+                {
+                    ResetProjectiles();
+                }
             }
         }
     }

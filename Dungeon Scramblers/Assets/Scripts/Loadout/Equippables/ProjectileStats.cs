@@ -119,7 +119,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         }
     }
 
-    protected virtual void Update()
+    protected virtual void FixedUpdate()
     {
         // Check if Attack Direction exist
         if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))

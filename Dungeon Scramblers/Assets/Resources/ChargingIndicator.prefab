@@ -160,7 +160,7 @@ MonoBehaviour:
   Range: 10
   DecayTime: 2
   MoveSpeed: 0
-  CastingTime: 1.5
+  CastingTime: 2
   CoolDown: 2
   OffsetScale: 1
   maxTargetsHit: 0
