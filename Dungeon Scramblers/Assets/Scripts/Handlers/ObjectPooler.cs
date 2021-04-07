@@ -52,9 +52,13 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
     public GameObject GetPooledObject() {
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
-                //objectsPooled[i].SetActive(true);
-                int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
-                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                objectsPooled[i].SetActive(true);
+                if (PhotonNetwork.CurrentRoom != null)
+                {
+                    int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
+                    objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                }
+                Debug.Log("Returning Object");
                 return objectsPooled[i];
             }
         }
@@ -93,9 +97,16 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         {
             if (!objectsPooled[i].activeSelf)
             {
-                int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
-                objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
-                //objectsPooled[i].SetActive(true);
+                if (PhotonNetwork.CurrentRoom != null)
+                {
+                    int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
+                    objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                }
+                else
+                {
+                    objectsPooled[i].SetActive(true);
+
+                }
                 objectsPooled[i].transform.position = AttackTransform;
                 objectsPooled[i].transform.rotation = Quaternion.Euler(0, 0, angle);
                 return objectsPooled[i];

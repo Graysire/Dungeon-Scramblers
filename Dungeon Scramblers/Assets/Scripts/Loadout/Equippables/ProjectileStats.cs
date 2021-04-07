@@ -145,7 +145,10 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
                     int PhotonID = gameObject.GetPhotonView().ViewID;
                     TurnOffProjectile(PhotonID);
                 }
-                
+                else
+                {
+                    ResetProjectiles();
+                }
             }
         }
     }
@@ -237,12 +240,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             GameObject GOReset = PhotonView.Find(go).gameObject;
 
             GOReset.SetActive(true);
-            //GOReset.SetActive(false);
             Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
-        }
-        else // In single player
-        {
-            ResetProjectiles();
         }
 
     }
