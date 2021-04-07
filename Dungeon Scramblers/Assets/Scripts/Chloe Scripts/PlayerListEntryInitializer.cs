@@ -25,7 +25,7 @@ public class PlayerListEntryInitializer : MonoBehaviour
             
             PlayerReadyButton.gameObject.SetActive(false);
             PlayerReadyPopUp.gameObject.SetActive(false);
-            PlayerIndicator.gameObject.SetActive(false);
+            //PlayerIndicator.gameObject.SetActive(false);
 
         }
         //This is our Player
