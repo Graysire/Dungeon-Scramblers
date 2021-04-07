@@ -131,9 +131,9 @@ public class MapMaker : MonoBehaviour
     IEnumerator GenerateMap()
     {
         mapFinished = false;
-        if (tilemaps.Length != 3)
+        if (tilemaps.Length != 4)
         {
-            Debug.LogError("Expected 3 Tilemaps, actual count: " + tilemaps.Length);
+            Debug.LogError("Expected 4 Tilemaps, actual count: " + tilemaps.Length);
         }
 
         //set current number of doors to 1
@@ -186,7 +186,7 @@ public class MapMaker : MonoBehaviour
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], wallTile);
 
-        //Add doors, spawn AI, shade walls
+        //Add doors, spawn AI, room shading
         foreach (RoomInfo room in rooms)
         {
             AddWallShading(room);
@@ -197,15 +197,20 @@ public class MapMaker : MonoBehaviour
             }
             yield return new WaitForSeconds(waitTime);
         }
+        //Add shading, shadows and decoration to corridors
         foreach (CorridorInfo corridor in corridors)
         {
             AddWallShading(corridor);
             AddWallShadows(corridor);
+            Decorate(corridor);
+            yield return new WaitForSeconds(waitTime);
         }
+        //Add shadows and decoration to rooms
         foreach (RoomInfo room in rooms)
         {
             AddWallShadows(room);
-            DecorateRoom(room);
+            Decorate(room);
+            yield return new WaitForSeconds(waitTime);
         }
 
         //Decorate all corridors
@@ -276,7 +281,7 @@ public class MapMaker : MonoBehaviour
                 break;
             case Facing.East:
                 //startY -= (int)Mathf.Floor(randY / 2f);
-                startY -= Random.Range(1, randY);
+                startY -= Random.Range(1, randY - 1);
                 break;
             case Facing.South:
                 startY -= randY;
@@ -286,7 +291,7 @@ public class MapMaker : MonoBehaviour
             case Facing.West:
                 startX -= randX;
                 //startY -= (int)Mathf.Floor(randY / 2f);
-                startY -= Random.Range(1, randY);
+                startY -= Random.Range(1, randY - 1);
                 break;
         }
 
@@ -631,10 +636,12 @@ public class MapMaker : MonoBehaviour
 
         //checks if this corridor would connect to the corner of another room
         //NOTE: with recent changes to the tiling system this corner case may cause issues
+        //NOTE: it's causing issues
         if (isConnector && tilemaps[1].GetTile(endDoorPosition + corridorDirection) == wallTile && length + 1 >= minCorridorSize)
         {
             //cornerCount++;
-
+            tilemaps[1].SetTile(door.position, wallTile);
+            return newDoors;
             //checks if this would result in two adjacent door tiles
 
             if (tilemaps[1].HasTile(endDoorPosition + corridorDirection * 2))
@@ -907,10 +914,15 @@ public class MapMaker : MonoBehaviour
     #region helper functions
     void PlaceTile(Vector3Int position, Tilemap tilemap, TileBase tile)
     {
-        if (!tilemap.HasTile(position))
+        foreach (Tilemap t in tilemaps)
         {
-            tilemap.SetTile(position, tile);
+            if (t.HasTile(position))
+            {
+                return;
+            }
         }
+        tilemap.SetTile(position, tile);
+
     }
 
     //fills the given room with the given tiles
@@ -1024,7 +1036,7 @@ public class MapMaker : MonoBehaviour
             for (int y = room.lowerLeft.y - 2; y <= room.upperRight.y; y += room.upperRight.y - room.lowerLeft.y + 2)
             {
                 //if a wall exists above this spot and no floor exists above this spot, add shaded wall
-                if (tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)))
+                if (tilemaps[1].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && (!tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || x <= room.upperRight.x))
                 {
                     //places the extra wallTile which will convert to shaded wall
                     tilemaps[1].SetTile(new Vector3Int(x, y, 0), wallTile);
@@ -1061,7 +1073,7 @@ public class MapMaker : MonoBehaviour
                 PlaceTile(new Vector3Int(x, corridor.start.y - 2, 0), tilemaps[1], wallTile);
             }
             //place floor tiles to ensure proper background coverage
-            PlaceTile(new Vector3Int(x, corridor.start.y - 1, 0), tilemaps[0], floorTile);
+            tilemaps[0].SetTile(new Vector3Int(x, corridor.start.y - 1, 0), floorTile);
         }
     }
 
@@ -1184,14 +1196,42 @@ public class MapMaker : MonoBehaviour
     }
 
     //Adds random decorations to a room
-    void DecorateRoom(RoomInfo room)
+    void Decorate(RoomInfo room)
     {
+        //calculate area of the room for use in deocration frequency
         int area = (room.upperRight.x - room.lowerLeft.x) * (room.upperRight.y - room.lowerLeft.y);
+        //place random decorations based on area / frequency
         for (int i = 0; i < area / decorationFrequency; i++)
         {
             int x = Random.Range(room.lowerLeft.x, room.upperRight.x);
-            int y = Random.Range(room.lowerLeft.y, room.upperRight.y - 1);
-            tilemaps[2].SetTile(new Vector3Int(x, y, 0), decorationTile);
+            int y = Random.Range(room.lowerLeft.y, room.upperRight.y);
+            tilemaps[3].SetTile(new Vector3Int(x, y, 0), decorationTile);
+        }
+    }
+
+    //Adds random decorations to a corridor
+    void Decorate(CorridorInfo corridor)
+    {
+        //calculate area of the corridor for use in deocration frequency
+        int area = corridor.end.x - corridor.start.x + corridor.end.y - corridor.start.y;
+        int x, y;
+        //place random decorations based on area / frequency
+        for (int i = 0; i < area / decorationFrequency; i++)
+        {
+            //for a north south corridor generate y so that decorations can be placed on either door and below the south door to account for shading
+            if (corridor.start.x == corridor.end.x)
+            {
+                x = corridor.start.x;
+                y = Random.Range(corridor.start.y - 1, corridor.end.y + 1);
+                
+            }
+            //for east west corridors ensure that deocrations can be placed on theeastern door
+            else
+            {
+                x = Random.Range(corridor.start.x, corridor.end.x + 1);
+                y = corridor.start.y;
+            } 
+            tilemaps[3].SetTile(new Vector3Int(x, y, 0), decorationTile);
         }
     }
 
