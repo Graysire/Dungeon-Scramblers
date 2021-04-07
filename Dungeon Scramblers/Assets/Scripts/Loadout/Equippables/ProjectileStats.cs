@@ -140,9 +140,13 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
             {
                 //Being called multiple Times
-                ResetProjectiles();
-                int PhotonID = gameObject.GetPhotonView().ViewID;
-                TurnOffProjectile(PhotonID);
+                //ResetProjectiles();
+                if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+                {
+                    int PhotonID = gameObject.GetPhotonView().ViewID;
+                    TurnOffProjectile(PhotonID);
+                }
+                
             }
         }
     }
@@ -215,14 +219,14 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             ResetProjectiles();
         }
     }
-    [PunRPC]
+
     public void ResetProjectiles()
     {
         totalTime = 0f;
         numHits = 0;
         ActualDamage = BaseDamage;
         PositionTraveled = Vector3.zero;
-        //this.gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 
     [PunRPC]
@@ -231,11 +235,17 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
         {
             photonView.RPC("ShowProjectile", RpcTarget.Others, go);
+            GameObject GOReset = PhotonView.Find(go).gameObject;
+
+            GOReset.SetActive(true);
+            //GOReset.SetActive(false);
+            Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
         }
-        GameObject GOReset = PhotonView.Find(go).gameObject;
-        GOReset.SetActive(true);
-        //GOReset.SetActive(false);
-        Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
+        else // In single player
+        {
+            ResetProjectiles();
+        }
+
     }
 
 }

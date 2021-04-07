@@ -3085,7 +3085,7 @@ GameObject:
   - component: {fileID: 424624744661482047}
   - component: {fileID: 2208858389996876875}
   m_Layer: 10
-  m_Name: New Player Prefab
+  m_Name: DefaultPlayer
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
