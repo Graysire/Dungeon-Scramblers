@@ -90,7 +90,7 @@ public class Overlord : Player
             direction = transform.TransformDirection(direction);
         }
 
-    void toggleCharging()
+    public void toggleCharging()
     {
         bCharging = !bCharging;
     }

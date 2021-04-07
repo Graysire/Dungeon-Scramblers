@@ -72,11 +72,13 @@ public class ChargeAttackSequence : DefaultAttackSequence
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Indicator.GetCastingTime());
 
+
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
 
         AbilityTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
 
         AbilityTransform.GetComponent<ChargingProjectileStats>().SetPlayer(Unit);
+
 
         bLaunch = true;
 

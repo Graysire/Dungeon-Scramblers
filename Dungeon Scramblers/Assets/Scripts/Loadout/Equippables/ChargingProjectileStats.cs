@@ -32,4 +32,13 @@ public class ChargingProjectileStats : ProjectileStats
             }
         }
     }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 10)
+        {
+            Debug.Log("Collide with Scrambler");
+        }
+        base.OnTriggerEnter2D(collision);
+    }
 }
