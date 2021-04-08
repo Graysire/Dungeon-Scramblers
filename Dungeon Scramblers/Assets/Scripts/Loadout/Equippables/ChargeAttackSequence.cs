@@ -35,8 +35,8 @@ public class ChargeAttackSequence : DefaultAttackSequence
         ApplyColorChange();
         ApplySlow();
 
-        Overlord overlord = (Overlord)Unit;
-
+        Overlord OverlordUnit = (Overlord)Unit;
+        
         // Get the overlord initial speed to change the 
         int PlayerSpeed = (Unit.GetAffectedStats()[(int)Stats.movespeed] / 100);
 
@@ -71,11 +71,12 @@ public class ChargeAttackSequence : DefaultAttackSequence
 
         IndicatorTransform.GetComponent<ProjectileStats>().SetUp(Unit, AttackNormal, 0);
 
-       
 
         // Wait for ability casting time before proceeding
-        yield return new WaitForSeconds(Indicator.GetCastingTime());
+        yield return new WaitForSeconds(Projectile.GetCastingTime());
 
+
+        
 
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
 
@@ -85,12 +86,13 @@ public class ChargeAttackSequence : DefaultAttackSequence
 
         AbilityTransform.GetComponent<ChargingProjectileStats>().SetPlayer(Unit);
 
-
         bLaunch = true;
+        OverlordUnit.toggleCharging();
 
         yield return new WaitForSeconds(chargingDuration);
 
         bLaunch = false;
+        OverlordUnit.toggleCharging();
 
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);

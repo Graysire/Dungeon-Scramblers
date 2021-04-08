@@ -97,11 +97,16 @@ public class Overlord : Player
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Layer 11 is Overlord
-        if(collision.gameObject.layer == 11)
+        if (bCharging && collision.gameObject.layer == 10)
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
+        // Layer 11 is Overlord
+        if (collision.gameObject.layer == 11)
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+       
     }
 }
 
