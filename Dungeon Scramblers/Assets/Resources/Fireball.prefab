@@ -158,11 +158,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 600
   Range: 10
-  DecayTime: 0.4
+  DecayTime: 0.8
   MoveSpeed: 10
   CastingTime: 0.5
   CoolDown: 2
-  OffsetScale: -1
+  OffsetScale: 1
   maxTargetsHit: 4
   StatusEffects: []
 --- !u!50 &2692114034817282802
