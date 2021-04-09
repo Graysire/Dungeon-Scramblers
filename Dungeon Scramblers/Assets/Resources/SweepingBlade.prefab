@@ -132,7 +132,7 @@ Transform:
   m_GameObject: {fileID: 7136785269330514995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.9297066, y: 0.07819311, z: 5.3046317}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children:
   - {fileID: 7136785267948799446}
   m_Father: {fileID: 0}
@@ -178,8 +178,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 200
   Range: 10
-  DecayTime: 0.5
-  MoveSpeed: 5
+  DecayTime: 0.4
+  MoveSpeed: 0
   CastingTime: 0.8
   CoolDown: 2
   OffsetScale: 1.5

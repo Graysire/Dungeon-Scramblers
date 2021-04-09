@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 300
   Range: 20
-  DecayTime: 1
+  DecayTime: 0.8
   MoveSpeed: 7
   CastingTime: 0.1
   CoolDown: 1.25

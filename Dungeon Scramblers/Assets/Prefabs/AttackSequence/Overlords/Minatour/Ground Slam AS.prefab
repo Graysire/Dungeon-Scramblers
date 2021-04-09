@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 840058070121385364}
   - component: {fileID: 840058070121385365}
   m_Layer: 0
-  m_Name: MinatourAbility1
+  m_Name: Ground Slam AS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   equippableBitFlag: 00000
   bitCategory: 4
   playerCategory: 4
-  abilitySlot: 1
+  abilitySlot: 2
   Projectile: {fileID: 7696884289041782684, guid: c9943259f8002644aaa47f1348f7aa09, type: 3}
   SlowPlayerOnCast: 1
   ChangePlayerColorOnCast: 1

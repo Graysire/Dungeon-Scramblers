@@ -220,7 +220,7 @@ MonoBehaviour:
   Range: 10
   DecayTime: 2
   MoveSpeed: 10
-  CastingTime: 1.5
+  CastingTime: 1
   CoolDown: 2
   OffsetScale: 1.2
   maxTargetsHit: 10

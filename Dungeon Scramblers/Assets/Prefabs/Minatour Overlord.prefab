@@ -106,14 +106,16 @@ MonoBehaviour:
   disarmed: 0
   AttackObjectList:
   - {fileID: 874235849800391331, guid: 9c1ec4b403f485b44bdad8e38c546980, type: 3}
+  - {fileID: 6497682061442774528, guid: 09473f6953685ec49bdc8501af90ca9f, type: 3}
   - {fileID: 840058070121385367, guid: c50289ab55840c74aa5ffb985b211de7, type: 3}
-  - {fileID: 1799514350308552235, guid: 54d3223bd13495744a1428ec02c26ed5, type: 3}
-  - {fileID: 204065285454857657, guid: ce24feba51074f84ca7330b426290f17, type: 3}
+  - {fileID: 3196661933850619740, guid: 0b0d3ff46db76c4429aa933cce5e91f1, type: 3}
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 2560322437646083898, guid: 65b3ded9073cc1148a36739e5deb8c95, type: 3}
   isDead: 0
   AnimatorList:
   - {fileID: 5866646166661218464}
+  HasRetributionAbility: 1
+  RetributionAbilityIndex: 3
 --- !u!212 &5866646168477641322
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -262,7 +264,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 100
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0

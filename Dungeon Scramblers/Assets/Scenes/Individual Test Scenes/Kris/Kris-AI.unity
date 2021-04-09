@@ -312,7 +312,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 364201603}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.51, y: 3.84, z: -10}
+  m_LocalPosition: {x: -0.000030517578, y: 2.100006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -410,8 +410,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1176459207}
-  m_Follow: {fileID: 1176459207}
+  m_LookAt: {fileID: 1154969640}
+  m_Follow: {fileID: 1154969640}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 6
@@ -435,7 +435,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587635018}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.51, y: 3.84, z: -10}
+  m_LocalPosition: {x: -0.000030517578, y: 2.100006, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 706529291}
@@ -655,7 +655,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
@@ -858,7 +858,7 @@ PrefabInstance:
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: AttackObjectList.Array.data[0]
       value: 
-      objectReference: {fileID: 6497682061442774528, guid: c8bbd279d23a5f04bb0c81309804afcc, type: 3}
+      objectReference: {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: PlayerOnScreenControls
       value: 
@@ -866,7 +866,7 @@ PrefabInstance:
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: AttackObjectList.Array.data[1]
       value: 
-      objectReference: {fileID: 6497682061442774528, guid: 81f4f61454143134f9c988f5f2172edd, type: 3}
+      objectReference: {fileID: 6497682061442774528, guid: dbe75519d21f2ed4e888b2a687079fbc, type: 3}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000030517578
@@ -925,10 +925,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
---- !u!4 &1176459207 stripped
+--- !u!4 &1154969640 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 5866646168477641320, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-  m_PrefabInstance: {fileID: 5866646167304764847}
+  m_CorrespondingSourceObject: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+  m_PrefabInstance: {fileID: 1083315749}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1422595991 stripped
 MonoBehaviour:
@@ -1385,21 +1385,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: HasRetributionAbility
-      value: 1
+    - target: {fileID: 5866646168477641326, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
+      propertyPath: m_Mass
+      value: 1.8
       objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: RetributionAbilityIndex
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: AttackObjectList.Array.data[3]
-      value: 
-      objectReference: {fileID: 3196661933850619740, guid: 0b0d3ff46db76c4429aa933cce5e91f1, type: 3}
     - target: {fileID: 5866646168477641327, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
       propertyPath: m_Name
       value: Minatour Overlord
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866646168477641327, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}

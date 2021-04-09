@@ -24,21 +24,22 @@ public class DefaultAttackSequence : Ability
     //protected bool needsMoreInstances;
 
 
-
-    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    [PunRPC]
+    public override void StartAttack(Vector3 AttackDirection)
     {
+        //Call This function on other players
+        photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection});
         this.AttackDirection = AttackDirection;
-        this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
-    //[PunRPC]
+    
     protected virtual IEnumerator AttackSequence()
     {
-        //Call This function on other players
 
         // Disallow further attacks while the unit is casting
         Unit.SetAllowedToAttack(false);
+        
 
         Attacked = true;
 
@@ -48,6 +49,7 @@ public class DefaultAttackSequence : Ability
 
         // Wait for ability casting time before proceeding
         yield return new WaitForSeconds(Projectile.GetCastingTime());
+        
 
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
         Vector3 AttackEnd = Unit.transform.position + AttackDirection;
@@ -154,5 +156,22 @@ public class DefaultAttackSequence : Ability
         {
             Unit.GetAffectedStats()[1] = originalSpeed;
         }
+    }
+
+    public override void Equip(Player player)
+    {
+        base.Equip(player);
+        Unit = player;
+    }
+
+    public override void Unequip(Player player)
+    {
+        base.Unequip(player);
+        Unit = null;
+    }
+
+    public virtual void Equip(AbstractPlayer player)
+    {
+        Unit = player;
     }
 }

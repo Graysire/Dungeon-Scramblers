@@ -274,7 +274,7 @@ public class Player : AbstractPlayer
     protected virtual void RequestAttack(int attackListIndex) {
         if (allowedToAttack && !disarmed)
             if(attackListIndex >= 0 && attackListIndex < AttackList.Count)
-                AttackList[attackListIndex].StartAttack(GetAttackDirection(), this);
+                AttackList[attackListIndex].StartAttack(GetAttackDirection());
     }
     public Vector3 GetAttackDirection() => AttackDirection;
 

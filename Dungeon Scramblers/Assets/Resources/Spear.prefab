@@ -176,14 +176,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653dcd8cb65ecd0449d67bfd1c0225ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BaseDamage: 100
+  BaseDamage: 350
   Range: 10
   DecayTime: 0.2
   MoveSpeed: 0
   CastingTime: 0.1
   CoolDown: 0.25
-  OffsetScale: 2
-  maxTargetsHit: 1
+  OffsetScale: 1
+  maxTargetsHit: 2
   StatusEffects: []
 --- !u!50 &7663104008351997961
 Rigidbody2D:
@@ -240,7 +240,8 @@ MonoBehaviour:
   observableSearch: 2
   Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 7485633954520988132}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

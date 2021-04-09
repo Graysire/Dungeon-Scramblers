@@ -11,7 +11,7 @@ public class GMTemp : MonoBehaviour
     BitPacket bitPacket = new BitPacket();
     public GameObject[] PlayerPrefabs;
     public GameObject EnemyTest;
-    public CinemachineVirtualCamera vcam;
+    public CinemachineVirtualCamera OverlordCam;
     public GameObject Map;
     private Vector2Int roomSize;
     Vector3 worldLocation;
@@ -62,6 +62,17 @@ public class GMTemp : MonoBehaviour
                 Vector3 Spawn = SetupSpawning();
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
 
+                //Check player for Overlord Category
+                if(SavedPlayerType == Categories.PlayerCategories.overlord)
+                {
+                    Debug.Log("Overlord Player selected");
+
+                    //Set Player Camera to Map view
+
+                    //Set Player Controls to Map Controls
+
+                    //Start Countdown
+                }
 
 
             }
@@ -189,6 +200,14 @@ public class GMTemp : MonoBehaviour
             code = code >> 26;
         }
         return code;
+    }
+
+    #endregion
+
+    #region Overlord Setup
+    IEnumerator OverLordSetUp()
+    {
+        yield return new WaitForSeconds(30f);
     }
 
     #endregion
