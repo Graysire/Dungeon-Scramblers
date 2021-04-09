@@ -28,7 +28,10 @@ public class DefaultAttackSequence : Ability
     public override void StartAttack(Vector3 AttackDirection)
     {
         //Call This function on other players
-        photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection});
+        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        {
+            photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection });
+        }
         this.AttackDirection = AttackDirection;
         if (!Attacked) StartCoroutine("AttackSequence");
     }
@@ -36,7 +39,7 @@ public class DefaultAttackSequence : Ability
     
     protected virtual IEnumerator AttackSequence()
     {
-
+        //photonView.RPC("AttackSequence", RpcTarget.Others );
         // Disallow further attacks while the unit is casting
         Unit.SetAllowedToAttack(false);
         
