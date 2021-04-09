@@ -49,6 +49,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         }
     }
 
+    //Get Object Pooled and turn it on
     public GameObject GetPooledObject() {
         for (int i = 0; i < objectsPooled.Count; i++) {
             if (!objectsPooled[i].activeSelf) {
@@ -57,6 +58,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
                 {
                     int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
                     objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                    //photonView.RPC("ShowProjectile", RpcTarget.Others, go);
                 }
                 //Debug.Log("Returning Object");
                 return objectsPooled[i];
@@ -100,6 +102,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
                 if (PhotonNetwork.CurrentRoom != null)
                 {
                     int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
+                    //photonView.RPC("ShowProjectile", RpcTarget.Others, PhotonID);
                     objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
                 }
                 else

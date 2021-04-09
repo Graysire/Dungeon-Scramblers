@@ -32,11 +32,11 @@ public class DefaultAttackSequence : Ability
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
-    //[PunRPC]
+    [PunRPC]
     protected virtual IEnumerator AttackSequence()
     {
         //Call This function on other players
-
+        photonView.RPC("AttackSequence", RpcTarget.Others);
         // Disallow further attacks while the unit is casting
         Unit.SetAllowedToAttack(false);
 
