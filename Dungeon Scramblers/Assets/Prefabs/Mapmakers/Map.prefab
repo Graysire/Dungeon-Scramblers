@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 2145636582079947203}
   - component: {fileID: 567565257819980696}
   m_Layer: 0
-  m_Name: DecorationMap
+  m_Name: ShadowMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
