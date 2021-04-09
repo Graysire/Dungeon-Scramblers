@@ -25,12 +25,11 @@ public class DefaultAttackSequence : Ability
 
 
     [PunRPC]
-    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    public override void StartAttack(Vector3 AttackDirection)
     {
         //Call This function on other players
-        photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection, Unit });
+        photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection});
         this.AttackDirection = AttackDirection;
-        this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
