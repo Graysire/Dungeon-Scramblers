@@ -83,7 +83,7 @@ public class AI : AbstractPlayer
             //Set the layer of the attack sequecne to Overlord
             AttackObjectList[i].layer = this.gameObject.layer;
             AttackList.Add(AttackObjectList[i].GetComponent<DefaultAttackSequence>());
-
+            AttackObjectList[i].GetComponent<DefaultAttackSequence>().Equip(this);
         }
     }
 
