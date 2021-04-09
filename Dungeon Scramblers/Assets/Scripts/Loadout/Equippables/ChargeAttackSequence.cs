@@ -94,6 +94,8 @@ public class ChargeAttackSequence : DefaultAttackSequence
         bLaunch = false;
         OverlordUnit.toggleCharging();
 
+        RevertColorChange();
+        RevertSlow();
         //allow the player to attack after casting is finished
         Unit.SetAllowedToAttack(true);
 

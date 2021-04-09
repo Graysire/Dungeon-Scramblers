@@ -97,9 +97,9 @@ MonoBehaviour:
   playerCategory: 0
   abilitySlot: 1
   Projectile: {fileID: 6365421795430969539, guid: fa2c0c17e8200204ead583f955e7fa81, type: 3}
-  SlowPlayerOnCast: 0
-  ChangePlayerColorOnCast: 0
-  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SlowPlayerOnCast: 1
+  ChangePlayerColorOnCast: 1
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 1}
   Indicator: {fileID: 7107550762299682137, guid: 390079ea827316b4fa68ec5a368de439, type: 3}
   IndicatorPooler: {fileID: 8904335322180493183}
   chargingDuration: 1
