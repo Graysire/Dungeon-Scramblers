@@ -51,6 +51,7 @@ public class DefaultAttackSequence : Ability
         yield return new WaitForSeconds(Projectile.GetCastingTime());
         
 
+
         // get mouse coordinate from camera when clicked and find the ending of the attack with the mouse clicked
         Vector3 AttackEnd = Unit.transform.position + AttackDirection;
 
