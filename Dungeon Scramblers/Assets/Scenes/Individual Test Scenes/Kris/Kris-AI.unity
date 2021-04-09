@@ -845,7 +845,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200914, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: HealthBar
@@ -1385,18 +1385,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: HasRetributionAbility
-      value: 1
+    - target: {fileID: 5866646168477641326, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
+      propertyPath: m_Mass
+      value: 1.8
       objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: RetributionAbilityIndex
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5866646168477641321, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
-      propertyPath: AttackObjectList.Array.data[3]
-      value: 
-      objectReference: {fileID: 3196661933850619740, guid: 0b0d3ff46db76c4429aa933cce5e91f1, type: 3}
     - target: {fileID: 5866646168477641327, guid: d0bdad2d04756fc4aa014496a99104bb, type: 3}
       propertyPath: m_Name
       value: Minatour Overlord

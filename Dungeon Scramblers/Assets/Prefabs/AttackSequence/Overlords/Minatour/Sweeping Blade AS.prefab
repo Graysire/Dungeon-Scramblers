@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3b8144ef130784cbf04902d9c31296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPool: {fileID: 4427557190297321068, guid: 805e806b70ecfd94b8c1d23b7faf8b39, type: 3}
+  objectToPool: {fileID: 7136785269330514995, guid: 008a68b162a0aa5428d846d99dd53d2f, type: 3}
   amountToPool: 1
 --- !u!1 &874235849800391331
 GameObject:
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 874235849800391328}
   - component: {fileID: 874235849800391329}
   m_Layer: 0
-  m_Name: MinatourBasicAttack
+  m_Name: Sweeping Blade AS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
