@@ -60,11 +60,11 @@ public class MultiAttackSequence : DefaultAttackSequence
         Vector3 AttackTransform3 = Unit.transform.position + (RelativeAttackEnd3.normalized * Projectile.GetOffsetScale());
         
         // Get instance of ability from object pooler
-        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AbilityAngle).transform;
 
-        Transform AbilityTransform2 = AbilityPooler.GetPooledObject(AttackTransform2, AttackEnd2, Unit.gameObject, AbilityAngle2).transform;
+        Transform AbilityTransform2 = AbilityPooler.GetPooledObject(AttackTransform2, AttackEnd2, AbilityAngle2).transform;
 
-        Transform AbilityTransform3 = AbilityPooler.GetPooledObject(AttackTransform3, AttackEnd3, Unit.gameObject, AbilityAngle3).transform;
+        Transform AbilityTransform3 = AbilityPooler.GetPooledObject(AttackTransform3, AttackEnd3,  AbilityAngle3).transform;
 
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         SetBulletLayer(AbilityTransform2);

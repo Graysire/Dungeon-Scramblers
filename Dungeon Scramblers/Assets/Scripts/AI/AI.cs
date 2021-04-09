@@ -308,7 +308,7 @@ public class AI : AbstractPlayer
             Vector3 direction = new Vector3(target.x - this.transform.position.x,
                                             target.y - this.transform.position.y,
                                             0); 
-            AttackList[0].StartAttack(direction); //AI will attack in direction of player
+            AttackList[0].StartAttack(direction, this); //AI will attack in direction of player
 
             Task.current.Succeed();
         }

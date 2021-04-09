@@ -28,7 +28,7 @@ public class Ability : Equippable
     protected int abilitySlot = 0; //the slot this fills when given to a player, i.e. 0 is basic attack, 1 is ability
 
 
-    public virtual void StartAttack(Vector3 AttackDirection) { }
+    public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit) { }
 
     public override void Equip(Player player)
     {

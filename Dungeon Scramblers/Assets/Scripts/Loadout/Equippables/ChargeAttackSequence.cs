@@ -65,7 +65,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
         Vector3 AttackTransform = Unit.transform.position + (RelativeAttackEnd.normalized * Indicator.GetOffsetScale());
 
         // Get instance of ability from object pooler
-        Transform IndicatorTransform = IndicatorPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+        Transform IndicatorTransform = IndicatorPooler.GetPooledObject(AttackTransform, AttackEnd, AbilityAngle).transform;
 
         SetBulletLayer(IndicatorTransform);
 
@@ -78,7 +78,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
 
         
 
-        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AbilityAngle).transform;
 
         SetBulletLayer(AbilityTransform);
 

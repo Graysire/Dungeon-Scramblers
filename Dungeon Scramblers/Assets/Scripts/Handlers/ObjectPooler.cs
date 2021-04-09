@@ -14,7 +14,6 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
     private void Awake()
     {
         sharedInstance = this;
-
     }
     private void OnEnable()
     {
@@ -83,7 +82,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
     }
 
 
-    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, GameObject Player, float AbilityAngle)
+    public GameObject GetPooledObject(Vector3 AttackTransform, Vector3 AttackEnd, float AbilityAngle)
     {
 
         //initialize this object since it is new

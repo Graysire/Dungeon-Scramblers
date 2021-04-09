@@ -25,14 +25,15 @@ public class DefaultAttackSequence : Ability
 
 
     [PunRPC]
-    public override void StartAttack(Vector3 AttackDirection)
+    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
         //Call This function on other players
         if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
         {
-            photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection });
+           // photonView.RPC("StartAttack", RpcTarget.Others, new object[] { AttackDirection });
         }
         this.AttackDirection = AttackDirection;
+        this.Unit = Unit;
         if (!Attacked) StartCoroutine("AttackSequence");
     }
 
@@ -77,7 +78,7 @@ public class DefaultAttackSequence : Ability
         Vector3 AttackTransform = Unit.transform.position + (RelativeAttackEnd.normalized * Projectile.GetOffsetScale());
 
         // Get instance of ability from object pooler
-        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, Unit.gameObject, AbilityAngle).transform;
+        Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AbilityAngle).transform;
         
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         

@@ -133,12 +133,6 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             rb = GetComponent<Rigidbody2D>();
 
             rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position);
-            if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
-            {
-               // totalTime += (float)PhotonNetwork.Time;
-            //    rb.MovePosition((new Vector2(AttackDir.x, AttackDir.y) * (float)PhotonNetwork.Time * MoveSpeed) + rb.position);
-            //    PositionTraveled += AttackDir * (float)PhotonNetwork.Time * MoveSpeed;
-            }
                 PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
             // Check if position traveled or decay time threshold was met and proceed to destroy them
             if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
@@ -146,10 +140,10 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
                 //Being called multiple Times
                 //ResetProjectiles();
                 Debug.Log("Object decayed");
-                if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+                if (PhotonNetwork.CurrentRoom != null)
                 {
                     int PhotonID = gameObject.GetPhotonView().ViewID;
-                    photonView.RPC("TurnOffProjectile", RpcTarget.Others, PhotonID);
+                    
                     TurnOffProjectile(PhotonID);
                     totalTime = 0;
                     PositionTraveled = Vector3.zero;
@@ -168,7 +162,9 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     protected void TurnOffProjectile(int go)
     {
         GameObject GOReset = PhotonView.Find(go).gameObject;
-
+        photonView.RPC("TurnOffProjectile", RpcTarget.Others, go);
+        totalTime = 0;
+        PositionTraveled = Vector3.zero;
         GOReset.SetActive(false);
         Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
     }
@@ -240,7 +236,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     [PunRPC]
     public void ShowProjectile(int go)
     {
-        if (PhotonNetwork.CurrentRoom != null && photonView.IsMine)
+        if (PhotonNetwork.CurrentRoom != null)
         {
             photonView.RPC("ShowProjectile", RpcTarget.Others, go);
             GameObject GOReset = PhotonView.Find(go).gameObject;
