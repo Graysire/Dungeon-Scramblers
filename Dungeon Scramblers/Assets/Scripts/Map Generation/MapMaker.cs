@@ -237,8 +237,8 @@ public class MapMaker : MonoBehaviour
                     y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
                     break;
             }
-            //if this is a valid location to place an exit door
-            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)))
+            //if this is a valid location to place an exit door (it is north/south, or it is east/west without a corridor above it
+            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0))))
             {
                 //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
@@ -299,6 +299,9 @@ public class MapMaker : MonoBehaviour
                         //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
                         tilemaps[0].SetTile(new Vector3Int(x + 1, y, 0), floorTile);
 
+                        //ensure no wall errors occur
+                        tilemaps[1].SetTile(new Vector3Int(x, y - 2, 0), wallTile);
+
                         //add wall shading
                         for (int ya = -2; ya <= 2; ya++)
                         {
@@ -318,15 +321,18 @@ public class MapMaker : MonoBehaviour
                         //place floor tile
                         tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
 
-                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
-                        tilemaps[0].SetTile(new Vector3Int(x - 1, y, 0), floorTile);
+                        //ensure no wall errors occur
+                        tilemaps[1].SetTile(new Vector3Int(x, y - 2, 0), wallTile);
 
                         //add wall shading
                         for (int ya = -2; ya <= 2; ya++)
                         {
-                            tilemaps[1].SetTile(new Vector3Int(x - 1, y + ya, 0), wallTile);
-
+                            //tilemaps[1].SetTile(new Vector3Int(x - 1, y + ya, 0), wallTile);
+                            PlaceTile(new Vector3Int(x - 1, y + ya, 0), tilemaps[1], wallTile);
                         }
+
+                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
+                        tilemaps[0].SetTile(new Vector3Int(x - 1, y, 0), floorTile);
 
                         //add wall shadowing
                         for (int ya = -3; ya <= 2; ya++)
@@ -337,8 +343,7 @@ public class MapMaker : MonoBehaviour
 
 
                         //add shadowing
-                        tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.concaveCorner);
-                        tilemaps[2].SetTile(new Vector3Int(x, y - 1, 0), wallShadowTiles.midRight);
+                        tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.rightTop);
                         tilemaps[2].SetTile(new Vector3Int(x - 1, y - 3, 0), wallShadowTiles.concaveCorner);
 
                         break;
@@ -361,8 +366,9 @@ public class MapMaker : MonoBehaviour
         //Add doors, spawn AI, room shading
         foreach (RoomInfo room in rooms)
         {
-            AddWallShading(room);
             AddDoors(room, doorTile);
+            AddWallShading(room);
+            
             if (generateAI && spawnAI.Count > 0 && room.lowerLeft != rooms[0].lowerLeft)
             {
                 SpawnAIClusters(room);
@@ -1176,6 +1182,7 @@ public class MapMaker : MonoBehaviour
             }
             else
             {
+                tilemaps[0].SetTile(new Vector3Int(startX, startY, 0), null);
                 tilemaps[1].SetTile(new Vector3Int(startX, startY, 0), wallTile);
             }
 
