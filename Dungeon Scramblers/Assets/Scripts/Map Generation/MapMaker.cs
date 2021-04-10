@@ -238,7 +238,8 @@ public class MapMaker : MonoBehaviour
                     break;
             }
             //if this is a valid location to place an exit door (it is north/south, or it is east/west without a corridor above it
-            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0))))
+            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || 
+                (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0))))
             {
                 //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
@@ -296,8 +297,7 @@ public class MapMaker : MonoBehaviour
                         //place floor tile
                         tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
 
-                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
-                        tilemaps[0].SetTile(new Vector3Int(x + 1, y, 0), floorTile);
+                        
 
                         //ensure no wall errors occur
                         tilemaps[1].SetTile(new Vector3Int(x, y - 2, 0), wallTile);
@@ -305,9 +305,12 @@ public class MapMaker : MonoBehaviour
                         //add wall shading
                         for (int ya = -2; ya <= 2; ya++)
                         {
-                            tilemaps[1].SetTile(new Vector3Int(x + 1, y + ya, 0), wallTile);
-
+                            //tilemaps[1].SetTile(new Vector3Int(x + 1, y + ya, 0), wallTile);
+                            PlaceTile(new Vector3Int(x + 1, y + ya, 0), tilemaps[1], wallTile);
                         }
+
+                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
+                        tilemaps[0].SetTile(new Vector3Int(x + 1, y, 0), floorTile);
 
                         //add shadowing
                         tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.concaveCorner);
@@ -340,7 +343,6 @@ public class MapMaker : MonoBehaviour
                             tilemaps[2].SetTile(new Vector3Int(x - 2, y + ya, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y + ya, 0)));
 
                         }
-
 
                         //add shadowing
                         tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.rightTop);
@@ -1092,13 +1094,20 @@ public class MapMaker : MonoBehaviour
     #region helper functions
     void PlaceTile(Vector3Int position, Tilemap tilemap, TileBase tile)
     {
-        foreach (Tilemap t in tilemaps)
+        for (int t = 0; t <= 1; t++)
         {
-            if (t.HasTile(position))
+            if (tilemaps[t].HasTile(position))
             {
                 return;
             }
         }
+        //foreach (Tilemap t in tilemaps)
+        //{
+        //    if (t.HasTile(position))
+        //    {
+        //        return;
+        //    }
+        //}
         tilemap.SetTile(position, tile);
 
     }
@@ -1246,7 +1255,7 @@ public class MapMaker : MonoBehaviour
             {
                 PlaceTile(new Vector3Int(x, corridor.start.y + 2, 0), tilemaps[1], wallTile);
             }
-            //if aouthern wall tiles should be placed, do so
+            //if southern wall tiles should be placed, do so
             if (tilemaps[1].HasTile(new Vector3Int(x, corridor.start.y - 1, 0)))
             {
                 PlaceTile(new Vector3Int(x, corridor.start.y - 2, 0), tilemaps[1], wallTile);
