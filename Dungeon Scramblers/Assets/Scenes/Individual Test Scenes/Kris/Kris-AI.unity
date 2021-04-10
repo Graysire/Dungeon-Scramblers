@@ -858,7 +858,7 @@ PrefabInstance:
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: AttackObjectList.Array.data[0]
       value: 
-      objectReference: {fileID: 5856576981731064468, guid: 83774c06ba79776499b266700ec27c7c, type: 3}
+      objectReference: {fileID: 7882947428690972025, guid: 708a526ea5d683045986497a03446a60, type: 3}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: PlayerOnScreenControls
       value: 
@@ -866,7 +866,7 @@ PrefabInstance:
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: AttackObjectList.Array.data[1]
       value: 
-      objectReference: {fileID: 4449097410383183551, guid: 2e46a3afc7456104d88fcd37bfa32180, type: 3}
+      objectReference: {fileID: 6497682061442774528, guid: dbe75519d21f2ed4e888b2a687079fbc, type: 3}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000030517578
