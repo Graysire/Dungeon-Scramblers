@@ -89,6 +89,10 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     int spawnBuffer = 0;
 
+    public int numAttemptsTotal = 0;
+
+    GameObject nextLevelTeleport;
+
     //the AI Clusters that can be spawned
     [SerializeField]
     List<AISpawnClusterInfo> spawnAI;
@@ -138,6 +142,8 @@ public class MapMaker : MonoBehaviour
 
         //set current number of doors to 1
         currentDoorNum = 1;
+        //the number of rooms in the final iteration that runs
+        int finalRooms = 0;
 
         List<DoorInfo> doorList = new List<DoorInfo>();
         rooms = new List<RoomInfo>();
@@ -150,30 +156,87 @@ public class MapMaker : MonoBehaviour
         {
             List<DoorInfo> newDoors = new List<DoorInfo>();
             //generate new rooms from the doors in doorList and add their doors to newDoors
+            
             foreach (DoorInfo door in doorList)
             {
                 newDoors.AddRange(GenerateRoom(door));
                 yield return new WaitForSeconds(waitTime);
             }
             doorList.Clear();
-            //generate new corridors from the doors in newDoors and and add their doors to doorList
-            if (i + 1 < maxIterations)
+            //generate new corridors from the doors in newDoors and and add their doors to doorList if doors exist
+            if (newDoors.Count > 0)
             {
-                foreach (DoorInfo door in newDoors)
+                if (i + 1 < maxIterations)
                 {
-                    doorList.AddRange(GenerateCorridor(door));
-                    yield return new WaitForSeconds(waitTime);
+                    finalRooms = newDoors.Count;
+                    foreach (DoorInfo door in newDoors)
+                    {
+                        doorList.AddRange(GenerateCorridor(door));
+                        yield return new WaitForSeconds(waitTime);
+                    }
+                }
+                //if the iterations are about to end, remove all extraneous doors
+                else
+                {
+                    Debug.Log("MaxIter");
+                    foreach (DoorInfo door in newDoors)
+                    {
+                        tilemaps[1].SetTile(door.position, wallTile);
+                    }
                 }
             }
-            //if the iterations are about to end, remove all extraneous doors
+            //if no new doors exist then break
             else
             {
-                foreach (DoorInfo door in newDoors)
-                {
-                    tilemaps[1].SetTile(door.position, wallTile);
-                }
+                //Debug.Log(finalRooms);
+                break;
             }
         }
+
+        
+
+
+        //if (finalRooms == 1)
+        //{
+
+        //    RoomInfo check = rooms[rooms.Count - 1];
+        //    while (true)
+        //    {
+
+        //        int x = Random.Range(0, 2);
+        //        int y = Random.Range(0,2);
+        //        if (x == 0)
+        //        {
+        //            x = check.lowerLeft.x - 1;
+        //        }
+        //        else
+        //        {
+        //            x = check.upperRight.x + 1;
+        //        }
+
+        //        if (y == 0)
+        //        {
+        //            y = check.lowerLeft.y - 1;
+        //        }
+        //        else
+        //        {
+        //            y = check.upperRight.y + 1;
+        //        }
+
+
+        //        if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)))
+        //        {
+        //            break;
+        //        }
+        //        if (attempts == 1000)
+        //        {
+        //            break;
+        //        }
+        //    }
+
+        //}
+
+
 
         //cleanup rooms
         //Add floors to all rooms
@@ -183,8 +246,62 @@ public class MapMaker : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
+        int attempts = 0;
+
+
+        //place the exit door in one of the final rooms
+        while (true)
+        {
+            attempts++;
+            RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
+            Facing facing = (Facing)Random.Range(1, 4);
+            int x = 0;
+            int y = 0;
+            switch (facing)
+            {
+                case Facing.North:
+                    y = exitRoom.upperRight.y + 1;
+                    x = Random.Range(exitRoom.lowerLeft.x, exitRoom.upperRight.x + 1);
+                    break;
+                case Facing.South:
+                    y = exitRoom.lowerLeft.y - 1;
+                    x = Random.Range(exitRoom.lowerLeft.x, exitRoom.upperRight.x + 1);
+                    break;
+                case Facing.East:
+                    x = exitRoom.upperRight.x + 1;
+                    y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
+                    break;
+                case Facing.West:
+                    x = exitRoom.upperRight.x - 1;
+                    y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
+                    break;
+            }
+            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)))
+            {
+                for (int xa = -1; xa <= 1; xa++)
+                {
+                    for (int ya = -2; ya <= 2; ya++)
+                    {
+                        PlaceTile(new Vector3Int(x + xa, y + ya, 0), tilemaps[1], wallTile);
+                    }
+                }
+                tilemaps[1].SetTile(new Vector3Int(x, y, 0), doorTile);
+                tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
+                tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
+                //Instantiate(nextLevelTeleport, tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), new Quaternion());
+                break;
+            }
+        }
+        Debug.Log("Attempts: " + attempts);
+        numAttemptsTotal += attempts;
+
+
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], wallTile);
+
+
+
+
 
         //Add doors, spawn AI, room shading
         foreach (RoomInfo room in rooms)
