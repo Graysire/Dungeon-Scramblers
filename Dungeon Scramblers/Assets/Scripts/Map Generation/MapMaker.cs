@@ -91,6 +91,7 @@ public class MapMaker : MonoBehaviour
 
     public int numAttemptsTotal = 0;
 
+    [SerializeField]
     GameObject nextLevelTeleport;
 
     //the AI Clusters that can be spawned
