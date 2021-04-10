@@ -24,6 +24,7 @@ public class DefaultAttackSequence : Ability
     //protected bool needsMoreInstances;
 
 
+
     [PunRPC]
     public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
@@ -119,15 +120,20 @@ public class DefaultAttackSequence : Ability
         //Change player sprite color for cast
         if (ChangePlayerColorOnCast)
         {
+            //Apply color on single sprite
             PlayerSprite = Unit.GetComponent<SpriteRenderer>();
             if (PlayerSprite != null)
             {
                 PlayerOriginalColor = PlayerSprite.color;
                 PlayerSprite.color = PlayerCastColor;
             }
-            else
+
+            int i = 0;
+            foreach (SpriteRenderer r in Unit.GetComponentsInChildren<SpriteRenderer>(true))
             {
-                Debug.Log("No player sprite assigned!");
+                Debug.Log(i++);
+                PlayerOriginalColor = r.material.color;
+                r.material.color = PlayerCastColor;
             }
         }
     }
@@ -147,9 +153,15 @@ public class DefaultAttackSequence : Ability
         //Change player sprite color back
         if (ChangePlayerColorOnCast)
         {
+            //Revert single sprite color
             if (PlayerSprite != null)
             {
                 PlayerSprite.color = PlayerOriginalColor;
+            }
+
+            foreach (SpriteRenderer r in Unit.GetComponentsInChildren<SpriteRenderer>(true))
+            {
+                r.material.color = PlayerOriginalColor;
             }
         }
     }

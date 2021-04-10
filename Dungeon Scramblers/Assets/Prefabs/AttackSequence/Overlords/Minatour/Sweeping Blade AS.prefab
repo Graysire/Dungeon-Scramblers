@@ -98,4 +98,4 @@ MonoBehaviour:
   Projectile: {fileID: 1968853217502179572, guid: 008a68b162a0aa5428d846d99dd53d2f, type: 3}
   SlowPlayerOnCast: 1
   ChangePlayerColorOnCast: 1
-  PlayerCastColor: {r: 1, g: 1, b: 1, a: 1}
+  PlayerCastColor: {r: 1, g: 0, b: 0, a: 1}
