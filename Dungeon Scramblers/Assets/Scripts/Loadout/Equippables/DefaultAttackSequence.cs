@@ -128,10 +128,8 @@ public class DefaultAttackSequence : Ability
                 PlayerSprite.color = PlayerCastColor;
             }
 
-            int i = 0;
             foreach (SpriteRenderer r in Unit.GetComponentsInChildren<SpriteRenderer>(true))
             {
-                Debug.Log(i++);
                 PlayerOriginalColor = r.material.color;
                 r.material.color = PlayerCastColor;
             }
