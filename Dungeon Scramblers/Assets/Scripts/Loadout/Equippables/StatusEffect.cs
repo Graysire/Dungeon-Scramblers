@@ -52,8 +52,6 @@ public class StatusEffect : Ability
 
     [SerializeField]
     private bool reverseEffectOnEnd = false;        //If true then when this stat ends it will reapply the original stat value it affected
-    //private float statValToReset;               //Stores the stat value player originally had to reapply it once status effect ends
-    private bool updateReady = false;           //Used to let the updater know when it can perform the necessary operations after Start has finished
 
     [Header("Disarm")]
     [SerializeField] private bool disarm = false; //Disarms the unit till the end of the effect
@@ -152,7 +150,7 @@ public class StatusEffect : Ability
     }
 
     //Sets the time for status to stay alive
-        //If status is applied to same player again then time is reset -- subject to change
+        //If status is applied to same player again then time is reset
     public void ResetStatusTime()
     {
         //resets how long the status will last
@@ -199,7 +197,6 @@ public class StatusEffect : Ability
 
 
     //Applies the status effect values to the player
-    //IEnumerator ApplyStatusEffectValue()
     void ApplyStatusEffectValue()
     {
         //Apply the stat from this status effect onto the affected units stat

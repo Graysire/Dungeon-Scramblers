@@ -15,6 +15,9 @@ public class DefaultAttackSequence : Ability
     [SerializeField]
     protected Color PlayerCastColor;
 
+    [SerializeField]
+    protected bool SelfAffectingAbility = false; //If this is true then the ability layer will be treated as enemy layer so that it can hit own layer
+
     protected SpriteRenderer PlayerSprite;
     protected Color PlayerOriginalColor;
     protected bool Attacked = false;
@@ -109,9 +112,9 @@ public class DefaultAttackSequence : Ability
     //Applies the layer for the attacks based on what layer the attack instigator is 
     protected void SetBulletLayer(Transform AbilityTransform)
     {
-        if (gameObject.layer == LayerMask.NameToLayer("Scrambler"))
+        if (gameObject.layer == LayerMask.NameToLayer("Scrambler") || (gameObject.layer == LayerMask.NameToLayer("Overlord") && SelfAffectingAbility))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("ScramblerBullet");
-        else if (gameObject.layer == LayerMask.NameToLayer("Overlord"))
+        if (gameObject.layer == LayerMask.NameToLayer("Overlord") || (gameObject.layer == LayerMask.NameToLayer("Scrambler") && SelfAffectingAbility))
             AbilityTransform.gameObject.layer = LayerMask.NameToLayer("OverlordBullet");
     }
 
