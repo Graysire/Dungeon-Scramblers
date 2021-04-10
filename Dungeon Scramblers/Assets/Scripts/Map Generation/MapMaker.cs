@@ -193,51 +193,6 @@ public class MapMaker : MonoBehaviour
             }
         }
 
-        
-
-
-        //if (finalRooms == 1)
-        //{
-
-        //    RoomInfo check = rooms[rooms.Count - 1];
-        //    while (true)
-        //    {
-
-        //        int x = Random.Range(0, 2);
-        //        int y = Random.Range(0,2);
-        //        if (x == 0)
-        //        {
-        //            x = check.lowerLeft.x - 1;
-        //        }
-        //        else
-        //        {
-        //            x = check.upperRight.x + 1;
-        //        }
-
-        //        if (y == 0)
-        //        {
-        //            y = check.lowerLeft.y - 1;
-        //        }
-        //        else
-        //        {
-        //            y = check.upperRight.y + 1;
-        //        }
-
-
-        //        if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)))
-        //        {
-        //            break;
-        //        }
-        //        if (attempts == 1000)
-        //        {
-        //            break;
-        //        }
-        //    }
-
-        //}
-
-
-
         //cleanup rooms
         //Add floors to all rooms
         foreach (RoomInfo room in rooms)
@@ -252,6 +207,11 @@ public class MapMaker : MonoBehaviour
         //place the exit door in one of the final rooms
         while (true)
         {
+            if (attempts == 1000)
+            {
+                Debug.Log("NO LOCATION" + finalRooms);
+                break;
+            }
             attempts++;
             RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
             Facing facing = (Facing)Random.Range(1, 4);
@@ -272,23 +232,117 @@ public class MapMaker : MonoBehaviour
                     y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
                     break;
                 case Facing.West:
-                    x = exitRoom.upperRight.x - 1;
+                    x = exitRoom.lowerLeft.x - 1;
                     y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
                     break;
             }
+            //if this is a valid location to place an exit door
             if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)))
             {
-                for (int xa = -1; xa <= 1; xa++)
-                {
-                    for (int ya = -2; ya <= 2; ya++)
-                    {
-                        PlaceTile(new Vector3Int(x + xa, y + ya, 0), tilemaps[1], wallTile);
-                    }
-                }
-                tilemaps[1].SetTile(new Vector3Int(x, y, 0), doorTile);
+                //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
-                tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
-                //Instantiate(nextLevelTeleport, tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), new Quaternion());
+
+                //Spawn level exit object
+                if (nextLevelTeleport != null)
+                {
+                    Instantiate(nextLevelTeleport, tilemaps[0].CellToWorld(new Vector3Int(x, y, 0)), new Quaternion());
+                }
+
+                //place additional tiles based on the facing
+                switch (facing)
+                {
+                    case Facing.North:
+                        //place extra wall tiles
+                        for (int xa = -1; xa <= 1; xa++)
+                        {
+                            tilemaps[1].SetTile(new Vector3Int(xa + x, y + 1, 0), wallTile);
+                        }
+                        //Place corresponding shadow tiles
+                        tilemaps[2].SetTile(new Vector3Int(x,y - 1,0), wallShadowTiles.concaveCorner);
+                        tilemaps[2].SetTile(new Vector3Int(x - 2, y + 1, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y + 1, 0)));
+                        tilemaps[2].SetTile(new Vector3Int(x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y, 0)));
+
+                        
+                        break;
+                    case Facing.South:
+                        //remove blocking wall
+                        tilemaps[1].SetTile(new Vector3Int(x, y, 0), null);
+                        //add wall and corresponding floor tiles
+                        tilemaps[1].SetTile(new Vector3Int(x, y - 1, 0), wallTile);
+                        tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
+
+                        //add shadowing
+                        tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.topRight);
+                        tilemaps[2].SetTile(new Vector3Int(x, y - 1, 0), wallShadowTiles.midRight);
+
+                        //add wall shading
+                        for (int xa = -1; xa <= 1; xa++)
+                        {
+                            tilemaps[1].SetTile(new Vector3Int(xa + x, y - 2, 0), wallTile);
+                            
+                        }
+                        //add wall shadows
+                        for (int xa = -2; xa <= 1; xa++)
+                        {
+                            tilemaps[2].SetTile(new Vector3Int(xa + x, y - 3, 0), ChooseWallShadowTile(new Vector3Int(xa + x, y - 3, 0)));
+
+                        }
+
+                        break;
+                    case Facing.East:
+                        //remove blocking wall
+                        tilemaps[1].SetTile(new Vector3Int(x, y, 0), null);
+                        //place floor tile
+                        tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
+
+                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
+                        tilemaps[0].SetTile(new Vector3Int(x + 1, y, 0), floorTile);
+
+                        //add wall shading
+                        for (int ya = -2; ya <= 2; ya++)
+                        {
+                            tilemaps[1].SetTile(new Vector3Int(x + 1, y + ya, 0), wallTile);
+
+                        }
+
+                        //add shadowing
+                        tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.concaveCorner);
+                        tilemaps[2].SetTile(new Vector3Int(x, y - 1, 0), wallShadowTiles.midRight);
+                        tilemaps[2].SetTile(new Vector3Int(x + 1, y - 3, 0), wallShadowTiles.rightTop);
+
+                        break;
+                    case Facing.West:
+                        //remove blocking wall
+                        tilemaps[1].SetTile(new Vector3Int(x, y, 0), null);
+                        //place floor tile
+                        tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
+
+                        //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
+                        tilemaps[0].SetTile(new Vector3Int(x - 1, y, 0), floorTile);
+
+                        //add wall shading
+                        for (int ya = -2; ya <= 2; ya++)
+                        {
+                            tilemaps[1].SetTile(new Vector3Int(x - 1, y + ya, 0), wallTile);
+
+                        }
+
+                        //add wall shadowing
+                        for (int ya = -3; ya <= 2; ya++)
+                        {
+                            tilemaps[2].SetTile(new Vector3Int(x - 2, y + ya, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y + ya, 0)));
+
+                        }
+
+
+                        //add shadowing
+                        tilemaps[2].SetTile(new Vector3Int(x, y, 0), wallShadowTiles.concaveCorner);
+                        tilemaps[2].SetTile(new Vector3Int(x, y - 1, 0), wallShadowTiles.midRight);
+                        tilemaps[2].SetTile(new Vector3Int(x - 1, y - 3, 0), wallShadowTiles.concaveCorner);
+
+                        break;
+                }
+
                 break;
             }
         }
