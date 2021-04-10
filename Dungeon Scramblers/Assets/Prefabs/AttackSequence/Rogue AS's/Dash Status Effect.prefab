@@ -51,12 +51,13 @@ MonoBehaviour:
   abilitySlot: 1
   cooldownTime: 5
   doesReapply: 0
+  waitTimeToReapply: 2
   canStack: 0
   resetEffectOnHit: 0
   appliesToBaseStats: 0
-  waitTimeToApplyAgain: 2
   isPermanent: 0
   timeTillEnd: 450
   valueOfEffect: 600
   statValueToAffect: 1
   reverseEffectOnEnd: 1
+  disarm: 0

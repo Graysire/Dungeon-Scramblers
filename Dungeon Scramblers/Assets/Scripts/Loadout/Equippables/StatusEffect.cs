@@ -69,7 +69,7 @@ public class StatusEffect : Ability
     }
 
     //Adds this status effect onto the given player
-    public virtual void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
+    public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
         //If this wasn't already activated then add status
         if (!Activated)
