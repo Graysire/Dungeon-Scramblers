@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Dash
-  equippableBitFlag: 
+  equippableBitFlag: 000001
   bitCategory: 4
   playerCategory: 3
   abilitySlot: 1
