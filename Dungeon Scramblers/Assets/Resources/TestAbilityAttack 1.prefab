@@ -55,6 +55,7 @@ MonoBehaviour:
   SlowPlayerOnCast: 0
   ChangePlayerColorOnCast: 0
   PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
 --- !u!114 &-7558920546839552878
 MonoBehaviour:
   m_ObjectHideFlags: 0
