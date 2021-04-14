@@ -199,6 +199,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks
 
     }
 
+    public void OnStartButtonClicked2()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("Trying to load new Scene");
+            //Use Photon to load new Scene
+            PhotonNetwork.LoadLevel("HansonMultiplayerGameTest");
+
+            //Add Loading Screen Here
+        }
+
+    }
 
     public void OnReadyUpButtonClicked()
     {
