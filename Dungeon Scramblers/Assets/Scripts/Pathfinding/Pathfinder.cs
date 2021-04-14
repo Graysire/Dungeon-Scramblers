@@ -176,7 +176,7 @@ public class Pathfinder : MonoBehaviour
 
 
     //initializes pathfinding nodes on the grid based on the bounds of the tilemap
-    public static void CreateGrid(Grid grid, UnityEngine.Tilemaps.Tilemap tilemap, UnityEngine.Tilemaps.TileBase wallTile)
+    public static void CreateGrid(Grid grid, UnityEngine.Tilemaps.Tilemap tilemap, UnityEngine.Tilemaps.Tilemap wallTilemap)
     {
         //sets the grid used by the pathfinder
         tileGrid = grid;
@@ -204,7 +204,7 @@ public class Pathfinder : MonoBehaviour
                 if (tilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)))
                 {
                     //fills every space on the grid that has a tile with a node
-                    if (tilemap.GetTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)) == wallTile)
+                    if (wallTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)) && !wallTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y + 1, 0)))
                     {
                         nodeGrid[y, x] = new PathNode(x + gridOffset.x, y + gridOffset.y, true);
                     }
