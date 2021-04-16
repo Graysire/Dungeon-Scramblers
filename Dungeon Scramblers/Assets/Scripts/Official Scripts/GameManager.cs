@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     Timer timer;
     bool outOfTime = false; //Determines if timer ended resulting in game over state
+    int escapedScramblers = 0;
 
     //Update handler stuff
     protected virtual void OnEnable()
@@ -84,6 +85,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void IncrememntEscapedScramblers()
+    {
+        escapedScramblers++; 
+    }
 
     //sets out of time so game will end
     public void TimerOver()
