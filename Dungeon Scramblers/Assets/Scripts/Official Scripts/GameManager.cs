@@ -127,8 +127,13 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public Perk GetPerk()
+    {
+        return perkList.GetPerk();
+    }
+
     //Applies the perks to each scrambler
-    void ApplyPerk(Perk perk)
+    public void ApplyPerk(Perk perk)
     {
         if (perk.GetSingleApplication())
         {
@@ -142,6 +147,7 @@ public class GameManager : MonoBehaviour
                 Debug.Log(perk.gameObject.name);
             }
         }
+        perkList.ResetPerks(perk);
     }
 
     //Returns a list of ALIVE Scrambler transforms

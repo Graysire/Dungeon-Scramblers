@@ -20,6 +20,7 @@ public class VoteButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        perk = GameManager.ManagerInstance.GetPerk();
         GameObject child = transform.GetChild(0).gameObject;
         if (child)
         {

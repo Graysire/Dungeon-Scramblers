@@ -107,6 +107,7 @@ public class VotingSystem : MonoBehaviour
             HandleRevive();
         }
         Popup.Show();
+        GameManager.ManagerInstance.ApplyPerk(Buttons[maxIndex].GetComponent<Perk>());
     }
 
     private void HandleRevive()
