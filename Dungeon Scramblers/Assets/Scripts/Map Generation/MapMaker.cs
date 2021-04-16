@@ -107,6 +107,15 @@ public class MapMaker : MonoBehaviour
     //list of all corridors created
     public List<CorridorInfo> corridors;
 
+    //the number of perks to spawn
+    [SerializeField]
+    int numPerks = 3;
+    //object used for perk voting
+    [SerializeField]
+    GameObject perkObject;
+
+    //whether or not this is the first map to be generated and thus whether perks must be spawned in the first room
+    bool firstMap;
     //public static int cornerCount = 0;
     //public static int totalCorridors = 0;
 
@@ -125,7 +134,7 @@ public class MapMaker : MonoBehaviour
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
-            StartCoroutine("GenerateMap");
+            StartCoroutine(GenerateMap(true));
         }
         //GenerateMap();
     }
@@ -133,8 +142,9 @@ public class MapMaker : MonoBehaviour
     #region generation functions
 
     //generates a dungeon map, assumes the tilemap is currently empty
-    IEnumerator GenerateMap()
+    public IEnumerator GenerateMap(bool isFirstMap = true)
     {
+        firstMap = isFirstMap;
         mapFinished = false;
         if (tilemaps.Length != 4)
         {
@@ -666,6 +676,16 @@ public class MapMaker : MonoBehaviour
                     }
                 }
 
+            }
+        }
+
+        //place the perk selection options ifthis isn't the first map generated and this is the first room
+        if (rooms.Count == 0 && !firstMap)
+        {
+            int dif = (endX - startX) / (numPerks + 1);
+            for (int i = 1; i <= numPerks; i++)
+            {
+                Instantiate(perkObject, new Vector3(startX + dif * i, startY + (endY - startY) / 2, 0), new Quaternion());
             }
         }
 
