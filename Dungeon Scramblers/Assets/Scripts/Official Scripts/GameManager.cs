@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     bool isLoading;
 
     // Voting Stats
-    float timer;
     [SerializeField]
     PerkList perkList;
 
@@ -27,6 +26,22 @@ public class GameManager : MonoBehaviour
     int currentExperience = 0;
     int expToNextLevel = 10000;
     int xpMultiplier = 100;
+
+    //State handling variables
+    [SerializeField]
+    Timer timer;
+    bool outOfTime = false; //Determines if timer ended resulting in game over state
+
+    //Update handler stuff
+    protected virtual void OnEnable()
+    {
+        UpdateHandler.UpdateOccurred += Updater;
+    }
+    protected virtual void OnDisable()
+    {
+        UpdateHandler.UpdateOccurred -= Updater;
+    }
+
 
     private void Awake()
     {
@@ -54,6 +69,26 @@ public class GameManager : MonoBehaviour
             
             ApplyPerk(perkList.GetPerk());
         }
+
+        //Begin Timer
+        timer.InitializeAndStartTimer(5);
+
+    }
+
+    //Update
+    private void Updater()
+    {
+        if (outOfTime)
+        {
+            Debug.Log("GM: TIMER ENDED SO GAME OVER");
+        }
+    }
+
+
+    //sets out of time so game will end
+    public void TimerOver()
+    {
+        outOfTime = true;
     }
 
     public void DistributeExperience(int experience)
