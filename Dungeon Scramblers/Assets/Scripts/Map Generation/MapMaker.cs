@@ -254,7 +254,7 @@ public class MapMaker : MonoBehaviour
             }
             //if this is a valid location to place an exit door (it is north/south, or it is east/west without a corridor above it
             if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || 
-                (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0))))
+                (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0))))
             {
                 //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
@@ -375,9 +375,6 @@ public class MapMaker : MonoBehaviour
 
         //generate the pathfinding grid
         Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], tilemaps[1]);
-
-
-
 
 
         //Add doors, spawn AI, room shading
