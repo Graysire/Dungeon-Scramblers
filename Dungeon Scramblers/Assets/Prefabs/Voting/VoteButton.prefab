@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 9029396134454655009}
   - component: {fileID: 2908947167211785726}
   m_Layer: 0
-  m_Name: Button
+  m_Name: VoteButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -376,3 +376,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perk: {fileID: 0}
+  VoteCounter: {fileID: 4914252602917322201}

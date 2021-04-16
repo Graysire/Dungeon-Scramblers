@@ -11,6 +11,7 @@ public class VoteButton : MonoBehaviour
     public Perk getPerk() { return perk; }
     public void setPerk(Perk inPerk) { perk = inPerk; }
 
+    [SerializeField]
     TextMeshPro VoteCounter;
     
     int vote = 0;
@@ -18,14 +19,10 @@ public class VoteButton : MonoBehaviour
     public int getVote() { return vote; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        GameManager.ManagerInstance.IncrementButton(this);
         perk = GameManager.ManagerInstance.GetPerk();
-        GameObject child = transform.GetChild(0).gameObject;
-        if (child)
-        {
-            VoteCounter = child.GetComponent<TextMeshPro>();
-        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

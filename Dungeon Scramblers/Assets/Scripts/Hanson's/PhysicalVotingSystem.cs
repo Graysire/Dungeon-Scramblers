@@ -8,7 +8,7 @@ public class PhysicalVotingSystem : MonoBehaviour
 {
 
     [SerializeField]
-    private VoteButton[] Buttons;
+    private List<VoteButton> Buttons;
 
     [SerializeField]
     private TextMeshPro Timer;
@@ -39,6 +39,11 @@ public class PhysicalVotingSystem : MonoBehaviour
 
     }
 
+    public void IncrementButton(VoteButton button)
+    {
+        Buttons.Add(button);
+    }
+
     private void HandleResult()
     {
         bool bEqual = false;
@@ -63,7 +68,7 @@ public class PhysicalVotingSystem : MonoBehaviour
 
         if(bEqual)
         {
-            int rand = UnityEngine.Random.Range(0, Buttons.Length);
+            int rand = UnityEngine.Random.Range(0, Buttons.Count);
             resultButton = Buttons[rand];
         }
         

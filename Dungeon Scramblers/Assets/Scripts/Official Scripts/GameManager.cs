@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     PerkList perkList;
 
+    [SerializeField]
+    PhysicalVotingSystem votingSystem;
+
     // Players stats
     bool isPlayerDead;
     Scrambler[] Scramblers; // = new Scrambler class array of 4;
@@ -26,6 +29,8 @@ public class GameManager : MonoBehaviour
     int currentExperience = 0;
     int expToNextLevel = 10000;
     int xpMultiplier = 100;
+
+
 
     //State handling variables
     [SerializeField]
@@ -76,6 +81,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+  
+
+
     //Update
     private void Updater()
     {
@@ -94,6 +102,11 @@ public class GameManager : MonoBehaviour
     public void TimerOver()
     {
         outOfTime = true;
+    }
+
+    public void IncrementButton(VoteButton button)
+    {
+        votingSystem.IncrementButton(button);
     }
 
     public void DistributeExperience(int experience)
