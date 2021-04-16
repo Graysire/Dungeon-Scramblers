@@ -85,7 +85,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void IncrememntEscapedScramblers()
+    public void IncrementEscapedScramblers()
     {
         escapedScramblers++; 
     }

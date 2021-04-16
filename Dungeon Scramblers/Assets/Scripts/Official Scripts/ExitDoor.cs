@@ -13,7 +13,7 @@ public class ExitDoor : MonoBehaviour
         {
             if (sc.GetEscaped() == false)
             {
-                GameManager.ManagerInstance.IncrememntEscapedScramblers();
+                GameManager.ManagerInstance.IncrementEscapedScramblers();
                 sc.SetEscaped();
                 //disable scrambler 
                 Debug.Log("Scrambler found exit!");
