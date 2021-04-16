@@ -8,7 +8,59 @@ public class Scrambler : Player
 {
     [SerializeField]
     DisplayBar ExperienceBar;
+    bool escaped = false;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        UpdateHandler.FixedUpdateOccurred += Escaped;
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        UpdateHandler.FixedUpdateOccurred -= Escaped;
+    }
+
+    public override bool GetUntargetable()
+    {
+        if (escaped || isDead)
+        {
+            return true;
+        }
+        return false;
+
+    }
+
+    public void Escaped()
+    {
+        if (escaped)
+        {
+            allowedToAttack = false;
+            SetPhysicsLayer();
+            sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
+        }
+    }
+
+    public override void Die()
+    {
+        base.Die();
+        if (isDead)
+            SetPhysicsLayer();
+    }
+
+    private void SetPhysicsLayer()
+    {
+        gameObject.layer = 14;
+    }
+
+    public bool GetEscaped()
+    {
+        return escaped;
+    }
+    public void SetEscaped()
+    {
+        escaped = true;
+    }
 
     public void updateExperience(float ratio)
     {
@@ -36,6 +88,7 @@ public class Scrambler : Player
                 affectedStats[(int)Stats.health] = reviveHP;                                // Revive with a STRAIGHT health value
             }
             isDead = false;
+            allowedToAttack = true;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);                     // temporary color shift
         }
     }

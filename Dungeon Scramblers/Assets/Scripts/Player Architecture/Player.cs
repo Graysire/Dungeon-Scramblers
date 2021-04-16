@@ -36,8 +36,7 @@ public class Player : AbstractPlayer
     [SerializeField] protected List<GameObject> AnimatorList;
     protected int enabledAnimatorInd = -1;
     protected Animator enabledAnim;
-    protected bool isFacingLeft;
-    
+    protected bool isFacingLeft;    
 
     protected override void Awake()
     {
@@ -263,12 +262,22 @@ public class Player : AbstractPlayer
 
     public override void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
+            allowedToAttack = false;
             Debug.Log("Do something that indicates the player is dead...");
             isDead = true;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
             Debug.Log("Dead");
             // Death animation
         }
+    }
+
+    public virtual bool GetUntargetable()
+    {
+        if (isDead)
+        {
+            return true;
+        }
+        return false;
     }
     
     protected virtual void RequestAttack(int attackListIndex) {

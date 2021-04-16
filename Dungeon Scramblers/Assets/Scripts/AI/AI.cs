@@ -213,6 +213,7 @@ public class AI : AbstractPlayer
     [Task]
     protected bool SeePlayerAndSetTarget()
     {
+
         //This removes error log whith no players assigned
         bool playersIsNull = true;
         //If there are no assigned players to attack then stop looking
@@ -258,7 +259,7 @@ public class AI : AbstractPlayer
             }
 
             //If player is in visible range of AI and there is no wall blocking sight
-            if (distance.magnitude < visibleRange && !seeWall)
+            if (distance.magnitude < visibleRange && !seeWall && !p.gameObject.GetComponent<Scrambler>().GetUntargetable())
             {
                 //Set this player to interact with (move to and attack)
                 if (player != null)
