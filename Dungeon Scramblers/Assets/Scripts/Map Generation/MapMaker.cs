@@ -208,16 +208,21 @@ public class MapMaker : MonoBehaviour
         //place the exit door in one of the final rooms
         while (true)
         {
+            //if the door cannot be placed break
             if (attempts == 1000)
             {
                 Debug.Log("NO LOCATION" + finalRooms);
                 break;
             }
+            //log an attempt having been made
             attempts++;
+            //pick exit room and wall for the exitDoor
             RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
             Facing facing = (Facing)Random.Range(1, 4);
+
             int x = 0;
             int y = 0;
+            //generate location based on Facing
             switch (facing)
             {
                 case Facing.North:
@@ -247,7 +252,7 @@ public class MapMaker : MonoBehaviour
                 //Spawn level exit object
                 if (nextLevelTeleport != null)
                 {
-                    Instantiate(nextLevelTeleport, tilemaps[0].CellToWorld(new Vector3Int(x, y, 0)), new Quaternion());
+                    Instantiate(nextLevelTeleport, tilemaps[0].GetCellCenterWorld(new Vector3Int(x, y, 0)), new Quaternion());
                 }
 
                 //place additional tiles based on the facing
