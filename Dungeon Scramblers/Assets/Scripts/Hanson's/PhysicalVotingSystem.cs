@@ -15,7 +15,7 @@ public class PhysicalVotingSystem : MonoBehaviour
 
     private Boolean shown = false;
 
-    public float TimeRemaining = 10.0f;
+    public float TimeRemaining = 4.0f;
 
     VoteButton resultButton;
 
@@ -25,7 +25,7 @@ public class PhysicalVotingSystem : MonoBehaviour
     {
         if (TimeRemaining >= 0)
         {
-            TimeRemaining -= 2 * Time.deltaTime;
+            TimeRemaining -= Time.deltaTime;
             double TempTime = Math.Round(TimeRemaining, 2);
             Timer.text = ("Time: " + TempTime);
         }

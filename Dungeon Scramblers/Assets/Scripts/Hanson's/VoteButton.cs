@@ -9,6 +9,7 @@ public class VoteButton : MonoBehaviour
     private Perk perk;
 
     public Perk getPerk() { return perk; }
+    public void setPerk(Perk inPerk) { perk = inPerk; }
 
     TextMeshPro VoteCounter;
     
@@ -28,8 +29,18 @@ public class VoteButton : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.GetComponent<Scrambler>())
+        {
+            VoteCounter.text = (++vote).ToString();
+        }
+       
+    }
 
-        VoteCounter.text = (++vote).ToString();
-        Debug.Log(vote);
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.GetComponent<Scrambler>())
+        {
+            VoteCounter.text = (--vote).ToString();
+        }
     }
 }
