@@ -103,6 +103,8 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
                     int PhotonID = objectsPooled[i].GetPhotonView().ViewID;
                     //photonView.RPC("ShowProjectile", RpcTarget.Others, PhotonID);
                     objectsPooled[i].GetComponent<ProjectileStats>().ShowProjectile(PhotonID);
+                    PhotonView OPview = objectsPooled[i].GetPhotonView();
+                    OPview.RPC("ShowProjectile", RpcTarget.Others, PhotonID);
                 }
                 else
                 {

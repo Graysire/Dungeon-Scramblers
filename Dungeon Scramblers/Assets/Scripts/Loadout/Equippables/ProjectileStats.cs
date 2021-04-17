@@ -143,7 +143,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
                 if (PhotonNetwork.CurrentRoom != null)
                 {
                     int PhotonID = gameObject.GetPhotonView().ViewID;
-                    
+                    photonView.RPC("TurnOffProjectile", RpcTarget.Others, PhotonID);
                     TurnOffProjectile(PhotonID);
                     totalTime = 0;
                     PositionTraveled = Vector3.zero;
@@ -162,7 +162,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     protected void TurnOffProjectile(int go)
     {
         GameObject GOReset = PhotonView.Find(go).gameObject;
-        photonView.RPC("TurnOffProjectile", RpcTarget.Others, go);
+        
         totalTime = 0;
         PositionTraveled = Vector3.zero;
         GOReset.SetActive(false);
@@ -238,7 +238,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.CurrentRoom != null)
         {
-            photonView.RPC("ShowProjectile", RpcTarget.Others, go);
+            //photonView.RPC("ShowProjectile", RpcTarget.Others, go);
             GameObject GOReset = PhotonView.Find(go).gameObject;
 
             GOReset.SetActive(true);
