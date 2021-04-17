@@ -184,18 +184,17 @@ public class Pathfinder : MonoBehaviour
 
 
     //initializes pathfinding nodes on the grid based on the bounds of the tilemap
-    public static void CreateGrid(Grid grid, UnityEngine.Tilemaps.Tilemap tilemap, UnityEngine.Tilemaps.Tilemap wallTilemap)
+    public static void CreateGrid(Grid grid, UnityEngine.Tilemaps.Tilemap floorTilemap, UnityEngine.Tilemaps.Tilemap wallTilemap)
     {
         //sets the grid used by the pathfinder
         tileGrid = grid;
 
         //the adjustment used to calculate the actual positions of new nodes
-        //subtract 1 to account for integer rounding down in 
-        gridOffset = new Vector3Int(tilemap.cellBounds.x, tilemap.cellBounds.y, 0);
+        gridOffset = new Vector3Int(wallTilemap.cellBounds.x, wallTilemap.cellBounds.y, 0);
 
         //calculate the size of the grid needed
-        gridSize.x = tilemap.cellBounds.xMax - gridOffset.x;
-        gridSize.y = tilemap.cellBounds.yMax - gridOffset.y;
+        gridSize.x = wallTilemap.cellBounds.xMax - gridOffset.x;
+        gridSize.y = wallTilemap.cellBounds.yMax - gridOffset.y;
 
         //instantiates 2D array of nodes
         nodeGrid = new PathNode[gridSize.y, gridSize.x];
@@ -209,7 +208,7 @@ public class Pathfinder : MonoBehaviour
         {
             for (int x = 0; x < gridSize.x; x++)
             {
-                if (tilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)))
+                if (floorTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)))
                 {
                     //fills every space on the grid that has a tile with a node
                     if (wallTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)) && !wallTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y + 1, 0)))
