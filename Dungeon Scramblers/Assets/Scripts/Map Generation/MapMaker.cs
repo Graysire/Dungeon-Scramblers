@@ -869,7 +869,7 @@ public class MapMaker : MonoBehaviour
 
             if (tilemaps[1].HasTile(door.position + i * corridorDirection)/* && tilemap.HasTile(door.position + (i + 1) * corridorDirection)*/)
             {
-                Debug.Log("Connector Case 1");
+                //Debug.Log("Connector Case 1");
                 endDoorPosition = door.position + i * corridorDirection;
                 length = i - 1;
                 isConnector = true;
@@ -942,7 +942,7 @@ public class MapMaker : MonoBehaviour
         //tilemap.SetTile(endDoorPosition, doorTile);
         //ensure the end door position is empty as expected
         tilemaps[1].SetTile(endDoorPosition, null);
-
+        tilemaps[1].SetTile(door.position, null);
         //place the tiles that form the corridor
         for (int i = 0; i <= length + 1; i++)
         {
