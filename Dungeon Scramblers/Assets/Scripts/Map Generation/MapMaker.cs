@@ -408,9 +408,6 @@ public class MapMaker : MonoBehaviour
         numAttemptsTotal += attempts;
 
 
-        
-
-
         //Add doors, spawn AI, room shading
         foreach (RoomInfo room in rooms)
         {
@@ -866,6 +863,15 @@ public class MapMaker : MonoBehaviour
                 endDoorPosition = door.position + i * corridorDirection;
                 length = i - 1;
                 isConnector = true;
+
+                //if this connection would have issues with connecting tothe corenr of a room
+                if (tilemaps[1].HasTile(new Vector3Int(endDoorPosition.x, endDoorPosition.y + 1, 0)) && !tilemaps[1].HasTile(new Vector3Int(endDoorPosition.x, endDoorPosition.y + 2, 0)))
+                {
+                    tilemaps[1].SetTile(door.position, wallTile);
+                    currentDoorNum--;
+                    return newDoors;
+                }
+
                 break;
             }
         }
