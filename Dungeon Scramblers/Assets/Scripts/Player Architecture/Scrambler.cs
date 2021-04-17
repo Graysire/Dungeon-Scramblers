@@ -40,7 +40,6 @@ public class Scrambler : Player
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
         }
     }
-
     public void ResetEscaped()
     {
         allowedToAttack = true;

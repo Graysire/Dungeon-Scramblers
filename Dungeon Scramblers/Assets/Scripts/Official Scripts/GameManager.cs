@@ -223,6 +223,7 @@ public class GameManager : MonoBehaviour
             {
                 deadScramblers--;
                 DeadScramblers.RemoveAt(i);
+                break;
             }
         }
     }
