@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,13 +49,21 @@ public class Pathfinder : MonoBehaviour
         //create list of vectors to return
         List<Vector3> vectorList = new List<Vector3>();
 
-        //convert nodes to vectors
-        for (int i = 0; i < nodeList.Count; i++)
+        if (nodeList != null)
         {
-            vectorList.Add(NodeToWorld(nodeList[i]));
+            //convert nodes to vectors
+            for (int i = 0; i < nodeList.Count; i++)
+            {
+                vectorList.Add(NodeToWorld(nodeList[i]));
+            }
+            return vectorList;
+        }
+        else
+        {
+            return null;
         }
 
-        return vectorList;
+        
     }
 
     //gets the shortest path between two points on the grid
@@ -212,6 +220,10 @@ public class Pathfinder : MonoBehaviour
                     {
                         nodeGrid[y, x] = new PathNode(x + gridOffset.x, y + gridOffset.y, false);
                     }
+                }
+                else if (wallTilemap.HasTile(new Vector3Int(x + gridOffset.x, y + gridOffset.y, 0)))
+                {
+                    nodeGrid[y, x] = new PathNode(x + gridOffset.x, y + gridOffset.y, true);
                 }
                 else
                 {

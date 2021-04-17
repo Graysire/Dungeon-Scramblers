@@ -93,6 +93,12 @@ public class MapMaker : MonoBehaviour
 
     [SerializeField]
     GameObject nextLevelTeleport;
+    [SerializeField]
+    //the number of attempts to place the exitDoor that should be made before expanding the list of possible rooms
+    int exitDoorAttemptThreshold;
+    [SerializeField]
+    //the minimum shortest path between the starting door and exit door
+    int exitDoorDistanceThreshold;
 
     //the AI Clusters that can be spawned
     [SerializeField]
@@ -157,11 +163,15 @@ public class MapMaker : MonoBehaviour
         //the number of rooms in the final iteration that runs
         int finalRooms = 0;
 
+        //initialize lists of doors, rooms, and corridors
         List<DoorInfo> doorList = new List<DoorInfo>();
         rooms = new List<RoomInfo>();
         corridors = new List<CorridorInfo>();
 
+        //add initial door
         doorList.Add(new DoorInfo(new Vector3Int(0, 0, 0), Facing.North));
+        //declare variable to stor the location of the first generated Door
+        DoorInfo startDoor = new DoorInfo();
 
         //generate rooms and corridors
         for (int i = 0; i < maxIterations; i++)
@@ -178,6 +188,11 @@ public class MapMaker : MonoBehaviour
             //generate new corridors from the doors in newDoors and and add their doors to doorList if doors exist
             if (newDoors.Count > 0)
             {
+                //if only oneroom exists, recordthe starting door
+                if (rooms.Count == 1)
+                {
+                    startDoor = newDoors[0];
+                }
                 if (i + 1 < maxIterations)
                 {
                     finalRooms = newDoors.Count;
@@ -215,18 +230,29 @@ public class MapMaker : MonoBehaviour
 
         int attempts = 0;
 
+        //generate the pathfinding grid
+        Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], tilemaps[1]);
+
 
         //place the exit door in one of the final rooms
         while (true)
         {
+
             //if the door cannot be placed break
-            if (attempts == 1000)
+            if (attempts == 100)
             {
                 Debug.Log("NO LOCATION" + finalRooms);
                 break;
             }
             //log an attempt having been made
             attempts++;
+            //if we've done many attempts and failed to create an exit, increase the pool of rooms available
+            if (attempts % exitDoorAttemptThreshold == 0)
+            {
+                finalRooms++;
+            }
+
+
             //pick exit room and wall for the exitDoor
             RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
             Facing facing = (Facing)Random.Range(1, 4);
@@ -253,6 +279,14 @@ public class MapMaker : MonoBehaviour
                     y = Random.Range(exitRoom.lowerLeft.y, exitRoom.upperRight.y);
                     break;
             }
+
+            //check if the exit is too close to the entrance, if so, go to the next iteration
+            if (Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count < exitDoorDistanceThreshold)
+            {
+                continue;
+            }
+
+
             //if this is a valid location to place an exit door (it is north/south, or it is east/west without a corridor above it
             if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || 
                 (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0))))
@@ -374,8 +408,7 @@ public class MapMaker : MonoBehaviour
         numAttemptsTotal += attempts;
 
 
-        //generate the pathfinding grid
-        Pathfinder.CreateGrid(tilemaps[0].GetComponentInParent<Grid>(), tilemaps[0], tilemaps[1]);
+        
 
 
         //Add doors, spawn AI, room shading
