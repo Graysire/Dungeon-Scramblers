@@ -19,7 +19,7 @@ public class VoteButton : MonoBehaviour
     public int getVote() { return vote; }
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         GameManager.ManagerInstance.IncrementButton(this);
         perk = GameManager.ManagerInstance.GetPerk();
