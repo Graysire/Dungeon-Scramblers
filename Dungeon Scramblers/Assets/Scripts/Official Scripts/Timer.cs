@@ -9,6 +9,7 @@ public class Timer : MonoBehaviour
     private float timeRemaining;        //Remaining time left
     private bool timerActive = false;   //Determines if timer is counting down
     public Text timeText;               //Text display to show time left to players
+    bool isMatchTimer;                  //Determines if timer is for match or voting
 
     //link to reference : https://gamedevbeginner.com/how-to-make-countdown-timer-in-unity-minutes-seconds/
 
@@ -31,13 +32,15 @@ public class Timer : MonoBehaviour
     }
 
     //Initializes the timer values and enables timer countdown
-        // Called by GameManager for each state of match
-    public void InitializeAndStartTimer(float time)
+        //time - time to run till end
+        //isMatchTimer - whether the timer is for a match countdown
+            //if not then its for voting timer
+    public void InitializeAndStartTimer(float time, bool isMatchTimer)
     {
-        Debug.Log("Initializing Timer...");
-
+        this.isMatchTimer = isMatchTimer;
         timeRemaining = time;
-        DisplayTime(timeRemaining);
+
+        DisplayTime(timeRemaining); //update the timer-on-screen info
 
         //Start timer by activating it and enable timer
         timeText.gameObject.SetActive(true);
@@ -45,26 +48,28 @@ public class Timer : MonoBehaviour
         timerActive = true;
     }
 
-    //Disables the timer from updating -- parameter determines if time ran out which enables game over state.
-    //Called by timer when out of time.
-    //Called Game Manager when round completed, scramblers all die, or when voting phase/overlord plan phase ended.
-    public void DisableTimer(bool outOfTime)
+    //Disables the timer from updating
+        //matchTimeOver -- true if game over sequence wanted after
+        //voteTimeOver -- true if round start sequence wanted after
+        //NOTE: DO NOT HAVE BOTH PARAMETERS TRUE
+    public void DisableTimer(bool matchTimeOver, bool voteTimeOver)
     {
-        Debug.Log("Disabling Timer...");
-
         //sets time to 0 and disable timer
         timerActive = false;
         timeRemaining = 0;
         timeText.gameObject.SetActive(false);
         gameObject.SetActive(false);
 
-        //if out of time then send ping to GameManager
-        if (outOfTime)
-        {
-            Debug.Log("Sending out of time ping to Game Manager...");
-
+        //if out of time then send ping to GameManager for game over
+        if (matchTimeOver)
+        { 
             //Send ping to GameManager that timer ran out so it can handle game over state
             GameManager.ManagerInstance.TimerOver();
+        }
+        //if out of time then send ping to game manager to start round
+        if (voteTimeOver)
+        {
+            GameManager.ManagerInstance.BeginMatchTimer();
         }
     }
 
@@ -72,7 +77,6 @@ public class Timer : MonoBehaviour
     //Will run by update handler
     private void RunTimerCountdown()
     {
-        Debug.Log("RunTimerCountdown Operating...");
         if (timerActive)
         {
             //Timer countdown
@@ -84,8 +88,12 @@ public class Timer : MonoBehaviour
             //Timer done counting down
             else
             {
-                Debug.Log("Time ran out!");
-                DisableTimer(true);
+                //If this is a match timer
+                if (isMatchTimer)
+                    DisableTimer(true, false);
+                //if this is a vote/overlord setup timer
+                else
+                    DisableTimer(false, true);
             }
 
             //Display the timer information onto player screens

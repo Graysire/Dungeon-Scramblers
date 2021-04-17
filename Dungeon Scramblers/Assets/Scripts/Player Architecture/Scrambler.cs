@@ -36,30 +36,46 @@ public class Scrambler : Player
         if (escaped)
         {
             allowedToAttack = false;
-            SetPhysicsLayer();
+            SetPhysicsLayer(14);
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
         }
+    }
+
+    public void ResetEscaped()
+    {
+        allowedToAttack = true;
+        SetPhysicsLayer(10);
+        sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
     }
 
     public override void Die()
     {
         base.Die();
         if (isDead)
-            SetPhysicsLayer();
+        {
+            GameManager.ManagerInstance.AddScramblerDeath(this);
+            SetPhysicsLayer(14);
+        }
     }
 
-    private void SetPhysicsLayer()
+    //layer #14 is spectator, #10 is Scrambler
+    private void SetPhysicsLayer(int layer)
     {
-        gameObject.layer = 14;
+        gameObject.layer = layer;
     }
 
     public bool GetEscaped()
     {
         return escaped;
     }
-    public void SetEscaped()
+    public void SetEscaped(bool e)
     {
-        escaped = true;
+        escaped = e;
+    }
+
+    public bool IsAlive()
+    {
+        return !isDead;
     }
 
     public void updateExperience(float ratio)
@@ -90,6 +106,8 @@ public class Scrambler : Player
             isDead = false;
             allowedToAttack = true;
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);                     // temporary color shift
+            SetPhysicsLayer(10); // set layer back to scrambler
+            GameManager.ManagerInstance.RemoveScramblerDeath(this);
         }
     }
 

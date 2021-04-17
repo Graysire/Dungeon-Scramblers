@@ -349,7 +349,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perkList: {fileID: 0}
+  votingSystem: {fileID: 0}
   timer: {fileID: 679930974}
+  voteTimeInSeconds: 10
+  matchTimeInSeconds: 15
+  bossFightTimeInSeconds: 20
+  numberOfRounds: 1
 --- !u!114 &498308365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,7 +685,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: maxIterations
-      value: 3
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: generateMapOnStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: exitDoorDistanceThreshold
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalPosition.x
