@@ -465,6 +465,8 @@ MonoBehaviour:
   spawnBuffer: 1
   numAttemptsTotal: 0
   nextLevelTeleport: {fileID: 1050010991279235235, guid: ee02d7cef05b96447912050b0ffd274a, type: 3}
+  exitDoorAttemptThreshold: 20
+  exitDoorDistanceThreshold: 40
   spawnAI:
   - spawns:
     - spawnAI: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
@@ -617,6 +619,8 @@ MonoBehaviour:
       minSpawned: 2
       maxSpawned: 4
     frequency: 4
+  numPerks: 3
+  perkObject: {fileID: 4914252603004797688, guid: ce90ddaf6c1a02047b87b5997018503e, type: 3}
 --- !u!114 &2455355680114784911
 MonoBehaviour:
   m_ObjectHideFlags: 0

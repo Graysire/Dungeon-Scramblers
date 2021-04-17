@@ -11,6 +11,7 @@ TagManager:
   - Shield
   - MenuManager
   - MiniLord
+  - Cleared on New Map
   layers:
   - Default
   - TransparentFX
