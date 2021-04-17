@@ -256,6 +256,7 @@ public class MapMaker : MonoBehaviour
             //pick exit room and wall for the exitDoor
             RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
             Facing facing = (Facing)Random.Range(1, 4);
+            
 
             int x = 0;
             int y = 0;
@@ -280,17 +281,27 @@ public class MapMaker : MonoBehaviour
                     break;
             }
 
-            //check if the exit is too close to the entrance, if so, go to the next iteration
-            if (Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count < exitDoorDistanceThreshold)
+            //check requirements, if any are not met, go to next iteration
+            //check if the exit door is a valid wall location and is not too close to the entrance door
+            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count >= exitDoorDistanceThreshold &&
+                //check if this corridor meets the north/south requirements
+                //it must not be spawned on a corridor or directly adjacent to one
+                (((facing == Facing.North && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) || facing == Facing.South && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))) &&
+                !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0)) && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0))) ||
+                //check if this corridor meets the east/west requirements
+                //it must not be spawned on a corridor or within 2 tiles of one
+                ((facing == Facing.East && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || facing == Facing.West && !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0))) &&
+                !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0)))))
             {
-                continue;
-            }
+                Debug.Log("Wall Check: " + tilemaps[1].HasTile(new Vector3Int(x, y, 0)));
+                Debug.Log("Distance Check: " + (Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count >= exitDoorDistanceThreshold));
+                Debug.Log("N/S Check: " + (((facing == Facing.North && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) || facing == Facing.South && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))) &&
+                !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0)) && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)))));
+                Debug.Log("E/W Check: " + ((facing == Facing.East && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || facing == Facing.West && !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0))) &&
+                !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))));
 
 
-            //if this is a valid location to place an exit door (it is north/south, or it is east/west without a corridor above it
-            if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && (facing == Facing.North || facing == Facing.South || 
-                (facing == Facing.East || facing == Facing.West) && !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0))))
-            {
+
                 //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
 
@@ -310,11 +321,11 @@ public class MapMaker : MonoBehaviour
                             tilemaps[1].SetTile(new Vector3Int(xa + x, y + 1, 0), wallTile);
                         }
                         //Place corresponding shadow tiles
-                        tilemaps[2].SetTile(new Vector3Int(x,y - 1,0), wallShadowTiles.concaveCorner);
+                        tilemaps[2].SetTile(new Vector3Int(x, y - 1, 0), wallShadowTiles.concaveCorner);
                         tilemaps[2].SetTile(new Vector3Int(x - 2, y + 1, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y + 1, 0)));
                         tilemaps[2].SetTile(new Vector3Int(x - 2, y, 0), ChooseWallShadowTile(new Vector3Int(x - 2, y, 0)));
 
-                        
+
                         break;
                     case Facing.South:
                         //remove blocking wall
@@ -331,7 +342,7 @@ public class MapMaker : MonoBehaviour
                         for (int xa = -1; xa <= 1; xa++)
                         {
                             tilemaps[1].SetTile(new Vector3Int(xa + x, y - 2, 0), wallTile);
-                            
+
                         }
                         //add wall shadows
                         for (int xa = -2; xa <= 1; xa++)
@@ -347,7 +358,7 @@ public class MapMaker : MonoBehaviour
                         //place floor tile
                         tilemaps[0].SetTile(new Vector3Int(x, y - 1, 0), floorTile);
 
-                        
+
 
                         //ensure no wall errors occur
                         tilemaps[1].SetTile(new Vector3Int(x, y - 2, 0), wallTile);
@@ -400,7 +411,6 @@ public class MapMaker : MonoBehaviour
 
                         break;
                 }
-
                 break;
             }
         }
