@@ -146,6 +146,7 @@ public class MapMaker : MonoBehaviour
     {
         firstMap = isFirstMap;
         mapFinished = false;
+        //log an error if the number of tilemaps is unexpected
         if (tilemaps.Length != 4)
         {
             Debug.LogError("Expected 4 Tilemaps, actual count: " + tilemaps.Length);
@@ -1465,6 +1466,11 @@ public class MapMaker : MonoBehaviour
         foreach (GameObject ai in GameObject.FindGameObjectsWithTag("AI"))
         {
            Destroy(ai);
+        }
+        
+        foreach (GameObject clear in GameObject.FindGameObjectsWithTag("Cleared on New Map"))
+        {
+            Destroy(clear);
         }
     }
 
