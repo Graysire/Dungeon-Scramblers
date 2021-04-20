@@ -119,6 +119,7 @@ public class Player : AbstractPlayer
     {
         controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
+        UpdateHandler.UpdateOccurred += HealthCheck;
         UpdateHandler.FixedUpdateOccurred += ApplyMove;
         UpdateHandler.FixedUpdateOccurred += PhotonPhysicsUpdate;
     }
@@ -126,8 +127,15 @@ public class Player : AbstractPlayer
     {
         controls.Disable();
         UpdateHandler.UpdateOccurred -= Die;
+        UpdateHandler.UpdateOccurred -= HealthCheck;
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
         UpdateHandler.FixedUpdateOccurred -= PhotonPhysicsUpdate;
+    }
+
+
+    protected virtual void HealthCheck()
+    {
+        if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) affectedStats[(int)Stats.health] = stats[(int)Stats.health];
     }
 
     #region Pun/Unity Callbacks

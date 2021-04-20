@@ -21,17 +21,26 @@ public class AI : AbstractPlayer
     public Vector3 destination;                 // The destination to move to
     [HideInInspector]
     public Vector3 target;                      // The position, or player position, to aim at for attack
+
     protected List<Vector3> currentPath;        // Stores the current path being used
 
     [Header("AI Variables")]
-    public float stoppingDistance = 0.5f;       // Distance from player AI stops at      
-    public float retreatDistance = 0.3f;       // Distance from player AI need to retreat at
-    public float visibleRange = 8.0f;           // Range AI needs to be in to see Player
-    public float attackRange = 4.0f;            // Range AI needs to be in to attack
-    public int expOnDeath = 1000;               // The amount of experience points AI gives to Scramblers on death
-    public bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
-    
+    [SerializeField]
+    protected float stoppingDistance = 0.5f;       // Distance from player AI stops at      
+    [SerializeField]
+    protected float retreatDistance = 0.3f;       // Distance from player AI need to retreat at
+    [SerializeField]
+    protected float visibleRange = 8.0f;           // Range AI needs to be in to see Player
+    [SerializeField]
+    protected float attackRange = 4.0f;            // Range AI needs to be in to attack
+    [SerializeField]
+    protected int expOnDeath = 1000;               // The amount of experience points AI gives to Scramblers on death
+    [SerializeField]
+    protected bool onlyAttackOnePlayer = false;    // AI will only target one player till they die
+    [SerializeField]
+    protected float timeToWaitBeforeMoving = 1.0f; //Time for AI to wait before moving after making an attack
 
+    private bool canMove = true;
     private Rigidbody2D rb;                     // This AI's rigidbody2D
 
     [Header("Spawner AI")]
@@ -163,14 +172,21 @@ public class AI : AbstractPlayer
         //Move to each path node until reaching stopping distance
         for (int i = 0; i < currentPath.Count; i++)
         {
-            //Get vector to node
-            Vector2 movementDir = (currentPath[i] - transform.position).normalized;
+            if (canMove)
+            {
+                //Get vector to node
+                Vector2 movementDir = (currentPath[i] - transform.position).normalized;
 
-            //Make vector scaled to movement speed
-            Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] /100f);
+                //Make vector scaled to movement speed
+                Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] /100f);
 
-            //Set the AI's velocity toward that position
-            rb.velocity = nextFramePosition;
+                //Set the AI's velocity toward that position
+                rb.velocity = nextFramePosition;
+            }
+            else
+            {
+                StopMoving();
+            }
         }
         Task.current.Succeed();
     }
@@ -185,14 +201,23 @@ public class AI : AbstractPlayer
         //Move to each path node until reaching stopping distance
         for (int i = 0; i < currentPath.Count; i++)
         {
-            //Get vector to node
-            Vector2 movementDir = -(currentPath[i] - transform.position).normalized;
+            if (canMove)
+            {
+                Debug.Log("Can Move");
+                //Get vector to node
+                Vector2 movementDir = -(currentPath[i] - transform.position).normalized;
 
-            //Make vector scaled to movement speed
-            Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] / 100f);
+                //Make vector scaled to movement speed
+                Vector2 nextFramePosition = movementDir * (affectedStats[(int)Stats.movespeed] / 100f);
 
-            //Set the AI's velocity toward that position
-            rb.velocity = nextFramePosition;
+                //Set the AI's velocity toward that position
+                rb.velocity = nextFramePosition;
+            }
+            else
+            {
+                Debug.Log("Cannot Move");
+                StopMoving();
+            }
         }
         Task.current.Succeed();
     }
@@ -304,7 +329,8 @@ public class AI : AbstractPlayer
     {
         if (allowedToAttack && !disarmed)
         {
-            Debug.Log("Firing Attack!");
+            StartCoroutine(WaitToMove());
+
             //Get vector towards player to hit
             Vector3 direction = new Vector3(target.x - this.transform.position.x,
                                             target.y - this.transform.position.y,
@@ -317,6 +343,15 @@ public class AI : AbstractPlayer
         {
             Task.current.Fail();
         }
+    }
+
+    private IEnumerator WaitToMove()
+    {
+        Debug.Log("Waiting");
+        canMove = false;
+        yield return new WaitForSeconds(timeToWaitBeforeMoving);
+        Debug.Log("Done waiting");
+        canMove = true;
     }
 
     //Checks if the health is less than the given value
