@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
             ApplyPerk(perkList.GetPerk());
         }
 
-        createNewLevel = true;
+        //createNewLevel = true;
         //Begin Timer
         //timer.InitializeAndStartTimer(5);
 

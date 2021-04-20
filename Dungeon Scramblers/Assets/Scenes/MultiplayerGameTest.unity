@@ -264,6 +264,10 @@ MonoBehaviour:
   perkList: {fileID: 0}
   votingSystem: {fileID: 0}
   timer: {fileID: 0}
+  voteTimeInSeconds: 60
+  matchTimeInSeconds: 60
+  bossFightTimeInSeconds: 60
+  numberOfRounds: 3
 --- !u!4 &169079881
 Transform:
   m_ObjectHideFlags: 0
@@ -466,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &915500736
 MonoBehaviour:
   m_ObjectHideFlags: 0
