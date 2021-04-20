@@ -145,7 +145,7 @@ public class ObjectPooler : MonoBehaviourPunCallbacks
         GameObject goSpawned = PhotonNetwork.Instantiate(objectToPool.name, position,
           Quaternion.Euler(0, 0, angle));
         //Set Parent
-        goSpawned.transform.SetParent(gameObject.transform);
+        goSpawned.transform.SetParent(this.gameObject.transform);
         //return for GO reference
         return goSpawned;
     }

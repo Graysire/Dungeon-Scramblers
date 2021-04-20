@@ -9,15 +9,37 @@ using Cinemachine;
 public class PlayerSetup : MonoBehaviourPunCallbacks
 {
     public CinemachineVirtualCamera cam;
+    public Camera RegCam;
+    public AudioBehaviour Listener;
     // Start is called before the first frame update
     void Awake()
     {
         //If this player is not mine
         if (!photonView.IsMine)
         {
-            Debug.Log("Camera: " + cam.name + " is disabled");
-            cam.enabled = false;
+            //Debug.Log("Camera: " + cam.name + " is disabled");
+            if(!CheckNull(cam))
+            {
+                cam.enabled = false;
+            }
+            if (!CheckNull(RegCam))
+            {
+                RegCam.enabled = false;
+            }
+            if(!CheckNull(Listener))
+            {
+                Listener.enabled = false;
+            }
         }
     }
 
+    bool CheckNull<T>(T obj)
+    {
+        if (obj == null)
+            return false;
+        else
+        {
+            return true;
+        }
+    }
 }

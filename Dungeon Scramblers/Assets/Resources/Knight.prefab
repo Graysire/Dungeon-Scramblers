@@ -3295,6 +3295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8043284019362041551}
+  RegCam: {fileID: 0}
+  Listener: {fileID: 0}
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class GMTemp : MonoBehaviour
     BitPacket bitPacket = new BitPacket();
     public GameObject[] PlayerPrefabs;
     public GameObject EnemyTest;
-    public CinemachineVirtualCamera OverlordCam;
+    public Camera OverlordCam;
     public GameObject Map;
     private Vector2Int roomSize;
     Vector3 worldLocation;
@@ -20,14 +20,6 @@ public class GMTemp : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(SpawnPlayers());
-
-    }
-
-    //Coroutine for debugging purposes
-    IEnumerator SpawnPlayers()
-    {
-        //Display StartButton for Party Leader only
         //Get Party Leader Seed for Map Generation
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
@@ -37,6 +29,16 @@ public class GMTemp : MonoBehaviour
             //Debug.Log("Seed: " + s);
         }
 
+        //Map.GetComponent<MapMaker>().GenerateMap(true);
+        StartCoroutine(SpawnPlayers());
+
+    }
+
+    //Coroutine for debugging purposes
+    IEnumerator SpawnPlayers()
+    {
+        
+       
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
@@ -59,19 +61,24 @@ public class GMTemp : MonoBehaviour
                 Debug.Log("Saved Player Type:" + SavedPlayerType);
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-                Vector3 Spawn = SetupSpawning();
-                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+     
 
                 //Check player for Overlord Category
                 if(SavedPlayerType == Categories.PlayerCategories.overlord)
                 {
                     Debug.Log("Overlord Player selected");
-
+                    Vector3 Spawn = SetupSpawning();
+                    GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
                     //Set Player Camera to Map view
-
+                    OverlordCam
                     //Set Player Controls to Map Controls
 
                     //Start Countdown
+                }
+                else
+                {
+                    Vector3 Spawn = SetupSpawning();
+                    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                 }
 
 

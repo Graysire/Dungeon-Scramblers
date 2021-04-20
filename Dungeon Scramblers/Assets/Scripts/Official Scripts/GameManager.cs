@@ -90,6 +90,9 @@ public class GameManager : MonoBehaviour
         }
 
         createNewLevel = true;
+        //Begin Timer
+        //timer.InitializeAndStartTimer(5);
+
     }
 
     //Update
@@ -318,4 +321,13 @@ public class GameManager : MonoBehaviour
     {
         xpMultiplier = value;
     }
+
+    public void SetScramblers()
+    {
+        Scramblers = FindObjectsOfType<Scrambler>();
+
+
+        PlayerTransforms = new Transform[Scramblers.Length];
+    }
+
 }
