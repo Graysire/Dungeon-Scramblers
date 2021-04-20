@@ -70,7 +70,7 @@ public class GMTemp : MonoBehaviour
                     Vector3 Spawn = SetupSpawning();
                     GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
                     //Set Player Camera to Map view
-                    OverlordCam
+                    //OverlordCam
                     //Set Player Controls to Map Controls
 
                     //Start Countdown

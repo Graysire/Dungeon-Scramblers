@@ -354,7 +354,7 @@ MonoBehaviour:
   voteTimeInSeconds: 10
   matchTimeInSeconds: 15
   bossFightTimeInSeconds: 20
-  numberOfRounds: 1
+  numberOfRounds: 3
 --- !u!114 &498308365
 MonoBehaviour:
   m_ObjectHideFlags: 0
