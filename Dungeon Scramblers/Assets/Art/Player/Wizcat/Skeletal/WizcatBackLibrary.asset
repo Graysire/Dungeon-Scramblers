@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: WizcatBackLibrary
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Head
+    m_Hash: 130111906
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -2796314236206107100, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Body
+    m_Hash: 2073732236
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -268665122245818335, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Right Arm
+    m_Hash: 747450821
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -8741071136333515919, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Left Arm
+    m_Hash: -285110375
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -2243084826061683963, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Right Leg
+    m_Hash: -1056714978
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -4010712506205823437, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Left Leg
+    m_Hash: 42955074
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: -7518761654624676281, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
+  - m_Name: Tail
+    m_Hash: -603645085
+    m_CategoryList:
+    - m_Name: Skin
+      m_Hash: -1572092128
+      m_Sprite: {fileID: 3052483126490613976, guid: 6e8bd35beb0e63341af74e4473afc54e, type: 3}
