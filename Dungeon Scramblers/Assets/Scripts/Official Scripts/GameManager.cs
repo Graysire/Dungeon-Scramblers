@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
 
     // Voting Stats
     [SerializeField]
+    PerkList perkListPrefab;
     PerkList perkList;
 
     [SerializeField]
@@ -76,6 +77,7 @@ public class GameManager : MonoBehaviour
         }
         Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
+        perkList = Instantiate(perkListPrefab, transform);
 
         PlayerTransforms = new Transform[Scramblers.Length];
 
@@ -84,10 +86,10 @@ public class GameManager : MonoBehaviour
             PlayerTransforms[i] = Scramblers[i].transform;
         }
 
-        if (perkList != null)
-        {
-            ApplyPerk(perkList.GetPerk());
-        }
+        //if (perkList != null)
+        //{
+        //    ApplyPerk(perkList.GetPerk());
+        //}
 
         //createNewLevel = true;
         //Begin Timer
@@ -274,9 +276,17 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public Perk GetPerk()
+    //returns a perk from the perkList selectingrandomly if getRevive is false, otehrwise sendsthe Revival perk
+    public Perk GetPerk(bool getRevive)
     {
-        return perkList.GetPerk();
+        if (getRevive)
+        {
+            return perkList.getRevive();
+        }
+        else
+        {
+            return perkList.GetPerk();
+        }
     }
 
     //Applies the perks to each scrambler

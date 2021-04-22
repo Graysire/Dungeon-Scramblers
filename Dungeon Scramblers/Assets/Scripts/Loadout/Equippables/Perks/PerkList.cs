@@ -8,8 +8,17 @@ public class PerkList : MonoBehaviour
     [SerializeField]
     List<Perk> perkList;
 
+    [SerializeField]
+    //special perk that always spawns
+    Perk revivePerk;
+
     //list of perks that are unavailable
     List<Perk> unavailablePerkList;
+
+    private void Awake()
+    {
+        unavailablePerkList = new List<Perk>();
+    }
 
     //returns a random perk from the list of perks
     public Perk GetPerk()
@@ -20,6 +29,12 @@ public class PerkList : MonoBehaviour
         perkList.Remove(selection);
 
         return selection;
+    }
+
+    //reutnrs therevive perk
+    public Perk getRevive()
+    {
+        return revivePerk;
     }
 
     //Resets the list of available perks, excluding selection

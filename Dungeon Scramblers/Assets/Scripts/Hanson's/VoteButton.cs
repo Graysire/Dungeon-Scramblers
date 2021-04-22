@@ -9,7 +9,7 @@ public class VoteButton : MonoBehaviour
     private Perk perk;
 
     public Perk getPerk() { return perk; }
-    public void setPerk(Perk inPerk) { perk = inPerk; }
+    public void setPerk(Perk inPerk) { perk = inPerk; gameObject.GetComponent<SpriteRenderer>().sprite = inPerk.GetSprite(); }
 
     [SerializeField]
     TextMeshPro VoteCounter;
@@ -22,10 +22,13 @@ public class VoteButton : MonoBehaviour
     void Start()
     {
         GameManager.ManagerInstance.IncrementButton(this);
-        perk = GameManager.ManagerInstance.GetPerk();
-        if (perk.GetSprite() != null)
+        if (perk == null)
         {
-            gameObject.GetComponent<SpriteRenderer>().sprite = perk.GetSprite();
+            perk = GameManager.ManagerInstance.GetPerk(false);
+            if (perk.GetSprite() != null)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = perk.GetSprite();
+            }
         }
     }
 
