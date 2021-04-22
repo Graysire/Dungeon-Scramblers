@@ -228,6 +228,15 @@ public class MapMaker : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
+        //Add shading, shadows and decoration to corridors
+        foreach (CorridorInfo corridor in corridors)
+        {
+            AddWallShading(corridor);
+            AddWallShadows(corridor);
+            Decorate(corridor);
+            yield return new WaitForSeconds(waitTime);
+        }
+
         int attempts = 0;
 
         //generate the pathfinding grid
@@ -429,14 +438,7 @@ public class MapMaker : MonoBehaviour
             }
             yield return new WaitForSeconds(waitTime);
         }
-        //Add shading, shadows and decoration to corridors
-        foreach (CorridorInfo corridor in corridors)
-        {
-            AddWallShading(corridor);
-            AddWallShadows(corridor);
-            Decorate(corridor);
-            yield return new WaitForSeconds(waitTime);
-        }
+
         //Add shadows and decoration to rooms
         foreach (RoomInfo room in rooms)
         {
@@ -722,7 +724,11 @@ public class MapMaker : MonoBehaviour
             int dif = (endX - startX) / (numPerks + 1);
             for (int i = 1; i <= numPerks; i++)
             {
-                Instantiate(perkObject, new Vector3(startX + dif * i, startY + (endY - startY) / 2, 0), new Quaternion());
+                GameObject button = Instantiate(perkObject, new Vector3(startX + dif * i, startY + (endY - startY) / 2, 0), new Quaternion());
+                if (i == numPerks)
+                {
+                    button.GetComponent<VoteButton>().setPerk(GameManager.ManagerInstance.GetPerk(true));
+                }
             }
         }
 
@@ -952,6 +958,15 @@ public class MapMaker : MonoBehaviour
             PlaceTile(tileLoc, tilemaps[0], floorTile);
             PlaceTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), tilemaps[1], wallTile);
             PlaceTile(tileLoc + new Vector3Int(-1 * yAdjust, -1 * xAdjust, 0), tilemaps[1], wallTile);
+
+            if (door.facing == Facing.West)
+            {
+                tilemaps[0].SetTile(tileLoc + new Vector3Int(yAdjust, xAdjust * -1, 0), floorTile);
+            }
+            else if (door.facing == Facing.East)
+            {
+                tilemaps[0].SetTile(tileLoc + new Vector3Int(yAdjust, xAdjust, 0), floorTile);
+            }
 
 
 

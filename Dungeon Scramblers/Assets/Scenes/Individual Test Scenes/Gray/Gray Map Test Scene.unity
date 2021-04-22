@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfMaps: 3000
   waitTimeBetweenMaps: 5
-  startingSeed: 912
+  startingSeed: 3138
   mapper: {fileID: 337241789}
 --- !u!1 &1873881674
 GameObject:
@@ -192,6 +192,7 @@ GameObject:
   - component: {fileID: 1873881677}
   - component: {fileID: 1873881676}
   - component: {fileID: 1873881675}
+  - component: {fileID: 1873881678}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -264,6 +265,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1873881678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1873881674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cc7adca791eaf242a852c7bc88742a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perkListPrefab: {fileID: 1674495980848193811, guid: 42eb43b99993bc5458bd9e105efb0edd, type: 3}
+  votingSystem: {fileID: 7928574778536634708, guid: c22c935a47f6ed543b408eb9c386cee3, type: 3}
+  timer: {fileID: 0}
+  voteTimeInSeconds: 60
+  matchTimeInSeconds: 60
+  bossFightTimeInSeconds: 60
+  numberOfRounds: 3
 --- !u!1001 &1883540017
 PrefabInstance:
   m_ObjectHideFlags: 0
