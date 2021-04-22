@@ -46,6 +46,9 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Perk_CatsEye
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   singleApplication: 0
+  perkButtonSprite: {fileID: 21300000, guid: 8afe2d071f3e1f84da1ac11120f47e84, type: 3}
   effects:
   - {fileID: 1635676625713215124, guid: 6b12a1b33fc26d44eb1d6555334a268a, type: 3}

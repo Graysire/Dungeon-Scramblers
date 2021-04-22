@@ -46,3 +46,7 @@ MonoBehaviour:
   stats: 000000009cffffff000000000000000000000000000000002c010000
   uniqueName: Perk_Aegis
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
+  singleApplication: 0
+  perkButtonSprite: {fileID: 21300000, guid: e1e35ea77027ef14ca53b7fd4d0b7c40, type: 3}

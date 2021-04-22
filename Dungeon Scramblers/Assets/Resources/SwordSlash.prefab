@@ -179,7 +179,7 @@ MonoBehaviour:
   BaseDamage: 350
   Range: 10
   DecayTime: 0.4
-  MoveSpeed: 0
+  MoveSpeed: 5
   CastingTime: 0.1
   CoolDown: 0.25
   OffsetScale: 1.5

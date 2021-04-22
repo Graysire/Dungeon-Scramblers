@@ -23,6 +23,10 @@ public class VoteButton : MonoBehaviour
     {
         GameManager.ManagerInstance.IncrementButton(this);
         perk = GameManager.ManagerInstance.GetPerk();
+        if (perk.GetSprite() != null)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = perk.GetSprite();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

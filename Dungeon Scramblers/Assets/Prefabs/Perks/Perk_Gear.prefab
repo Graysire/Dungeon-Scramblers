@@ -46,4 +46,7 @@ MonoBehaviour:
   stats: 0000000000000000000000000000000000000000dfffffff00000000
   uniqueName: Perk_Gear
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   singleApplication: 0
+  perkButtonSprite: {fileID: 21300000, guid: b177d31ba2d90954eb1526b2607070ae, type: 3}

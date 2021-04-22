@@ -281,6 +281,7 @@ public class MapMaker : MonoBehaviour
                     break;
             }
 
+
             //check requirements, if any are not met, go to next iteration
             //check if the exit door is a valid wall location and is not too close to the entrance door
             if (tilemaps[1].HasTile(new Vector3Int(x, y, 0)) && Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count >= exitDoorDistanceThreshold &&
@@ -293,14 +294,12 @@ public class MapMaker : MonoBehaviour
                 ((facing == Facing.East && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || facing == Facing.West && !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0))) &&
                 !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0)))))
             {
-                Debug.Log("Wall Check: " + tilemaps[1].HasTile(new Vector3Int(x, y, 0)));
-                Debug.Log("Distance Check: " + (Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count >= exitDoorDistanceThreshold));
-                Debug.Log("N/S Check: " + (((facing == Facing.North && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) || facing == Facing.South && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))) &&
-                !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0)) && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)))));
-                Debug.Log("E/W Check: " + ((facing == Facing.East && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || facing == Facing.West && !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0))) &&
-                !tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))));
-
-
+                //Debug.Log("Wall Check: " + tilemaps[1].HasTile(new Vector3Int(x, y, 0)));
+                //Debug.Log("Distance Check: " + (Pathfinder.GetPath(tilemaps[1].CellToWorld(new Vector3Int(x, y, 0)), tilemaps[1].CellToWorld(startDoor.position)).Count >= exitDoorDistanceThreshold));
+                //Debug.Log("N/S Check: " + (((facing == Facing.North && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) || facing == Facing.South && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))) &&
+                //!tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0)) && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)))));
+                //Debug.Log("E/W Check: " + ((facing == Facing.East && !tilemaps[0].HasTile(new Vector3Int(x + 1, y, 0)) || facing == Facing.West && !tilemaps[0].HasTile(new Vector3Int(x - 1, y, 0))) &&
+                //!tilemaps[0].HasTile(new Vector3Int(x, y + 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y + 1, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 2, 0)) && !tilemaps[0].HasTile(new Vector3Int(x, y - 1, 0))));
 
                 //place the floor for the exit to be placed on
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);

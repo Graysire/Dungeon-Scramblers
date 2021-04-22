@@ -46,7 +46,10 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Perk_Focus
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   singleApplication: 1
+  perkButtonSprite: {fileID: 21300000, guid: 12c21e7ae84a6294f833617b09202751, type: 3}
   effects:
   - {fileID: 684568006157779226, guid: 2f9e7243250c62e4da3eb8db15b6a2ed, type: 3}
   - {fileID: 5544629084021034619, guid: e5ea350b92a6a3b45b4ca1bb87885512, type: 3}

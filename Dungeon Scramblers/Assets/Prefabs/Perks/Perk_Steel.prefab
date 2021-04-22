@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2959566455801917742}
-  - component: {fileID: 7745534065028690799}
   - component: {fileID: -6822691248454993149}
   m_Layer: 0
   m_Name: Perk_Steel
@@ -32,21 +31,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7745534065028690799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5953156195922417558}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9a8b67f659b5724f926a2d6ba0c1c0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: 00000000000000002c01000000000000000000000000000000000000
-  uniqueName: Perk_Steel
-  equippableBitFlag: 
 --- !u!114 &-6822691248454993149
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,4 +46,7 @@ MonoBehaviour:
   stats: 00000000000000002c01000000000000000000000000000000000000
   uniqueName: Perk_Steel
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   singleApplication: 0
+  perkButtonSprite: {fileID: 21300000, guid: 145bb14582467404f92775b42513c36c, type: 3}

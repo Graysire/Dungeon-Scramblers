@@ -46,6 +46,9 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Perk_Lightning
   equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   singleApplication: 0
+  perkButtonSprite: {fileID: 21300000, guid: 8cc5f6be322951c4c975291b49f95587, type: 3}
   effects:
   - {fileID: 8189357857471724576, guid: 9ffe46e69a434ec4fb2d98217abc0323, type: 3}
