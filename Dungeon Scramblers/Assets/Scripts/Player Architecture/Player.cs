@@ -30,13 +30,13 @@ public class Player : AbstractPlayer
     protected Rigidbody2D rb;
     // Attack Variables
     protected Vector3 AttackDirection;
-    
+
     // Art Variables
     protected SpriteRenderer sr;
+    [SerializeField][Range(0,2)] protected float playerScale;
     [SerializeField] protected List<GameObject> AnimatorList;
     protected int enabledAnimatorInd = -1;
-    protected Animator enabledAnim;
-    protected bool isFacingLeft;    
+    protected Animator enabledAnim;   
 
     protected override void Awake()
     {
@@ -102,13 +102,11 @@ public class Player : AbstractPlayer
 
         //Art Variables
         sr = GetComponent<SpriteRenderer>();
-        //animator = GetComponent<Animator>();
         for (int i = 0; i < AnimatorList.Count; i++)
-            AnimatorList[i].SetActive(false);
-        AnimatorList[0].SetActive(true);
+            AnimatorList[i].transform.localScale = Vector3.zero;
+        AnimatorList[0].transform.localScale = new Vector3(playerScale, playerScale, playerScale);
         enabledAnimatorInd = 0;
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
-        isFacingLeft = false;
 
 
         allowedToAttack = true;
@@ -171,52 +169,37 @@ public class Player : AbstractPlayer
         // Animation changes
         // Not moving
         // Front [0], Back [1], Side [2]
-        //if (d.x == 0 && d.y == 0 && !enabledAnim.GetBool("idle"))
         if (d.x == 0 && d.y == 0)
         {
-            /*if (animator.GetBool("facingLeft")) {
-                animator.SetBool("facingLeft", false);
-                animator.SetBool("facingFront", true);
-            }
-            animator.SetBool("idle", true);*/
-            /*if (enabledAnimatorInd == 2) 
-                SwitchAnimatorGO(0, false);*/
-            enabledAnim.SetBool("idle", true);
+            if(!enabledAnim.GetBool("idle"))
+                enabledAnim.SetBool("idle", true);
         }
         else {
-            enabledAnim.SetBool("idle", true);
+            //enabledAnim.SetBool("idle", true);
             // Moving Down (front-facing)
             if (d.y < 0 && d.x == 0 && enabledAnimatorInd != 0)
             {
-                /*animator.SetBool("facingFront", true);
-                animator.SetBool("facingBack", false);
-                animator.SetBool("facingLeft", false);*/
-                SwitchAnimatorGO(0, false);
+                SwitchAnimatorGO(0);
             }
             // Moving Up (back-facing)
             else if (d.y > 0 && d.x == 0 && enabledAnimatorInd != 1)
             {
-                /*animator.SetBool("facingFront", false);
-                animator.SetBool("facingBack", true);
-                animator.SetBool("facingLeft", false);*/
-                SwitchAnimatorGO(1, false);
+                SwitchAnimatorGO(1);
             }
             // Moving Sideways & diagonally (side-facing)
             else if (d.x != 0 )
             {
-                if (enabledAnimatorInd != 3) {
-                    /*animator.SetBool("facingFront", false);
-                    animator.SetBool("facingBack", false);
-                    animator.SetBool("facingLeft", true);*/
-                    SwitchAnimatorGO(2, true);
-                }
-
-                if (d.x < 0 && !sr.flipX)
-                    sr.flipX = true;
-                else if (d.x > 0 && sr.flipX)
-                    sr.flipX = false;
+                if (enabledAnimatorInd != 2) 
+                    SwitchAnimatorGO(2);
+                // If needs to face left
+                if ((d.x < 0 && AnimatorList[enabledAnimatorInd].transform.localScale.x > 0))
+                    AnimatorList[enabledAnimatorInd].transform.localScale = new Vector3(playerScale * -1, playerScale, playerScale);
+                // Else if needs to face right
+                else if ((d.x > 0 && AnimatorList[enabledAnimatorInd].transform.localScale.x < 0)) 
+                    AnimatorList[enabledAnimatorInd].transform.localScale = new Vector3(playerScale, playerScale, playerScale);   
             }
-            enabledAnim.SetBool("idle", false);
+            if(enabledAnim.GetBool("idle"))
+                enabledAnim.SetBool("idle", false);
         }
         // Actual movement
         direction = new Vector2(d.x, d.y);
@@ -322,13 +305,13 @@ public class Player : AbstractPlayer
         }
     }
 
-    protected void SwitchAnimatorGO(int enAind, bool srRefernceNeeded) {
-        AnimatorList[enabledAnimatorInd].SetActive(false);
+    protected void SwitchAnimatorGO(int enAind) {
+        //AnimatorList[enabledAnimatorInd].SetActive(false);
+        AnimatorList[enabledAnimatorInd].transform.localScale = Vector3.zero;
         enabledAnimatorInd = enAind;
-        AnimatorList[enabledAnimatorInd].SetActive(true);
+        //AnimatorList[enabledAnimatorInd].SetActive(true);
+        AnimatorList[enabledAnimatorInd].transform.localScale = new Vector3(playerScale,playerScale,playerScale);
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
-        if (srRefernceNeeded)
-            sr = AnimatorList[enabledAnimatorInd].GetComponent<SpriteRenderer>();
     }
 }
 
