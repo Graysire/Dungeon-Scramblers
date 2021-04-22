@@ -228,11 +228,10 @@ public class MapMaker : MonoBehaviour
             yield return new WaitForSeconds(waitTime);
         }
 
-        //Add shading, shadows and decoration to corridors
+        //Add shading and decoration to corridors
         foreach (CorridorInfo corridor in corridors)
         {
             AddWallShading(corridor);
-            AddWallShadows(corridor);
             Decorate(corridor);
             yield return new WaitForSeconds(waitTime);
         }
@@ -374,8 +373,8 @@ public class MapMaker : MonoBehaviour
                         //add wall shading
                         for (int ya = -2; ya <= 2; ya++)
                         {
-                            //tilemaps[1].SetTile(new Vector3Int(x + 1, y + ya, 0), wallTile);
-                            PlaceTile(new Vector3Int(x + 1, y + ya, 0), tilemaps[1], wallTile);
+                            tilemaps[1].SetTile(new Vector3Int(x + 1, y + ya, 0), wallTile);
+                            //PlaceTile(new Vector3Int(x + 1, y + ya, 0), tilemaps[1], wallTile);
                         }
 
                         //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
@@ -399,8 +398,8 @@ public class MapMaker : MonoBehaviour
                         //add wall shading
                         for (int ya = -2; ya <= 2; ya++)
                         {
-                            //tilemaps[1].SetTile(new Vector3Int(x - 1, y + ya, 0), wallTile);
-                            PlaceTile(new Vector3Int(x - 1, y + ya, 0), tilemaps[1], wallTile);
+                            tilemaps[1].SetTile(new Vector3Int(x - 1, y + ya, 0), wallTile);
+                            //PlaceTile(new Vector3Int(x - 1, y + ya, 0), tilemaps[1], wallTile);
                         }
 
                         //stopgap measure to prevent area being erased by PlaceDoors until it is refactored
@@ -436,6 +435,13 @@ public class MapMaker : MonoBehaviour
             {
                 SpawnAIClusters(room);
             }
+            yield return new WaitForSeconds(waitTime);
+        }
+
+        //Add shadows to corridors
+        foreach (CorridorInfo corridor in corridors)
+        {
+            AddWallShadows(corridor);
             yield return new WaitForSeconds(waitTime);
         }
 
