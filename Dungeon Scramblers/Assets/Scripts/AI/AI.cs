@@ -57,16 +57,17 @@ public class AI : AbstractPlayer
      * Note to self: If the player is dead how do we know?
      * Can fix by just having referene to players which allows for getting Transform and bool if they are dead. Discuss with Chloe before implementing
      */
-
+    bool gotPlayers = false;
 
     // Start is called before the first frame update
     void Start()
     {
+
         //Get the rigidbody
         rb = GetComponent<Rigidbody2D>();
 
         //Get the list of players
-        players = GameManager.ManagerInstance.GetPlayerTransforms();
+        //players = GameManager.ManagerInstance.GetPlayerTransforms();
 
         //Sets the value of health bar based on percentage of current health and max health
         UpdateHealthbarUI();
@@ -74,6 +75,7 @@ public class AI : AbstractPlayer
         //set the current sprite renderer component to currentSprite
         currentSprite = GetComponent<SpriteRenderer>();
     }
+
 
     protected override void Awake()
     {
@@ -100,6 +102,18 @@ public class AI : AbstractPlayer
     // Update is called once per frame
     void Update()
     {
+        if (!gotPlayers && MapMaker.mapFinished)
+        {
+            //Get the list of players
+            players = GameManager.ManagerInstance.GetPlayerTransforms();
+            gotPlayers = true;
+
+            if (players == null)
+            {
+                gotPlayers = false;
+            }
+        }
+
         //If health is greater than max then set it to max (In case of healing)
         if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) affectedStats[(int)Stats.health] = stats[(int)Stats.health];
     }
@@ -239,6 +253,9 @@ public class AI : AbstractPlayer
     [Task]
     protected bool SeePlayerAndSetTarget()
     {
+        //temp
+        if (!gotPlayers || players == null) { return false; }
+
 
         //This removes error log whith no players assigned
         bool playersIsNull = true;
@@ -330,7 +347,7 @@ public class AI : AbstractPlayer
     {
         if (allowedToAttack && !disarmed)
         {
-            StartCoroutine(WaitToMove());
+            //StartCoroutine(WaitToMove());
 
             //Get vector towards player to hit
             Vector3 direction = new Vector3(target.x - this.transform.position.x,

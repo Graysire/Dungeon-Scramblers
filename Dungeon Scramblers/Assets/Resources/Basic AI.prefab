@@ -144,7 +144,7 @@ MonoBehaviour:
   attackRange: 3
   expOnDeath: 500
   onlyAttackOnePlayer: 0
-  timeToWaitBeforeMoving: 2
+  timeToWaitBeforeMoving: 0.1
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}
 --- !u!114 &4248649116176859042

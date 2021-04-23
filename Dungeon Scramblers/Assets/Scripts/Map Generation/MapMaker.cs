@@ -14,7 +14,7 @@ public class MapMaker : MonoBehaviour
     bool generateAI = false;
 
     //whether or not the map has finished generating
-    bool mapFinished = false;
+    static public bool mapFinished = false;
 
     [SerializeField]
     int maxIterations = 200;
