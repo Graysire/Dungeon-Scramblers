@@ -88,7 +88,10 @@ public class GameManager : MonoBehaviour
             _managerInstance = this;
         }
 
-
+        if (PhotonNetwork.CurrentRoom == null)
+        {
+            SetScramblers();
+        }
     }
 
     //Update
