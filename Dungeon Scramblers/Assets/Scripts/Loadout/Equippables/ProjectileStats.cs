@@ -89,6 +89,19 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         {
             GetComponent<PhotonRigidbody2DView>().enabled = false;
         }
+
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            int PhotonID = gameObject.GetPhotonView().ViewID;
+            photonView.RPC("TurnOffProjectile", RpcTarget.Others, PhotonID);
+            TurnOffProjectile(PhotonID);
+            totalTime = 0;
+            PositionTraveled = Vector3.zero;
+        }
+        else
+        {
+            ResetProjectiles();
+        }
     }
 
     protected virtual void FixedUpdate()
