@@ -3198,6 +3198,7 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   isDead: 0
+  playerScale: 0
   AnimatorList:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
@@ -3238,7 +3239,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.04, y: -0.2}
-  m_Size: {x: 1.09, y: 2.49}
+  m_Size: {x: 2.18, y: 4}
   m_Direction: 0
 --- !u!114 &5469870026199777636
 MonoBehaviour:

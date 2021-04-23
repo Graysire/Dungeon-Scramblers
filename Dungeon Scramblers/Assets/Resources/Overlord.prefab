@@ -3083,14 +3083,14 @@ GameObject:
   - component: {fileID: 2114680770838200919}
   - component: {fileID: 2114680770838200912}
   - component: {fileID: 2114680770838200917}
-  - component: {fileID: 2114680770838200918}
   - component: {fileID: 2114680770838200923}
   - component: {fileID: 2114680770838200913}
   - component: {fileID: 5469870026199777636}
   - component: {fileID: 424624744661482047}
   - component: {fileID: 2208858389996876875}
+  - component: {fileID: -5188818553958100970}
   m_Layer: 10
-  m_Name: Rogue 1
+  m_Name: Overlord
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3111,6 +3111,7 @@ Transform:
   - {fileID: 2114680769881104785}
   - {fileID: 2114680770027572289}
   - {fileID: 8043284018380152705}
+  - {fileID: 1464207782970776772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3215,34 +3216,6 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerMovement
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2114680770838200918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114680770838200914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f546e5a47fcb8e2428f9f9d5e2b3a0a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stats: 64000000900100006400000064000000640000006400000064000000
-  HealthBar: {fileID: 0}
-  affectedStats: 01000000010000000100000001000000010000000100000001000000
-  statusEffects: []
-  disarmed: 0
-  AttackObjectList:
-  - {fileID: 3940147794213505563, guid: c20195ba4ed5d8e4fad0dc9b7d21b6c2, type: 3}
-  - {fileID: 6242800877514398001, guid: 9fb91e3a887c2174e9022bf72c0f559f, type: 3}
-  usingOnScreenControls: 0
-  PlayerOnScreenControls: {fileID: 0}
-  isDead: 0
-  AnimatorList:
-  - {fileID: 2114680769434369850}
-  - {fileID: 2114680769881104786}
-  - {fileID: 2114680770027572290}
-  ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
   serializedVersion: 4
@@ -3335,6 +3308,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8043284019362041551}
+  RegCam: {fileID: 0}
+  Listener: {fileID: 0}
+--- !u!114 &-5188818553958100970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114680770838200914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82bf72b4764af64c9f7285f4a8f1e42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
+  HealthBar: {fileID: 0}
+  affectedStats: 00000000000000000000000000000000000000000000000000000000
+  statusEffects: []
+  disarmed: 0
+  AttackObjectList: []
+  usingOnScreenControls: 0
+  PlayerOnScreenControls: {fileID: 0}
+  isDead: 0
+  playerScale: 0
+  AnimatorList: []
+  NormalCam: {fileID: 8043284018380152718}
+  OverviewCam: {fileID: 146368097982017799}
+  HasRetributionAbility: 0
+  RetributionAbilityIndex: 0
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0
@@ -3399,6 +3401,103 @@ Transform:
   m_Father: {fileID: 2114680770841707674}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2820677178413360882
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1464207782970776772}
+  - component: {fileID: 146368097982017799}
+  - component: {fileID: 7902074359424584782}
+  - component: {fileID: 7487600040400791071}
+  m_Layer: 10
+  m_Name: OverlordCam
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1464207782970776772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820677178413360882}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2114680770838200919}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!20 &146368097982017799
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820677178413360882}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 1
+  orthographic size: 15
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!81 &7902074359424584782
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820677178413360882}
+  m_Enabled: 0
+--- !u!114 &7487600040400791071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820677178413360882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7764fdb93ef740340880f32ed2b67057, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 146368097982017799}
 --- !u!114 &1912998796317627559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3501,6 +3600,11 @@ PrefabInstance:
 --- !u!4 &8043284018380152705 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6493101334564136348, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
+  m_PrefabInstance: {fileID: 3856028442087619101}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &8043284018380152718 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6493101334564136339, guid: 20f6f5966a6929d468f226c16c00f527, type: 3}
   m_PrefabInstance: {fileID: 3856028442087619101}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &8043284019362041548 stripped

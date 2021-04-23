@@ -48,8 +48,14 @@ MonoBehaviour:
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: FireBall
   equippableBitFlag: 
-  Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  bitCategory: 0
+  playerCategory: 0
   abilitySlot: 1
+  Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
 --- !u!114 &-7558920546839552878
 MonoBehaviour:
   m_ObjectHideFlags: 0

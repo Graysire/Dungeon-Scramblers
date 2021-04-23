@@ -11,10 +11,10 @@ public class GMTemp : MonoBehaviour
     BitPacket bitPacket = new BitPacket();
     public GameObject[] PlayerPrefabs;
     public GameObject EnemyTest;
-    public Camera OverlordCam;
     public GameObject Map;
     private Vector2Int roomSize;
     Vector3 worldLocation;
+
     Random.State s;
     // Start is called before the first frame update
 
@@ -69,11 +69,14 @@ public class GMTemp : MonoBehaviour
                     Debug.Log("Overlord Player selected");
                     Vector3 Spawn = SetupSpawning();
                     GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
-                    //Set Player Camera to Map view
-                    //OverlordCam
-                    //Set Player Controls to Map Controls
-
+                    //Set Player Camera to Map view and turn off regular controls
+                    PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+                    PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
+                    PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
+                    PlayerGO.GetComponent<Overlord>().enabled = false;
                     //Start Countdown
+                    //Spawn Overlord at the Exit door
+
                 }
                 else
                 {
@@ -81,7 +84,8 @@ public class GMTemp : MonoBehaviour
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                 }
 
-
+                //Assign Scramblers
+                GameManager.ManagerInstance.SetScramblers();
             }
             else
             {
@@ -92,6 +96,8 @@ public class GMTemp : MonoBehaviour
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
+
+
     }
 
     Vector3 SetupSpawning()

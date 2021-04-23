@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class Overlord : Player
 {
-
+    //Fields for Camera Setup in PreGame
+    public Camera NormalCam;
+    public Camera OverviewCam = null;
     private bool bCharging = false;
 
     [Header("Overlord Values")]
@@ -107,6 +109,11 @@ public class Overlord : Player
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
        
+    }
+
+    void SetOverviewCam(Camera cam)
+    {
+        OverviewCam = cam;
     }
 }
 

@@ -85,26 +85,8 @@ public class GameManager : MonoBehaviour
         {
             _managerInstance = this;
         }
-        Scramblers = FindObjectsOfType<Scrambler>();
-        Map = FindObjectOfType<MapMaker>();
-
-        if (perkListPrefab)
-            perkList = Instantiate(perkListPrefab, transform);
 
 
-        PlayerTransforms = new Transform[Scramblers.Length];
-
-        for (int i = 0; i < Scramblers.Length; i++)
-        {
-            PlayerTransforms[i] = Scramblers[i].transform;
-        }
-
-        if (perkList != null)
-        {
-            ApplyPerk(perkList.GetPerk());
-        }
-
-        createNewLevel = true;
     }
 
     //Update
@@ -139,7 +121,7 @@ public class GameManager : MonoBehaviour
         if (escapedScramblers == (Scramblers.Length - deadScramblers))
         {
             Debug.Log("GM: ROUND COMPLETED");
-            timer.DisableTimer(false, false); //forces timer to end
+            //timer.DisableTimer(false, false); //forces timer to end
 
             currentRound++; //increment current round number
 
@@ -350,6 +332,25 @@ public class GameManager : MonoBehaviour
 
 
         PlayerTransforms = new Transform[Scramblers.Length];
+        //Set Perks and player Transforms
+
+        if (perkListPrefab)
+            perkList = Instantiate(perkListPrefab, transform);
+
+
+        PlayerTransforms = new Transform[Scramblers.Length];
+
+        for (int i = 0; i < Scramblers.Length; i++)
+        {
+            PlayerTransforms[i] = Scramblers[i].transform;
+        }
+
+        if (perkList != null)
+        {
+            ApplyPerk(perkList.GetPerk());
+        }
+
+        // createNewLevel = true;
     }
 
 }
