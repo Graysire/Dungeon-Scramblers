@@ -99,10 +99,10 @@ public class GameManager : MonoBehaviour
             PlayerTransforms[i] = Scramblers[i].transform;
         }
 
-        //if (perkList != null)
-        //{
-        //    ApplyPerk(perkList.GetPerk());
-        //}
+        if (perkList != null)
+        {
+            ApplyPerk(perkList.GetPerk());
+        }
 
         createNewLevel = true;
     }
