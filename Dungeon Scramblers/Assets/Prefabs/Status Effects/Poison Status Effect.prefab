@@ -49,13 +49,15 @@ MonoBehaviour:
   bitCategory: 0
   playerCategory: 0
   abilitySlot: 0
+  cooldownTime: 0
   doesReapply: 1
+  waitTimeToReapply: 2
   canStack: 0
   resetEffectOnHit: 1
   appliesToBaseStats: 0
-  waitTimeToApplyAgain: 2
   isPermanent: 0
   timeTillEnd: 1000
-  valueOfEffect: -200
+  valueOfEffect: -2
   statValueToAffect: 0
   reverseEffectOnEnd: 0
+  disarm: 0
