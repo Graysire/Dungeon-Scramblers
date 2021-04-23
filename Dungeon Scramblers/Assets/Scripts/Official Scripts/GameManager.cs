@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     PhysicalVotingSystem votingSystem;
 
+    bool ready = false;
+
     // Players stats
     int deadScramblers = 0;
     Scrambler[] Scramblers; // = new Scrambler class array of 4;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
     int escapedScramblers = 0;
     int currentRound = 1;   //The current round being played
     MapMaker Map;
-
+    
 
     //All clients in the same room will load the same scene synced as best as possible
     //PhotonNetwork.AutomaticallySyncScene = true; -- SYNCS WHEN TRANSITIONING SCENES
@@ -92,46 +94,49 @@ public class GameManager : MonoBehaviour
     //Update
     private void Updater()
     {
-        //will generate a new level
-        if (createNewLevel)
+        if (ready)
         {
-            //Generate Overlord Level if max rounds exceeded
-            if (currentRound == (numberOfRounds + 1))
+            //will generate a new level
+            if (createNewLevel)
             {
-                currentRound++;
-                createNewLevel = false;
-                GenerateOverlordLevel();    //Generate the overlord level
+                //Generate Overlord Level if max rounds exceeded
+                if (currentRound == (numberOfRounds + 1))
+                {
+                    currentRound++;
+                    createNewLevel = false;
+                    GenerateOverlordLevel();    //Generate the overlord level
+                }
+                //Generate new round
+                else
+                {
+                    GenerateLevel();  //Generates a new round
+                    StartVoteTimer(); //Begins timer for vote stage
+                    createNewLevel = false;
+                }
             }
-            //Generate new round
-            else
+
+            // match time over or all scramblers dead then game over
+            if (outOfTime || Scramblers.Length == deadScramblers)
             {
-                GenerateLevel();  //Generates a new round
-                StartVoteTimer(); //Begins timer for vote stage
-                createNewLevel = false; 
+                GameOver();
             }
-        }
 
-        // match time over or all scramblers dead then game over
-        if (outOfTime || Scramblers.Length == deadScramblers)
-        {
-            GameOver();
-        }
+            //If all remaining Scramblers escaped then Match completed
+            if (escapedScramblers == (Scramblers.Length - deadScramblers))
+            {
+                Debug.Log("GM: ROUND COMPLETED");
+                //timer.DisableTimer(false, false); //forces timer to end
 
-        //If all remaining Scramblers escaped then Match completed
-        if (escapedScramblers == (Scramblers.Length - deadScramblers))
-        {
-            Debug.Log("GM: ROUND COMPLETED");
-            //timer.DisableTimer(false, false); //forces timer to end
+                currentRound++; //increment current round number
 
-            currentRound++; //increment current round number
+                createNewLevel = true; //creates a new level to play on
 
-            createNewLevel = true; //creates a new level to play on
+                escapedScramblers = 0;  //reset number of escaped scramblers
 
-            escapedScramblers = 0;  //reset number of escaped scramblers
+                Map.ClearMap(); //Clear the current map
 
-            Map.ClearMap(); //Clear the current map
-
-            SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
+                SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
+            }
         }
     }
 
@@ -351,6 +356,7 @@ public class GameManager : MonoBehaviour
         }
 
         // createNewLevel = true;
+        ready = true;
     }
 
 }
