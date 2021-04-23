@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 7083597659865246094}
   m_Layer: 0
   m_Name: Wallmap
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -385,7 +385,7 @@ GameObject:
   - component: {fileID: 2455355680114784911}
   m_Layer: 0
   m_Name: Map
-  m_TagString: Untagged
+  m_TagString: Map
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generateMapOnStart: 1
   generateAI: 1
-  maxIterations: 40
+  maxIterations: 3
   minimumDoors: 3
   softMaximumDoors: 10
   softMaximumPenalty: 2000
