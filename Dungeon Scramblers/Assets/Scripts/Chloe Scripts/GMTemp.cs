@@ -96,7 +96,7 @@ public class GMTemp : MonoBehaviour
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
-
+        GameManager.ManagerInstance.SetScramblers();
 
     }
 
