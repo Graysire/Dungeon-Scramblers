@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4248649116176859052}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.8615499, y: 9.074392, z: -1}
-  m_LocalScale: {x: 0.38929, y: 0.38929, z: 0.38929}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 8640546345716192725}
   m_Father: {fileID: 0}
@@ -52,7 +52,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.07714474, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -63,7 +63,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.2, y: 2.563}
+  m_Size: {x: 2.384467, y: 2.563}
   m_EdgeRadius: 0
 --- !u!212 &4248649116176859040
 SpriteRenderer:
@@ -128,20 +128,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: e80300002c0100000000000064000000000000006400000064000000
+  stats: e8030000fa0000000000000064000000000000006400000064000000
   HealthBar: {fileID: 1874520564}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
-  - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
+  - {fileID: 6497682061442774528, guid: dbe75519d21f2ed4e888b2a687079fbc, type: 3}
   players: []
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
-  stoppingDistance: 2
+  stoppingDistance: 3
+  retreatDistance: 0.3
   visibleRange: 8
   attackRange: 3
   expOnDeath: 500
   onlyAttackOnePlayer: 0
+  timeToWaitBeforeMoving: 2
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}
 --- !u!114 &4248649116176859042

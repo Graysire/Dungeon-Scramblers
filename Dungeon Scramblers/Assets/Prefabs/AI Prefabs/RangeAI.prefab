@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4536677181648069051}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.59, y: 5.5, z: 0}
-  m_LocalScale: {x: 0.38929, y: 0.38929, z: 0.38929}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 8352729385396718530}
   m_Father: {fileID: 0}
@@ -129,13 +129,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: e80300005e0100000000000064000000000000006400000064000000
+  HealthBar: {fileID: 9728870}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
-  - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
+  - {fileID: 2236673807752548162, guid: 1daeee3b98ba9ae459f99495ca83ebe7, type: 3}
   players: []
-  healthBarUI: {fileID: 8352729385396718531}
-  healthBar: {fileID: 8352729386539060469}
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 4.5
@@ -144,6 +144,7 @@ MonoBehaviour:
   attackRange: 5
   expOnDeath: 500
   onlyAttackOnePlayer: 0
+  timeToWaitBeforeMoving: 1
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}
 --- !u!114 &4536677181648069045
@@ -288,6 +289,7 @@ GameObject:
   - component: {fileID: 8352729385396718543}
   - component: {fileID: 8352729385396718540}
   - component: {fileID: 8352729385396718541}
+  - component: {fileID: 9728870}
   m_Layer: 11
   m_Name: HealthBarUI
   m_TagString: Untagged
@@ -375,6 +377,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &9728870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8352729385396718531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e644a89a473bb74ea1fc3f1cf0ea740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BarDisplay: {fileID: 8352729386539060469}
 --- !u!1 &8352729385733366941
 GameObject:
   m_ObjectHideFlags: 0

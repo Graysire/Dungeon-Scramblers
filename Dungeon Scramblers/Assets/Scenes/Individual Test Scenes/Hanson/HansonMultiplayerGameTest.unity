@@ -5046,6 +5046,10 @@ PrefabInstance:
       propertyPath: spawnAI.Array.data[7].spawns.Array.data[0].spawnAI
       value: 
       objectReference: {fileID: 3248170336281437018, guid: a2ad0efb54d0ef94b8db4e6e5d29547b, type: 3}
+    - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
+      propertyPath: maxIterations
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 9102455188174619584, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5639,6 +5643,10 @@ MonoBehaviour:
   perkList: {fileID: 0}
   votingSystem: {fileID: 2008887025}
   timer: {fileID: 0}
+  voteTimeInSeconds: 60
+  matchTimeInSeconds: 60
+  bossFightTimeInSeconds: 60
+  numberOfRounds: 3
 --- !u!1001 &1859706774
 PrefabInstance:
   m_ObjectHideFlags: 0

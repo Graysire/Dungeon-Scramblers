@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 2391187506201108108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -2.8615499, y: 9.074392, z: -1}
-  m_LocalScale: {x: 0.38929, y: 0.38929, z: 0.38929}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 7795850378610816245}
   m_Father: {fileID: 0}
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 6958753276543644202, guid: 1e747bb3a4a66d34885254eeb4047f44, type: 3}
-  m_Color: {r: 0, g: 0.755301, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,16 +132,19 @@ MonoBehaviour:
   HealthBar: {fileID: 1190697138765741721}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: c8bbd279d23a5f04bb0c81309804afcc, type: 3}
   players: []
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 2
+  retreatDistance: 0.3
   visibleRange: 10
   attackRange: 4
   expOnDeath: 500
   onlyAttackOnePlayer: 0
+  timeToWaitBeforeMoving: 1
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}
 --- !u!114 &2391187506201108098

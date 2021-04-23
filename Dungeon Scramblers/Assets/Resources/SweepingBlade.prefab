@@ -179,10 +179,10 @@ MonoBehaviour:
   BaseDamage: 200
   Range: 10
   DecayTime: 0.4
-  MoveSpeed: 0
+  MoveSpeed: 2
   CastingTime: 0.8
   CoolDown: 2
-  OffsetScale: 1.5
+  OffsetScale: 0.5
   maxTargetsHit: 2
   StatusEffects: []
 --- !u!50 &3757114602399926870

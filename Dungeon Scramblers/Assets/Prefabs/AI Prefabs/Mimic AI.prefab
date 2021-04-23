@@ -479,7 +479,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 3.2, y: 2.5625}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -551,20 +551,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: e80300002c0100000000000064000000000000006400000064000000
+  stats: e8030000900100000000000064000000000000006400000064000000
   HealthBar: {fileID: 4676537854713404390}
   affectedStats: 00000000000000000000000000000000000000000000000000000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 238a15a15b0c5a34fb6c94723cda4c4f, type: 3}
   players: []
   destination: {x: 0, y: 0, z: 0}
   target: {x: 0, y: 0, z: 0}
   stoppingDistance: 3
+  retreatDistance: 0.3
   visibleRange: 5
   attackRange: 3
   expOnDeath: 1000
   onlyAttackOnePlayer: 0
+  timeToWaitBeforeMoving: 1
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 21300000, guid: 2fadd18e4b1391e42b5aa2fffbbc42fb, type: 3}
 --- !u!114 &6125994366945273438

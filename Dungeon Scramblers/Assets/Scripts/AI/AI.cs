@@ -83,6 +83,7 @@ public class AI : AbstractPlayer
         for (int i = 0; i < AttackObjectList.Count; i++)
         {
             AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
+            AttackObjectList[i].transform.localScale = transform.localScale;
         }
 
 

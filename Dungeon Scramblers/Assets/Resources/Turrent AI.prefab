@@ -454,7 +454,7 @@ Transform:
   m_GameObject: {fileID: 8828729408068310131}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.48, y: 9.074392, z: -1}
-  m_LocalScale: {x: 0.38929, y: 0.38929, z: 0.38929}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children:
   - {fileID: 4006702138812923402}
   m_Father: {fileID: 0}
@@ -549,20 +549,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce25cc844feb2b4aa8356ef80ebe9a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: 2c0100000000000000000000640000000000000064000000f4010000
+  stats: e8030000c80000000000000064000000000000006400000064000000
   HealthBar: {fileID: 5292163252724484064}
   affectedStats: 01000000010000000100000001000000010000000100000001000000
   statusEffects: []
+  disarmed: 0
   AttackObjectList:
   - {fileID: 6497682061442774528, guid: 14dfd51708670884ab42206a540c5343, type: 3}
   players: []
   destination: {x: 0, y: 0, z: 0}
   target: {x: 5.41519, y: 8.629317, z: 0}
   stoppingDistance: 10
+  retreatDistance: 0.3
   visibleRange: 10
   attackRange: 10
   expOnDeath: 2000
   onlyAttackOnePlayer: 0
+  timeToWaitBeforeMoving: 1
   enemyTypeToSpawn: {fileID: 0}
   mimicSprite: {fileID: 0}
 --- !u!114 &8828729408068310141

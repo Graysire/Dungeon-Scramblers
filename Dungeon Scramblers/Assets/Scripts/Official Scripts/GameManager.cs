@@ -77,7 +77,11 @@ public class GameManager : MonoBehaviour
         }
         Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
-        perkList = Instantiate(perkListPrefab, transform);
+        if(perkListPrefab)
+        {
+            perkList = Instantiate(perkListPrefab, transform);
+        }
+
 
         PlayerTransforms = new Transform[Scramblers.Length];
 
