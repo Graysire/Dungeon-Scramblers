@@ -347,7 +347,7 @@ public class AI : AbstractPlayer
     {
         if (allowedToAttack && !disarmed)
         {
-            //StartCoroutine(WaitToMove());
+            StartCoroutine(WaitToMove());
 
             //Get vector towards player to hit
             Vector3 direction = new Vector3(target.x - this.transform.position.x,
