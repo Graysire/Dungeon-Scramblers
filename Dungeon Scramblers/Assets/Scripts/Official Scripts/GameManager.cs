@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-
+using Photon.Pun;
+using Photon.Realtime;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -52,7 +53,16 @@ public class GameManager : MonoBehaviour
     int currentRound = 1;   //The current round being played
     MapMaker Map;
 
-    
+
+    //All clients in the same room will load the same scene synced as best as possible
+    //PhotonNetwork.AutomaticallySyncScene = true; -- SYNCS WHEN TRANSITIONING SCENES
+
+    //Use Photon to load new Scene -- FOR GRAYSONS SCENE
+    //PhotonNetwork.LoadLevel("MultiplayerGameTest");
+
+    //use rooms[0] for spawn location -- FOR SPAWNING PLAYERS
+
+
     //Update handler stuff
     protected virtual void OnEnable()
     {
@@ -77,10 +87,9 @@ public class GameManager : MonoBehaviour
         }
         Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
-        if(perkListPrefab)
-        {
+
+        if (perkListPrefab)
             perkList = Instantiate(perkListPrefab, transform);
-        }
 
 
         PlayerTransforms = new Transform[Scramblers.Length];
@@ -95,10 +104,7 @@ public class GameManager : MonoBehaviour
         //    ApplyPerk(perkList.GetPerk());
         //}
 
-        //createNewLevel = true;
-        //Begin Timer
-        //timer.InitializeAndStartTimer(5);
-
+        createNewLevel = true;
     }
 
     //Update
@@ -108,10 +114,11 @@ public class GameManager : MonoBehaviour
         if (createNewLevel)
         {
             //Generate Overlord Level if max rounds exceeded
-            if (currentRound > numberOfRounds)
+            if (currentRound == (numberOfRounds + 1))
             {
+                currentRound++;
+                createNewLevel = false;
                 GenerateOverlordLevel();    //Generate the overlord level
-
             }
             //Generate new round
             else
@@ -186,7 +193,8 @@ public class GameManager : MonoBehaviour
 
     void GenerateOverlordLevel()
     {
-        Debug.Log("TODO: Generating Overlord Level");
+        Debug.Log("Generating Overlord Level...");
+        PhotonNetwork.LoadLevel("Minotaur Scene");
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 

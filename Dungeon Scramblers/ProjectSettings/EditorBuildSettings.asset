@@ -20,5 +20,11 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Individual Test Scenes/Hanson/HansonMultiplayerGameTest.unity
     guid: b471e503f1882c14f8b9c6213e9668e7
+  - enabled: 0
+    path: Assets/Scenes/Individual Test Scenes/Kris/Kris-AI.unity
+    guid: 24aad19bec0613e42b77b06026f7db15
+  - enabled: 1
+    path: Assets/Scenes/Individual Test Scenes/Gray/Minotaur Scene.unity
+    guid: 8253cbca49ce4ea41b53c5de78596703
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 4371016195fa14b4a82ccefbd6955e68, type: 2}

@@ -94,5 +94,9 @@ MonoBehaviour:
   equippableBitFlag: 000000
   bitCategory: 4
   playerCategory: 1
-  abilitySlot: 1
+  abilitySlot: 0
   Projectile: {fileID: 7107550762299682137, guid: 1a416b108477c75468618e8fd3212436, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
