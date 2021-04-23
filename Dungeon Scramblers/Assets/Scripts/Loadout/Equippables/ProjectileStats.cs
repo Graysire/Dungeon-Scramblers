@@ -83,34 +83,6 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         //Debug.Log("Attack Dir:" + AttackDir.ToString() + "\n rb: " + rb.ToString());
     }
 
-
-    // This update will be added to update handler when all the ability function is ready to transition
-    //void FixedUpdate()
-    //{
-    //    // Check if Attack Direction exist
-    //    if (AttackDir != null && (PhotonNetwork.CurrentRoom == null || photonView.IsMine))
-    //    {
-    //        // Increment time passed, position of the object, and position traveled
-
-    //        totalTime += Time.fixedDeltaTime;
-    //        Debug.Log("Total Time:" + totalTime);
-    //        Debug.Log("Attack Direction:" + AttackDir);
-    //        Debug.Log("Position: " + rb.position);
-    //        Debug.Log("New Position: " + ((new Vector2(AttackDir.x, AttackDir.y) * Time.fixedDeltaTime * MoveSpeed) + rb.position));
-
-    //        rb.MovePosition(new Vector2(1, 1));
-
-    //        PositionTraveled += AttackDir * Time.fixedDeltaTime * MoveSpeed;
-    //        // Check if position traveled or decay time threshold was met and proceed to destroy them
-    //        if (PositionTraveled.magnitude >= Range || totalTime >= DecayTime)
-    //        {
-    //            //Being called multiple Times
-    //            ResetProjectiles();
-    //        }
-    //    }
-
-    //}
-
     protected virtual void Awake()
     {
         if (PhotonNetwork.CurrentRoom == null && GetComponent<PhotonRigidbody2DView>() != null)
@@ -168,15 +140,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         GOReset.SetActive(false);
         Debug.Log("Gameobject:" + GOReset.name + " has been set to:" + GOReset.active);
     }
-    private void OnDisable()
-    {
-        //UpdateHandler.FixedUpdateOccurred -= Movement;
-    }
 
-    private void OnEnable()
-    {
-        //UpdateHandler.FixedUpdateOccurred += Movement;
-    }
 
     // For Abilities object to collide, the opposing object must have a 2D collider as well as a Rigidbody2D
     protected virtual void OnTriggerEnter2D(Collider2D collision)
@@ -187,6 +151,13 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             ResetProjectiles();
             return;
         }
+
+        if (collision.tag == "Map")
+        {
+            ResetProjectiles();
+            return;
+        }
+
 
         //get Damageable from collision object
         IDamageable<int> damageable = collision.GetComponent<IDamageable<int>>();
