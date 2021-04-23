@@ -11,6 +11,10 @@ public class CameraController : MonoBehaviour
     private Vector3 Origin;
     private Vector3 difference;
 
+    private void Start()
+    {
+        //cam.transform.position = new Vector3(0, 0, 30);
+    }
 
     // Update is called once per frame
     void Update()

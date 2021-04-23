@@ -720,12 +720,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: generateAI
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: spawnAI.Array.data[0].spawns.Array.data[0].spawnAI
       value: 
-      objectReference: {fileID: 4248649116176859052, guid: a2f2037bbf1a6474c874ab234ebfefd1, type: 3}
+      objectReference: {fileID: 4248649116176859052, guid: 771a02e3ae9a5dc47a5d105cc3f479fd, type: 3}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: spawnAI.Array.data[4].spawns.Array.data[0].spawnAI
       value: 
