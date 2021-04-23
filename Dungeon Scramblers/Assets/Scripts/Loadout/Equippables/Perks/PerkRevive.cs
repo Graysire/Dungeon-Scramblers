@@ -6,6 +6,6 @@ public class PerkRevive : Perk
 {
     public override void Equip(Player player)
     {
-        Debug.LogError("Revive Perk not implemented");
+        ((Scrambler) player).Revive(75, true);
     }
 }

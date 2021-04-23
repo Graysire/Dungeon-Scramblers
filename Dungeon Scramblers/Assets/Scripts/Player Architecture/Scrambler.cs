@@ -93,7 +93,7 @@ public class Scrambler : Player
                     reviveHP = 0;
                 else if (reviveHP > 1)
                     reviveHP = 1;
-                affectedStats[(int)Stats.health] = reviveHP * stats[(int)Stats.health];   // Revive with a PERCENT of your health
+                affectedStats[(int)Stats.health] = (reviveHP / 100) * stats[(int)Stats.health];   // Revive with a PERCENT of your health
             }
             else {
                 if (reviveHP < 0)                                                               // Check for invalid health values
