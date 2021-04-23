@@ -23,6 +23,11 @@ public class GMTemp : MonoBehaviour
         //Get Party Leader Seed for Map Generation
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
+            //initialize seed
+            int rand = Random.Range(int.MinValue, int.MaxValue);
+            Random.InitState(rand);
+            Debug.Log("Using Seed: " + rand);
+
             //Save seed of MasterClient
             s = Random.state;
             //Add Seed to hash table to save for later
@@ -111,7 +116,7 @@ public class GMTemp : MonoBehaviour
         int randY = Random.Range((StartRoom.lowerLeft.y), (StartRoom.upperRight.y) + 1);
         //Translate to world space
         Vector3Int randLocation = new Vector3Int(randX, randY, 0);
-        //worldLocation = Map.GetComponent<MapMaker>().tilemap.GetCellCenterWorld(randLocation);
+        worldLocation = Map.GetComponent<MapMaker>().tilemaps[0].GetCellCenterWorld(randLocation);
         return worldLocation;
     }
 

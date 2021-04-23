@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour
         {
             _managerInstance = this;
         }
+        Map = FindObjectOfType<MapMaker>();
 
         if (PhotonNetwork.CurrentRoom == null)
         {
@@ -195,6 +196,7 @@ public class GameManager : MonoBehaviour
             StartCoroutine(Map.GenerateMap(true));
         else
             StartCoroutine(Map.GenerateMap(false));
+        SetPlayerLocations(Map.rooms[0]);
     }
 
     //Game Over State
@@ -232,6 +234,16 @@ public class GameManager : MonoBehaviour
                 DeadScramblers.RemoveAt(i);
                 break;
             }
+        }
+    }
+
+    //Teleports the scramblers and overlords to their respective starting rooms
+    public void SetPlayerLocations(MapMaker.RoomInfo room)
+    {
+        foreach (Transform p in PlayerTransforms)
+        {
+            Vector3 newPos = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(room.lowerLeft.x, room.upperRight.x), Random.Range(room.lowerLeft.y, room.upperRight.y), 0));
+            p.position = newPos;
         }
     }
 
