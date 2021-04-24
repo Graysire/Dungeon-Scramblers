@@ -91,7 +91,6 @@ public class GMTemp : MonoBehaviour
 
                 //Assign Scramblers
                 GameManager.ManagerInstance.SetScramblers();
-                GameManager.ManagerInstance.StartVoteTimer();
             }
             else
             {
