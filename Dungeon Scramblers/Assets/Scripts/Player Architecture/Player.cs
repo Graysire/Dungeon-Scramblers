@@ -313,6 +313,11 @@ public class Player : AbstractPlayer
         AnimatorList[enabledAnimatorInd].transform.localScale = new Vector3(playerScale,playerScale,playerScale);
         enabledAnim = AnimatorList[enabledAnimatorInd].GetComponent<Animator>();
     }
+
+    public virtual List<GameObject> GetAttackObjectsList()
+    {
+        return AttackObjectList;
+    }
 }
 
 

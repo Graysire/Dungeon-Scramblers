@@ -98,7 +98,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
 
     //Update
     private void Updater()
@@ -126,7 +125,8 @@ public class GameManager : MonoBehaviour
             // match time over or all scramblers dead then game over
             if (outOfTime || Scramblers.Length == deadScramblers)
             {
-                GameOver();
+                GameOver(false); //Set Game Overstate which transfers to main menu
+                DestroyEverything(); //Destroys all Game Objects from Match and the Gmae manager
             }
 
             //If all remaining Scramblers escaped then Match completed
@@ -188,9 +188,16 @@ public class GameManager : MonoBehaviour
 
     void GenerateOverlordLevel()
     {
-        Debug.Log("Generating Overlord Level...");
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
+        StartCoroutine(WaitBeforeSettingPosition());
+    }
+
+    IEnumerator WaitBeforeSettingPosition()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Map = FindObjectOfType<MapMaker>();
+        SetPlayerLocations(Map.rooms[0]);
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 
@@ -205,11 +212,12 @@ public class GameManager : MonoBehaviour
     }
 
     //Game Over State
-    private void GameOver()
+    private void GameOver(bool ScramblersWon)
     {
-        Debug.Log("TODO: GM: GAME OVER -- OVERLORD WON");
-
-        //Destory all game objects that are persistant for match here
+        if (ScramblersWon)
+            Debug.Log("TODO: GM: GAME OVER -- SCRAMBLERS WON");
+        else
+            Debug.Log("TODO: GM: GAME OVER -- OVERLORD WON");
 
         //Load Main Menu Scene here
         PhotonNetwork.AutomaticallySyncScene = true;
@@ -382,16 +390,20 @@ public class GameManager : MonoBehaviour
         ready = true;
 
         SetObjectsToNotDestroyOnLoad();
+        StartVoteTimer(); //initial call to start timer
     }
 
     // Store all game objects that need to persist to Overlord Room Scene //
     void SetObjectsToNotDestroyOnLoad()
     {
-        Debug.Log("Scrambler len: " + Scramblers.Length);
         // Add Scramblers and Overlord here
         for (int i = 0; i < Scramblers.Length; i++)
         {
             objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
+            foreach (GameObject go in Scramblers[i].GetAttackObjectsList())
+            {
+                objectsToNotDestroyOnLoad.Add(go);
+            }
         }
         if (Overlord != null)
         {
@@ -407,5 +419,15 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(go);
         }
+    }
+
+    // Sets game destory all persistent objects and the Game Manager itself
+    void DestroyEverything()
+    {
+        foreach (GameObject go in objectsToNotDestroyOnLoad)
+        {
+            Destroy(go);
+        }
+        Destroy(gameObject);
     }
 }

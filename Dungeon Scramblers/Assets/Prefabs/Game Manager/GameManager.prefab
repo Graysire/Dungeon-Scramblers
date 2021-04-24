@@ -57,13 +57,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc7adca791eaf242a852c7bc88742a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectsToNotDestroyOnLoad: []
+  MenuSceneName: Multiplayer test
+  BossRoomSceneName: Minotaur Scene
   perkListPrefab: {fileID: 1674495980848193811, guid: 42eb43b99993bc5458bd9e105efb0edd, type: 3}
   votingSystem: {fileID: 7928574778536634708, guid: c22c935a47f6ed543b408eb9c386cee3, type: 3}
   timer: {fileID: 7103123502103605402}
   voteTimeInSeconds: 30
   matchTimeInSeconds: 120
-  bossFightTimeInSeconds: 180
-  numberOfRounds: 3
+  bossFightTimeInSeconds: 120
+  numberOfRounds: 2
 --- !u!1001 &3337192834825133954
 PrefabInstance:
   m_ObjectHideFlags: 0
