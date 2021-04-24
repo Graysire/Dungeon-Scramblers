@@ -186,16 +186,11 @@ public class GameManager : MonoBehaviour
         outOfTime = true;
     }
 
+    // Loads Overlord room
     void GenerateOverlordLevel()
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
-        StartCoroutine(WaitBeforeSettingPosition());
-    }
-
-    IEnumerator WaitBeforeSettingPosition()
-    {
-        yield return new WaitForSeconds(1.0f);
         Map = FindObjectOfType<MapMaker>();
         SetPlayerLocations(Map.rooms[0]);
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
