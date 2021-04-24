@@ -12,6 +12,7 @@ TagManager:
   - MenuManager
   - MiniLord
   - Cleared on New Map
+  - Canvas
   layers:
   - Default
   - TransparentFX

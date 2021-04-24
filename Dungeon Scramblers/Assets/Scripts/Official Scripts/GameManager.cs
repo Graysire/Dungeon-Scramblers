@@ -10,17 +10,25 @@ public class GameManager : MonoBehaviour
 
     public static GameManager ManagerInstance { get { return _managerInstance; } }
 
-    bool isLoading;
+    [SerializeField]
+    List<GameObject> objectsToNotDestroyOnLoad;      //Stores all the game objects that need to persist between scenes
+
+
+    [SerializeField]
+    string MenuSceneName = "Multiplayer test";   //Name of the scene to transition to after game over
+    [SerializeField]
+    string BossRoomSceneName = "Minotaur Scene";    //Name of the scene to transition to for boss fight
+
+    bool ready = false; //Stops Update from running till Scramblers are properly loaded
+
 
     // Voting Stats
     [SerializeField]
     PerkList perkListPrefab;
     PerkList perkList;
-
     [SerializeField]
     PhysicalVotingSystem votingSystem;
 
-    bool ready = false;
 
     // Players stats
     int deadScramblers = 0;
@@ -29,14 +37,16 @@ public class GameManager : MonoBehaviour
     List<Scrambler> DeadScramblers = new List<Scrambler>(); // list of alive Scramblers
     Overlord Overlord; // = new Overlord class;
 
+
     // Experience Handling Variables
     int level = 1;
     int currentExperience = 0;
     int expToNextLevel = 10000;
     int xpMultiplier = 100;
 
-    [Header("Timer Variables")]
+
     //State handling variables
+    [Header("Timer Variables")]
     [SerializeField]
     Timer timer;
     [SerializeField]
@@ -47,6 +57,7 @@ public class GameManager : MonoBehaviour
     int bossFightTimeInSeconds = 60;
     bool outOfTime = false; //Determines if timer ended resulting in game over state
 
+
     [Header("Match Variables")]
     [SerializeField]
     int numberOfRounds = 3;  //The number of rounds to play out before the overlord boss fight
@@ -54,15 +65,6 @@ public class GameManager : MonoBehaviour
     int escapedScramblers = 0;
     int currentRound = 1;   //The current round being played
     MapMaker Map;
-    
-
-    //All clients in the same room will load the same scene synced as best as possible
-    //PhotonNetwork.AutomaticallySyncScene = true; -- SYNCS WHEN TRANSITIONING SCENES
-
-    //Use Photon to load new Scene -- FOR GRAYSONS SCENE
-    //PhotonNetwork.LoadLevel("MultiplayerGameTest");
-
-    //use rooms[0] for spawn location -- FOR SPAWNING PLAYERS
 
 
     //Update handler stuff
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         {
             _managerInstance = this;
         }
+
         Map = FindObjectOfType<MapMaker>();
 
         if (PhotonNetwork.CurrentRoom == null)
@@ -94,6 +97,8 @@ public class GameManager : MonoBehaviour
             SetScramblers();
         }
     }
+
+   
 
     //Update
     private void Updater()
@@ -107,7 +112,6 @@ public class GameManager : MonoBehaviour
                 if (currentRound == (numberOfRounds + 1))
                 {
                     currentRound++;
-                    createNewLevel = false;
                     GenerateOverlordLevel();    //Generate the overlord level
                 }
                 //Generate new round
@@ -115,8 +119,8 @@ public class GameManager : MonoBehaviour
                 {
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
-                    createNewLevel = false;
                 }
+                createNewLevel = false;
             }
 
             // match time over or all scramblers dead then game over
@@ -129,7 +133,7 @@ public class GameManager : MonoBehaviour
             if (escapedScramblers == (Scramblers.Length - deadScramblers))
             {
                 Debug.Log("GM: ROUND COMPLETED");
-                //timer.DisableTimer(false, false); //forces timer to end
+                timer.DisableTimer(false, false); //forces timer to end
 
                 currentRound++; //increment current round number
 
@@ -158,7 +162,7 @@ public class GameManager : MonoBehaviour
 
     //Starts timer for voting and overlord setup
         //On end then match timer will begin
-    private void StartVoteTimer()
+    public void StartVoteTimer()
     {
         //Begin Timer
         timer.InitializeAndStartTimer(voteTimeInSeconds, false);
@@ -185,7 +189,8 @@ public class GameManager : MonoBehaviour
     void GenerateOverlordLevel()
     {
         Debug.Log("Generating Overlord Level...");
-        PhotonNetwork.LoadLevel("Minotaur Scene");
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LoadLevel(BossRoomSceneName);
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 
@@ -203,6 +208,12 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         Debug.Log("TODO: GM: GAME OVER -- OVERLORD WON");
+
+        //Destory all game objects that are persistant for match here
+
+        //Load Main Menu Scene here
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LoadLevel(MenuSceneName);
     }
 
     //adds scrambler to list of dead scramblers
@@ -272,7 +283,6 @@ public class GameManager : MonoBehaviour
             }
 
             currentExperience = 0;
-
         }
 
         foreach (Scrambler scrambler in Scramblers)
@@ -349,14 +359,7 @@ public class GameManager : MonoBehaviour
     public void SetScramblers()
     {
         Scramblers = FindObjectsOfType<Scrambler>();
-
-
-        PlayerTransforms = new Transform[Scramblers.Length];
-        //Set Perks and player Transforms
-
-        if (perkListPrefab)
-            perkList = Instantiate(perkListPrefab, transform);
-
+        Map = FindObjectOfType<MapMaker>();
 
         PlayerTransforms = new Transform[Scramblers.Length];
 
@@ -365,13 +368,44 @@ public class GameManager : MonoBehaviour
             PlayerTransforms[i] = Scramblers[i].transform;
         }
 
+
+        if (perkListPrefab)
+            perkList = Instantiate(perkListPrefab, transform);
+
         if (perkList != null)
         {
             ApplyPerk(perkList.GetPerk());
         }
 
-        // createNewLevel = true;
+
+        //createNewLevel = true;
         ready = true;
+
+        SetObjectsToNotDestroyOnLoad();
     }
 
+    // Store all game objects that need to persist to Overlord Room Scene //
+    void SetObjectsToNotDestroyOnLoad()
+    {
+        Debug.Log("Scrambler len: " + Scramblers.Length);
+        // Add Scramblers and Overlord here
+        for (int i = 0; i < Scramblers.Length; i++)
+        {
+            objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
+        }
+        if (Overlord != null)
+        {
+            objectsToNotDestroyOnLoad.Add(Overlord.gameObject);
+        }
+
+        // Add Timer and Canvas here
+        objectsToNotDestroyOnLoad.Add(timer.gameObject);
+        objectsToNotDestroyOnLoad.Add(GameObject.FindGameObjectWithTag("Canvas"));
+
+        // Make all gathered game objects persistant
+        foreach (GameObject go in objectsToNotDestroyOnLoad)
+        {
+            DontDestroyOnLoad(go);
+        }
+    }
 }
