@@ -92,14 +92,11 @@ public class Overlord : Player
             direction = transform.TransformDirection(direction);
         }
 
-    public void toggleCharging()
-    {
-        bCharging = !bCharging;
-    }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (bCharging && collision.gameObject.layer == 10)
+        if (bDashing && collision.gameObject.layer == 10)
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }

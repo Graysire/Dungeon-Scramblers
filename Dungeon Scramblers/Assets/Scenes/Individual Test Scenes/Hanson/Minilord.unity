@@ -632,7 +632,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cc7adca791eaf242a852c7bc88742a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  perkList: {fileID: 0}
+  objectsToNotDestroyOnLoad: []
+  MenuSceneName: Multiplayer test
+  BossRoomSceneName: Minotaur Scene
+  perkListPrefab: {fileID: 0}
+  votingSystem: {fileID: 0}
+  timer: {fileID: 0}
+  voteTimeInSeconds: 60
+  matchTimeInSeconds: 60
+  bossFightTimeInSeconds: 60
+  numberOfRounds: 3
 --- !u!114 &725621112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1512,10 +1521,13 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   isDead: 0
+  playerScale: 0
   AnimatorList:
   - {fileID: 2114680770075490120}
   - {fileID: 2114680769725213152}
   - {fileID: 2114680769578861616}
+  NormalCam: {fileID: 0}
+  OverviewCam: {fileID: 0}
   HasRetributionAbility: 0
   RetributionAbilityIndex: 0
 --- !u!212 &2114680768803883554
@@ -1558,15 +1570,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 1330595105546645887, guid: 8ef8b543228458e4fa88abba73bc92f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 2.400586, y: 2.4}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!70 &2114680768803883555
@@ -2136,7 +2148,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680769578861623
@@ -2395,7 +2407,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &2114680769748898652
@@ -2711,7 +2723,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &2114680770313586688

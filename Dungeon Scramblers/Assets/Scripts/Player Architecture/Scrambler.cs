@@ -135,5 +135,12 @@ public class Scrambler : Player
         affectedStats[4] = stats[4];
     }
 
-    
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (bDashing && (collision.gameObject.layer == 10/*Ignore Scramblers*/ || collision.gameObject.layer == 11 /*Ignore Overlord*/))
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+    }
+
 }

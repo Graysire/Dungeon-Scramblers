@@ -159,6 +159,16 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
 
+        Player player = collision.GetComponent<Player>();
+       
+        if (player)
+        {
+            if(!player.BTargetable)
+            {
+                return;
+            }
+        }
+
         if (collision.tag == "Shield")
         {
             ResetProjectiles();

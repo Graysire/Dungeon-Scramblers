@@ -134,6 +134,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
         }
     }
 
+
     public void SetAllowedToAttack(bool atk)
     {
         allowedToAttack = atk;
@@ -177,5 +178,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     {
         Destroy(this.gameObject);
     }
+
+
 
 }
