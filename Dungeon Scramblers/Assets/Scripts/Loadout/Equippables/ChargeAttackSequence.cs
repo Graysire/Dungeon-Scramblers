@@ -35,7 +35,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
         ApplyColorChange();
         ApplySlow();
 
-        Overlord OverlordUnit = (Overlord)Unit;
+        Player PlayerUnit = (Player)Unit;
         
         // Get the overlord initial speed to change the 
         int PlayerSpeed = (Unit.GetAffectedStats()[(int)Stats.movespeed] / 100);
@@ -87,12 +87,12 @@ public class ChargeAttackSequence : DefaultAttackSequence
         AbilityTransform.GetComponent<ChargingProjectileStats>().SetPlayer(Unit);
 
         bLaunch = true;
-        OverlordUnit.toggleCharging();
+        PlayerUnit.ToggleDashing();
 
         yield return new WaitForSeconds(chargingDuration);
 
         bLaunch = false;
-        OverlordUnit.toggleCharging();
+        PlayerUnit.ToggleDashing();
 
         RevertColorChange();
         RevertSlow();

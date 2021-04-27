@@ -36,7 +36,13 @@ public class Player : AbstractPlayer
     [SerializeField][Range(0,2)] protected float playerScale;
     [SerializeField] protected List<GameObject> AnimatorList;
     protected int enabledAnimatorInd = -1;
-    protected Animator enabledAnim;   
+    protected Animator enabledAnim;
+
+
+    //Dodge Rolling/ Chargin Mechanics
+    protected bool bDashing = false;
+    private bool bTargetable = true;
+    public bool BTargetable { get => bTargetable; set => bTargetable = value; }
 
     protected override void Awake()
     {
@@ -317,6 +323,12 @@ public class Player : AbstractPlayer
     public virtual List<GameObject> GetAttackObjectsList()
     {
         return AttackObjectList;
+    }
+
+    // Dashing 
+    public void  ToggleDashing()
+    {
+        bDashing = !bDashing;
     }
 }
 
