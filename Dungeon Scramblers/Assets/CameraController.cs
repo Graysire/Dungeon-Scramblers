@@ -28,14 +28,14 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Origin = cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("Origin: " + Origin);
+            //Debug.Log("Origin: " + Origin);
         }
 
         //Get distance from previous point to current if button held down
         if (Input.GetMouseButton(0))
         {
             difference = Origin- cam.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log("Difference: " + difference);
+            //Debug.Log("Difference: " + difference);
             cam.transform.position += difference;
         }
         //move to that destination
