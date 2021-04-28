@@ -108,18 +108,18 @@ public class GameManager : MonoBehaviour
 
 
         
-        //Get Party Leader Seed for Map Generation
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            int seed = Random.Range(int.MinValue, int.MaxValue);
-            Random.InitState(seed);
-            Debug.Log(seed);
-            //Save seed of MasterClient
-            s = Random.state;
-            this.seed = seed;
-            //Add Seed to hash table to save for later
-            //Debug.Log("Seed: " + s);
-        }
+        ////Get Party Leader Seed for Map Generation
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    int seed = Random.Range(int.MinValue, int.MaxValue);
+        //    Random.InitState(seed);
+        //    Debug.Log(seed);
+        //    //Save seed of MasterClient
+        //    s = Random.state;
+        //    this.seed = seed;
+        //    //Add Seed to hash table to save for later
+        //    //Debug.Log("Seed: " + s);
+        //}
 
 
     }
@@ -129,13 +129,19 @@ public class GameManager : MonoBehaviour
     {
         //Info for Palyer Spawning
         //Get Party Leader Seed for Map Generation
-        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //{
-        //    //Save seed of MasterClient
-        //    s = Random.state;
-        //    //Add Seed to hash table to save for later
-        //    //Debug.Log("Seed: " + s);
-        //}
+        if (PhotonNetwork.LocalPlayer.IsMasterClient)
+                {
+            int seed = Random.Range(int.MinValue, int.MaxValue);
+            Random.InitState(seed);
+            Debug.Log(seed);
+            //Save seed of MasterClient
+            s = Random.state;
+            this.seed = seed;
+            //Add Seed to hash table to save for later
+            //Debug.Log("Seed: " + s);
+                    //Add Seed to hash table to save for later
+                    Debug.Log("Master Seed: " + seed);
+                }
 
         //Map.GetComponent<MapMaker>().GenerateMap(false);
         if (perkListPrefab)
@@ -486,7 +492,7 @@ public class GameManager : MonoBehaviour
             if (!PhotonNetwork.LocalPlayer.IsMasterClient)
             {
                 Random.state = s;
-                Debug.Log(seed);
+                Debug.Log("Seed for NonMaster Clinet: " + seed);
             }
             StartCoroutine(Map.GenerateMap(true));
 
