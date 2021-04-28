@@ -246,11 +246,11 @@ public class GameManager : MonoBehaviour
     void GenerateLevel()
     {
         if (currentRound == 1)
-            //StartCoroutine(Map.GenerateMap(true));
-            Map.GenerateMap(true);
+            StartCoroutine(Map.GenerateMap(true));
+            //Map.GenerateMap(true);
         else
-            //StartCoroutine(Map.GenerateMap(false));
-            Map.GenerateMap(false);
+            StartCoroutine(Map.GenerateMap(false));
+            //Map.GenerateMap(false);
         SetPlayerLocations(Map.rooms[0]);
     }
 
@@ -489,7 +489,7 @@ public class GameManager : MonoBehaviour
                 Random.state = s;
                 Debug.Log(seed);
             }
-            Map.GenerateMap(true);
+            StartCoroutine(Map.GenerateMap(true));
 
             //Player Spawning
             object PlayerSelectionNumber;

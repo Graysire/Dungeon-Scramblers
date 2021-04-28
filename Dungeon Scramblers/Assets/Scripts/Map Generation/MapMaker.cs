@@ -149,8 +149,8 @@ public class MapMaker : MonoBehaviour
     #region generation functions
 
     //generates a dungeon map, assumes the tilemap is currently empty
-   // public IEnumerator GenerateMap(bool isFirstMap = true)
-   public void GenerateMap(bool isFirstMap = true)
+    public IEnumerator GenerateMap(bool isFirstMap = true)
+    //public void GenerateMap(bool isFirstMap = true)
     {
         firstMap = isFirstMap;
         mapFinished = false;
@@ -437,14 +437,14 @@ public class MapMaker : MonoBehaviour
             {
                 SpawnAIClusters(room);
             }
-            //yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(waitTime);
         }
 
         //Add shadows to corridors
         foreach (CorridorInfo corridor in corridors)
         {
             AddWallShadows(corridor);
-            //yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(waitTime);
         }
 
         //Add shadows and decoration to rooms
@@ -452,22 +452,15 @@ public class MapMaker : MonoBehaviour
         {
             AddWallShadows(room);
             Decorate(room);
-            //yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(waitTime);
         }
-
-        //Decorate all corridors
-        //foreach (CorridorInfo corridor in corridors)
-        //{
-        //    //AddWallDecorations(corridor);
-        //    yield return new WaitForSeconds(waitTime);
-        //}
         
         mapFinished = true;
 
 
         tilemaps[1].RefreshAllTiles();
 
-        //yield return null;
+        yield return null;
     }
 
     //generates a room with an entering door at doorposition towards doorDirection
