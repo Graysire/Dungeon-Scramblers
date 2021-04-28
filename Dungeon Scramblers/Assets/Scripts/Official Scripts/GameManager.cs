@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
     BitPacket bitPacket = new BitPacket(); // Bitpakcet info for reading player types
 
     Random.State s; //State for Map Spawn
+    int seed;
 
     //All clients in the same room will load the same scene synced as best as possible
     //PhotonNetwork.AutomaticallySyncScene = true; -- SYNCS WHEN TRANSITIONING SCENES
@@ -110,17 +111,17 @@ public class GameManager : MonoBehaviour
         //Get Party Leader Seed for Map Generation
         if (PhotonNetwork.LocalPlayer.IsMasterClient)
         {
+            int seed = Random.Range(int.MinValue, int.MaxValue);
+            Random.InitState(seed);
+            Debug.Log(seed);
             //Save seed of MasterClient
             s = Random.state;
+            this.seed = seed;
             //Add Seed to hash table to save for later
             //Debug.Log("Seed: " + s);
         }
 
-        //If we aren't the master Client, give us the seed
-        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            Random.state = s;
-        }
+
     }
 
     //NOTE: This will not work if put in Awake() , must be in Start()
@@ -140,7 +141,7 @@ public class GameManager : MonoBehaviour
         if (perkListPrefab)
             perkList = Instantiate(perkListPrefab, transform);
         //StartCoroutine(Map.GenerateMap(true));
-        Map.GenerateMap(true);
+        
         StartCoroutine(SpawnPlayers());
 
     }
@@ -482,6 +483,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
+            //If we aren't the master Client, give us the seed
+            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            {
+                Random.state = s;
+                Debug.Log(seed);
+            }
+            Map.GenerateMap(true);
 
             //Player Spawning
             object PlayerSelectionNumber;
