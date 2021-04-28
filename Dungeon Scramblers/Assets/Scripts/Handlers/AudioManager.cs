@@ -35,21 +35,21 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
-        InitAudioSource(bgmSource, true);
-        InitAudioSource(sndbgmSource, true);
-        InitAudioSource(sfxSource, false);
-        PlayBGM(menuBGM);
+        InitAudioSource(ref bgmSource, true);
+        InitAudioSource(ref sndbgmSource, true);
+        InitAudioSource(ref sfxSource, false);
+        PlayBGM(menuBGM, 0.5f);
     }
 
     // BGM
-    public void PlayBGM(AudioClip musicClip) {
+    public void PlayBGM(AudioClip musicClip, float vol = 1.0f) {
         AudioSource activeSource = (firstBGMIsPlaying) ? bgmSource : sndbgmSource;
         if (activeSource == null)
             Debug.Log("Assigning of audio source gone wrong! " + firstBGMIsPlaying);
         if (bgmSource == null)
             Debug.Log("BGM Source died");
         activeSource.clip = musicClip;
-        activeSource.volume = 1;
+        activeSource.volume = vol;
         activeSource.Play();
     }
     public void PlayBGMWithFade(AudioClip newClip, float transitionTime = 1.0f) {
@@ -97,7 +97,7 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         sfxSource.PlayOneShot(clip, volume);
     }
 
-    private void InitAudioSource(AudioSource ini, bool isBGM) {
+    private void InitAudioSource(ref AudioSource ini, bool isBGM) {
         ini = this.gameObject.AddComponent<AudioSource>();
         if (isBGM)
             ini.loop = true;
