@@ -186,26 +186,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         CreateRoomPanel.Hide();
     }
 
-/*    public void OnStartButtonClicked(AudioClip dungeonBGM)
+    public void OnStartButtonClicked(AudioClip dungeonBGM)
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Trying to load new Scene");
             //Use Photon to load new Scene
-            //AudioManager.Instance.PlayBGMWithFade(dungeonBGM, 4f);
-            PhotonNetwork.LoadLevel("MultiplayerGameTest");
-
-            //Add Loading Screen Here
-        }
-
-    }*/
-    public void OnStartButtonClicked()
-    {
-        if(PhotonNetwork.IsMasterClient)
-        {
-            Debug.Log("Trying to load new Scene");
-            //Use Photon to load new Scene
-            //AudioManager.Instance.PlayBGMWithFade(dungeonBGM, 4f);
+            AudioManager.Instance.PlayBGMWithFade(dungeonBGM, 4f);
             PhotonNetwork.LoadLevel("MultiplayerGameTest");
 
             //Add Loading Screen Here
