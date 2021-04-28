@@ -69,9 +69,6 @@ public class GameManager : MonoBehaviour
     [Header("Player Spawning")]
     public GameObject[] PlayerPrefabs; //List of Playertypes to instantiate
     BitPacket bitPacket = new BitPacket(); // Bitpakcet info for reading player types
-    
-    private Vector2Int roomSize; //Vector for Room size Player Spawning
-    private Vector3 worldLocation; //Vector for World Location for Player Spawning
 
     Random.State s; //State for Map Spawn
 
@@ -135,7 +132,11 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Seed: " + s);
         }
 
-        //Map.GetComponent<MapMaker>().GenerateMap(true);
+        //Map.GetComponent<MapMaker>().GenerateMap(false);
+        if (perkListPrefab)
+            perkList = Instantiate(perkListPrefab, transform);
+        //StartCoroutine(Map.GenerateMap(true));
+        Map.GenerateMap(true);
         StartCoroutine(SpawnPlayers());
 
     }
@@ -240,9 +241,11 @@ public class GameManager : MonoBehaviour
     void GenerateLevel()
     {
         if (currentRound == 1)
-            StartCoroutine(Map.GenerateMap(true));
+            //StartCoroutine(Map.GenerateMap(true));
+            Map.GenerateMap(true);
         else
-            StartCoroutine(Map.GenerateMap(false));
+            //StartCoroutine(Map.GenerateMap(false));
+            Map.GenerateMap(false);
         SetPlayerLocations(Map.rooms[0]);
     }
 
@@ -415,10 +418,10 @@ public class GameManager : MonoBehaviour
         if (perkListPrefab)
             perkList = Instantiate(perkListPrefab, transform);
 
-        if (perkList != null)
-        {
-            ApplyPerk(perkList.GetPerk());
-        }
+        //if (perkList != null)
+        //{
+        //    ApplyPerk(perkList.GetPerk());
+        //}
 
 
         //createNewLevel = true;
@@ -515,6 +518,7 @@ public class GameManager : MonoBehaviour
                 else //All other players spawn like normal
                 {
                     Vector3 Spawn = SetupSpawning();
+                    Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                 }
             }
@@ -524,6 +528,7 @@ public class GameManager : MonoBehaviour
                 Vector3 Spawn = SetupSpawning();
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 yield return new WaitForSeconds(1f);
+                Debug.Log(Spawn);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
@@ -531,19 +536,20 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //This 
+    //This returns the vector3 to spawn the player at
     Vector3 SetupSpawning()
     {
         //Get Start Roomn from MapMaker
         MapMaker.RoomInfo StartRoom = Map.rooms[0];
         //Get roomsize
-        roomSize = new Vector2Int(StartRoom.upperRight.x - StartRoom.lowerLeft.x +2, StartRoom.upperRight.y - StartRoom.lowerLeft.y + 2);
+        Vector2Int roomSize = new Vector2Int(StartRoom.upperRight.x - StartRoom.lowerLeft.x +2, StartRoom.upperRight.y - StartRoom.lowerLeft.y + 2);
         //Get Random Coords in Room
         int randX = Random.Range((StartRoom.lowerLeft.x), (StartRoom.upperRight.x) + 1);
         int randY = Random.Range((StartRoom.lowerLeft.y), (StartRoom.upperRight.y) + 1);
         //Translate to world space
         Vector3Int randLocation = new Vector3Int(randX, randY, 0);
-        //worldLocation = Map.GetComponent<MapMaker>().tilemap.GetCellCenterWorld(randLocation);
+
+        Vector3 worldLocation = Map.GetComponent<MapMaker>().tilemaps[0].GetCellCenterWorld(randLocation);
         return worldLocation;
     }
     #endregion

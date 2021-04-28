@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 3248170336281437018, guid: a2ad0efb54d0ef94b8db4e6e5d29547b, type: 3}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: generateMapOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: spawnAI.Array.data[14].spawns.Array.data[1].spawnAI

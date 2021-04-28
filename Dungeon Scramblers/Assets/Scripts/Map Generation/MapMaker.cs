@@ -140,7 +140,8 @@ public class MapMaker : MonoBehaviour
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
-            StartCoroutine(GenerateMap(true));
+            //StartCoroutine(GenerateMap(true));
+            GenerateMap(true);
         }
         //GenerateMap();
     }
@@ -148,7 +149,8 @@ public class MapMaker : MonoBehaviour
     #region generation functions
 
     //generates a dungeon map, assumes the tilemap is currently empty
-    public IEnumerator GenerateMap(bool isFirstMap = true)
+   // public IEnumerator GenerateMap(bool isFirstMap = true)
+   public void GenerateMap(bool isFirstMap = true)
     {
         firstMap = isFirstMap;
         mapFinished = false;
@@ -182,7 +184,7 @@ public class MapMaker : MonoBehaviour
             foreach (DoorInfo door in doorList)
             {
                 newDoors.AddRange(GenerateRoom(door));
-                yield return new WaitForSeconds(waitTime);
+                //yield return new WaitForSeconds(waitTime);
             }
             doorList.Clear();
             //generate new corridors from the doors in newDoors and and add their doors to doorList if doors exist
@@ -199,7 +201,7 @@ public class MapMaker : MonoBehaviour
                     foreach (DoorInfo door in newDoors)
                     {
                         doorList.AddRange(GenerateCorridor(door));
-                        yield return new WaitForSeconds(waitTime);
+                        //yield return new WaitForSeconds(waitTime);
                     }
                 }
                 //if the iterations are about to end, remove all extraneous doors
@@ -225,7 +227,7 @@ public class MapMaker : MonoBehaviour
         foreach (RoomInfo room in rooms)
         {
             FillRoom(room, floorTile);
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForSeconds(waitTime);
         }
 
         //Add shading and decoration to corridors
@@ -233,7 +235,7 @@ public class MapMaker : MonoBehaviour
         {
             AddWallShading(corridor);
             Decorate(corridor);
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForSeconds(waitTime);
         }
 
         int attempts = 0;
@@ -262,7 +264,7 @@ public class MapMaker : MonoBehaviour
 
 
             //pick exit room and wall for the exitDoor
-            RoomInfo exitRoom = rooms[Random.Range(rooms.Count - finalRooms, rooms.Count)];
+            RoomInfo exitRoom = rooms[Random.Range(Mathf.Max(0,rooms.Count - finalRooms), rooms.Count)];
             Facing facing = (Facing)Random.Range(1, 4);
             
 
@@ -435,14 +437,14 @@ public class MapMaker : MonoBehaviour
             {
                 SpawnAIClusters(room);
             }
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForSeconds(waitTime);
         }
 
         //Add shadows to corridors
         foreach (CorridorInfo corridor in corridors)
         {
             AddWallShadows(corridor);
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForSeconds(waitTime);
         }
 
         //Add shadows and decoration to rooms
@@ -450,7 +452,7 @@ public class MapMaker : MonoBehaviour
         {
             AddWallShadows(room);
             Decorate(room);
-            yield return new WaitForSeconds(waitTime);
+            //yield return new WaitForSeconds(waitTime);
         }
 
         //Decorate all corridors
@@ -465,7 +467,7 @@ public class MapMaker : MonoBehaviour
 
         tilemaps[1].RefreshAllTiles();
 
-        yield return null;
+        //yield return null;
     }
 
     //generates a room with an entering door at doorposition towards doorDirection

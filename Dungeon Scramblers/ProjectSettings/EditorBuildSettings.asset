@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MultiplayerGameTest.unity
     guid: a11fbe8a18bd41e41aba876341fcf627
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Individual Test Scenes/Hanson/HansonMultiplayerGameTest.unity
     guid: b471e503f1882c14f8b9c6213e9668e7
   - enabled: 0
