@@ -25,14 +25,14 @@ public class CameraController : MonoBehaviour
     private void PanCamera()
     {
         //Save pos in worldspace on first click
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
             Origin = cam.ScreenToWorldPoint(Input.mousePosition);
             //Debug.Log("Origin: " + Origin);
         }
 
         //Get distance from previous point to current if button held down
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             difference = Origin- cam.ScreenToWorldPoint(Input.mousePosition);
             //Debug.Log("Difference: " + difference);

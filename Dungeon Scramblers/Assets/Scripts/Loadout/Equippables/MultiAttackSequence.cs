@@ -13,7 +13,7 @@ public class MultiAttackSequence : DefaultAttackSequence
         {
             photonView.RPC("AttackSequence", RpcTarget.Others);
         }
-        Unit.SetAllowedToAttack(false);
+        Unit.SetAllowedToAttack(false); //Line bugged in Network
 
         Attacked = true;
 

@@ -428,7 +428,6 @@ public class GameManager : MonoBehaviour
         //    ApplyPerk(perkList.GetPerk());
         //}
 
-
         //createNewLevel = true;
         ready = true;
 
@@ -663,9 +662,8 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Overlord Setup
-    IEnumerator OverLordSetUp(GameObject PlayerGO)
+    void OverLordSetUp(GameObject PlayerGO)
     {
-        yield return new WaitForSeconds(30f);
         PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOn();
     }
     #endregion

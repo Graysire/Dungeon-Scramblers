@@ -8,7 +8,8 @@ public class Hover : MonoBehaviour
     // Making this class a singleton will allow all obstacles to call on the activate function and replace their
     // sprite into the hover instance while the mopuse is down
     private static Hover HoverInstance;
-
+    [SerializeField]
+    private Camera OverlordCam;
     private GameObject EnemyInstance;
     private SpriteRenderer obstacle;
 
@@ -34,7 +35,7 @@ public class Hover : MonoBehaviour
     {
         if(obstacle.enabled)
         {
-            Vector3 MouseWorldCoord = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 MouseWorldCoord = OverlordCam.ScreenToWorldPoint(Input.mousePosition);
             transform.position = new Vector3(MouseWorldCoord.x, MouseWorldCoord.y, -10);
         }
     }
@@ -62,7 +63,7 @@ public class Hover : MonoBehaviour
 
             //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             //Debug.Log(Input.mousePosition);
-            PathNode node = Pathfinder.WorldToNode(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+            PathNode node = Pathfinder.WorldToNode(OverlordCam.ScreenToWorldPoint(Input.mousePosition));
             Debug.Log(node);
 
             if (node != null && !node.isObstructed)
