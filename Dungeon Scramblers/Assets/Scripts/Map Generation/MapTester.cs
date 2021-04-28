@@ -62,7 +62,7 @@ public class MapTester : MonoBehaviour
             Debug.Log("Testing Seed: " + i);
             mapper.ClearMap();
             Random.InitState(i);
-            mapper.StartCoroutine(mapper.GenerateMap(false));
+            //mapper.StartCoroutine(mapper.GenerateMap(false));
             yield return new WaitUntil(mapper.IsMapFinished);
             yield return new WaitForSeconds(waitTimeBetweenMaps);
         }
