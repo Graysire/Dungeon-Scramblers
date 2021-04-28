@@ -116,7 +116,11 @@ public class GameManager : MonoBehaviour
             //Debug.Log("Seed: " + s);
         }
 
-        
+        //If we aren't the master Client, give us the seed
+        if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+        {
+            Random.state = s;
+        }
     }
 
     //NOTE: This will not work if put in Awake() , must be in Start()
@@ -124,13 +128,13 @@ public class GameManager : MonoBehaviour
     {
         //Info for Palyer Spawning
         //Get Party Leader Seed for Map Generation
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        {
-            //Save seed of MasterClient
-            s = Random.state;
-            //Add Seed to hash table to save for later
-            //Debug.Log("Seed: " + s);
-        }
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    //Save seed of MasterClient
+        //    s = Random.state;
+        //    //Add Seed to hash table to save for later
+        //    //Debug.Log("Seed: " + s);
+        //}
 
         //Map.GetComponent<MapMaker>().GenerateMap(false);
         if (perkListPrefab)
@@ -478,11 +482,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            //If we aren't the master Client, give us the seed
-            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-            {
-                Random.state = s;
-            }
 
             //Player Spawning
             object PlayerSelectionNumber;
