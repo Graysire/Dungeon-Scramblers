@@ -27,6 +27,7 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
     private AudioSource bgmSource;
     private AudioSource sndbgmSource;
     private AudioSource sfxSource;
+    [SerializeField] AudioClip menuBGM;
 
     // Checkers
     private bool firstBGMIsPlaying = false;
@@ -37,11 +38,16 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         InitAudioSource(bgmSource, true);
         InitAudioSource(sndbgmSource, true);
         InitAudioSource(sfxSource, false);
+        PlayBGM(menuBGM);
     }
 
     // BGM
     public void PlayBGM(AudioClip musicClip) {
         AudioSource activeSource = (firstBGMIsPlaying) ? bgmSource : sndbgmSource;
+        if (activeSource == null)
+            Debug.Log("Assigning of audio source gone wrong! " + firstBGMIsPlaying);
+        if (bgmSource == null)
+            Debug.Log("BGM Source died");
         activeSource.clip = musicClip;
         activeSource.volume = 1;
         activeSource.Play();
