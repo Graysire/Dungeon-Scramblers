@@ -22,6 +22,8 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
     [SerializeField]
     protected bool disarmed = false;
 
+    
+
     public void SetDisarmed(bool b)
     {
         Debug.Log("Disarm set to " + b);

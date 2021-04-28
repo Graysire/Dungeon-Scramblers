@@ -443,4 +443,22 @@ public class AI : AbstractPlayer
 
         }
     }
+
+    public override void Damage(int damageTaken)
+    {
+        Debug.Log("Call HitIndicator");
+        StartCoroutine("HitIndicator");
+        base.Damage(damageTaken);
+    }
+
+    public IEnumerator HitIndicator()
+    {
+        currentSprite.color = new Color(currentSprite.color.r, currentSprite.color.g, currentSprite.color.b, .5f);
+        Debug.Log("Changed opacity");
+
+        yield return new WaitForSeconds(0.2f);
+
+        currentSprite.color = new Color(currentSprite.color.r, currentSprite.color.g, currentSprite.color.b, 1f);
+        Debug.Log("Changed back to normal");
+    }
 }
