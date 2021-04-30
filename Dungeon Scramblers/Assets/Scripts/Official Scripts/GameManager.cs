@@ -130,19 +130,21 @@ public class GameManager : MonoBehaviour
     {
         //Info for Palyer Spawning
         //Get Party Leader Seed for Map Generation
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-                {
-            int seed = Random.Range(int.MinValue, int.MaxValue);
-            Random.InitState(seed);
-            Debug.Log(seed);
-            //Save seed of MasterClient
-            s = Random.state;
-            this.seed = seed;
-            //Add Seed to hash table to save for later
-            //Debug.Log("Seed: " + s);
-                    //Add Seed to hash table to save for later
-                    Debug.Log("Master Seed: " + seed);
-                }
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //        {
+        //    int seed = Random.Range(int.MinValue, int.MaxValue);
+        //    Random.InitState(seed);
+        //    Debug.Log(seed);
+
+        //    //Save seed of MasterClient
+        //    s = Random.state;
+        //    this.seed = seed;
+        //    //Add Seed to hash table to save for later
+        //    //Debug.Log("Seed: " + s);
+        //            //Add Seed to hash table to save for later
+        //            Debug.Log("Master Seed: " + seed);
+
+        //        }
 
         //Map.GetComponent<MapMaker>().GenerateMap(false);
         if (perkListPrefab)
@@ -505,12 +507,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            //If we aren't the master Client, give us the seed
-            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-            {
-                Random.state = s;
-                Debug.Log("Seed for NonMaster Clinet: " + seed);
-            }
+            ////If we aren't the master Client, give us the seed
+            //if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            //{
+            //    Random.state = s;
+            //    Random.InitState(seed);
+            //    Debug.Log("Seed for NonMaster Clinet: " + seed);
+            //}
             StartCoroutine(Map.GenerateMap(true));
 
             //Player Spawning

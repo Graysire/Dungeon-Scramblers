@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -52,7 +52,10 @@ public class PhysicalVotingSystem : MonoBehaviour
         }
 
         Debug.Log("Result: " + resultButton);
-        GameManager.ManagerInstance.ApplyPerk(resultButton.getPerk());
+        if (resultButton != null)
+        {
+            GameManager.ManagerInstance.ApplyPerk(resultButton.getPerk());
+        }
 
 
         foreach (VoteButton button in Buttons)

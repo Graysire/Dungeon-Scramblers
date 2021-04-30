@@ -10,6 +10,7 @@ using ExitGames.Client.Photon;
 public class NetworkManager : MonoBehaviourPunCallbacks
 {
 
+
     [Header("Player Data")]
     public GameObject PlayerDataGO;
     public GameObject SingletonPrefab;
@@ -193,6 +194,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks
             Debug.Log("Trying to load new Scene");
             //Use Photon to load new Scene
             AudioManager.Instance.PlayBGMWithFade(dungeonBGM, 4f);
+
+            //Set Everyone's seed
+            PhotonView Pview = this.gameObject.GetPhotonView();
+            Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
             PhotonNetwork.LoadLevel("MultiplayerGameTest");
 
             //Add Loading Screen Here
@@ -275,6 +280,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks
     //Callback function for Debug.Log when Joining Room
     public override void OnJoinedRoom()
     {
+        //Get Map Seed
+        //if(PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    SetSeed();
+        //}
         //Debug.Log for testing
         Debug.Log(PhotonNetwork.LocalPlayer.NickName + " joined to " + PhotonNetwork.CurrentRoom.Name);
 
@@ -322,6 +332,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         
     }
 
+    //Function to set seed from Master Client
+    public int SetSeed()
+    {
+        int seed = Random.Range(int.MinValue, int.MaxValue);
+        Random.InitState(seed);
+
+        Debug.Log("Master Seed: " + seed);
+        return seed;
+    }
+
+    [PunRPC]
+    public void GetSeed(int seed)
+    {
+        Random.InitState(seed);
+        Debug.Log("Client Seed: " + seed);
+    }
     
     //this functoin updates the Player Ready icons
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
