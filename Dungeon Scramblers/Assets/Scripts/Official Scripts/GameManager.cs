@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -189,11 +189,11 @@ public class GameManager : MonoBehaviour
 
                 currentRound++; //increment current round number
 
-                //createNewLevel = true; //creates a new level to play on
+                createNewLevel = true; //creates a new level to play on
 
                 escapedScramblers = 0;  //reset number of escaped scramblers
 
-               // Map.ClearMap(); //Clear the current map
+                Map.ClearMap(); //Clear the current map
 
                 SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
             }
