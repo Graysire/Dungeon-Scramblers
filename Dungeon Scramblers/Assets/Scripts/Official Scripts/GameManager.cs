@@ -184,21 +184,21 @@ public class GameManager : MonoBehaviour
             }
 
             //If all remaining Scramblers escaped then Match completed
-            if (escapedScramblers == (Scramblers.Length - deadScramblers))
-            {
-                Debug.Log("GM: ROUND COMPLETED");
-                timer.DisableTimer(false, false); //forces timer to end
+            //if (escapedScramblers == (Scramblers.Length - deadScramblers))
+            //{
+            //    Debug.Log("GM: ROUND COMPLETED");
+            //    timer.DisableTimer(false, false); //forces timer to end
 
-                currentRound++; //increment current round number
+            //    currentRound++; //increment current round number
 
-                createNewLevel = true; //creates a new level to play on
+            //    createNewLevel = true; //creates a new level to play on
 
-                escapedScramblers = 0;  //reset number of escaped scramblers
+            //    escapedScramblers = 0;  //reset number of escaped scramblers
 
-                Map.ClearMap(); //Clear the current map
+            //    Map.ClearMap(); //Clear the current map
 
-                SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
-            }
+            //    SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
+            //}
         }
     }
 
