@@ -280,6 +280,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 555166287, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 2.0920048
+      objectReference: {fileID: 0}
     - target: {fileID: 705377145, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -336,6 +340,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kris MenuPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1213111996245787926, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460216685350736847, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5875211509080050722, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -8810
@@ -383,6 +395,14 @@ PrefabInstance:
     - target: {fileID: 7449351375212429830, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -42.999878
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715885337090787534, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9146741313780928257, guid: 7f3d313c0441650479603ba280fab93c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7f3d313c0441650479603ba280fab93c, type: 3}

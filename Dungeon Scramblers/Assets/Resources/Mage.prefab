@@ -1135,7 +1135,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680769434369854
@@ -1585,7 +1585,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680769881104790
@@ -1944,7 +1944,7 @@ SpriteRenderer:
   m_Size: {x: 2.5516872, y: 3.5119996}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680770027572293
@@ -3238,6 +3238,7 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   isDead: 0
+  playerScale: 0
   AnimatorList:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
@@ -3335,6 +3336,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8043284019362041551}
+  RegCam: {fileID: 0}
+  Listener: {fileID: 0}
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0
