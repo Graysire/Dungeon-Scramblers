@@ -1554,7 +1554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: rooms.Array.data[0].lowerLeft.x
-      value: -3
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: rooms.Array.data[0].lowerLeft.y
@@ -1570,7 +1570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: overlordRoom.lowerLeft.x
-      value: 46
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 5586896465214652326, guid: bf024dd99b8afff42bcb200299ea5050, type: 3}
       propertyPath: overlordRoom.lowerLeft.y

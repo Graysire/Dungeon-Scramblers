@@ -150,6 +150,14 @@ public class MapMaker : MonoBehaviour
         //GenerateMap();
     }
 
+    //private void Update()
+    //{
+    //    if (Input.anyKeyDown)
+    //    {
+    //        Debug.Log(tilemaps[0].WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+    //    }
+    //}
+
     #region generation functions
 
     //generates a dungeon map, assumes the tilemap is currently empty

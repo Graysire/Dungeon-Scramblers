@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -164,6 +165,7 @@ public class GameManager : MonoBehaviour
                 {
                     currentRound++;
                     GenerateOverlordLevel();    //Generate the overlord level
+
                 }
                 //Generate new round
                 else
@@ -198,6 +200,14 @@ public class GameManager : MonoBehaviour
                 SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
             }
         }
+    }
+
+    //after the level has finishedloading place the scramblers and overlord in their positions
+    void finishLevelLoading(Scene scene, LoadSceneMode mode)
+    {
+        Map = FindObjectOfType<MapMaker>();
+        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
+        SceneManager.sceneLoaded -= finishLevelLoading;
     }
 
     private void SetAllAliveScramblersActive()
@@ -242,10 +252,11 @@ public class GameManager : MonoBehaviour
     // Loads Overlord room
     void GenerateOverlordLevel()
     {
+        SceneManager.sceneLoaded += finishLevelLoading;
+
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
-        Map = FindObjectOfType<MapMaker>();
-        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
+
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 
@@ -314,7 +325,11 @@ public class GameManager : MonoBehaviour
             Vector3 newPos = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(scramblerRoom.lowerLeft.x, scramblerRoom.upperRight.x), Random.Range(scramblerRoom.lowerLeft.y, scramblerRoom.upperRight.y), 0));
             p.position = newPos;
         }
-        Overlord.transform.position = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(overlordRoom.lowerLeft.x, overlordRoom.upperRight.x), Random.Range(overlordRoom.lowerLeft.y, overlordRoom.upperRight.y), 0));
+        if (Overlord != null)
+        {
+            Overlord.transform.position = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(overlordRoom.lowerLeft.x, overlordRoom.upperRight.x), Random.Range(overlordRoom.lowerLeft.y, overlordRoom.upperRight.y), 0));
+
+        }
     }
 
     public void IncrementEscapedScramblers()
