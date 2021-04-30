@@ -31,13 +31,13 @@ public class PhysicalVotingSystem : MonoBehaviour
 
         foreach (VoteButton button in Buttons)
         {
-            if (button.getVote() > resultButton.getVote())
+            if (button && button.getVote() > resultButton.getVote())
             {
                 resultButton = button;
                 bEqual = false;
 
             }
-            else if (resultButton.getVote() == button.getVote())
+            else if (button && resultButton.getVote() == button.getVote())
             {
                 bEqual = true;
 
@@ -60,7 +60,10 @@ public class PhysicalVotingSystem : MonoBehaviour
 
         foreach (VoteButton button in Buttons)
         {
-            Destroy(button.gameObject);
+            if (button)
+            {
+                Destroy(button.gameObject);
+            }
         }
     }
 
