@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
         Map = FindObjectOfType<MapMaker>();
-        SetPlayerLocations(Map.rooms[0]);
+        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 
@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
         else
             StartCoroutine(Map.GenerateMap(false));
             //Map.GenerateMap(false);
-        SetPlayerLocations(Map.rooms[0]);
+        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
     }
 
     //Game Over State
@@ -306,13 +306,14 @@ public class GameManager : MonoBehaviour
     }
 
     //Teleports the scramblers and overlords to their respective starting rooms
-    public void SetPlayerLocations(MapMaker.RoomInfo room)
+    public void SetPlayerLocations(MapMaker.RoomInfo scramblerRoom, MapMaker.RoomInfo overlordRoom)
     {
         foreach (Transform p in PlayerTransforms)
         {
-            Vector3 newPos = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(room.lowerLeft.x, room.upperRight.x), Random.Range(room.lowerLeft.y, room.upperRight.y), 0));
+            Vector3 newPos = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(scramblerRoom.lowerLeft.x, scramblerRoom.upperRight.x), Random.Range(scramblerRoom.lowerLeft.y, scramblerRoom.upperRight.y), 0));
             p.position = newPos;
         }
+        Overlord.transform.position = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(overlordRoom.lowerLeft.x, overlordRoom.upperRight.x), Random.Range(overlordRoom.lowerLeft.y, overlordRoom.upperRight.y), 0));
     }
 
     public void IncrementEscapedScramblers()

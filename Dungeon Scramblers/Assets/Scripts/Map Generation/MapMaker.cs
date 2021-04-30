@@ -109,9 +109,13 @@ public class MapMaker : MonoBehaviour
     
 
     //list of all rooms created
+    [SerializeField]
     public List<RoomInfo> rooms;
     //list of all corridors created
     public List<CorridorInfo> corridors;
+
+    //theroom the overlord should spawn in
+    public RoomInfo overlordRoom;
 
     //the number of perks to spawn
     [SerializeField]
@@ -140,8 +144,8 @@ public class MapMaker : MonoBehaviour
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
-            //StartCoroutine(GenerateMap(true));
-            GenerateMap(true);
+            StartCoroutine(GenerateMap(true));
+            //GenerateMap(true);
         }
         //GenerateMap();
     }
@@ -420,6 +424,7 @@ public class MapMaker : MonoBehaviour
 
                         break;
                 }
+                overlordRoom = exitRoom;
                 break;
             }
         }
@@ -1555,6 +1560,7 @@ public class MapMaker : MonoBehaviour
     }
 
     //the location of a room's floor corners
+    [System.Serializable]
     public struct RoomInfo
     {
         //the position of the lower left floor corner on the tilemap
