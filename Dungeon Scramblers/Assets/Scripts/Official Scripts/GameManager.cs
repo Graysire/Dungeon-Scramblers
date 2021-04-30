@@ -181,8 +181,9 @@ public class GameManager : MonoBehaviour
             // match time over or all scramblers dead then game over
             if (outOfTime || Scramblers.Length == deadScramblers)
             {
-                //GameOver(false); //Set Game Overstate which transfers to main menu
-                DestroyEverything(); //Destroys all Game Objects from Match and the Gmae manager
+                
+                DestroyEverything(); //Destroys all Game Objects from Match and the Game manager
+                GameOver(false); //Set Game Overstate which transfers to main menu
             }
 
             //If all remaining Scramblers escaped then Match completed
