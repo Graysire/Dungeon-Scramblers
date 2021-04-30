@@ -136,11 +136,27 @@ public class MapMaker : MonoBehaviour
             totalClusterFrequency += cluster.frequency;
         }
     }
-
+    //[PunRPC]
+    //public void SetSeed(int seed)
+    //{
+    //    Debug.Log("Received Seed: " + seed);
+    //    Random.InitState(seed);
+    //}
     // Start is called before the first frame update
     void Start()
     {
+        //if (PhotonNetwork.CurrentRoom != null && PhotonNetwork.LocalPlayer.IsMasterClient)
+        //{
+        //    int seed = Random.Range(int.MinValue, int.MaxValue);
+        //    Random.InitState(seed);
+        //    Debug.Log(seed);
 
+        //    //Save seed of MasterClient
+        //    //s = Random.state;
+        //    PhotonView Pview = this.gameObject.GetPhotonView();
+        //    Pview.RPC("SetSeed", RpcTarget.OthersBuffered, seed);
+        //    Debug.Log("Master Seed: " + seed);
+        //}
         //tilemap.SetTile(new Vector3Int(0, 0, 0), doorTile);
         if (generateMapOnStart)
         {
@@ -149,6 +165,14 @@ public class MapMaker : MonoBehaviour
         }
         //GenerateMap();
     }
+
+    //private void Update()
+    //{
+    //    if (Input.anyKeyDown)
+    //    {
+    //        Debug.Log(tilemaps[0].WorldToCell(Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+    //    }
+    //}
 
     #region generation functions
 

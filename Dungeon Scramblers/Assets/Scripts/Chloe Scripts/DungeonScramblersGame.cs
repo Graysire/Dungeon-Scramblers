@@ -10,5 +10,5 @@ public class DungeonScramblersGame
     public const string PLAYER_SELECTION_NUMBER = "Player_Selection_Number"; //Int value of player we want
     public const string PLAYER_LOADOUT = "Player_Loadout"; //Int value for loadout bitflags
     public const string PLAYER_OVERLORD = "isPlayerOverlord"; //bool returning player Overlord status ( For Overlord Pregame)
-
+    public const string MASTER_SEED = "PlayerSeed"; //Int Value for seed
 }

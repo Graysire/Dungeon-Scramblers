@@ -1,8 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -129,19 +130,21 @@ public class GameManager : MonoBehaviour
     {
         //Info for Palyer Spawning
         //Get Party Leader Seed for Map Generation
-        if (PhotonNetwork.LocalPlayer.IsMasterClient)
-                {
-            int seed = Random.Range(int.MinValue, int.MaxValue);
-            Random.InitState(seed);
-            Debug.Log(seed);
-            //Save seed of MasterClient
-            s = Random.state;
-            this.seed = seed;
-            //Add Seed to hash table to save for later
-            //Debug.Log("Seed: " + s);
-                    //Add Seed to hash table to save for later
-                    Debug.Log("Master Seed: " + seed);
-                }
+        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
+        //        {
+        //    int seed = Random.Range(int.MinValue, int.MaxValue);
+        //    Random.InitState(seed);
+        //    Debug.Log(seed);
+
+        //    //Save seed of MasterClient
+        //    s = Random.state;
+        //    this.seed = seed;
+        //    //Add Seed to hash table to save for later
+        //    //Debug.Log("Seed: " + s);
+        //            //Add Seed to hash table to save for later
+        //            Debug.Log("Master Seed: " + seed);
+
+        //        }
 
         //Map.GetComponent<MapMaker>().GenerateMap(false);
         if (perkListPrefab)
@@ -164,6 +167,7 @@ public class GameManager : MonoBehaviour
                 {
                     currentRound++;
                     GenerateOverlordLevel();    //Generate the overlord level
+
                 }
                 //Generate new round
                 else
@@ -182,22 +186,30 @@ public class GameManager : MonoBehaviour
             }
 
             //If all remaining Scramblers escaped then Match completed
-            if (escapedScramblers == (Scramblers.Length - deadScramblers))
-            {
-                Debug.Log("GM: ROUND COMPLETED");
-                timer.DisableTimer(false, false); //forces timer to end
+            //if (escapedScramblers == (Scramblers.Length - deadScramblers))
+            //{
+            //    Debug.Log("GM: ROUND COMPLETED");
+            //    timer.DisableTimer(false, false); //forces timer to end
 
-                currentRound++; //increment current round number
+            //    currentRound++; //increment current round number
 
-                //createNewLevel = true; //creates a new level to play on
+            //    createNewLevel = true; //creates a new level to play on
 
-                escapedScramblers = 0;  //reset number of escaped scramblers
+            //    escapedScramblers = 0;  //reset number of escaped scramblers
 
-               // Map.ClearMap(); //Clear the current map
+            //    Map.ClearMap(); //Clear the current map
 
-                SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
-            }
+            //    SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
+            //}
         }
+    }
+
+    //after the level has finishedloading place the scramblers and overlord in their positions
+    void finishLevelLoading(Scene scene, LoadSceneMode mode)
+    {
+        Map = FindObjectOfType<MapMaker>();
+        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
+        SceneManager.sceneLoaded -= finishLevelLoading;
     }
 
     private void SetAllAliveScramblersActive()
@@ -226,6 +238,7 @@ public class GameManager : MonoBehaviour
     //Will start match timer and open doors
     public void BeginMatchTimer()
     {
+        votingSystem.HandleResult();
         timer.InitializeAndStartTimer(matchTimeInSeconds, true);
         // TODO:
         //  -Unlock doors to rest of level
@@ -241,10 +254,11 @@ public class GameManager : MonoBehaviour
     // Loads Overlord room
     void GenerateOverlordLevel()
     {
+        SceneManager.sceneLoaded += finishLevelLoading;
+
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
-        Map = FindObjectOfType<MapMaker>();
-        SetPlayerLocations(Map.rooms[0], Map.overlordRoom);
+
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
     }
 
@@ -313,7 +327,11 @@ public class GameManager : MonoBehaviour
             Vector3 newPos = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(scramblerRoom.lowerLeft.x, scramblerRoom.upperRight.x), Random.Range(scramblerRoom.lowerLeft.y, scramblerRoom.upperRight.y), 0));
             p.position = newPos;
         }
-        Overlord.transform.position = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(overlordRoom.lowerLeft.x, overlordRoom.upperRight.x), Random.Range(overlordRoom.lowerLeft.y, overlordRoom.upperRight.y), 0));
+        if (Overlord != null)
+        {
+            Overlord.transform.position = Map.tilemaps[0].CellToWorld(new Vector3Int(Random.Range(overlordRoom.lowerLeft.x, overlordRoom.upperRight.x), Random.Range(overlordRoom.lowerLeft.y, overlordRoom.upperRight.y), 0));
+
+        }
     }
 
     public void IncrementEscapedScramblers()
@@ -489,12 +507,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            //If we aren't the master Client, give us the seed
-            if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-            {
-                Random.state = s;
-                Debug.Log("Seed for NonMaster Clinet: " + seed);
-            }
+            ////If we aren't the master Client, give us the seed
+            //if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            //{
+            //    Random.state = s;
+            //    Random.InitState(seed);
+            //    Debug.Log("Seed for NonMaster Clinet: " + seed);
+            //}
             StartCoroutine(Map.GenerateMap(true));
 
             //Player Spawning

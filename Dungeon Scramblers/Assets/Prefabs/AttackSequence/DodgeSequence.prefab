@@ -54,5 +54,5 @@ MonoBehaviour:
   ChangePlayerColorOnCast: 0
   PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
   SelfAffectingAbility: 0
-  chargingDuration: 0.04
-  launchingForce: 1000
+  chargingDuration: 0.15
+  launchingForce: 400

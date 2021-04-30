@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Photon.Pun;
 
 public class Hover : MonoBehaviour
 {
@@ -68,7 +69,7 @@ public class Hover : MonoBehaviour
 
             if (node != null && !node.isObstructed)
             {
-                GameObject.Instantiate(EnemyInstance, new Vector3(node.posX , node.posY), Quaternion.identity);
+                PhotonNetwork.Instantiate(EnemyInstance.name, new Vector3(node.posX , node.posY), Quaternion.identity);
                 
             }
             else
