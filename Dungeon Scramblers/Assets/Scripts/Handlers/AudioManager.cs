@@ -6,6 +6,8 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
 { // (reference: https://youtu.be/tLyj02T51Oc)
          // To use this, please make sure that the AudioManager is in your scene and call the methods here using
          // i.e. AudioManager.Instance.PlaySFX(AudioSource, volume);
+    
+   
     private static AudioManager instance; //  Singleton
     public static AudioManager Instance {
         get {
@@ -24,13 +26,19 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
     }
 
     // Fields for AudioSource objects in the scene
-    private AudioSource bgmSource;
-    private AudioSource sndbgmSource;
-    private AudioSource sfxSource;
+    private static AudioSource bgmSource;
+    private static AudioSource sndbgmSource;
+    private static  AudioSource sfxSource;
     [SerializeField] AudioClip menuBGM;
-
     // Checkers
     private bool firstBGMIsPlaying = false;
+    public static float bgmVolume{ get; set; }
+    public static float sfxVolume { get; set; }
+    private float prevBgmVolume = bgmVolume;
+    private float currentBgmRequestedVol = 1.0f;
+    private float prevSfxVolume = sfxVolume;
+    private float currentSfxRequestedVol = 1.0f;
+
 
     private void Awake()
     {
@@ -38,18 +46,47 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         InitAudioSource(ref bgmSource, true);
         InitAudioSource(ref sndbgmSource, true);
         InitAudioSource(ref sfxSource, false);
-        PlayBGM(menuBGM, 0.5f);
+        // TEMPORARY HARD CODE, WILL WANT TO LOAD IT IN FROM THE SAVE FILE IN THE FUTURE
+        bgmVolume = 0.8f;
+        sfxVolume = 0.8f;
+        PlayBGM(menuBGM, 1.0f);
+    }
+
+    private void OnEnable()
+    {
+        UpdateHandler.UpdateOccurred += CheckForChange;
+    }
+
+    private void OnDisable()
+    {
+        UpdateHandler.UpdateOccurred -= CheckForChange;
+    }
+
+    private void CheckForChange() {
+        if (prevBgmVolume != bgmVolume) {
+            prevBgmVolume = bgmVolume;
+            AudioSource activeSource = (firstBGMIsPlaying) ? bgmSource : sndbgmSource;
+            activeSource.volume = bgmVolume * currentBgmRequestedVol;
+            // HAVE THE SAVE FILE SAVE CHANGES TO THE VOLUME WHEN THIS IS CHANGED
+        }
+        if (prevSfxVolume != sfxVolume)
+        {
+            prevSfxVolume = sfxVolume;
+            sfxSource.volume = sfxVolume * currentSfxRequestedVol;
+            // HAVE THE SAVE FILE SAVE CHANGES TO THE VOLUME WHEN THIS IS CHANGED
+        }
     }
 
     // BGM
     public void PlayBGM(AudioClip musicClip, float vol = 1.0f) {
         AudioSource activeSource = (firstBGMIsPlaying) ? bgmSource : sndbgmSource;
-        if (activeSource == null)
-            Debug.Log("Assigning of audio source gone wrong! " + firstBGMIsPlaying);
-        if (bgmSource == null)
-            Debug.Log("BGM Source died");
+        if (vol > 1)
+            vol = 1.0f;
+        else if (vol < 0)
+            vol = 0f;
+        currentBgmRequestedVol = vol;
         activeSource.clip = musicClip;
-        activeSource.volume = vol;
+        activeSource.volume = bgmVolume*vol;
         activeSource.Play();
     }
     public void PlayBGMWithFade(AudioClip newClip, float transitionTime = 1.0f) {
@@ -61,14 +98,14 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
             activeSource.Play();
 
         for (float t = 0.0f; t < transitionTime; t += Time.deltaTime) {
-            activeSource.volume = (1 - (t / transitionTime));
+            activeSource.volume = (bgmVolume - ((t / transitionTime)*bgmVolume));
             yield return null;
         }
         activeSource.Stop();
         activeSource.clip = newClip;
         activeSource.Play();
         for (float t = 0.0f; t < transitionTime; t += Time.deltaTime) {
-            activeSource.volume = (t / transitionTime);
+            activeSource.volume = ((t / transitionTime)*bgmVolume);
         }
     }
     public void PlayBGMWithCrossFade(AudioClip newClip, float transitionTime = 1.0f) {
@@ -82,8 +119,8 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
     }
     private IEnumerator UpdateMusicWithCrossFade(AudioSource activeSource, AudioSource newSource, float transitiontime) {
         for (float t = 0.0f; t <= transitiontime; t += Time.deltaTime) {
-            activeSource.volume = (1 - (t / transitiontime));
-            newSource.volume = (t / transitiontime);
+            activeSource.volume = (bgmVolume - ((t / transitiontime)*bgmVolume));
+            newSource.volume = ((t / transitiontime)*bgmVolume);
             yield return null;
         }
         activeSource.Stop();
@@ -94,7 +131,8 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
             volume = 1.0f;
         else if (volume < 0)
             volume = 0f;
-        sfxSource.PlayOneShot(clip, volume);
+        currentSfxRequestedVol = volume;
+        sfxSource.PlayOneShot(clip, volume*sfxVolume);
     }
 
     private void InitAudioSource(ref AudioSource ini, bool isBGM) {
@@ -102,5 +140,4 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         if (isBGM)
             ini.loop = true;
     }
-
 }
