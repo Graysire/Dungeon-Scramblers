@@ -226,6 +226,7 @@ public class GameManager : MonoBehaviour
     //Will start match timer and open doors
     public void BeginMatchTimer()
     {
+        votingSystem.HandleResult();
         timer.InitializeAndStartTimer(matchTimeInSeconds, true);
         // TODO:
         //  -Unlock doors to rest of level

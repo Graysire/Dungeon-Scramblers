@@ -161,7 +161,7 @@ MonoBehaviour:
   DecayTime: 5
   MoveSpeed: 0
   CastingTime: 0
-  CoolDown: 0.5
+  CoolDown: 1
   OffsetScale: 1
   maxTargetsHit: 0
   StatusEffects: []
