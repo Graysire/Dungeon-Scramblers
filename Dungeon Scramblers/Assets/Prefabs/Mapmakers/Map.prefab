@@ -619,8 +619,14 @@ MonoBehaviour:
       minSpawned: 2
       maxSpawned: 4
     frequency: 4
+  rooms: []
+  overlordRoom:
+    lowerLeft: {x: 0, y: 0, z: 0}
+    upperRight: {x: 0, y: 0, z: 0}
   numPerks: 3
   perkObject: {fileID: 4914252603004797688, guid: ce90ddaf6c1a02047b87b5997018503e, type: 3}
+  blockerObject: {fileID: 6816402206383953229, guid: ba461714e8c1a5443a598299e525a432, type: 3}
+  blockerList: []
 --- !u!114 &2455355680114784911
 MonoBehaviour:
   m_ObjectHideFlags: 0

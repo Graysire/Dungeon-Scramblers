@@ -124,6 +124,14 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     GameObject perkObject;
 
+    [SerializeField]
+    //object to be spawned to block the exits during voting
+    GameObject blockerObject;
+
+    [SerializeField]
+    //list of blocker objects
+    List<GameObject> blockerList;
+
     //whether or not this is the first map to be generated and thus whether perks must be spawned in the first room
     bool firstMap;
     //public static int cornerCount = 0;
@@ -483,6 +491,9 @@ public class MapMaker : MonoBehaviour
             Decorate(room);
             yield return new WaitForSeconds(waitTime);
         }
+
+        //Instantiate Blocker for setup time
+        blockerList.Add(Instantiate(blockerObject, tilemaps[0].GetCellCenterWorld(startDoor.position), new Quaternion()));
         
         mapFinished = true;
 
@@ -1545,6 +1556,12 @@ public class MapMaker : MonoBehaviour
     public bool IsMapFinished()
     {
         return mapFinished;
+    }
+
+    //returns the list of blocker objects
+    public List<GameObject> GetBlockers()
+    {
+        return blockerList;
     }
 
     //clears the map and pathfinder

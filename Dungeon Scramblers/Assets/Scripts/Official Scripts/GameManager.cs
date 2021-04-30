@@ -241,7 +241,10 @@ public class GameManager : MonoBehaviour
         votingSystem.HandleResult();
         timer.InitializeAndStartTimer(matchTimeInSeconds, true);
         // TODO:
-        //  -Unlock doors to rest of level
+        foreach (GameObject obj in Map.GetBlockers())
+        {
+            Destroy(obj);
+        }
         //  -Change Overlord to minilord mode
     }
 
