@@ -491,6 +491,7 @@ public class GameManager : MonoBehaviour
     // Sets game destory all persistent objects and the Game Manager itself
     void DestroyEverything()
     {
+        Debug.Log("Destroy Everything!");
         foreach (GameObject go in objectsToNotDestroyOnLoad)
         {
             Destroy(go);
@@ -535,10 +536,10 @@ public class GameManager : MonoBehaviour
                 if (SavedPlayerType == Categories.PlayerCategories.overlord)
                 {
                     //Debug.Log("Overlord Player selected");
-                    Vector3 Spawn = SetupSpawning();
+                    Vector3 Spawn = SetupSpawning(true);
                     GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
                     //Set Player Camera to Map view and turn off regular controls
-                    PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(), Quaternion.identity);
+                    PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
                     PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
                     PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
                     PlayerGO.GetComponent<Overlord>().enabled = false;
@@ -549,7 +550,7 @@ public class GameManager : MonoBehaviour
                 }
                 else //All other players spawn like normal
                 {
-                    Vector3 Spawn = SetupSpawning();
+                    Vector3 Spawn = SetupSpawning(false);
                     Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                 }
@@ -557,7 +558,7 @@ public class GameManager : MonoBehaviour
             else
             {
                 //Debug.Log("Default Player Spawning");
-                Vector3 Spawn = SetupSpawning();
+                Vector3 Spawn = SetupSpawning(false);
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
                 yield return new WaitForSeconds(1f);
                 Debug.Log(Spawn);
@@ -569,15 +570,30 @@ public class GameManager : MonoBehaviour
     }
 
     //This returns the vector3 to spawn the player at
-    Vector3 SetupSpawning()
+    Vector3 SetupSpawning(bool bIsOverlord)
     {
         //Get Start Roomn from MapMaker
         MapMaker.RoomInfo StartRoom = Map.rooms[0];
+
+        // Get Overlord Room
+        MapMaker.RoomInfo OverlordRoom = Map.overlordRoom;
+
+        // Set spawn room of the current player
+        MapMaker.RoomInfo SpawnRoom;
+        if (bIsOverlord)
+        {
+            SpawnRoom = OverlordRoom;
+        }
+        else
+        {
+            SpawnRoom = StartRoom;
+        }
+
         //Get roomsize
-        Vector2Int roomSize = new Vector2Int(StartRoom.upperRight.x - StartRoom.lowerLeft.x +2, StartRoom.upperRight.y - StartRoom.lowerLeft.y + 2);
+        Vector2Int roomSize = new Vector2Int(SpawnRoom.upperRight.x - SpawnRoom.lowerLeft.x +2, SpawnRoom.upperRight.y - SpawnRoom.lowerLeft.y + 2);
         //Get Random Coords in Room
-        int randX = Random.Range((StartRoom.lowerLeft.x), (StartRoom.upperRight.x) + 1);
-        int randY = Random.Range((StartRoom.lowerLeft.y), (StartRoom.upperRight.y) + 1);
+        int randX = Random.Range((SpawnRoom.lowerLeft.x), (SpawnRoom.upperRight.x) + 1);
+        int randY = Random.Range((SpawnRoom.lowerLeft.y), (SpawnRoom.upperRight.y) + 1);
         //Translate to world space
         Vector3Int randLocation = new Vector3Int(randX, randY, 0);
 
