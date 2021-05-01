@@ -16,7 +16,7 @@ public class Ability : Equippable
             if (child.CompareTag("Object Pooler"))
             {
                 AbilityPooler = child.GetComponent<ObjectPooler>();
-                Debug.Log("Found pooler");
+                //Debug.Log("Found pooler");
                 break;
             }
         }

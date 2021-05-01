@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -188,7 +188,7 @@ public class DefaultAttackSequence : Ability
         Unit = null;
     }
 
-    public virtual void Equip(AbstractPlayer player)
+    public virtual void Equip(AI player)
     {
         Unit = player;
     }

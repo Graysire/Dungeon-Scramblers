@@ -243,7 +243,7 @@ public class MapMaker : MonoBehaviour
                 //if the iterations are about to end, remove all extraneous doors
                 else
                 {
-                    Debug.Log("MaxIter");
+                    //Debug.Log("MaxIter");
                     foreach (DoorInfo door in newDoors)
                     {
                         tilemaps[1].SetTile(door.position, wallTile);
@@ -460,7 +460,7 @@ public class MapMaker : MonoBehaviour
                 break;
             }
         }
-        Debug.Log("Attempts: " + attempts);
+        //Debug.Log("Attempts: " + attempts);
         numAttemptsTotal += attempts;
 
 

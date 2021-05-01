@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -6,12 +6,12 @@ using Photon.Pun;
 public class MultiAttackSequence : DefaultAttackSequence
 {
 
-    [PunRPC]
+    //[PunRPC]
     protected override IEnumerator AttackSequence()
     {
         if (PhotonNetwork.CurrentRoom != null)
         {
-            photonView.RPC("AttackSequence", RpcTarget.Others);
+            //photonView.RPC("AttackSequence", RpcTarget.Others);
         }
         Unit.SetAllowedToAttack(false); //Line bugged in Network
 
