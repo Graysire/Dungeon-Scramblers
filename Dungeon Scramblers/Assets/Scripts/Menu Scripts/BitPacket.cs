@@ -14,5 +14,9 @@ public class BitPacket
     public int rogueInvBitsPacked = 0;
     [SerializeField]
     public int overlordInvBitsPacked = 0;
+    [SerializeField]
+    public float sfxValue = 0;
+    [SerializeField]
+    public float bgmValue = 0;
 
 }
