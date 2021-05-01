@@ -13,6 +13,8 @@ TagManager:
   - MiniLord
   - Cleared on New Map
   - Canvas
+  - BGMSlider
+  - SFXSlider
   layers:
   - Default
   - TransparentFX

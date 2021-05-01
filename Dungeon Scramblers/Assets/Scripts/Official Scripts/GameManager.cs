@@ -33,9 +33,12 @@ public class GameManager : MonoBehaviour
 
     // Players stats
     int deadScramblers = 0;
+
+    [SerializeField]
     Scrambler[] Scramblers; // = new Scrambler class array of 4;
     Transform[] PlayerTransforms;   //List of Scrambler positions for AI purposes
     List<Scrambler> DeadScramblers = new List<Scrambler>(); // list of alive Scramblers
+    [SerializeField]
     Overlord Overlord; // = new Overlord class;
 
 
@@ -66,7 +69,8 @@ public class GameManager : MonoBehaviour
     int escapedScramblers = 0;
     int currentRound = 1;   //The current round being played
     public MapMaker Map;
-    
+
+
     [Header("Player Spawning")]
     public GameObject[] PlayerPrefabs; //List of Playertypes to instantiate
     BitPacket bitPacket = new BitPacket(); // Bitpakcet info for reading player types
@@ -107,7 +111,7 @@ public class GameManager : MonoBehaviour
             SetScramblers();
         }
 
-
+        Overlord = FindObjectOfType<Overlord>();
         
         ////Get Party Leader Seed for Map Generation
         //if (PhotonNetwork.LocalPlayer.IsMasterClient)
@@ -181,7 +185,10 @@ public class GameManager : MonoBehaviour
             // match time over or all scramblers dead then game over
             if (outOfTime || Scramblers.Length == deadScramblers)
             {
-                
+                Debug.Log("Out of Time: " + outOfTime);
+                Debug.Log("Scramblers.Length: " + Scramblers.Length);
+                Debug.Log("deadScramblers: " + deadScramblers);
+
                 DestroyEverything(); //Destroys all Game Objects from Match and the Game manager
                 GameOver(false); //Set Game Overstate which transfers to main menu
             }
@@ -239,7 +246,16 @@ public class GameManager : MonoBehaviour
     //Will start match timer and open doors
     public void BeginMatchTimer()
     {
+        // handle voting result and apply perk
         votingSystem.HandleResult();
+
+        // turn on overlord once match start
+        Overlord.OverviewCam.enabled = false;
+        Overlord.NormalCam.enabled = true;
+        Overlord.enabled = true;
+        Overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+
+        // start match
         timer.InitializeAndStartTimer(matchTimeInSeconds, true);
         // TODO:
         foreach (GameObject obj in Map.GetBlockers())

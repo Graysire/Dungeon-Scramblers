@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour // The simple version of an Audio Manager. Will be scrapped/updated later if more features are necessary 
@@ -46,9 +47,6 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         InitAudioSource(ref bgmSource, true);
         InitAudioSource(ref sndbgmSource, true);
         InitAudioSource(ref sfxSource, false);
-        // TEMPORARY HARD CODE, WILL WANT TO LOAD IT IN FROM THE SAVE FILE IN THE FUTURE
-        bgmVolume = 0.8f;
-        sfxVolume = 0.8f;
         PlayBGM(menuBGM, 1.0f);
     }
 
@@ -67,15 +65,34 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
             prevBgmVolume = bgmVolume;
             AudioSource activeSource = (firstBGMIsPlaying) ? bgmSource : sndbgmSource;
             activeSource.volume = bgmVolume * currentBgmRequestedVol;
-            // HAVE THE SAVE FILE SAVE CHANGES TO THE VOLUME WHEN THIS IS CHANGED
+            SaveVolume(true, bgmVolume);
         }
         if (prevSfxVolume != sfxVolume)
         {
             prevSfxVolume = sfxVolume;
             sfxSource.volume = sfxVolume * currentSfxRequestedVol;
-            // HAVE THE SAVE FILE SAVE CHANGES TO THE VOLUME WHEN THIS IS CHANGED
+            SaveVolume(false, sfxVolume);
         }
     }
+    
+    // Saves given volume
+    static private void SaveVolume(bool isBGM, float volume)
+    {
+        MenuManager mm = FindObjectOfType<MenuManager>();
+        mm.SaveVolumeSettings(isBGM, volume);
+    }
+
+    // Loads the saved volume settings
+    static public void LoadVolumeSettings(float bgmV, float sfxV)
+    {
+        bgmVolume = bgmV;
+        sfxVolume = sfxV;
+        GameObject sfxSlider = GameObject.FindGameObjectWithTag("SFXSlider");
+        GameObject bgmSlider = GameObject.FindGameObjectWithTag("BGMSlider");
+        sfxSlider.GetComponent<Slider>().value = sfxVolume;
+        bgmSlider.GetComponent<Slider>().value = bgmVolume;
+    }
+
 
     // BGM
     public void PlayBGM(AudioClip musicClip, float vol = 1.0f) {

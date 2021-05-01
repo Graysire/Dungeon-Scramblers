@@ -19,8 +19,6 @@ public class SaveLoad
     //Saves the data into a file
     public void Save(BitPacket bp)
     {
-        Debug.Log("Saving Data!");
-
         BinaryFormatter bf = new BinaryFormatter(); //converts data to binary
         FileStream file = File.Open(GetFilePath(), FileMode.Open); //Open file
         bf.Serialize(file, bp); //saves data into file
@@ -31,8 +29,6 @@ public class SaveLoad
     //Loads the data from a file
     public BitPacket Load()
     {
-        Debug.Log("Loading Data!");
-
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Open(GetFilePath(), FileMode.Open); //Open file
         BitPacket bp = (BitPacket)bf.Deserialize(file);   //Load data from file

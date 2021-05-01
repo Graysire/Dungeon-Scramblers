@@ -17,6 +17,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
     private int tempKnightInvBitsPacked = 0;    //The saved knight bits
     private int tempRogueInvBitsPacked = 0;     //The saved rogue bits
     private int tempOverlordInvBitsPacked = 0;  //The saved overlord bits
+    private float bgmVolume = 0;                //The saved bgm volume
+    private float sfxVolume = 0;                //The saved sfx volume
 
     //Initialize the file if it isn't made
     //or load data from file
@@ -44,6 +46,9 @@ public class MenuManager : MonoBehaviourPunCallbacks
         tempKnightInvBitsPacked = bitPacket.knightInvBitsPacked;
         tempRogueInvBitsPacked = bitPacket.rogueInvBitsPacked;
         tempOverlordInvBitsPacked = bitPacket.overlordInvBitsPacked;
+        bgmVolume = bitPacket.bgmValue;
+        sfxVolume = bitPacket.sfxValue;
+        AudioManager.LoadVolumeSettings(bgmVolume, sfxVolume);
     }
 
     //Saves the temp data into a bitpacket which gets sends to SaveLoad to write to file
@@ -53,6 +58,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
         bitPacket.knightInvBitsPacked = tempKnightInvBitsPacked;
         bitPacket.rogueInvBitsPacked = tempRogueInvBitsPacked;
         bitPacket.overlordInvBitsPacked = tempOverlordInvBitsPacked;
+        bitPacket.bgmValue = bgmVolume;
+        bitPacket.sfxValue = sfxVolume;
 
         saveLoad.Save(bitPacket);
     }
@@ -307,5 +314,19 @@ public class MenuManager : MonoBehaviourPunCallbacks
     {
         Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
 
+    }
+
+    //Saves the given volume
+    public void SaveVolumeSettings(bool isBGM, float volume)
+    {
+        if (isBGM)
+        {
+            bgmVolume = volume;
+        }
+        else
+        {
+            sfxVolume = volume;
+        }
+        SaveLoadout();
     }
 }
