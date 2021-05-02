@@ -462,6 +462,8 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Scramblers.Length; i++)
         {
             PlayerTransforms[i] = Scramblers[i].transform;
+            Scramblers[i].SetEXPBar(GameObject.Find("Experience Bar").GetComponent<DisplayBar>());
+            Scramblers[i].SetHealthBar(GameObject.Find("HealthBar").GetComponent<DisplayBar>());
         }
 
 
@@ -573,6 +575,7 @@ public class GameManager : MonoBehaviour
                     Vector3 Spawn = SetupSpawning(false);
                     Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+
                 }
             }
             else

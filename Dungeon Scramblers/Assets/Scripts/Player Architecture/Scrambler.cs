@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Scrambler : Player
 {
     [SerializeField]
-    DisplayBar ExperienceBar;
+    public DisplayBar ExperienceBar;
     bool escaped = false;
 
     protected override void OnEnable()
@@ -19,6 +19,11 @@ public class Scrambler : Player
     {
         base.OnDisable();
         UpdateHandler.FixedUpdateOccurred -= Escaped;
+    }
+
+    public void SetEXPBar(DisplayBar expB)
+    {
+        ExperienceBar = expB;
     }
 
     public override bool GetUntargetable()

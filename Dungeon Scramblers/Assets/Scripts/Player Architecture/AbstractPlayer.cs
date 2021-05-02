@@ -30,6 +30,11 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
         disarmed = b;
     }
 
+    public void SetHealthBar(DisplayBar hb)
+    {
+        HealthBar = hb;
+    }
+
 
     //Adds the given status effect into the list of status effects
     //instantiates the objects, preps it for use, and sets it to active
