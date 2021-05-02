@@ -303,8 +303,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("TODO: GM: GAME OVER -- OVERLORD WON");
 
         //Load Main Menu Scene here
-        PhotonNetwork.AutomaticallySyncScene = true;
-        PhotonNetwork.LoadLevel(MenuSceneName);
+        //PhotonNetwork.AutomaticallySyncScene = true;
+       // PhotonNetwork.LoadLevel(MenuSceneName);
     }
 
     //adds scrambler to list of dead scramblers

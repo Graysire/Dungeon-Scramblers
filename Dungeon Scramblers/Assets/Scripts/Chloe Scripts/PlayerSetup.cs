@@ -11,54 +11,22 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     public CinemachineVirtualCamera cam;
     public Camera RegCam;
     public AudioBehaviour Listener;
-    //// Start is called before the first frame update
-    //void Awake()
-    //{
-    //    //If this player is not mine
-    //    if (!photonView.IsMine)
-    //    {
-    //        //Debug.Log("Camera: " + cam.name + " is disabled");
-    //        if(!CheckNull(cam))
-    //        {
-    //            cam.enabled = false;
-    //        }
-    //        if (!CheckNull(RegCam))
-    //        {
-    //            RegCam.enabled = false;
-    //        }
-    //        if(!CheckNull(Listener))
-    //        {
-    //            Listener.enabled = false;
-    //        }
-    //    }
-    //}
+    public bool isOverlord = false;
 
-    //bool CheckNull<T>(T obj)
-    //{
-    //    if (obj == null)
-    //        return false;
-    //    else
-    //    {
-    //        return true;
-    //    }
-    //}
-        // Start is called before the first frame update
-        void Awake()
-        {
-
-        }
     private void Start()
     {
         //Get Overlord Cam
-        RegCam = GameObject.Find("OverlordCam").GetComponent<Camera>(); ;           
+        RegCam = GameObject.Find("OverlordCam").GetComponent<Camera>();
+        
         //If this player is not mine
         if (!photonView.IsMine)
         {
             Debug.Log("Camera: " + cam.name + " is disabled");
             cam.enabled = false;
-            if (RegCam != null)
+            if (isOverlord)
             {
                 RegCam.enabled = false;
+                RegCam.gameObject.SetActive(false);
             }
         }
     }

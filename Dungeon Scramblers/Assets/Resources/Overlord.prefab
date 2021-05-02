@@ -3317,6 +3317,7 @@ MonoBehaviour:
   cam: {fileID: 8043284019362041551}
   RegCam: {fileID: 0}
   Listener: {fileID: 0}
+  isOverlord: 1
 --- !u!114 &-5188818553958100970
 MonoBehaviour:
   m_ObjectHideFlags: 0
