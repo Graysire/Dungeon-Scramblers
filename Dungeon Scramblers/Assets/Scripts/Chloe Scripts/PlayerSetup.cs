@@ -45,12 +45,22 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
         // Start is called before the first frame update
         void Awake()
         {
-            //If this player is not mine
-            if (!photonView.IsMine)
+
+        }
+    private void Start()
+    {
+        //Get Overlord Cam
+        RegCam = GameObject.Find("OverlordCam").GetComponent<Camera>(); ;           
+        //If this player is not mine
+        if (!photonView.IsMine)
+        {
+            Debug.Log("Camera: " + cam.name + " is disabled");
+            cam.enabled = false;
+            if (RegCam != null)
             {
-                Debug.Log("Camera: " + cam.name + " is disabled");
-                cam.enabled = false;
+                RegCam.enabled = false;
             }
         }
-
     }
+
+}

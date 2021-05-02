@@ -183,7 +183,7 @@ public abstract class AbstractPlayer : HasStats, IDamageable<int>
 
     public virtual void Die()
     {
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
     }
 
 

@@ -257,6 +257,7 @@ public class Player : AbstractPlayer
         }
     }
 
+
     public override void Die() {
         if (affectedStats[(int)Stats.health] <= 0 || isDead == true) {
             allowedToAttack = false;

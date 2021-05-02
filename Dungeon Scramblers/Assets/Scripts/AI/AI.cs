@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Panda;
-
+using Photon.Pun;
 
 public class AI : AbstractPlayer
 {
@@ -381,9 +381,15 @@ public class AI : AbstractPlayer
 
     //Destroys AI object
     //NOTE: If AI.Die() is called while AI is being referenced as AbstractPlayer, AbstractPlayer.Die() will be used instead
-    [Task]
+    [Task] [PunRPC]//Make Photon RPC
     public new bool Die()
     {
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonView OPview = gameObject.GetPhotonView();
+            OPview.RPC("Die", RpcTarget.OthersBuffered);
+            DisperseEXP();
+        }
         Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
         Destroy(this.gameObject);

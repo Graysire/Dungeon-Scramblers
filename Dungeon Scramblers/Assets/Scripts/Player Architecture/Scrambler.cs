@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.InputSystem;
+using Photon.Pun;
 
 public class Scrambler : Player
 {
@@ -54,12 +55,26 @@ public class Scrambler : Player
 
     public override void Die()
     {
+        if (PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonView OPview = gameObject.GetPhotonView();
+            int PhotonID = gameObject.GetPhotonView().ViewID;
+            OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
+        }
         base.Die();
         if (isDead)
         {
             GameManager.ManagerInstance.AddScramblerDeath(this);
             SetPhysicsLayer(14);
         }
+    }
+    [PunRPC]
+    public void Die(int PhotonID)
+    {
+        //Find Player that died
+        GameObject Scrambler = PhotonView.Find(PhotonID).gameObject;
+        GetComponent<Scrambler>().SetPhysicsLayer(14);
+        //OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
     }
 
     //layer #14 is spectator, #10 is Scrambler
