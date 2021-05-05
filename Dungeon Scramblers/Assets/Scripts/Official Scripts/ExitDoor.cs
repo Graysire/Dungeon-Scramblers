@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class ExitDoor : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class ExitDoor : MonoBehaviour
         {
             if (sc.GetEscaped() == false && sc.IsAlive())
             {
-                GameManager.ManagerInstance.IncrementEscapedScramblers(); //increment escaped scrambler count
+                //GameManager.ManagerInstance.IncrementEscapedScramblers(); //increment escaped scrambler count
+                PhotonView OPview = gameObject.GetPhotonView();
+                int PhotonID = gameObject.GetPhotonView().ViewID;
+                OPview.RPC("IncrementEscapedScramblers", RpcTarget.OthersBuffered, PhotonID);
                 sc.SetEscaped(true); //set scrambler as escaped
             }
         }
