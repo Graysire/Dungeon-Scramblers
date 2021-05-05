@@ -564,11 +564,13 @@ public class GameManager : MonoBehaviour
                 //Debug.Log("Default Player Spawning");
                 Vector3 Spawn = SetupSpawning(false);
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-                yield return new WaitForSeconds(1f);
+                //yield return new WaitForSeconds(1f);
                 Debug.Log(Spawn);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
+
+        yield return new WaitForSeconds(1f);
         SetScramblers();
 
     }
