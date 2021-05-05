@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour
             Overlord.OverviewCam.enabled = false;
             Overlord.NormalCam.enabled = true;
             Overlord.enabled = true;
-            Overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+            SetOverlordSprite(Overlord.gameObject,true);
         }
 
         // start match
@@ -234,6 +234,8 @@ public class GameManager : MonoBehaviour
         }
         //  -Change Overlord to minilord mode
     }
+
+
 
     //sets out of time so game will end
     public void TimerOver()
@@ -539,7 +541,7 @@ public class GameManager : MonoBehaviour
                     PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
                     PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
                     PlayerGO.GetComponent<Overlord>().enabled = false;
-                    PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
+                    SetOverlordSprite(PlayerGO, false);
                     //Start Countdown
                     //Spawn Overlord at the Exit door
 
@@ -707,7 +709,19 @@ public class GameManager : MonoBehaviour
     #region Overlord Setup
     void OverLordSetUp(GameObject PlayerGO)
     {
-        PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOn();
+        SetOverlordSprite(PlayerGO, true);
+    }
+
+    void SetOverlordSprite(GameObject overlord, bool setSprite)
+    {
+        if(setSprite)
+        {
+            overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+        }
+        else
+        {
+            overlord.GetComponent<SpriteRenderSwitch>().SpritesOff();
+        }
     }
     #endregion
 }
