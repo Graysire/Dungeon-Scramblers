@@ -500,6 +500,7 @@ public class GameManager : MonoBehaviour
         Scramblers.Add(s);
         Debug.Log("Scrambler: " + s + " has been added");
     }
+
     #region PlayerSpawning
     //Coroutine for debugging purposes
     IEnumerator SpawnPlayers()
@@ -555,7 +556,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                     Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
-                    AddScrambler( scrambler);
+                    AddScrambler(scrambler);
 
                 }
             }
@@ -567,9 +568,11 @@ public class GameManager : MonoBehaviour
                 yield return new WaitForSeconds(1f);
                 Debug.Log(Spawn);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
+                Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                AddScrambler(scrambler);
             }
         }
-        //SetScramblers();
+        SetScramblers();
 
     }
 
