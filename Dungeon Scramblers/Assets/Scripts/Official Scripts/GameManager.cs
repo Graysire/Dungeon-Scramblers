@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     int deadScramblers = 0;
 
     [SerializeField]
-    Scrambler[] Scramblers; // = new Scrambler class array of 4;
+    List<Scrambler> Scramblers; // = new Scrambler class array of 4;
     Transform[] PlayerTransforms;   //List of Scrambler positions for AI purposes
     List<Scrambler> DeadScramblers = new List<Scrambler>(); // list of alive Scramblers
     [SerializeField]
@@ -112,42 +112,13 @@ public class GameManager : MonoBehaviour
         }
 
         
-        ////Get Party Leader Seed for Map Generation
-        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //{
-        //    int seed = Random.Range(int.MinValue, int.MaxValue);
-        //    Random.InitState(seed);
-        //    Debug.Log(seed);
-        //    //Save seed of MasterClient
-        //    s = Random.state;
-        //    this.seed = seed;
-        //    //Add Seed to hash table to save for later
-        //    //Debug.Log("Seed: " + s);
-        //}
 
 
     }
 
-    //NOTE: This will not work if put in Awake() , must be in Start()
+
     void Start()
     {
-        //Info for Palyer Spawning
-        //Get Party Leader Seed for Map Generation
-        //if (PhotonNetwork.LocalPlayer.IsMasterClient)
-        //        {
-        //    int seed = Random.Range(int.MinValue, int.MaxValue);
-        //    Random.InitState(seed);
-        //    Debug.Log(seed);
-
-        //    //Save seed of MasterClient
-        //    s = Random.state;
-        //    this.seed = seed;
-        //    //Add Seed to hash table to save for later
-        //    //Debug.Log("Seed: " + s);
-        //            //Add Seed to hash table to save for later
-        //            Debug.Log("Master Seed: " + seed);
-
-        //        }
 
         //Map.GetComponent<MapMaker>().GenerateMap(false);
         if (perkListPrefab)
@@ -182,10 +153,10 @@ public class GameManager : MonoBehaviour
             }
 
             // match time over or all scramblers dead then game over
-            if (outOfTime || Scramblers.Length == deadScramblers)
+            if (outOfTime || Scramblers.Count == deadScramblers)
             {
                 Debug.Log("Out of Time: " + outOfTime);
-                Debug.Log("Scramblers.Length: " + Scramblers.Length);
+                Debug.Log("Scramblers.Length: " + Scramblers.Count);
                 Debug.Log("deadScramblers: " + deadScramblers);
 
                 DestroyEverything(); //Destroys all Game Objects from Match and the Game manager
@@ -221,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     private void SetAllAliveScramblersActive()
     {
-        for (int i = 0; i < Scramblers.Length; i++)
+        for (int i = 0; i < Scramblers.Count; i++)
         {
             if (Scramblers[i].IsAlive())
             {
@@ -338,6 +309,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     //Teleports the scramblers and overlords to their respective starting rooms
     public void SetPlayerLocations(MapMaker.RoomInfo scramblerRoom, MapMaker.RoomInfo overlordRoom)
     {
@@ -436,7 +408,7 @@ public class GameManager : MonoBehaviour
     //Returns a list of Scramblers in the game
     public Player[] GetPlayers()
     {
-        return Scramblers;
+        return Scramblers.ToArray();
     }
 
     //gets the current xp multiplier
@@ -451,15 +423,17 @@ public class GameManager : MonoBehaviour
         xpMultiplier = value;
     }
 
+    //Add RPC event
+    [PunRPC]
     public void SetScramblers()
     {
-        Scramblers = FindObjectsOfType<Scrambler>();
+        //Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
         Overlord = FindObjectOfType<Overlord>();
 
-        PlayerTransforms = new Transform[Scramblers.Length];
+        PlayerTransforms = new Transform[Scramblers.Count];
 
-        for (int i = 0; i < Scramblers.Length; i++)
+        for (int i = 0; i < Scramblers.Count; i++)
         {
             PlayerTransforms[i] = Scramblers[i].transform;
             Scramblers[i].SetEXPBar(GameObject.Find("Experience Bar").GetComponent<DisplayBar>());
@@ -486,7 +460,7 @@ public class GameManager : MonoBehaviour
     void SetObjectsToNotDestroyOnLoad()
     {
         // Add Scramblers and Overlord here
-        for (int i = 0; i < Scramblers.Length; i++)
+        for (int i = 0; i < Scramblers.Count; i++)
         {
             objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
             foreach (GameObject go in Scramblers[i].GetAttackObjectsList())
@@ -521,6 +495,11 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
+    void AddScrambler(Scrambler s)
+    {
+        Scramblers.Add(s);
+        Debug.Log("Scrambler: " + s + " has been added");
+    }
     #region PlayerSpawning
     //Coroutine for debugging purposes
     IEnumerator SpawnPlayers()
@@ -575,6 +554,8 @@ public class GameManager : MonoBehaviour
                     Vector3 Spawn = SetupSpawning(false);
                     Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+                    Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                    AddScrambler( scrambler);
 
                 }
             }
@@ -588,7 +569,7 @@ public class GameManager : MonoBehaviour
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
         }
-        SetScramblers();
+        //SetScramblers();
 
     }
 
