@@ -35,7 +35,7 @@ public class GameManager : MonoBehaviour
     int deadScramblers = 0;
 
     [SerializeField]
-    List<Scrambler> Scramblers; // = new Scrambler class array of 4;
+    Scrambler[] Scramblers; // = new Scrambler class array of 4;
     Transform[] PlayerTransforms;   //List of Scrambler positions for AI purposes
     List<Scrambler> DeadScramblers = new List<Scrambler>(); // list of alive Scramblers
     [SerializeField]
@@ -153,10 +153,10 @@ public class GameManager : MonoBehaviour
             }
 
             // match time over or all scramblers dead then game over
-            if (outOfTime || Scramblers.Count == deadScramblers)
+            if (outOfTime || Scramblers.Length == deadScramblers)
             {
                 Debug.Log("Out of Time: " + outOfTime);
-                Debug.Log("Scramblers.Length: " + Scramblers.Count);
+                Debug.Log("Scramblers.Length: " + Scramblers.Length);
                 Debug.Log("deadScramblers: " + deadScramblers);
 
                 DestroyEverything(); //Destroys all Game Objects from Match and the Game manager
@@ -192,7 +192,7 @@ public class GameManager : MonoBehaviour
 
     private void SetAllAliveScramblersActive()
     {
-        for (int i = 0; i < Scramblers.Count; i++)
+        for (int i = 0; i < Scramblers.Length; i++)
         {
             if (Scramblers[i].IsAlive())
             {
@@ -408,7 +408,7 @@ public class GameManager : MonoBehaviour
     //Returns a list of Scramblers in the game
     public Player[] GetPlayers()
     {
-        return Scramblers.ToArray();
+        return Scramblers;
     }
 
     //gets the current xp multiplier
@@ -427,13 +427,13 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void SetScramblers()
     {
-        //Scramblers = FindObjectsOfType<Scrambler>();
+        Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
         Overlord = FindObjectOfType<Overlord>();
 
-        PlayerTransforms = new Transform[Scramblers.Count];
+        PlayerTransforms = new Transform[Scramblers.Length];
 
-        for (int i = 0; i < Scramblers.Count; i++)
+        for (int i = 0; i < Scramblers.Length; i++)
         {
             PlayerTransforms[i] = Scramblers[i].transform;
             Scramblers[i].SetEXPBar(GameObject.Find("Experience Bar").GetComponent<DisplayBar>());
@@ -460,7 +460,7 @@ public class GameManager : MonoBehaviour
     void SetObjectsToNotDestroyOnLoad()
     {
         // Add Scramblers and Overlord here
-        for (int i = 0; i < Scramblers.Count; i++)
+        for (int i = 0; i < Scramblers.Length; i++)
         {
             objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
             foreach (GameObject go in Scramblers[i].GetAttackObjectsList())
@@ -497,8 +497,8 @@ public class GameManager : MonoBehaviour
 
     void AddScrambler(Scrambler s)
     {
-        Scramblers.Add(s);
-        Debug.Log("Scrambler: " + s + " has been added");
+        //Scramblers.Add(s);
+        //Debug.Log("Scrambler: " + s + " has been added");
     }
     #region PlayerSpawning
     //Coroutine for debugging purposes
@@ -570,7 +570,7 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         SetScramblers();
 
     }
