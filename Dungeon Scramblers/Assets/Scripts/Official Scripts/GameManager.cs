@@ -111,7 +111,6 @@ public class GameManager : MonoBehaviour
             SetScramblers();
         }
 
-        Overlord = FindObjectOfType<Overlord>();
         
         ////Get Party Leader Seed for Map Generation
         //if (PhotonNetwork.LocalPlayer.IsMasterClient)
@@ -456,6 +455,7 @@ public class GameManager : MonoBehaviour
     {
         Scramblers = FindObjectsOfType<Scrambler>();
         Map = FindObjectOfType<MapMaker>();
+        Overlord = FindObjectOfType<Overlord>();
 
         PlayerTransforms = new Transform[Scramblers.Length];
 
