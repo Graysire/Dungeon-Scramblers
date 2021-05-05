@@ -78,9 +78,6 @@ public class GameManager : MonoBehaviour
     Random.State s; //State for Map Spawn
     int seed;
 
-    //All clients in the same room will load the same scene synced as best as possible
-    //PhotonNetwork.AutomaticallySyncScene = true; -- SYNCS WHEN TRANSITIONING SCENES
-
     //Update handler stuff
     protected virtual void OnEnable()
     {
@@ -164,21 +161,21 @@ public class GameManager : MonoBehaviour
             }
 
             //If all remaining Scramblers escaped then Match completed
-            //if (escapedScramblers == (Scramblers.Length - deadScramblers))
-            //{
-            //    Debug.Log("GM: ROUND COMPLETED");
-            //    timer.DisableTimer(false, false); //forces timer to end
+            if (escapedScramblers == (Scramblers.Length - deadScramblers))
+            {
+                Debug.Log("GM: ROUND COMPLETED");
+                timer.DisableTimer(false, false); //forces timer to end
 
-            //    currentRound++; //increment current round number
+                currentRound++; //increment current round number
 
-            //    createNewLevel = true; //creates a new level to play on
+                createNewLevel = true; //creates a new level to play on
 
-            //    escapedScramblers = 0;  //reset number of escaped scramblers
+                escapedScramblers = 0;  //reset number of escaped scramblers
 
-            //    Map.ClearMap(); //Clear the current map
+                Map.ClearMap(); //Clear the current map
 
-            //    SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
-            //}
+                SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
+            }
         }
     }
 
@@ -273,8 +270,8 @@ public class GameManager : MonoBehaviour
             Debug.Log("TODO: GM: GAME OVER -- OVERLORD WON");
 
         //Load Main Menu Scene here
-        //PhotonNetwork.AutomaticallySyncScene = true;
-       // PhotonNetwork.LoadLevel(MenuSceneName);
+        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.LoadLevel(MenuSceneName);
     }
 
     //adds scrambler to list of dead scramblers
@@ -444,10 +441,10 @@ public class GameManager : MonoBehaviour
         if (perkListPrefab)
             perkList = Instantiate(perkListPrefab, transform);
 
-        //if (perkList != null)
-        //{
-        //    ApplyPerk(perkList.GetPerk());
-        //}
+        if (perkList != null)
+        {
+            ApplyPerk(perkList.GetPerk());
+        }
 
         //createNewLevel = true;
         ready = true;
@@ -495,11 +492,6 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
     }
 
-    void AddScrambler(Scrambler s)
-    {
-        //Scramblers.Add(s);
-        //Debug.Log("Scrambler: " + s + " has been added");
-    }
     #region PlayerSpawning
     //Coroutine for debugging purposes
     IEnumerator SpawnPlayers()
