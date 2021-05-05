@@ -62,11 +62,15 @@ MonoBehaviour:
   BossRoomSceneName: Minotaur Scene
   perkListPrefab: {fileID: 1674495980848193811, guid: 42eb43b99993bc5458bd9e105efb0edd, type: 3}
   votingSystem: {fileID: 7928574778536634708, guid: c22c935a47f6ed543b408eb9c386cee3, type: 3}
+  Scramblers: []
+  Overlord: {fileID: 0}
   timer: {fileID: 7103123502103605402}
   voteTimeInSeconds: 30
-  matchTimeInSeconds: 120
-  bossFightTimeInSeconds: 120
-  numberOfRounds: 2
+  matchTimeInSeconds: 240
+  bossFightTimeInSeconds: 240
+  numberOfRounds: 1
+  Map: {fileID: 0}
+  PlayerPrefabs: []
 --- !u!1001 &3337192834825133954
 PrefabInstance:
   m_ObjectHideFlags: 0
