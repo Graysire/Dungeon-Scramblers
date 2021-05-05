@@ -217,10 +217,13 @@ public class GameManager : MonoBehaviour
         votingSystem.HandleResult();
 
         // turn on overlord once match start
-        Overlord.OverviewCam.enabled = false;
-        Overlord.NormalCam.enabled = true;
-        Overlord.enabled = true;
-        Overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+        if (Overlord != null)
+        {
+            Overlord.OverviewCam.enabled = false;
+            Overlord.NormalCam.enabled = true;
+            Overlord.enabled = true;
+            Overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+        }
 
         // start match
         timer.InitializeAndStartTimer(matchTimeInSeconds, true);
