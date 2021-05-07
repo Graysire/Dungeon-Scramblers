@@ -121,6 +121,7 @@ public class Player : AbstractPlayer
     // Update and Fixed Update handlers (event & delegate)
     protected virtual void OnEnable()
     {
+        base.OnEnable();
         controls.Enable();
         UpdateHandler.UpdateOccurred += Die;
         UpdateHandler.UpdateOccurred += HealthCheck;
@@ -129,6 +130,7 @@ public class Player : AbstractPlayer
     }
     protected virtual void OnDisable()
     {
+        base.OnDisable();
         controls.Disable();
         UpdateHandler.UpdateOccurred -= Die;
         UpdateHandler.UpdateOccurred -= HealthCheck;
