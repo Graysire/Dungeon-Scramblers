@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2853771555662713200}
   - component: {fileID: 3006312689265111540}
+  - component: {fileID: 7439160432751752080}
   m_Layer: 0
   m_Name: Player Data
   m_TagString: Untagged
@@ -43,4 +44,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507bfebcd4a4cc4b9341e85e6302c00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerName: asdvavsdavsdf
+  PlayerName: 'xvcb '
+--- !u!114 &7439160432751752080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6524268599181438531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

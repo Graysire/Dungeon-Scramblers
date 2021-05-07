@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1799514350308552232}
   - component: {fileID: 1799514350308552233}
+  - component: {fileID: 2650328105726661789}
   m_Layer: 0
   m_Name: MinatourAbility2
   m_TagString: Untagged
@@ -96,3 +97,29 @@ MonoBehaviour:
   playerCategory: 4
   abilitySlot: 2
   Projectile: {fileID: 4983767609826630315, guid: 26e6b3572e609104c82d764a47aec790, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
+--- !u!114 &2650328105726661789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1799514350308552235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

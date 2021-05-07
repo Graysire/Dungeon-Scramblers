@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 52202131983167546}
   - component: {fileID: 4647666432015025098}
+  - component: {fileID: 5975994245681173958}
   m_Layer: 0
   m_Name: PoisonSlapAS
   m_TagString: Untagged
@@ -89,5 +90,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Poison Slap
+  equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
+  abilitySlot: 0
   Projectile: {fileID: 2061769827281688610, guid: 33fce32199dfa374aa34751cbb579055, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
+--- !u!114 &5975994245681173958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2527594498822936197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

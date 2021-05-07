@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 840058070121385364}
   - component: {fileID: 840058070121385365}
+  - component: {fileID: 4755711688281172357}
   m_Layer: 0
   m_Name: Ground Slam AS
   m_TagString: Untagged
@@ -99,3 +100,26 @@ MonoBehaviour:
   SlowPlayerOnCast: 1
   ChangePlayerColorOnCast: 1
   PlayerCastColor: {r: 1, g: 0.8660312, b: 0.4575472, a: 1}
+  SelfAffectingAbility: 0
+--- !u!114 &4755711688281172357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 840058070121385367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1409970420502544206}
   - component: {fileID: 5279277548071352690}
+  - component: {fileID: -1725820342270971640}
   m_Layer: 0
   m_Name: ExplosionAS
   m_TagString: Untagged
@@ -89,14 +90,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdff256ff6e365f4f8c5b28687bd6b21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  stats: 01000000010000000100000001000000010000000100000001000000
   uniqueName: Explosion
-  Projectile: {fileID: 5974703380236877134, guid: fbdc5faefae54e94491c64c5c52fbda2, type: 3}
+  equippableBitFlag: 
+  bitCategory: 0
+  playerCategory: 0
   abilitySlot: 0
+  Projectile: {fileID: 5974703380236877134, guid: fbdc5faefae54e94491c64c5c52fbda2, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
+--- !u!114 &-1725820342270971640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6125647232567267168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

@@ -55,6 +55,7 @@ GameObject:
   m_Component:
   - component: {fileID: 790824502290479945}
   - component: {fileID: 4996836813676065621}
+  - component: {fileID: -3086637697343014551}
   m_Layer: 0
   m_Name: LightningBoltAS
   m_TagString: Untagged
@@ -99,3 +100,26 @@ MonoBehaviour:
   SlowPlayerOnCast: 0
   ChangePlayerColorOnCast: 0
   PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0
+--- !u!114 &-3086637697343014551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7882947428690972025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
