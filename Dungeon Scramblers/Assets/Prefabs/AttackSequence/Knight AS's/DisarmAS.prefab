@@ -90,9 +90,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
-  uniqueName: AS_Disarm
+  uniqueName: Disarm
   equippableBitFlag: 000000
   bitCategory: 4
   playerCategory: 2
   abilitySlot: 1
   Projectile: {fileID: 7107550762299682137, guid: c5d32520174b31a4bb4275895869be89, type: 3}
+  SlowPlayerOnCast: 0
+  ChangePlayerColorOnCast: 0
+  PlayerCastColor: {r: 0, g: 0, b: 0, a: 0}
+  SelfAffectingAbility: 0

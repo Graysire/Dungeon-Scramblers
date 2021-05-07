@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Healing Bolt
-  equippableBitFlag: 000010
+  equippableBitFlag: 000000
   bitCategory: 4
   playerCategory: 1
   abilitySlot: 1
