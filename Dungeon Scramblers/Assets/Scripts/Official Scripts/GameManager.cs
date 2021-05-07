@@ -223,6 +223,8 @@ public class GameManager : MonoBehaviour
             Overlord.NormalCam.enabled = true;
             Overlord.enabled = true;
             SetOverlordSprite(Overlord.gameObject,true);
+            // turn off the Overlord UI
+            Overlord.GetComponent<Overlord>().OverlordUI.SetActive(false);
         }
 
         // start match

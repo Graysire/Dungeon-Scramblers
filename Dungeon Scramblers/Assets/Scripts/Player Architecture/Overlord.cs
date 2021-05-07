@@ -7,6 +7,7 @@ public class Overlord : Player
     //Fields for Camera Setup in PreGame
     public Camera NormalCam;
     public Camera OverviewCam = null;
+    public GameObject OverlordUI;
     private bool bCharging = false;
 
     [Header("Overlord Values")]
