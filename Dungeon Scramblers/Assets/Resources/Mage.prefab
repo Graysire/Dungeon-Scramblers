@@ -3089,7 +3089,6 @@ GameObject:
   - component: {fileID: 5469870026199777636}
   - component: {fileID: 424624744661482047}
   - component: {fileID: 2208858389996876875}
-  - component: {fileID: -8167430745520436289}
   m_Layer: 10
   m_Name: Mage
   m_TagString: Player
@@ -3340,28 +3339,6 @@ MonoBehaviour:
   RegCam: {fileID: 0}
   Listener: {fileID: 0}
   isOverlord: 0
---- !u!114 &-8167430745520436289
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114680770838200914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  observableSearch: 2
-  Synchronization: 3
-  OwnershipTransfer: 0
-  ObservedComponents: []
-  viewIdField: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0
