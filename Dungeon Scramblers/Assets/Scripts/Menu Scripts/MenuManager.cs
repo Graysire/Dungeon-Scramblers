@@ -353,7 +353,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            Debug.Log("INVALID PLAYER CATEGORY. TRY AGAIN.");
+            //Debug.Log("INVALID PLAYER CATEGORY. TRY AGAIN.");
             return 0;
         }
     }

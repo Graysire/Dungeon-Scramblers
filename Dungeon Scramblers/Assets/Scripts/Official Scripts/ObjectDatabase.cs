@@ -9,6 +9,7 @@ public class ObjectDatabase : MonoBehaviour
 
     public void Awake()
     {
+        /*
         //Like the code to set up attack objects in Player.cs Awake()
         for (int i = 0; i < Objects.Count; i++)
         {
@@ -23,6 +24,7 @@ public class ObjectDatabase : MonoBehaviour
                 Objects[i].layer = gameObject.layer;
             }
         }
+        */
     }
 
     public List<GameObject> GetObjectList()

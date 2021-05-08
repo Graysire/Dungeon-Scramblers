@@ -328,6 +328,35 @@ public class Player : AbstractPlayer
         return AttackObjectList;
     }
 
+    //Sets the index with the game object and sets up for use
+    public virtual void SetAttackObjectsList(int index, GameObject go)
+    {
+        //if index is in bounds
+        if (index >= 0 && index < AttackObjectList.Count)
+        {
+            GameObject g = AttackObjectList[index];
+
+            AttackObjectList[index] = go; //set new object
+
+            g.GetComponent<Ability>().Unequip(this); //unequip ability
+            Destroy(g); //remove previously instantiated object
+
+            //Instantiate object
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                AttackObjectList[index]= PhotonNetwork.Instantiate(AttackObjectList[index].name, gameObject.transform.position, new Quaternion());
+                AttackObjectList[index].layer = gameObject.layer;
+            }
+            else
+            {
+                AttackObjectList[index] = Instantiate(AttackObjectList[index], gameObject.transform);
+                AttackObjectList[index].layer = gameObject.layer;
+            }
+
+            AttackObjectList[index].GetComponent<Ability>().Equip(this);
+        }
+    }
+
     // Dashing 
     public void  ToggleDashing()
     {

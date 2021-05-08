@@ -727,10 +727,22 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("Found a matching weapon!");
 
+                if (PhotonNetwork.CurrentRoom != null)
+                {
+
+                }
+                else
+                    Scramblers[0].SetAttackObjectsList(0, GO); //Set this as the new weapon
             }
             if (a != null && a.CompareWith(ability1Code, Categories.ItemCategory.ability1, playerCategory))
             {
                 Debug.Log("Found a matching abiliy1!");
+                if (PhotonNetwork.CurrentRoom != null)
+                {
+
+                }
+                else
+                    Scramblers[0].SetAttackObjectsList(1, GO); //Set this as the new ability 1
             }
         }
     }
