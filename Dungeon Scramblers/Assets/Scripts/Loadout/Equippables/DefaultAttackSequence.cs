@@ -84,6 +84,7 @@ public class DefaultAttackSequence : Ability
         // Get instance of ability from object pooler
         Transform AbilityTransform = AbilityPooler.GetPooledObject(AttackTransform, AttackEnd, AbilityAngle).transform;
         
+
         SetBulletLayer(AbilityTransform); //set the attack layer based on who creates it
         
 
@@ -110,6 +111,7 @@ public class DefaultAttackSequence : Ability
     }
 
     //Applies the layer for the attacks based on what layer the attack instigator is 
+    
     protected void SetBulletLayer(Transform AbilityTransform)
     {
         if (gameObject.layer == LayerMask.NameToLayer("Scrambler") || (gameObject.layer == LayerMask.NameToLayer("Overlord") && SelfAffectingAbility))
