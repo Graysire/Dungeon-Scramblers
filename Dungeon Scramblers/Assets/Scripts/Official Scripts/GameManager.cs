@@ -4,7 +4,6 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +13,9 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     List<GameObject> objectsToNotDestroyOnLoad;      //Stores all the game objects that need to persist between scenes
+
+    [SerializeField]
+    ObjectDatabase OD;  //Stores every attack object for setting up players equiped items
 
 
     [SerializeField]
@@ -716,27 +718,19 @@ public class GameManager : MonoBehaviour
 
         Categories.PlayerCategories playerCategory = IH.GetPlayerCategory();
 
-
-        //https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
-        //https://stackoverflow.com/questions/53968958/how-can-i-get-all-prefabs-from-a-assets-folder-getting-not-valid-cast-exception
         //obtain prefabs ID's to paths
-        string[] prefabPaths = AssetDatabase.FindAssets("t:prefab", new string[] { "Assets/Resources" });
-        foreach (string path in prefabPaths)
+        foreach (GameObject GO in OD.GetObjectList())
         {
-            //Debug.Log("path: " + AssetDatabase.GUIDToAssetPath(path));
-            string p = AssetDatabase.GUIDToAssetPath(path);
-            GameObject GO = (GameObject)AssetDatabase.LoadAssetAtPath(p, typeof(GameObject)); //loads the asset
             Ability a = GO.GetComponent<Ability>();
 
             if (a != null && a.CompareWith(weaponCode, Categories.ItemCategory.weapon, playerCategory))
             {
-                Debug.Log("Item at path '" + p + "' was a matching weapon!");
-                Debug.Log("code: " + weaponCode);
+                Debug.Log("Found a matching weapon!");
+
             }
             if (a != null && a.CompareWith(ability1Code, Categories.ItemCategory.ability1, playerCategory))
             {
-                Debug.Log("Item at path '" + p + "' was a matching ability 1!");
-                Debug.Log("code: " + ability1Code);
+                Debug.Log("Found a matching abiliy1!");
             }
         }
     }
