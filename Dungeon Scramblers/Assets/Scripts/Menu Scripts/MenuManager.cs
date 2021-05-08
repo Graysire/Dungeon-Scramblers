@@ -61,6 +61,8 @@ public class MenuManager : MonoBehaviourPunCallbacks
         bitPacket.bgmValue = bgmVolume;
         bitPacket.sfxValue = sfxVolume;
 
+        FindObjectOfType<InventoryHandler>().RetrivePlayerBits(); //updates the handler bits
+        
         saveLoad.Save(bitPacket);
     }
 
@@ -328,5 +330,31 @@ public class MenuManager : MonoBehaviourPunCallbacks
             sfxVolume = volume;
         }
         SaveLoadout();
+    }
+
+    //returns requested player bits
+    public int GetPlayerBits(Categories.PlayerCategories playerCategory)
+    {
+        if (playerCategory == Categories.PlayerCategories.mage)
+        {
+            return bitPacket.mageInvBitsPacked;
+        }
+        else if (playerCategory == Categories.PlayerCategories.knight)
+        {
+            return bitPacket.knightInvBitsPacked;
+        }
+        else if (playerCategory == Categories.PlayerCategories.rogue)
+        {
+            return bitPacket.rogueInvBitsPacked;
+        }
+        else if (playerCategory == Categories.PlayerCategories.overlord)
+        {
+            return bitPacket.overlordInvBitsPacked;
+        }
+        else
+        {
+            Debug.Log("INVALID PLAYER CATEGORY. TRY AGAIN.");
+            return 0;
+        }
     }
 }
