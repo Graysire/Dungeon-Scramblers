@@ -12,7 +12,7 @@ public class Equippable : HasStats
     [Header("Equippable Variables")]
     [SerializeField]
     protected string uniqueName;   //Name for the equippable -- *MUST BE UNIQUE NAME FOR LOADOUT SYSTEM*
-
+    [SerializeField] bool isInDatabaseOfAttacks = false; //if this equippable is in the database for players to equip
 
     // Refer to this link for Bitcode legend: https://docs.google.com/spreadsheets/d/12xuLHZSDCkMI4G0byxqrIRxpuUSsBOtuQ4uvpDbt47w/edit#gid=0
     [SerializeField]
@@ -54,10 +54,13 @@ public class Equippable : HasStats
 
     //Given the bit code from inventory, category of code, and player category it associates to
         //compare with this equippable to see if they match
-    public bool CompareWith(int bitCode, Categories.ItemCategory bitCategory, Categories.PlayerCategories playerCategory)
+    public virtual bool CompareWith(int bitCode, Categories.ItemCategory bitCategory, Categories.PlayerCategories playerCategory)
     {
-        int thisCode = Convert.ToInt32(equippableBitFlag, 2);
-        if (thisCode == bitCode && bitCategory == this.bitCategory && playerCategory == this.playerCategory) { return true; }
+        if (isInDatabaseOfAttacks)
+        {
+            int thisCode = Convert.ToInt32(equippableBitFlag, 2);
+            if (thisCode == bitCode && bitCategory == this.bitCategory && playerCategory == this.playerCategory) { return true; }
+        }
         return false;
     }
 }

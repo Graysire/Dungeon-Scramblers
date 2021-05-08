@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 01000000010000000100000001000000010000000100000001000000
   uniqueName: Chakram
+  isInDatabaseOfAttacks: 1
   equippableBitFlag: 00000
   bitCategory: 2
   playerCategory: 3

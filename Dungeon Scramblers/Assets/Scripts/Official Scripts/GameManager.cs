@@ -4,6 +4,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour
 {
@@ -107,10 +108,6 @@ public class GameManager : MonoBehaviour
         {
             SetScramblers();
         }
-
-
-
-
     }
 
 
@@ -440,284 +437,311 @@ public class GameManager : MonoBehaviour
 
         for (int i = 0; i < Scramblers.Length; i++)
         {
-            {
-                PlayerTransforms[i] = Scramblers[i].transform;
-                Scramblers[i].SetEXPBar(GameObject.Find("Experience Bar").GetComponent<DisplayBar>());
-                Scramblers[i].SetHealthBar(GameObject.Find("HealthBar").GetComponent<DisplayBar>());
-            }
+            PlayerTransforms[i] = Scramblers[i].transform;
+            Scramblers[i].SetEXPBar(GameObject.Find("Experience Bar").GetComponent<DisplayBar>());
+            Scramblers[i].SetHealthBar(GameObject.Find("HealthBar").GetComponent<DisplayBar>());
+        }
 
-
-            if (perkListPrefab)
-                perkList = Instantiate(perkListPrefab, transform);
+        if (perkListPrefab)
+            perkList = Instantiate(perkListPrefab, transform);
 
         if (perkList != null)
         {
             ApplyPerk(perkList.GetPerk());
         }
 
-            //createNewLevel = true;
-            ready = true;
+        //createNewLevel = true;
+        ready = true;
 
-            SetObjectsToNotDestroyOnLoad();
-            StartVoteTimer(); //initial call to start timer
+        SetObjectsToNotDestroyOnLoad();
+        StartVoteTimer(); //initial call to start timer
+    }
+
+    // Store all game objects that need to persist to Overlord Room Scene //
+    void SetObjectsToNotDestroyOnLoad()
+    {
+        // Add Scramblers and Overlord here
+        for (int i = 0; i < Scramblers.Length; i++)
+        {
+            objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
+            foreach (GameObject go in Scramblers[i].GetAttackObjectsList())
+            {
+                objectsToNotDestroyOnLoad.Add(go);
+            }
+        }
+        if (Overlord != null)
+        {
+            objectsToNotDestroyOnLoad.Add(Overlord.gameObject);
+        }
+
+        // Add Timer and Canvas here
+        objectsToNotDestroyOnLoad.Add(timer.gameObject);
+        objectsToNotDestroyOnLoad.Add(GameObject.FindGameObjectWithTag("Canvas"));
+
+        // Make all gathered game objects persistant
+        foreach (GameObject go in objectsToNotDestroyOnLoad)
+        {
+            DontDestroyOnLoad(go);
         }
     }
 
-        // Store all game objects that need to persist to Overlord Room Scene //
-        void SetObjectsToNotDestroyOnLoad()
+    // Sets game destory all persistent objects and the Game Manager itself
+    void DestroyEverything()
+    {
+        Debug.Log("Destroy Everything!");
+        foreach (GameObject go in objectsToNotDestroyOnLoad)
         {
-            // Add Scramblers and Overlord here
-            for (int i = 0; i < Scramblers.Length; i++)
-            {
-                objectsToNotDestroyOnLoad.Add(Scramblers[i].gameObject);
-                foreach (GameObject go in Scramblers[i].GetAttackObjectsList())
-                {
-                    objectsToNotDestroyOnLoad.Add(go);
-                }
-            }
-            if (Overlord != null)
-            {
-                objectsToNotDestroyOnLoad.Add(Overlord.gameObject);
-            }
-
-            // Add Timer and Canvas here
-            objectsToNotDestroyOnLoad.Add(timer.gameObject);
-            objectsToNotDestroyOnLoad.Add(GameObject.FindGameObjectWithTag("Canvas"));
-
-            // Make all gathered game objects persistant
-            foreach (GameObject go in objectsToNotDestroyOnLoad)
-            {
-                DontDestroyOnLoad(go);
-            }
+            Destroy(go);
         }
+        Destroy(gameObject);
+    }
 
-        // Sets game destory all persistent objects and the Game Manager itself
-        void DestroyEverything()
-        {
-            Debug.Log("Destroy Everything!");
-            foreach (GameObject go in objectsToNotDestroyOnLoad)
-            {
-                Destroy(go);
-            }
-            Destroy(gameObject);
-        }
 
-        void AddScrambler(Scrambler s)
-        {
-            //Scramblers.Add(s);
-            //Debug.Log("Scrambler: " + s + " has been added");
-        }
 
     #region PlayerSpawning
     //Coroutine for debugging purposes
     IEnumerator SpawnPlayers()
     {
-
-            yield return new WaitForSeconds(2);
-            if (PhotonNetwork.IsConnectedAndReady)
-            {
-                ////If we aren't the master Client, give us the seed
-                //if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-                //{
-                //    Random.state = s;
-                //    Random.InitState(seed);
-                //    Debug.Log("Seed for NonMaster Clinet: " + seed);
-                //}
-                StartCoroutine(Map.GenerateMap(true));
-
-                //Player Spawning
-                object PlayerSelectionNumber;
-                //Check if player has an available loadout
-                if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
-                {
-                    Debug.Log("Player Number: " + (int)PlayerSelectionNumber);
-
-                    //Get Player Category, save for later for loadout implementation
-                    Categories.PlayerCategories SavedPlayerType = GetPlayerCategory((int)PlayerSelectionNumber);
-
-                    Debug.Log("Saved Player Type:" + SavedPlayerType);
-
-                    int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-
-
-                    //Check player for Overlord Category
-                    if (SavedPlayerType == Categories.PlayerCategories.overlord)
-                    {
-                        //Debug.Log("Overlord Player selected");
-                        Vector3 Spawn = SetupSpawning(true);
-                        GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
-                        //Set Player Camera to Map view and turn off regular controls
-                        PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
-                        PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
-                        PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
-                        PlayerGO.GetComponent<Overlord>().enabled = false;
-                        //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
-                         PhotonView OPview = gameObject.GetPhotonView();
-                         int PhotonID = gameObject.GetPhotonView().ViewID;
-                         OPview.RPC("SetOverlordSprite", RpcTarget.OthersBuffered, PhotonID); 
-                    //Start Countdown
-                    //Spawn Overlord at the Exit door
-
-                }
-                    else //All other players spawn like normal
-                    {
-                        Vector3 Spawn = SetupSpawning(false);
-                        Debug.Log(Spawn);
-                        GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
-                        Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
-                        //AddScrambler( scrambler);
-
-                    }
-                }
-                else
-                {
-                    //Debug.Log("Default Player Spawning");
-                    Vector3 Spawn = SetupSpawning(false);
-                    int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
-                    //yield return new WaitForSeconds(1f);
-                    Debug.Log(Spawn);
-                    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
-                }
-            }
-
-            yield return new WaitForSeconds(3f);
-            SetScramblers();
-
-        }
-
-        //This returns the vector3 to spawn the player at
-        Vector3 SetupSpawning(bool bIsOverlord)
+        yield return new WaitForSeconds(2);
+        if (PhotonNetwork.IsConnectedAndReady)
         {
-            //Get Start Roomn from MapMaker
-            MapMaker.RoomInfo StartRoom = Map.rooms[0];
+            ////If we aren't the master Client, give us the seed
+            //if (!PhotonNetwork.LocalPlayer.IsMasterClient)
+            //{
+            //    Random.state = s;
+            //    Random.InitState(seed);
+            //    Debug.Log("Seed for NonMaster Clinet: " + seed);
+            //}
+            StartCoroutine(Map.GenerateMap(true));
 
-            // Get Overlord Room
-            MapMaker.RoomInfo OverlordRoom = Map.overlordRoom;
-
-            // Set spawn room of the current player
-            MapMaker.RoomInfo SpawnRoom;
-            if (bIsOverlord)
+            //Player Spawning
+            object PlayerSelectionNumber;
+            //Check if player has an available loadout
+            if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
             {
-                SpawnRoom = OverlordRoom;
+                Debug.Log("Player Number: " + (int)PlayerSelectionNumber);
+
+                //Get Player Category, save for later for loadout implementation
+                Categories.PlayerCategories SavedPlayerType = GetPlayerCategory((int)PlayerSelectionNumber);
+
+                Debug.Log("Saved Player Type:" + SavedPlayerType);
+
+                int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+
+
+                //Check player for Overlord Category
+                if (SavedPlayerType == Categories.PlayerCategories.overlord)
+                {
+                    //Debug.Log("Overlord Player selected");
+                    Vector3 Spawn = SetupSpawning(true);
+                    GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
+                    //Set Player Camera to Map view and turn off regular controls
+                    PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
+                    PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
+                    PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
+                    PlayerGO.GetComponent<Overlord>().enabled = false;
+                    //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
+                        PhotonView OPview = gameObject.GetPhotonView();
+                        int PhotonID = gameObject.GetPhotonView().ViewID;
+                        OPview.RPC("SetOverlordSprite", RpcTarget.OthersBuffered, PhotonID); 
+                //Start Countdown
+                //Spawn Overlord at the Exit door
+
+            }
+                else //All other players spawn like normal
+                {
+                    Vector3 Spawn = SetupSpawning(false);
+                    Debug.Log(Spawn);
+                    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+                    Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                    //AddScrambler( scrambler);
+
+                }
             }
             else
             {
-                SpawnRoom = StartRoom;
+                //Debug.Log("Default Player Spawning");
+                Vector3 Spawn = SetupSpawning(false);
+                int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
+                //yield return new WaitForSeconds(1f);
+                Debug.Log(Spawn);
+                GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
             }
-
-            //Get roomsize
-            Vector2Int roomSize = new Vector2Int(SpawnRoom.upperRight.x - SpawnRoom.lowerLeft.x + 2, SpawnRoom.upperRight.y - SpawnRoom.lowerLeft.y + 2);
-            //Get Random Coords in Room
-            int randX = Random.Range((SpawnRoom.lowerLeft.x), (SpawnRoom.upperRight.x) + 1);
-            int randY = Random.Range((SpawnRoom.lowerLeft.y), (SpawnRoom.upperRight.y) + 1);
-            //Translate to world space
-            Vector3Int randLocation = new Vector3Int(randX, randY, 0);
-
-            Vector3 worldLocation = Map.GetComponent<MapMaker>().tilemaps[0].GetCellCenterWorld(randLocation);
-            return worldLocation;
         }
-        #endregion
+        yield return new WaitForSeconds(3f);
+        SetPlayerAbilities(); //Sets up all player abilities
+        SetScramblers();
+    }
 
-        public int PlayerType(Categories.PlayerCategories PC)
+    //This returns the vector3 to spawn the player at
+    Vector3 SetupSpawning(bool bIsOverlord)
+    {
+        //Get Start Roomn from MapMaker
+        MapMaker.RoomInfo StartRoom = Map.rooms[0];
+
+        // Get Overlord Room
+        MapMaker.RoomInfo OverlordRoom = Map.overlordRoom;
+
+        // Set spawn room of the current player
+        MapMaker.RoomInfo SpawnRoom;
+        if (bIsOverlord)
         {
-            int code = 0;
-            //mage
-            if (PC == Categories.PlayerCategories.mage)
-            {
-                Debug.Log("We have:" + PC);
-                code = 1;
-            }
-            //knight
-            if (PC == Categories.PlayerCategories.knight)
-            {
-                Debug.Log("We have:" + PC);
-                code = 2;
-            }
-            //roguea
-            if (PC == Categories.PlayerCategories.rogue)
-            {
-                Debug.Log("We have:" + PC);
-                code = 3;
-            }
-            //overlord
-            if (PC == Categories.PlayerCategories.overlord)
-            {
-                Debug.Log("We have:" + PC);
-                code = 4;
-            }
-
-            return code;
+            SpawnRoom = OverlordRoom;
         }
-
-        #region Inventory Reading
-
-
-        public Categories.PlayerCategories GetPlayerCategory(int playerCat)
+        else
         {
-            Categories.PlayerCategories playerCategory = (Categories.PlayerCategories)playerCat;
-
-
-            return playerCategory;
+            SpawnRoom = StartRoom;
         }
 
+        //Get roomsize
+        Vector2Int roomSize = new Vector2Int(SpawnRoom.upperRight.x - SpawnRoom.lowerLeft.x + 2, SpawnRoom.upperRight.y - SpawnRoom.lowerLeft.y + 2);
+        //Get Random Coords in Room
+        int randX = Random.Range((SpawnRoom.lowerLeft.x), (SpawnRoom.upperRight.x) + 1);
+        int randY = Random.Range((SpawnRoom.lowerLeft.y), (SpawnRoom.upperRight.y) + 1);
+        //Translate to world space
+        Vector3Int randLocation = new Vector3Int(randX, randY, 0);
 
-        //Provided the player enum and the category of the item type wanted, this returns 
-        //the item code for the player
-        public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.ItemCategory category)
+        Vector3 worldLocation = Map.GetComponent<MapMaker>().tilemaps[0].GetCellCenterWorld(randLocation);
+        return worldLocation;
+    }
+    #endregion
+
+
+    public int PlayerType(Categories.PlayerCategories PC)
+    {
+        int code = 0;
+        //mage
+        if (PC == Categories.PlayerCategories.mage)
         {
-            int code = 0;
-            //mage
-            if (playerCategory == Categories.PlayerCategories.mage)
-            {
-                code = GetCode(bitPacket.mageInvBitsPacked, category);
-            }
-            //knight
-            if (playerCategory == Categories.PlayerCategories.knight)
-            {
-                code = GetCode(bitPacket.knightInvBitsPacked, category);
-            }
-            //rogue
-            if (playerCategory == Categories.PlayerCategories.rogue)
-            {
-                code = GetCode(bitPacket.rogueInvBitsPacked, category);
-            }
-            //overlord
-            if (playerCategory == Categories.PlayerCategories.overlord)
-            {
-                code = GetCode(bitPacket.overlordInvBitsPacked, category);
-            }
-
-            return code;
+            Debug.Log("We have:" + PC);
+            code = 1;
         }
-
-        //Retrieves the code at of the inventory given the category
-        private int GetCode(int inventory, Categories.ItemCategory category)
+        //knight
+        if (PC == Categories.PlayerCategories.knight)
         {
-            int code = inventory;
-            if (category == Categories.ItemCategory.weapon)
-            {
-                code = code << 3;
-                code = code >> 27;
-            }
-            if (category == Categories.ItemCategory.armor)
-            {
-                code = code << 8;
-                code = code >> 27;
-            }
-            if (category == Categories.ItemCategory.ability1)
-            {
-                code = code << 13;
-                code = code >> 26;
-            }
-            if (category == Categories.ItemCategory.ability2)
-            {
-                code = code << 19;
-                code = code >> 26;
-            }
-            return code;
+            Debug.Log("We have:" + PC);
+            code = 2;
+        }
+        //roguea
+        if (PC == Categories.PlayerCategories.rogue)
+        {
+            Debug.Log("We have:" + PC);
+            code = 3;
+        }
+        //overlord
+        if (PC == Categories.PlayerCategories.overlord)
+        {
+            Debug.Log("We have:" + PC);
+            code = 4;
         }
 
-        #endregion
+        return code;
+    }
+
+    #region Inventory Reading
+
+
+    public Categories.PlayerCategories GetPlayerCategory(int playerCat)
+    {
+        Categories.PlayerCategories playerCategory = (Categories.PlayerCategories)playerCat;
+
+
+        return playerCategory;
+    }
+
+
+    //Provided the player enum and the category of the item type wanted, this returns 
+    //the item code for the player
+    public int GetInventoryCode(Categories.PlayerCategories playerCategory, Categories.ItemCategory category)
+    {
+        int code = 0;
+        //mage
+        if (playerCategory == Categories.PlayerCategories.mage)
+        {
+            code = GetCode(bitPacket.mageInvBitsPacked, category);
+        }
+        //knight
+        if (playerCategory == Categories.PlayerCategories.knight)
+        {
+            code = GetCode(bitPacket.knightInvBitsPacked, category);
+        }
+        //rogue
+        if (playerCategory == Categories.PlayerCategories.rogue)
+        {
+            code = GetCode(bitPacket.rogueInvBitsPacked, category);
+        }
+        //overlord
+        if (playerCategory == Categories.PlayerCategories.overlord)
+        {
+            code = GetCode(bitPacket.overlordInvBitsPacked, category);
+        }
+
+        return code;
+    }
+
+    //Retrieves the code at of the inventory given the category
+    private int GetCode(int inventory, Categories.ItemCategory category)
+    {
+        int code = inventory;
+        if (category == Categories.ItemCategory.weapon)
+        {
+            code = code << 3;
+            code = code >> 27;
+        }
+        if (category == Categories.ItemCategory.armor)
+        {
+            code = code << 8;
+            code = code >> 27;
+        }
+        if (category == Categories.ItemCategory.ability1)
+        {
+            code = code << 13;
+            code = code >> 26;
+        }
+        if (category == Categories.ItemCategory.ability2)
+        {
+            code = code << 19;
+            code = code >> 26;
+        }
+        return code;
+    }
+
+    private void SetPlayerAbilities()
+    {
+        InventoryHandler IH = FindObjectOfType<InventoryHandler>();
+        int code = IH.GetPlayerBits();
+
+        int weaponCode = GetCode(code, Categories.ItemCategory.weapon);
+        int ability1Code = GetCode(code, Categories.ItemCategory.ability1);
+
+        Categories.PlayerCategories playerCategory = IH.GetPlayerCategory();
+
+
+        //https://docs.unity3d.com/ScriptReference/AssetDatabase.FindAssets.html
+        //https://stackoverflow.com/questions/53968958/how-can-i-get-all-prefabs-from-a-assets-folder-getting-not-valid-cast-exception
+        //obtain prefabs ID's to paths
+        string[] prefabPaths = AssetDatabase.FindAssets("t:prefab", new string[] { "Assets/Resources" });
+        foreach (string path in prefabPaths)
+        {
+            //Debug.Log("path: " + AssetDatabase.GUIDToAssetPath(path));
+            string p = AssetDatabase.GUIDToAssetPath(path);
+            GameObject GO = (GameObject)AssetDatabase.LoadAssetAtPath(p, typeof(GameObject)); //loads the asset
+            Ability a = GO.GetComponent<Ability>();
+
+            if (a != null && a.CompareWith(weaponCode, Categories.ItemCategory.weapon, playerCategory))
+            {
+                Debug.Log("Item at path '" + p + "' was a matching weapon!");
+                Debug.Log("code: " + weaponCode);
+            }
+            if (a != null && a.CompareWith(ability1Code, Categories.ItemCategory.ability1, playerCategory))
+            {
+                Debug.Log("Item at path '" + p + "' was a matching ability 1!");
+                Debug.Log("code: " + ability1Code);
+            }
+        }
+    }
+
+    #endregion
 
     #region Overlord Setup
     [PunRPC]

@@ -7,10 +7,16 @@ public class InventoryHandler : MonoBehaviour
     int playerBits;
     Categories.PlayerCategories playerCategory;
 
+    void Start()
+    {
+        DontDestroyOnLoad(this.gameObject);
+    }
+
     //sets handlers player category
     public void SetSelectedPlayer(Categories.PlayerCategories playerCategory)
     {
         this.playerCategory = playerCategory;
+        RetrivePlayerBits();
     }
 
     //retrieves saved player bits
@@ -23,5 +29,9 @@ public class InventoryHandler : MonoBehaviour
     public int GetPlayerBits()
     {
         return playerBits;
+    }
+    public Categories.PlayerCategories GetPlayerCategory()
+    {
+        return playerCategory;
     }
 }

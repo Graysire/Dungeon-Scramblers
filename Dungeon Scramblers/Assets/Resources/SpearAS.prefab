@@ -92,6 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 01000000010000000100000001000000010000000100000001000000
   uniqueName: Spear
+  isInDatabaseOfAttacks: 1
   equippableBitFlag: 00001
   bitCategory: 2
   playerCategory: 2

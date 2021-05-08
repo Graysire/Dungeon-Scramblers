@@ -47,7 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Healing Blast
-  equippableBitFlag: 000001
+  isInDatabaseOfAttacks: 1
+  equippableBitFlag: 000000
   bitCategory: 4
   playerCategory: 1
   abilitySlot: 1
