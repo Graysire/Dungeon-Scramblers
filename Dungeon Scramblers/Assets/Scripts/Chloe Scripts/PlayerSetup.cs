@@ -16,7 +16,10 @@ public class PlayerSetup : MonoBehaviourPunCallbacks
     private void Start()
     {
         //Get Overlord Cam
-        RegCam = GameObject.Find("OverlordCam").GetComponent<Camera>();
+        if (GameObject.Find("OverlordCam") != null)
+        {
+            RegCam = GameObject.Find("OverlordCam").GetComponent<Camera>();
+        }
         
         //If this player is not mine
         if (!photonView.IsMine)
