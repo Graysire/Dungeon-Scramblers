@@ -716,35 +716,40 @@ public class GameManager : MonoBehaviour
         int weaponCode = GetCode(code, Categories.ItemCategory.weapon);
         int ability1Code = GetCode(code, Categories.ItemCategory.ability1);
 
-        Categories.PlayerCategories playerCategory = IH.GetPlayerCategory();
+        Categories.PlayerCategories playerCategory = IH.GetPlayerCategory(); //Get reference to Inventory Handler data for one player
 
-        //obtain prefabs ID's to paths
+        //obtain Ability Objects
         foreach (GameObject GO in OD.GetObjectList())
         {
             Ability a = GO.GetComponent<Ability>();
 
+            //Check for weapons
             if (a != null && a.CompareWith(weaponCode, Categories.ItemCategory.weapon, playerCategory))
             {
                 Debug.Log("Found a matching weapon!");
 
                 if (PhotonNetwork.CurrentRoom != null)
                 {
-
+                    //TODO
                 }
                 else
                     Scramblers[0].SetAttackObjectsList(0, GO); //Set this as the new weapon
             }
+
+            //Check for ability1
             if (a != null && a.CompareWith(ability1Code, Categories.ItemCategory.ability1, playerCategory))
             {
                 Debug.Log("Found a matching abiliy1!");
                 if (PhotonNetwork.CurrentRoom != null)
                 {
-
+                    //TODO
                 }
                 else
                     Scramblers[0].SetAttackObjectsList(1, GO); //Set this as the new ability 1
             }
         }
+
+        Destroy(IH.gameObject); //clean up the handler
     }
 
     #endregion

@@ -16,7 +16,7 @@ public class InventoryHandler : MonoBehaviour
     public void SetSelectedPlayer(Categories.PlayerCategories playerCategory)
     {
         this.playerCategory = playerCategory;
-        RetrivePlayerBits();
+        RetrivePlayerBits();    //Updates the player bit information for selected player type
     }
 
     //retrieves saved player bits
