@@ -38,6 +38,10 @@ public class Player : AbstractPlayer
     protected int enabledAnimatorInd = -1;
     protected Animator enabledAnim;
 
+    // Scrambler: [Footstep R, Footstep L, Ability 1, Ability 2, Hurt, Die]
+    [SerializeField] protected List<AudioClip> SFXList;
+    protected float stepPacer = 0.0f;
+    protected bool onLeft = false;
 
     //Dodge Rolling/ Chargin Mechanics
     protected bool bDashing = false;
@@ -212,6 +216,7 @@ public class Player : AbstractPlayer
         // Actual movement
         direction = new Vector2(d.x, d.y);
         direction = transform.TransformDirection(direction);
+        
     }
 
     protected virtual void ApplyMove() {
@@ -222,7 +227,29 @@ public class Player : AbstractPlayer
          *  With this modification that is no longer the case and when ability starts player doesn'y need
          *  to change direction to see effect.
          */
-        rb.MovePosition((direction * Time.fixedDeltaTime * (affectedStats[(int)Stats.movespeed] / 100f)) + rb.position);
+        Vector2 dirc = (direction * Time.fixedDeltaTime * (affectedStats[(int)Stats.movespeed] / 100f)) ;
+        rb.MovePosition(dirc + rb.position);
+        if (dirc != Vector2.zero) {
+            // SFX Footsteps
+            if (SFXList.Count >= 2)
+            {
+                if (Time.time - stepPacer >= 0.3f)
+                {
+                    if (onLeft)
+                    {
+                        AudioManager.PlaySFX(SFXList[0], 0.4f);
+                        onLeft = false;
+                    }
+
+                    else
+                    {
+                        AudioManager.PlaySFX(SFXList[1], 0.4f);
+                        onLeft = true;
+                    }
+                    stepPacer = Time.time;
+                }
+            }
+        }
     }
 
     // For On-screen stick usage only

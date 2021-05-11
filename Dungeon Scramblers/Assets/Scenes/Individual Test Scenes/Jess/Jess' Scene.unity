@@ -3680,8 +3680,10 @@ MonoBehaviour:
   isDead: 0
   playerScale: 0
   AnimatorList: []
+  SFXList: []
   NormalCam: {fileID: 0}
   OverviewCam: {fileID: 0}
+  OverlordUI: {fileID: 0}
   HasRetributionAbility: 0
   RetributionAbilityIndex: 0
 --- !u!95 &1214607110
@@ -7933,9 +7935,21 @@ PrefabInstance:
       value: Scrambler
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: SFXList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: playerScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: SFXList.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: 8d50482e0eddade4ca08b752d276b2da, type: 3}
+    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: SFXList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: a0d2b476632f3284e99c4242385ee24e, type: 3}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8319,6 +8333,10 @@ PrefabInstance:
     - target: {fileID: 7215315121429294490, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.77411246
+      objectReference: {fileID: 0}
+    - target: {fileID: 7373509849209945864, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7952908697552610677, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: m_IsActive

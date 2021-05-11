@@ -35,10 +35,10 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
     private bool firstBGMIsPlaying = false;
     public static float bgmVolume{ get; set; }
     public static float sfxVolume { get; set; }
-    private float prevBgmVolume = bgmVolume;
-    private float currentBgmRequestedVol = 1.0f;
-    private float prevSfxVolume = sfxVolume;
-    private float currentSfxRequestedVol = 1.0f;
+    private static float prevBgmVolume = bgmVolume;
+    private static float currentBgmRequestedVol = 1.0f;
+    private static float prevSfxVolume = sfxVolume;
+    private static float currentSfxRequestedVol = 1.0f;
 
 
     private void Awake()
@@ -143,13 +143,17 @@ public class AudioManager : MonoBehaviour // The simple version of an Audio Mana
         activeSource.Stop();
     }
     // SFX
-    public void PlaySFX(AudioClip clip, float volume = 1.0f) {
+    public static void PlaySFX(AudioClip clip, float volume = 1.0f) {
         if (volume > 1)
             volume = 1.0f;
         else if (volume < 0)
             volume = 0f;
         currentSfxRequestedVol = volume;
-        sfxSource.PlayOneShot(clip, volume*sfxVolume);
+
+        // SFXVOLUME NOT WORKING, ALWAYS 0
+        //Debug.Log("Volume SFX: " + volume * sfxVolume);
+        //sfxSource.PlayOneShot(clip, volume*sfxVolume);
+        sfxSource.PlayOneShot(clip, volume);
     }
 
     private void InitAudioSource(ref AudioSource ini, bool isBGM) {
