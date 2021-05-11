@@ -3681,6 +3681,8 @@ MonoBehaviour:
   playerScale: 0
   AnimatorList: []
   SFXList: []
+  stepInterval: 0
+  hurtInterval: 0
   NormalCam: {fileID: 0}
   OverviewCam: {fileID: 0}
   OverlordUI: {fileID: 0}
@@ -7936,7 +7938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: SFXList.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: playerScale
@@ -7948,6 +7950,14 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 8d50482e0eddade4ca08b752d276b2da, type: 3}
     - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
       propertyPath: SFXList.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: a0d2b476632f3284e99c4242385ee24e, type: 3}
+    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: SFXList.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: a0d2b476632f3284e99c4242385ee24e, type: 3}
+    - target: {fileID: 2114680770838200918, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}
+      propertyPath: SFXList.Array.data[3]
       value: 
       objectReference: {fileID: 8300000, guid: a0d2b476632f3284e99c4242385ee24e, type: 3}
     - target: {fileID: 2114680770838200919, guid: a0a7e05073ab53240ada30f9fed356ea, type: 3}

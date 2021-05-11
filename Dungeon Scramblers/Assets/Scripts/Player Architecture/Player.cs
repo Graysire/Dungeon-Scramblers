@@ -38,10 +38,14 @@ public class Player : AbstractPlayer
     protected int enabledAnimatorInd = -1;
     protected Animator enabledAnim;
 
-    // Scrambler: [Footstep R, Footstep L, Ability 1, Ability 2, Hurt, Die]
+    // Scrambler: [Footstep R, Footstep L, Hurt, Die]
     [SerializeField] protected List<AudioClip> SFXList;
-    protected float stepPacer = 0.0f;
-    protected bool onLeft = false;
+    protected float stepPacer = 0.0f;                               // Prevents footsteps from being spammed 
+    [SerializeField] [Range(0, 2)] protected float stepInterval;    // Sets how frequently steps should be played
+    protected bool onLeft = false;                                  // Checks for Right and Left footstep variation
+    protected float hurtPacer = 0.0f;                               // Prevents hurt sfx from being spammed
+    [SerializeField] [Range(0, 2)] protected float hurtInterval;    // Sets how frequently hurt sfx should be played (assuming hurt hurt multiple times in a row)
+
 
     //Dodge Rolling/ Chargin Mechanics
     protected bool bDashing = false;
@@ -145,7 +149,22 @@ public class Player : AbstractPlayer
 
     protected virtual void HealthCheck()
     {
-        if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) affectedStats[(int)Stats.health] = stats[(int)Stats.health];
+        if (affectedStats[(int)Stats.health] > stats[(int)Stats.health]) {
+            affectedStats[(int)Stats.health] = stats[(int)Stats.health];
+        } 
+    }
+
+    public override void Damage(int damageTaken) {
+        base.Damage(damageTaken);
+        // SFX hurt
+        if (SFXList.Count >= 3)
+        {
+            if (Time.time - hurtPacer >= hurtInterval)
+            {
+                AudioManager.PlaySFX(SFXList[2], 1f);
+                hurtPacer = Time.time;
+            }
+        }
     }
 
     #region Pun/Unity Callbacks
@@ -233,7 +252,7 @@ public class Player : AbstractPlayer
             // SFX Footsteps
             if (SFXList.Count >= 2)
             {
-                if (Time.time - stepPacer >= 0.3f)
+                if (Time.time - stepPacer >= stepInterval)
                 {
                     if (onLeft)
                     {
@@ -295,6 +314,11 @@ public class Player : AbstractPlayer
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f); // temporary color shift
             Debug.Log("Dead");
             // Death animation
+            // Death SFX
+            if (SFXList.Count >= 4)
+            {
+                AudioManager.PlaySFX(SFXList[3], 1f);
+            }
         }
     }
 

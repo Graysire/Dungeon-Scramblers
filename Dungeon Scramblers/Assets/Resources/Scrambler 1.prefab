@@ -1708,13 +1708,20 @@ MonoBehaviour:
   - {fileID: 6497682061442774528, guid: c8bbd279d23a5f04bb0c81309804afcc, type: 3}
   - {fileID: 6242800877514398001, guid: fb21cb440ed49dc4fbdf4c893481de62, type: 3}
   usingOnScreenControls: 0
-  PlayerOnScreenControls: {fileID: 0}
+  PlayerOnScreenControls: {fileID: 61888377276289279, guid: 5d5b18cf203540b4e8cef592e8df9c6c, type: 3}
   isDead: 0
   playerScale: 0.5
   AnimatorList:
   - {fileID: 9205084998979374847}
   - {fileID: 3352191096885866221}
   - {fileID: 9156587916809008265}
+  SFXList:
+  - {fileID: 8300000, guid: dab62dcc8c8455e4eabc967119e40218, type: 3}
+  - {fileID: 8300000, guid: c7f11d0c7671c1c4cb3a465cc20cb7b3, type: 3}
+  - {fileID: 8300000, guid: a1f51e723da541742b8cf4f74ca92b44, type: 3}
+  - {fileID: 8300000, guid: 815b3cc604d4ee34d90ba2af1f87f1cc, type: 3}
+  stepInterval: 0.3
+  hurtInterval: 0.6
   ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
