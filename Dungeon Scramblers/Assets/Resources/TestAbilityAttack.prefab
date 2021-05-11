@@ -47,7 +47,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: FireBall
-  isInDatabaseOfAttacks: 0
   equippableBitFlag: 
   bitCategory: 0
   playerCategory: 0

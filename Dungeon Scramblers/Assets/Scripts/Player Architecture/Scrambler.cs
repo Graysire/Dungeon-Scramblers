@@ -44,6 +44,7 @@ public class Scrambler : Player
             allowedToAttack = false;
             SetPhysicsLayer(14);
             sr.color = new Color(sr.color.r, sr.color.g, sr.color.b, 0.5f);
+            Debug.Log("Escaped Function");
         }
     }
     public void ResetEscaped()
@@ -55,17 +56,22 @@ public class Scrambler : Player
 
     public override void Die()
     {
-        if (PhotonNetwork.CurrentRoom != null)
-        {
-            PhotonView OPview = gameObject.GetPhotonView();
-            int PhotonID = gameObject.GetPhotonView().ViewID;
-            OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
-        }
         base.Die();
-        if (isDead)
+        if (affectedStats[(int)Stats.health] <= 0 || isDead == true)
         {
-            GameManager.ManagerInstance.AddScramblerDeath(this);
-            SetPhysicsLayer(14);
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                PhotonView OPview = gameObject.GetPhotonView();
+                int PhotonID = gameObject.GetPhotonView().ViewID;
+                OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
+            }
+
+            if (isDead)
+            {
+                GameManager.ManagerInstance.AddScramblerDeath(this);
+                SetPhysicsLayer(14);
+            }
+            Debug.Log("Die Base Function");
         }
     }
     [PunRPC]
@@ -74,6 +80,7 @@ public class Scrambler : Player
         //Find Player that died
         GameObject Scrambler = PhotonView.Find(PhotonID).gameObject;
         GetComponent<Scrambler>().SetPhysicsLayer(14);
+        Debug.Log("Die Photon Function");
         //OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
     }
 

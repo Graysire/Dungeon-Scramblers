@@ -92,7 +92,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: 00000000000000000000000000000000000000000000000000000000
   uniqueName: Sword Slash
-  isInDatabaseOfAttacks: 1
   equippableBitFlag: 00000
   bitCategory: 2
   playerCategory: 2
