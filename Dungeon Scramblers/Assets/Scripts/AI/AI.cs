@@ -392,8 +392,19 @@ public class AI : AbstractPlayer
         }
         Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
-        Destroy(this.gameObject);
+        StartCoroutine(Seppuku());
         return true;
+    }
+
+    //puts a buffer so that other other players can still have Photon Reference
+    private IEnumerator Seppuku()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = !enabled;
+        gameObject.GetComponent<SpriteRenderer>().enabled = !enabled;
+        this.canMove = false;
+        allowedToAttack = false;
+        yield return new WaitForSeconds(3.0f);
+        Destroy(this.gameObject);
     }
 
     //Spawns the selected AI type into the game scene
