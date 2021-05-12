@@ -17,13 +17,7 @@ public class OnScreenStickModifications : MonoBehaviour, IPointerDownHandler, IP
     {
         if (AllOtherIndependentJoysticks != null)
         {
-            AllOtherIndependentJoystickFunctions = new List<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
-            AllOtherIndependentJoystickModifications = new List<OnScreenStickModifications>();
-            for (int i = 0; i < AllOtherIndependentJoysticks.Count; i++)
-            {
-                AllOtherIndependentJoystickFunctions.Add(AllOtherIndependentJoysticks[i].GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>());
-                AllOtherIndependentJoystickModifications.Add(AllOtherIndependentJoysticks[i].GetComponent<OnScreenStickModifications>());
-            }
+            ReferenceAllOtherJoystickAbilities(AllOtherIndependentJoysticks);
         }
     }
 
@@ -51,6 +45,16 @@ public class OnScreenStickModifications : MonoBehaviour, IPointerDownHandler, IP
                 AllOtherIndependentJoystickModifications[i].enabled = true;
                 //Debug.Log("Other is enabled.");
             }
+        }
+    }
+
+    public void ReferenceAllOtherJoystickAbilities(List<GameObject> listOfAbilities) {
+        AllOtherIndependentJoystickFunctions = new List<UnityEngine.InputSystem.OnScreen.OnScreenStick>();
+        AllOtherIndependentJoystickModifications = new List<OnScreenStickModifications>();
+        for (int i = 0; i < AllOtherIndependentJoysticks.Count; i++)
+        {
+            AllOtherIndependentJoystickFunctions.Add(AllOtherIndependentJoysticks[i].GetComponent<UnityEngine.InputSystem.OnScreen.OnScreenStick>());
+            AllOtherIndependentJoystickModifications.Add(AllOtherIndependentJoysticks[i].GetComponent<OnScreenStickModifications>());
         }
     }
 }
