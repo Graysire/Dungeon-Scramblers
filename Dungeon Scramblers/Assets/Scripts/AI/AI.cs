@@ -42,7 +42,7 @@ public class AI : AbstractPlayer
 
     private bool canMove = true;
     private Rigidbody2D rb;                     // This AI's rigidbody2D
-    private bool deathCoroutineRunning = false;
+
     [Header("Spawner AI")]
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
@@ -146,11 +146,8 @@ public class AI : AbstractPlayer
     //Send EXP to Game Manager to send to all players
     protected void DisperseEXP()
     {
-        if (!deathCoroutineRunning)
-        {
-            //Get the game manager to disperse the exp to players
-            GameManager.ManagerInstance.DistributeExperience(expOnDeath);
-        }
+        //Get the game manager to disperse the exp to players
+        GameManager.ManagerInstance.DistributeExperience(expOnDeath);
     }
 
     //Determines if the AI is at the stopping distance from the player
@@ -369,14 +366,11 @@ public class AI : AbstractPlayer
 
     private IEnumerator WaitToMove()
     {
-        if (!deathCoroutineRunning)
-        {
-            Debug.Log("Waiting");
-            canMove = false;
-            yield return new WaitForSeconds(timeToWaitBeforeMoving);
-            Debug.Log("Done waiting");
-            canMove = true;
-        }
+        Debug.Log("Waiting");
+        canMove = false;
+        yield return new WaitForSeconds(timeToWaitBeforeMoving);
+        Debug.Log("Done waiting");
+        canMove = true;
     }
 
     //Checks if the health is less than the given value
@@ -399,26 +393,10 @@ public class AI : AbstractPlayer
         }
         Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
-        StartCoroutine(Seppuku());
+        Destroy(this.gameObject);
         return true;
     }
 
-    //puts a buffer so that other other players can still have Photon Reference
-    private IEnumerator Seppuku()
-    {
-        if (!deathCoroutineRunning)
-        {
-            disarmed = true;
-            deathCoroutineRunning = true; //stops coroutine from being called again & EXP from being disperesed again
-            HealthBar.gameObject.SetActive(false);
-            gameObject.GetComponent<BoxCollider2D>().enabled = !enabled;
-            gameObject.GetComponent<SpriteRenderer>().enabled = !enabled;
-            this.canMove = false;
-            allowedToAttack = false;
-            yield return new WaitForSeconds(10.0f);
-            Destroy(this.gameObject);
-        }
-    }
 
     //Spawns the selected AI type into the game scene
     [Task]
