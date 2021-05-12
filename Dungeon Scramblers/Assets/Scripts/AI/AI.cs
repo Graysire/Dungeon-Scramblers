@@ -369,11 +369,14 @@ public class AI : AbstractPlayer
 
     private IEnumerator WaitToMove()
     {
-        Debug.Log("Waiting");
-        canMove = false;
-        yield return new WaitForSeconds(timeToWaitBeforeMoving);
-        Debug.Log("Done waiting");
-        canMove = true;
+        if (!deathCoroutineRunning)
+        {
+            Debug.Log("Waiting");
+            canMove = false;
+            yield return new WaitForSeconds(timeToWaitBeforeMoving);
+            Debug.Log("Done waiting");
+            canMove = true;
+        }
     }
 
     //Checks if the health is less than the given value
