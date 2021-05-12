@@ -408,6 +408,7 @@ public class AI : AbstractPlayer
     {
         if (!deathCoroutineRunning)
         {
+            disarmed = true;
             deathCoroutineRunning = true; //stops coroutine from being called again & EXP from being disperesed again
             HealthBar.gameObject.SetActive(false);
             gameObject.GetComponent<BoxCollider2D>().enabled = !enabled;
