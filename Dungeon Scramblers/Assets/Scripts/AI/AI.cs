@@ -42,7 +42,7 @@ public class AI : AbstractPlayer
 
     private bool canMove = true;
     private Rigidbody2D rb;                     // This AI's rigidbody2D
-
+    private bool deathCoroutineRunning = false;
     [Header("Spawner AI")]
     public GameObject enemyTypeToSpawn;         // This will instantiate the given enemy AI type into the game
 
@@ -51,6 +51,7 @@ public class AI : AbstractPlayer
     [Header("Mimic AI")]
     [SerializeField]
     private Sprite mimicSprite;
+
 
 
     /*
@@ -145,8 +146,11 @@ public class AI : AbstractPlayer
     //Send EXP to Game Manager to send to all players
     protected void DisperseEXP()
     {
-        //Get the game manager to disperse the exp to players
-        GameManager.ManagerInstance.DistributeExperience(expOnDeath);
+        if (!deathCoroutineRunning)
+        {
+            //Get the game manager to disperse the exp to players
+            GameManager.ManagerInstance.DistributeExperience(expOnDeath);
+        }
     }
 
     //Determines if the AI is at the stopping distance from the player
@@ -399,12 +403,16 @@ public class AI : AbstractPlayer
     //puts a buffer so that other other players can still have Photon Reference
     private IEnumerator Seppuku()
     {
-        gameObject.GetComponent<BoxCollider2D>().enabled = !enabled;
-        gameObject.GetComponent<SpriteRenderer>().enabled = !enabled;
-        this.canMove = false;
-        allowedToAttack = false;
-        yield return new WaitForSeconds(3.0f);
-        Destroy(this.gameObject);
+        if (!deathCoroutineRunning)
+        {
+            deathCoroutineRunning = true; //stops coroutine from being called again & EXP from being disperesed again
+            gameObject.GetComponent<BoxCollider2D>().enabled = !enabled;
+            gameObject.GetComponent<SpriteRenderer>().enabled = !enabled;
+            this.canMove = false;
+            allowedToAttack = false;
+            yield return new WaitForSeconds(3.0f);
+            Destroy(this.gameObject);
+        }
     }
 
     //Spawns the selected AI type into the game scene
