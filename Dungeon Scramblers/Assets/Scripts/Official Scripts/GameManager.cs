@@ -225,7 +225,7 @@ public class GameManager : MonoBehaviour
             Overlord.NormalCam.enabled = true;
             Overlord.enabled = true;
             PhotonView OPview = gameObject.GetPhotonView();
-            int PhotonID = gameObject.GetPhotonView().ViewID;
+            int PhotonID = Overlord.gameObject.GetPhotonView().ViewID;
             OPview.RPC("OverLordSetUp", RpcTarget.OthersBuffered, PhotonID, 1);
             // turn off the Overlord UI
             Overlord.GetComponent<Overlord>().OverlordUI.SetActive(false);
