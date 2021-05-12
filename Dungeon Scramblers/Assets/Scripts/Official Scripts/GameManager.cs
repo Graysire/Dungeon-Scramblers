@@ -779,13 +779,16 @@ public class GameManager : MonoBehaviour
     void OverLordSetUp(int PhotonID, int SetSprite)
     {
         GameObject overlord = PhotonView.Find(PhotonID).gameObject;
-       
+        Debug.Log(overlord);
+
         if (SetSprite == 1)
         {
+            Debug.Log("Turn On Sprite");
             overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
         }
         else
         {
+            Debug.Log("Turn Off Sprite");
             overlord.GetComponent<SpriteRenderSwitch>().SpritesOff();
         }
     }
