@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class InventoryHandler : MonoBehaviour
 {
+    [Header("Player Items Mage")]
+    public GameObject[] PlayerItemsMage;
+    [Header("Player Items Knight")]
+    public GameObject[] PlayerItemsKnight;
+    [Header("Player Items Rogue")]
+    public GameObject[] PlayerItemsRogue;
+    [Header("Player Items Overlord")]
+    public GameObject[] PlayerItemsOverlord;
     int playerBits;
     Categories.PlayerCategories playerCategory;
 

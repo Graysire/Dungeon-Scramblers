@@ -296,7 +296,7 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //Add Player Selection to hash table to save for later
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
 
-        Debug.Log("Player Character received");
+       // Debug.Log("Player Character received");
     }
 
 
@@ -308,13 +308,13 @@ public class MenuManager : MonoBehaviourPunCallbacks
         //Add Player Selection to hash table to save for later
         PhotonNetwork.LocalPlayer.SetCustomProperties(playerSelectionProp);
 
-        Debug.Log("Player info received");
+       // Debug.Log("Player info received");
     }
 
     //Funciton called when Player's Character Selection changes
     public override void OnPlayerPropertiesUpdate(Photon.Realtime.Player targetPlayer, ExitGames.Client.Photon.Hashtable changedProps)
     {
-        Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
+        //Debug.Log("player: " + targetPlayer + " has changed: " + changedProps);
 
     }
 

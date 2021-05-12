@@ -1128,7 +1128,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 278783080202357068, guid: 4f706623af867ee41beccd73b1620861, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.8584906, b: 0.05616729, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1578,7 +1578,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 278783080202357068, guid: 4f706623af867ee41beccd73b1620861, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.8584906, b: 0.05616729, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1677,8 +1677,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowLayerWeightsInspector: 1
   ShowParameterInspector: 1
-  m_SynchronizeParameters: []
-  m_SynchronizeLayers: []
+  m_SynchronizeParameters:
+  - Type: 4
+    SynchronizeType: 0
+    Name: idle
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &2114680769885503262
 GameObject:
   m_ObjectHideFlags: 0
@@ -1937,7 +1942,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 278783080202357068, guid: 4f706623af867ee41beccd73b1620861, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.8584906, b: 0.05616729, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3154,15 +3159,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: -8637115744906271460, guid: 4f706623af867ee41beccd73b1620861, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.15068698, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680770838200917
@@ -3238,10 +3243,14 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 0}
   isDead: 0
+  playerScale: 0
   AnimatorList:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
+  SFXList: []
+  stepInterval: 0
+  hurtInterval: 0
   ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
@@ -3335,6 +3344,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 8043284019362041551}
+  RegCam: {fileID: 0}
+  Listener: {fileID: 0}
+  isOverlord: 0
 --- !u!1 &2114680770841707675
 GameObject:
   m_ObjectHideFlags: 0

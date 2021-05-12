@@ -78,6 +78,9 @@ public class GameManager : MonoBehaviour
     public GameObject[] PlayerPrefabs; //List of Playertypes to instantiate
     BitPacket bitPacket = new BitPacket(); // Bitpakcet info for reading player types
 
+
+    [Header("ItemSpawning")]
+    public GameObject[] PlayerItems;
     Random.State s; //State for Map Spawn
     int seed;
 
@@ -526,39 +529,48 @@ public class GameManager : MonoBehaviour
                 //Get Player Category, save for later for loadout implementation
                 Categories.PlayerCategories SavedPlayerType = GetPlayerCategory((int)PlayerSelectionNumber);
 
+
+                //Inventory Reading Starts here/////
+                int codeWepaon = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.weapon);
+                int codeArmor = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.armor);
+                int codeAbility1 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability1);
+                int codeAbility2 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability2);
+
                 Debug.Log("Saved Player Type:" + SavedPlayerType);
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
 
-
-                //Check player for Overlord Category
-                if (SavedPlayerType == Categories.PlayerCategories.overlord)
-                {
-                    //Debug.Log("Overlord Player selected");
-                    Vector3 Spawn = SetupSpawning(true);
-                    GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
-                    //Set Player Camera to Map view and turn off regular controls
-                    PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
-                    PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
-                    PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
-                    PlayerGO.GetComponent<Overlord>().enabled = false;
-                    //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
-                        PhotonView OPview = gameObject.GetPhotonView();
-                        int PhotonID = gameObject.GetPhotonView().ViewID;
-                        OPview.RPC("SetOverlordSprite", RpcTarget.OthersBuffered, PhotonID); 
                 //Start Countdown
                 //Spawn Overlord at the Exit door
 
-            }
-                else //All other players spawn like normal
-                {
-                    Vector3 Spawn = SetupSpawning(false);
-                    Debug.Log(Spawn);
-                    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
-                    Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
-                    //AddScrambler( scrambler);
+                    //Check player for Overlord Category
+                    if (SavedPlayerType == Categories.PlayerCategories.overlord)
+                    {
+                        //Debug.Log("Overlord Player selected");
+                        Vector3 Spawn = SetupSpawning(true);
+                        GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
+                        //Set Player Camera to Map view and turn off regular controls
+                        PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
+                        PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
+                        PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
+                        PlayerGO.GetComponent<Overlord>().enabled = false;
+                        //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
+                         PhotonView OPview = gameObject.GetPhotonView();
+                         int PhotonID = gameObject.GetPhotonView().ViewID;
+                         OPview.RPC("OverLordSetUp", RpcTarget.OthersBuffered, PhotonID, 0); 
+                    //Start Countdown
+                    //Spawn Overlord at the Exit door
 
-                }
+                    }       
+                    else //All other players spawn like normal
+                    {
+                        Vector3 Spawn = SetupSpawning(false);
+                        Debug.Log(Spawn);
+                        GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+                        Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                        //AddScrambler( scrambler);
+
+                    }
             }
             else
             {
@@ -677,7 +689,7 @@ public class GameManager : MonoBehaviour
         {
             code = GetCode(bitPacket.overlordInvBitsPacked, category);
         }
-
+        Debug.Log("Code Found: " + code + " for category: " + category);
         return code;
     }
 
@@ -749,22 +761,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Destroy(IH.gameObject); //clean up the handler
     }
 
     #endregion
 
     #region Overlord Setup
     [PunRPC]
-    void OverLordSetUp(int PhotonID)
+    void OverLordSetUp(int PhotonID, int SetSprite)
     {
-       GameObject PlayerGO = PhotonView.Find(PhotonID).gameObject;
-        SetOverlordSprite(PlayerGO, true);
-    }
-
-    void SetOverlordSprite(GameObject overlord, bool setSprite)
-    {
-        if(setSprite)
+        GameObject overlord = PhotonView.Find(PhotonID).gameObject;
+       
+        if (SetSprite == 1)
         {
             overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
         }
@@ -773,5 +780,6 @@ public class GameManager : MonoBehaviour
             overlord.GetComponent<SpriteRenderSwitch>().SpritesOff();
         }
     }
+
     #endregion
 }

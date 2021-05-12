@@ -3114,7 +3114,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -5308738634532600528, guid: d6d31b6c58d1dbc47890e0ceb4dc39fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -3122,7 +3122,7 @@ SpriteRenderer:
   m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2114680770838200917
@@ -3203,6 +3203,9 @@ MonoBehaviour:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
+  SFXList: []
+  stepInterval: 0
+  hurtInterval: 0
   ExperienceBar: {fileID: 0}
 --- !u!50 &2114680770838200923
 Rigidbody2D:
