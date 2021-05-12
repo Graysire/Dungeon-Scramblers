@@ -783,12 +783,12 @@ public class GameManager : MonoBehaviour
         if (SetSprite == 1)
         {
             Debug.Log("Turn On Sprite");
-            overlord.GetComponent<SpriteRenderSwitch>().SpritesOn();
+            overlord.GetComponent<SpriteRenderer>().enabled = true;
         }
         else
         {
             Debug.Log("Turn Off Sprite");
-            overlord.GetComponent<SpriteRenderSwitch>().SpritesOff();
+            overlord.GetComponent<SpriteRenderer>().enabled = false;
         }
     }
 
