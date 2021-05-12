@@ -21,7 +21,7 @@ public class ChargeAttackSequence : DefaultAttackSequence
     private Vector3 AttackNormal;
 
 
-    [PunRPC]
+    
     protected override IEnumerator AttackSequence()
     {
         if (PhotonNetwork.CurrentRoom != null)

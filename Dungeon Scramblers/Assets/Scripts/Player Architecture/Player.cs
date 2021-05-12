@@ -131,8 +131,8 @@ public class Player : AbstractPlayer
     {
         base.OnEnable();
         controls.Enable();
-        UpdateHandler.UpdateOccurred += Die;
-        UpdateHandler.UpdateOccurred += HealthCheck;
+        //UpdateHandler.UpdateOccurred += Die;
+        //UpdateHandler.UpdateOccurred += HealthCheck;
         UpdateHandler.FixedUpdateOccurred += ApplyMove;
         UpdateHandler.FixedUpdateOccurred += PhotonPhysicsUpdate;
     }
@@ -140,8 +140,8 @@ public class Player : AbstractPlayer
     {
         base.OnDisable();
         controls.Disable();
-        UpdateHandler.UpdateOccurred -= Die;
-        UpdateHandler.UpdateOccurred -= HealthCheck;
+        //UpdateHandler.UpdateOccurred -= Die;
+        //UpdateHandler.UpdateOccurred -= HealthCheck;
         UpdateHandler.FixedUpdateOccurred -= ApplyMove;
         UpdateHandler.FixedUpdateOccurred -= PhotonPhysicsUpdate;
     }
@@ -165,6 +165,8 @@ public class Player : AbstractPlayer
                 hurtPacer = Time.time;
             }
         }
+        HealthCheck();
+        Die();
     }
 
     #region Pun/Unity Callbacks

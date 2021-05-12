@@ -3346,6 +3346,9 @@ MonoBehaviour:
   - {fileID: 2114680769434369850}
   - {fileID: 2114680769881104786}
   - {fileID: 2114680770027572290}
+  SFXList: []
+  stepInterval: 0
+  hurtInterval: 0
   NormalCam: {fileID: 8043284018380152718}
   OverviewCam: {fileID: 146368097982017799}
   OverlordUI: {fileID: 7710607136613392419}
