@@ -70,9 +70,10 @@ MonoBehaviour:
   voteTimeInSeconds: 30
   matchTimeInSeconds: 240
   bossFightTimeInSeconds: 240
-  numberOfRounds: 1
+  numberOfRounds: 3
   Map: {fileID: 0}
   PlayerPrefabs: []
+  Inventory: {fileID: 0}
 --- !u!114 &-1149745640401895437
 MonoBehaviour:
   m_ObjectHideFlags: 0
