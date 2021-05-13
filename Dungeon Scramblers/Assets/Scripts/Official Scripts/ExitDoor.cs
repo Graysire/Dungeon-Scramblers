@@ -17,9 +17,10 @@ public class ExitDoor : MonoBehaviour
                 //GameManager.ManagerInstance.IncrementEscapedScramblers(); //increment escaped scrambler count
                 if (PhotonNetwork.CurrentRoom != null)
                 {
-                    PhotonView OPview = gameObject.GetPhotonView();
+                    //PhotonView OPview = gameObject.GetPhotonView();
                     //int PhotonID = gameObject.GetPhotonView().ViewID;
-                    OPview.RPC("IncrementEscapedScramblers", RpcTarget.AllBuffered); //, PhotonID);
+                    GameManager.ManagerInstance.IncrementEscapedScramblers();
+                   // OPview.RPC("IncrementEscapedScramblers", RpcTarget.AllBuffered); 
                 }
                 else
                 {

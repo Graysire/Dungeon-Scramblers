@@ -62,7 +62,7 @@ namespace Photon.Pun.UtilityScripts
         }
 
 
-        [PunRPC]
+        [Pun.RPC]
         public IEnumerator DestroyRpc()
         {
             Destroy(this.gameObject);
