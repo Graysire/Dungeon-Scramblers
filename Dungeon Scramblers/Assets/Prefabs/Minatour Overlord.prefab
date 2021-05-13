@@ -112,8 +112,15 @@ MonoBehaviour:
   usingOnScreenControls: 0
   PlayerOnScreenControls: {fileID: 2560322437646083898, guid: 65b3ded9073cc1148a36739e5deb8c95, type: 3}
   isDead: 0
+  playerScale: 0
   AnimatorList:
   - {fileID: 5866646166661218464}
+  SFXList: []
+  stepInterval: 0
+  hurtInterval: 0
+  NormalCam: {fileID: 0}
+  OverviewCam: {fileID: 0}
+  OverlordUI: {fileID: 0}
   HasRetributionAbility: 1
   RetributionAbilityIndex: 3
 --- !u!212 &5866646168477641322
@@ -156,8 +163,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 7333655509563525168, guid: 37b6e729ae8e75b4b8b2a646ec75b20c, type: 3}
-  m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 1}
+  m_Sprite: {fileID: 21300000, guid: bdb6354d37952824c8d7a9aa8839f6fd, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
