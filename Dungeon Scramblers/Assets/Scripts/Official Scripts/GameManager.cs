@@ -267,6 +267,7 @@ public class GameManager : MonoBehaviour
     //Generates a level
     void GenerateLevel()
     {
+        Debug.Log("Generating New Level!");
         if (currentRound == 1)
             StartCoroutine(Map.GenerateMap(true));
         //Map.GenerateMap(true);
