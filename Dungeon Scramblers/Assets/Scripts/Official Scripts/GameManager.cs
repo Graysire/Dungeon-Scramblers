@@ -231,6 +231,13 @@ public class GameManager : MonoBehaviour
         return seed;
     }
 
+    [Photon.Pun.RPC]
+    public void GetSeed(int seed)
+    {
+        Random.InitState(seed);
+        Debug.Log("Client Seed: " + seed);
+    }
+
     //Handles data for when setup stage is over
     //Will start match timer and open doors
     public void BeginMatchTimer()
