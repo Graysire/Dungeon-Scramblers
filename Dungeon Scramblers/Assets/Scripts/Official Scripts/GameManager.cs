@@ -370,12 +370,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    //apply player loadouts
-    void LoadLoadouts()
-    {
-
-    }
-
     //returns a perk from the perkList selectingrandomly if getRevive is false, otehrwise sendsthe Revival perk
     public Perk GetPerk(bool getRevive)
     {
