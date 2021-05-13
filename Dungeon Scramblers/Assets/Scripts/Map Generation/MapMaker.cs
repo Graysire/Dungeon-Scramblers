@@ -353,7 +353,7 @@ public class MapMaker : MonoBehaviour
                 //Spawn level exit object
                 if (nextLevelTeleport != null)
                 {
-                    Instantiate(nextLevelTeleport, tilemaps[0].GetCellCenterWorld(new Vector3Int(x, y, 0)), new Quaternion());
+                    PhotonNetwork.Instantiate(nextLevelTeleport.name, tilemaps[0].GetCellCenterWorld(new Vector3Int(x, y, 0)), new Quaternion());
                 }
 
                 //place additional tiles based on the facing
