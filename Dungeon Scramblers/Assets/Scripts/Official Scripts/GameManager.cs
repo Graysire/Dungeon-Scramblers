@@ -127,6 +127,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnPlayers());
 
     }
+
     //Update
     private void Updater()
     {
@@ -145,9 +146,11 @@ public class GameManager : MonoBehaviour
                 //Generate new round
                 else
                 {
+                    
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
                 }
+                Debug.Log("Finished Generating Level");
                 createNewLevel = false;
             }
 
@@ -178,6 +181,7 @@ public class GameManager : MonoBehaviour
 
                 SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
             }
+            Debug.Log("# of escaped scramblers " + escapedScramblers);
         }
     }
 
