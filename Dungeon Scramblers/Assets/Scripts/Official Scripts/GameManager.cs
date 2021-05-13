@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
     //Update
     private void Updater()
     {
+        Debug.Log("Ready: " + ready);
         if (ready)
         {
             //will generate a new level
@@ -338,23 +339,27 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [Photon.Pun.RPC]
-    public void IncrementEscapedScramblers()
+    
+    public void IncrementEscapedScrambler()
     {
         Debug.Log("Incrementing  Escaped");
-        escapedScramblers++;
         if(PhotonNetwork.CurrentRoom != null)
         {
             PhotonView OPview = gameObject.GetPhotonView();
-            int PhotonID = gameObject.GetPhotonView().ViewID;
             //GameManager.ManagerInstance.IncrementEscapedScramblers();
             OPview.RPC("IncrementEscapedScramblers", RpcTarget.OthersBuffered);
+            escapedScramblers++;
+
         }
-       
+
 
     }
 
-
+    [Photon.Pun.RPC]
+    public void IncrementEscapedScramblers()
+    {
+        escapedScramblers++;
+    }
 
     public void IncrementButton(VoteButton button)
     {
