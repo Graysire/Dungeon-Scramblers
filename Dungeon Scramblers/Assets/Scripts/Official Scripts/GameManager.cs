@@ -147,7 +147,14 @@ public class GameManager : MonoBehaviour
                 //Generate new round
                 else
                 {
-                    
+                    //Share Seed
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+
+                        PhotonView Pview = this.gameObject.GetPhotonView();
+                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
+
+                    }
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
                 }
@@ -214,7 +221,15 @@ public class GameManager : MonoBehaviour
         timer.InitializeAndStartTimer(voteTimeInSeconds, false);
     }
 
+    //Function to set seed from Master Client
+    public int SetSeed()
+    {
+        int seed = Random.Range(int.MinValue, int.MaxValue);
+        Random.InitState(seed);
 
+        Debug.Log("Master Seed: " + seed);
+        return seed;
+    }
 
     //Handles data for when setup stage is over
     //Will start match timer and open doors
