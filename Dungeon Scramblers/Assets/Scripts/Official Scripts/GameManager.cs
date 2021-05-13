@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour
 
 
     [Header("ItemSpawning")]
-    public GameObject[] PlayerItems;
+    public InventoryHandler Inventory;
     Random.State s; //State for Map Spawn
     int seed;
 
@@ -518,13 +518,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(2);
         if (PhotonNetwork.IsConnectedAndReady)
         {
-            ////If we aren't the master Client, give us the seed
-            //if (!PhotonNetwork.LocalPlayer.IsMasterClient)
-            //{
-            //    Random.state = s;
-            //    Random.InitState(seed);
-            //    Debug.Log("Seed for NonMaster Clinet: " + seed);
-            //}
+            //Generate Map
             StartCoroutine(Map.GenerateMap(true));
 
             //Player Spawning
@@ -538,12 +532,13 @@ public class GameManager : MonoBehaviour
                 Categories.PlayerCategories SavedPlayerType = GetPlayerCategory((int)PlayerSelectionNumber);
 
 
-                //Inventory Reading Starts here/////
-                int codeWepaon = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.weapon);
+                //INVENTORY READING STARTS HERE/////
+                int codeWeapon = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.weapon);
                 int codeArmor = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.armor);
                 int codeAbility1 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability1);
                 int codeAbility2 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability2);
 
+                
                 Debug.Log("Saved Player Type:" + SavedPlayerType);
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -576,6 +571,7 @@ public class GameManager : MonoBehaviour
                         Debug.Log(Spawn);
                         GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                         Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                        //Inventory.SetLoadout((Player) scrambler, codeWeapon,)
                         //AddScrambler( scrambler);
 
                     }

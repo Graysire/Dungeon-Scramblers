@@ -42,4 +42,17 @@ public class InventoryHandler : MonoBehaviour
     {
         return playerCategory;
     }
+
+    public void SetLoadout(Player player, int index)
+    {
+
+        //player.SetAttackObjectsList(index, Attack);
+        Debug.Log("Attack Updated: " + player.GetAttackObjectsList());
+    }
+
+    void GetLoadoutAtIndex(int index)
+    {
+
+    }
+
 }

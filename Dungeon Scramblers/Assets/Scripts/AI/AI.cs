@@ -393,7 +393,16 @@ public class AI : AbstractPlayer
         }
         Debug.Log("AI Dying");
         DisperseEXP(); //Send the experience for killing AI to players
-        Destroy(this.gameObject);
+        //Destroy(this.gameObject);
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonNetwork.Destroy(GetComponent<PhotonView>());
+        }
+        else
+        {
+            Destroy(this.gameObject);
+        }
+
         return true;
     }
 
