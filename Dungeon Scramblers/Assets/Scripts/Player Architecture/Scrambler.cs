@@ -94,9 +94,16 @@ public class Scrambler : Player
     {
         return escaped;
     }
-    public void SetEscaped(bool e)
+    [Photon.Pun.RPC]
+    public void SetEscaped(int e)
     {
-        escaped = e;
+        if (e == 0)
+            escaped = false;
+        else
+        {
+            escaped = true;
+        }
+        
     }
 
     public bool IsAlive()

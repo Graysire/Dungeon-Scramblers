@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
 
     [Header("Match Variables")]
     [SerializeField]
-    int numberOfRounds = 3;  //The number of rounds to play out before the overlord boss fight
+    int numberOfRounds = 1;  //The number of rounds to play out before the overlord boss fight
     bool createNewLevel = false;
     int escapedScramblers = 0;
     int currentRound = 1;   //The current round being played
@@ -201,7 +201,7 @@ public class GameManager : MonoBehaviour
             if (Scramblers[i].IsAlive())
             {
                 Scramblers[i].ResetEscaped();
-                Scramblers[i].SetEscaped(false);
+                Scramblers[i].SetEscaped(0);
             }
         }
     }
@@ -366,8 +366,6 @@ public class GameManager : MonoBehaviour
             escapedScramblers++;
 
         }
-
-
 
     }
 

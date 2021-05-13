@@ -8,6 +8,7 @@ public class ExitDoor : MonoBehaviour
 
     public virtual void OnTriggerEnter2D(Collider2D collision)
     {
+        PhotonView OPview = gameObject.GetPhotonView();
         //If scrambler goes to exit room then increment escaped players
         Scrambler sc = collision.gameObject.GetComponent<Scrambler>();
         if (sc != null)
@@ -17,16 +18,16 @@ public class ExitDoor : MonoBehaviour
                 //GameManager.ManagerInstance.IncrementEscapedScramblers(); //increment escaped scrambler count
                 if (PhotonNetwork.CurrentRoom != null)
                 {
-                    //PhotonView OPview = gameObject.GetPhotonView();
+                    
                     //int PhotonID = gameObject.GetPhotonView().ViewID;
                     GameManager.ManagerInstance.IncrementEscapedScrambler();
-                   // OPview.RPC("IncrementEscapedScramblers", RpcTarget.AllBuffered); 
+                    OPview.RPC("IncrementEscapedScramblers", RpcTarget.AllBuffered); 
                 }
                 else
                 {
                     GameManager.ManagerInstance.IncrementEscapedScrambler();
                 }
-                sc.SetEscaped(true); //set scrambler as escaped
+                OPview.RPC("SetEscaped", RpcTarget.AllBuffered, 1);  //set scrambler as escaped
             }
         }
     }
