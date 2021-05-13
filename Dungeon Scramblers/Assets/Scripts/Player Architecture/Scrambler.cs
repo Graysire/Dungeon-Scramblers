@@ -74,6 +74,7 @@ public class Scrambler : Player
             Debug.Log("Die Base Function");
         }
     }
+
     [Photon.Pun.RPC]
     public void Die(int PhotonID)
     {

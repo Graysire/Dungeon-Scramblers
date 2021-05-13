@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,8 @@ public class Overlord : Player
     protected override void Awake()
     {
         base.Awake();
-        if (!usingOnScreenControls) {
+        if (!usingOnScreenControls)
+        {
             controls.PlayerMovement.UseAbilityQ.performed += ctx => Attack(ctx.ReadValue<float>(), 2);
             controls.PlayerMovement.UseAbilityQ.canceled += ctx => Attack(ctx.ReadValue<float>(), 2);
             controls.PlayerMovement.UseAbilityE.performed += ctx => Attack(ctx.ReadValue<float>(), 3);
@@ -106,12 +108,45 @@ public class Overlord : Player
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
-       
+
     }
 
     void SetOverviewCam(Camera cam)
     {
         OverviewCam = cam;
+    }
+
+
+    public override void Die()
+    {
+        base.Die();
+        if (affectedStats[(int)Stats.health] <= 0 || isDead == true)
+        {
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                PhotonView OPview = gameObject.GetPhotonView();
+                int PhotonID = gameObject.GetPhotonView().ViewID;
+                OPview.RPC("Die", RpcTarget.OthersBuffered, PhotonID);
+            }
+
+            Debug.Log("Die Base Function");
+        }
+    }
+
+    [Photon.Pun.RPC]
+    public void Die(int PhotonID)
+    {
+        //Find Player that died
+        GameObject Overlord = PhotonView.Find(PhotonID).gameObject;
+        Overlord.GetComponent<Overlord>().SetPhysicsLayer(14);
+        Debug.Log("Die Photon Function");
+
+    }
+
+    //layer #14 is spectator, #10 is Scrambler
+    private void SetPhysicsLayer(int layer)
+    {
+        gameObject.layer = layer;
     }
 }
 
