@@ -35,6 +35,8 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     // List of Status Effects to apply to enemy hit
     [SerializeField]
     protected List<StatusEffect> StatusEffects;
+    [SerializeField]
+    bool IgnoreWall = false;
 
     // Use to calculate direction for movement of the ability
     protected Vector3 AttackDir;
@@ -175,7 +177,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
             return;
         }
 
-        if (collision.tag == "Map")
+        if (collision.tag == "Map" && !IgnoreWall)
         {
             ResetProjectiles();
             return;

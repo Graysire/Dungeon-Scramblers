@@ -199,13 +199,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseDamage: 0
   Range: 10
-  DecayTime: 0.2
+  DecayTime: 0.4
   MoveSpeed: 0
   CastingTime: 0.1
-  CoolDown: 3
+  CoolDown: 1
   OffsetScale: 0.5
   maxTargetsHit: 1
   StatusEffects: []
+  IgnoreWall: 1
 --- !u!114 &5162136213699039321
 MonoBehaviour:
   m_ObjectHideFlags: 0

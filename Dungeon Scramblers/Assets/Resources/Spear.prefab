@@ -185,6 +185,7 @@ MonoBehaviour:
   OffsetScale: 1.25
   maxTargetsHit: 2
   StatusEffects: []
+  IgnoreWall: 1
 --- !u!50 &7663104008351997961
 Rigidbody2D:
   serializedVersion: 4
