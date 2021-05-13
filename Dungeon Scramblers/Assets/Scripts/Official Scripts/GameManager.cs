@@ -147,14 +147,7 @@ public class GameManager : MonoBehaviour
                 //Generate new round
                 else
                 {
-                    //Share Seed
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-
-                        PhotonView Pview = this.gameObject.GetPhotonView();
-                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
-
-                    }
+                  
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
                 }
@@ -373,6 +366,14 @@ public class GameManager : MonoBehaviour
             escapedScramblers++;
 
         }
+        //Share Seed
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            PhotonView Pview = this.gameObject.GetPhotonView();
+            Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
+
+        }
 
 
     }
@@ -381,6 +382,15 @@ public class GameManager : MonoBehaviour
     public void IncrementEscapedScramblers()
     {
         escapedScramblers++;
+
+        //Share Seed
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            PhotonView Pview = this.gameObject.GetPhotonView();
+            Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
+
+        }
     }
 
     public void IncrementButton(VoteButton button)
