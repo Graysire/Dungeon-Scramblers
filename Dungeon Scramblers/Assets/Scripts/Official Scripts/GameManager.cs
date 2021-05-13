@@ -596,15 +596,7 @@ public class GameManager : MonoBehaviour
                     OPview.RPC("OverLordSetUp", RpcTarget.OthersBuffered, PhotonID, 0);
 
 
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        MasterClient = PlayerGO;
 
-
-                        PhotonView Pview = this.gameObject.GetPhotonView();
-                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
-
-                    }
 
                 }
                 else //All other players spawn like normal
@@ -613,15 +605,6 @@ public class GameManager : MonoBehaviour
                     Debug.Log(Spawn);
                     GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
                     Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        MasterClient = PlayerGO;
-
-
-                        PhotonView Pview = this.gameObject.GetPhotonView();
-                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
-
-                    }
 
                 }
 
@@ -641,6 +624,13 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SetPlayerAbilities(); //Sets up all player abilities
         SetScramblers();
+        if (PhotonNetwork.IsMasterClient)
+        {
+
+            PhotonView Pview = this.gameObject.GetPhotonView();
+            Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
+
+        }
     }
 
     //This returns the vector3 to spawn the player at
