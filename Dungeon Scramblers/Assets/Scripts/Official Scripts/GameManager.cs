@@ -362,7 +362,7 @@ public class GameManager : MonoBehaviour
         {
             PhotonView OPview = gameObject.GetPhotonView();
             //GameManager.ManagerInstance.IncrementEscapedScramblers();
-            OPview.RPC("IncrementEscapedScramblers", RpcTarget.OthersBuffered);
+            //OPview.RPC("IncrementEscapedScramblers", RpcTarget.OthersBuffered);
             escapedScramblers++;
 
         }

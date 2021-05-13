@@ -19,12 +19,13 @@ public class ExitDoor : MonoBehaviour
                 if (PhotonNetwork.CurrentRoom != null)
                 {
 
-
+                    Debug.Log("Exit Door Touched (networked)");
                     GameManager.ManagerInstance.IncrementEscapedScrambler();
 
                 }
                 else
                 {
+                    Debug.Log("Exit Door Touched (non-networked)");
                     GameManager.ManagerInstance.IncrementEscapedScrambler();
                 }
                 OPview.RPC("SetEscaped", RpcTarget.AllBuffered, 1);  //set scrambler as escaped
