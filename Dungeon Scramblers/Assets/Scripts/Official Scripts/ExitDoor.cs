@@ -19,12 +19,12 @@ public class ExitDoor : MonoBehaviour
                 {
                     //PhotonView OPview = gameObject.GetPhotonView();
                     //int PhotonID = gameObject.GetPhotonView().ViewID;
-                    GameManager.ManagerInstance.IncrementEscapedScramblers();
+                    GameManager.ManagerInstance.IncrementEscapedScrambler();
                    // OPview.RPC("IncrementEscapedScramblers", RpcTarget.AllBuffered); 
                 }
                 else
                 {
-                    GameManager.ManagerInstance.IncrementEscapedScramblers();
+                    GameManager.ManagerInstance.IncrementEscapedScrambler();
                 }
                 sc.SetEscaped(true); //set scrambler as escaped
             }

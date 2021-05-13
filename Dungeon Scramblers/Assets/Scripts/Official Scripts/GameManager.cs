@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
     [Header("Player Spawning")]
     public GameObject[] PlayerPrefabs; //List of Playertypes to instantiate
     BitPacket bitPacket = new BitPacket(); // Bitpakcet info for reading player types
-
+    public GameObject MasterClient;
 
     [Header("ItemSpawning")]
     public InventoryHandler Inventory;
@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
                 //Generate new round
                 else
                 {
-                    
+                  
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
                 }
@@ -214,7 +214,22 @@ public class GameManager : MonoBehaviour
         timer.InitializeAndStartTimer(voteTimeInSeconds, false);
     }
 
+    //Function to set seed from Master Client
+    public int SetSeed()
+    {
+        seed = Random.Range(int.MinValue, int.MaxValue);
+        Random.InitState(seed);
 
+        Debug.Log("Master Seed: " + seed);
+        return seed;
+    }
+
+    [Photon.Pun.RPC]
+    public void GetSeed(int seed)
+    {
+        Random.InitState(seed);
+        Debug.Log("Client Seed: " + seed);
+    }
 
     //Handles data for when setup stage is over
     //Will start match timer and open doors
@@ -353,12 +368,14 @@ public class GameManager : MonoBehaviour
         }
 
 
+
     }
 
     [Photon.Pun.RPC]
     public void IncrementEscapedScramblers()
     {
         escapedScramblers++;
+
     }
 
     public void IncrementButton(VoteButton button)
@@ -541,6 +558,7 @@ public class GameManager : MonoBehaviour
             //Check if player has an available loadout
             if (PhotonNetwork.LocalPlayer.CustomProperties.TryGetValue(DungeonScramblersGame.PLAYER_SELECTION_NUMBER, out PlayerSelectionNumber))
             {
+
                 Debug.Log("Player Number: " + (int)PlayerSelectionNumber);
 
                 //Get Player Category, save for later for loadout implementation
@@ -553,7 +571,7 @@ public class GameManager : MonoBehaviour
                 int codeAbility1 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability1);
                 int codeAbility2 = GetInventoryCode(SavedPlayerType, Categories.ItemCategory.ability2);
 
-                
+
                 Debug.Log("Saved Player Type:" + SavedPlayerType);
 
                 int actorNumber = PhotonNetwork.LocalPlayer.ActorNumber;
@@ -561,35 +579,53 @@ public class GameManager : MonoBehaviour
                 //Start Countdown
                 //Spawn Overlord at the Exit door
 
-                    //Check player for Overlord Category
-                    if (SavedPlayerType == Categories.PlayerCategories.overlord)
-                    {
-                        //Debug.Log("Overlord Player selected");
-                        Vector3 Spawn = SetupSpawning(true);
-                        GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
-                        //Set Player Camera to Map view and turn off regular controls
-                        PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
-                        PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
-                        PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
-                        PlayerGO.GetComponent<Overlord>().enabled = false;
-                        //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
-                         PhotonView OPview = gameObject.GetPhotonView();
-                         int PhotonID = gameObject.GetPhotonView().ViewID;
-                         OPview.RPC("OverLordSetUp", RpcTarget.OthersBuffered, PhotonID, 0); 
-                    //Start Countdown
-                    //Spawn Overlord at the Exit door
+                //Check player for Overlord Category
+                if (SavedPlayerType == Categories.PlayerCategories.overlord)
+                {
+                    //Debug.Log("Overlord Player selected");
+                    Vector3 Spawn = SetupSpawning(true);
+                    GameObject PlayerGO = PlayerPrefabs[(int)PlayerSelectionNumber];
+                    //Set Player Camera to Map view and turn off regular controls
+                    PlayerGO = PhotonNetwork.Instantiate(PlayerGO.name, SetupSpawning(true), Quaternion.identity);
+                    PlayerGO.GetComponent<Overlord>().OverviewCam.enabled = true;
+                    PlayerGO.GetComponent<Overlord>().NormalCam.enabled = false;
+                    PlayerGO.GetComponent<Overlord>().enabled = false;
+                    //PlayerGO.GetComponent<SpriteRenderSwitch>().SpritesOff();
+                    PhotonView OPview = gameObject.GetPhotonView();
+                    int PhotonID = gameObject.GetPhotonView().ViewID;
+                    OPview.RPC("OverLordSetUp", RpcTarget.OthersBuffered, PhotonID, 0);
 
-                    }       
-                    else //All other players spawn like normal
+
+                    if (PhotonNetwork.IsMasterClient)
                     {
-                        Vector3 Spawn = SetupSpawning(false);
-                        Debug.Log(Spawn);
-                        GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
-                        Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
-                        //Inventory.SetLoadout((Player) scrambler, codeWeapon,)
-                        //AddScrambler( scrambler);
+                        MasterClient = PlayerGO;
+
+
+                        PhotonView Pview = this.gameObject.GetPhotonView();
+                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
 
                     }
+
+                }
+                else //All other players spawn like normal
+                {
+                    Vector3 Spawn = SetupSpawning(false);
+                    Debug.Log(Spawn);
+                    GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[(int)PlayerSelectionNumber].name, Spawn, Quaternion.identity);
+                    Scrambler scrambler = PlayerGO.GetComponent<Scrambler>();
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        MasterClient = PlayerGO;
+
+
+                        PhotonView Pview = this.gameObject.GetPhotonView();
+                        Pview.RPC("GetSeed", RpcTarget.OthersBuffered, SetSeed());
+
+                    }
+
+                }
+
+
             }
             else
             {
@@ -599,6 +635,7 @@ public class GameManager : MonoBehaviour
                 //yield return new WaitForSeconds(1f);
                 Debug.Log(Spawn);
                 GameObject PlayerGO = PhotonNetwork.Instantiate(PlayerPrefabs[0].name, Spawn, Quaternion.identity);
+
             }
         }
         yield return new WaitForSeconds(3f);
