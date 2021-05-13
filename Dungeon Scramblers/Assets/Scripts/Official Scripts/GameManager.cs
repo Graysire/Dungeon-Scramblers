@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
                 //Generate new round
                 else
                 {
-                  
+
                     GenerateLevel();  //Generates a new round
                     StartVoteTimer(); //Begins timer for vote stage
                 }
@@ -281,8 +281,9 @@ public class GameManager : MonoBehaviour
     }
 
     //Generates a level
-    void GenerateLevel()
+    IEnumerable GenerateLevel()
     {
+        yield return new WaitForSeconds(1.0f);
         Debug.Log("Generating New Level!");
         if (currentRound == 1)
             StartCoroutine(Map.GenerateMap(true));
