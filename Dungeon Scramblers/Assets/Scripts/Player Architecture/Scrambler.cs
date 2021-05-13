@@ -105,8 +105,16 @@ public class Scrambler : Player
             escaped = true;
         }
 
-        Debug.Log("Escaped: " + escaped);
+        Debug.Log("Escaped Networked Function: " + escaped);
 
+    }
+
+    public void SetEscaped(bool e)
+    {
+        escaped = e;
+        Debug.Log("Escaped Local Function: " + escaped);
+        PhotonView OPview = gameObject.GetPhotonView();
+        OPview.RPC("SetEscaped", RpcTarget.OthersBuffered, 1);  //set scrambler as escaped
     }
 
     public bool IsAlive()
