@@ -103,7 +103,9 @@ public class Scrambler : Player
         {
             escaped = true;
         }
-        
+
+        Debug.Log("Escaped: " + escaped);
+
     }
 
     public bool IsAlive()
