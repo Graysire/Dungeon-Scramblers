@@ -182,6 +182,11 @@ public class GameManager : MonoBehaviour
 
                 SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
             }
+            //Check overlord is Dead
+            if (Overlord.Dead())
+            {
+                GameOver(true);
+            }
             Debug.Log("# of escaped scramblers " + escapedScramblers);
         }
     }

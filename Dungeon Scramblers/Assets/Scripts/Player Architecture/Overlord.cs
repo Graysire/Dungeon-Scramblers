@@ -148,5 +148,10 @@ public class Overlord : Player
     {
         gameObject.layer = layer;
     }
+
+    public bool Dead()
+    {
+        return isDead;
+    }
 }
 
