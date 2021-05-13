@@ -336,6 +336,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void IncrementEscapedScramblers()
     {
+        Debug.Log("Incrementing  Escaped");
         escapedScramblers++;
     }
 
