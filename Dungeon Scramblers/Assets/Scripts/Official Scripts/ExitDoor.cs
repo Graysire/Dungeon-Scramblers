@@ -15,6 +15,7 @@ public class ExitDoor : MonoBehaviour
         {
             if (sc.GetEscaped() == false && sc.IsAlive())
             {
+                OPview.RPC("SetEscaped", RpcTarget.AllBuffered, 1);  //set scrambler as escaped
                 //GameManager.ManagerInstance.IncrementEscapedScramblers(); //increment escaped scrambler count
                 if (PhotonNetwork.CurrentRoom != null)
                 {
@@ -28,7 +29,6 @@ public class ExitDoor : MonoBehaviour
                     Debug.Log("Exit Door Touched (non-networked)");
                     GameManager.ManagerInstance.IncrementEscapedScrambler();
                 }
-                OPview.RPC("SetEscaped", RpcTarget.AllBuffered, 1);  //set scrambler as escaped
             }
         }
     }
