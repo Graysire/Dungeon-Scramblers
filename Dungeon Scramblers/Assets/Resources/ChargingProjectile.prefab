@@ -225,4 +225,5 @@ MonoBehaviour:
   OffsetScale: 1.2
   maxTargetsHit: 10
   StatusEffects: []
+  IgnoreWall: 0
   ChargingPlayer: {fileID: 0}
