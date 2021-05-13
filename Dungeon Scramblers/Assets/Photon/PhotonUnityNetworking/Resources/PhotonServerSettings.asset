@@ -57,6 +57,7 @@ MonoBehaviour:
   - IncrementEscapedScramblers
   - OverLordSetUp
   - SetBulletLayer
+  - SetEscaped
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
