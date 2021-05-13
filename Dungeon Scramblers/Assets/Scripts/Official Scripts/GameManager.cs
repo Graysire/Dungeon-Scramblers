@@ -373,7 +373,7 @@ public class GameManager : MonoBehaviour
     public void IncrementEscapedScramblers()
     {
         escapedScramblers++;
-
+        Debug.Log(" Pun Increment Scramblers Called");
     }
 
     public void IncrementButton(VoteButton button)

@@ -94,6 +94,7 @@ public class Scrambler : Player
     {
         return escaped;
     }
+
     [Photon.Pun.RPC]
     public void SetEscaped(int e)
     {
