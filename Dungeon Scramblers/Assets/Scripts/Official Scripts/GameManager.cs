@@ -333,12 +333,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [PunRPC]
+    [Photon.Pun.RPC]
     public void IncrementEscapedScramblers()
     {
         Debug.Log("Incrementing  Escaped");
         escapedScramblers++;
+        if(PhotonNetwork.CurrentRoom != null)
+        {
+            PhotonView OPview = gameObject.GetPhotonView();
+            int PhotonID = gameObject.GetPhotonView().ViewID;
+            //GameManager.ManagerInstance.IncrementEscapedScramblers();
+            OPview.RPC("IncrementEscapedScramblers", RpcTarget.OthersBuffered);
+        }
+       
+
     }
+
 
 
     public void IncrementButton(VoteButton button)
@@ -765,7 +775,7 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Overlord Setup
-    [PunRPC]
+    [Photon.Pun.RPC]
     void OverLordSetUp(int PhotonID, int SetSprite)
     {
         GameObject overlord = PhotonView.Find(PhotonID).gameObject;

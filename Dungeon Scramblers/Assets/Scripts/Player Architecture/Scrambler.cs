@@ -74,7 +74,7 @@ public class Scrambler : Player
             Debug.Log("Die Base Function");
         }
     }
-    [PunRPC]
+    [Photon.Pun.RPC]
     public void Die(int PhotonID)
     {
         //Find Player that died

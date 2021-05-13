@@ -44,7 +44,7 @@ namespace Photon.Pun.UtilityScripts
         private Color originalColor;
         private bool isFlashing;
 
-        [PunRPC]
+        [Pun.RPC]
         public void ClickRpc()
         {
             //Debug.Log("ClickRpc Called");

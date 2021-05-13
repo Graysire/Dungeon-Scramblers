@@ -342,7 +342,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         return seed;
     }
 
-    [PunRPC]
+    [Photon.Pun.RPC]
     public void GetSeed(int seed)
     {
         Random.InitState(seed);

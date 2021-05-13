@@ -693,7 +693,7 @@ namespace Photon.Pun
             #if UNITY_2019_2_OR_NEWER
 
             // we can make use of the new TypeCache to find methods with PunRPC attribute
-            var extractedMethods = TypeCache.GetMethodsWithAttribute<PunRPC>();
+            var extractedMethods = TypeCache.GetMethodsWithAttribute<RPC>();
             foreach (var methodInfo in extractedMethods)
             {
                 allRpcs.Add(methodInfo.Name);

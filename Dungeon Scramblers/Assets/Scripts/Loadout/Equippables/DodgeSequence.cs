@@ -16,7 +16,7 @@ public class DodgeSequence : DefaultAttackSequence
     bool bLaunch = false;
 
 
-    [PunRPC]
+    [Photon.Pun.RPC]
     protected override IEnumerator AttackSequence()
     {
         if (PhotonNetwork.CurrentRoom != null)

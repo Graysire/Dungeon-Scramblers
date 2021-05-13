@@ -28,7 +28,7 @@ public class DefaultAttackSequence : Ability
 
 
 
-    [PunRPC]
+    [Photon.Pun.RPC]
     public override void StartAttack(Vector3 AttackDirection, AbstractPlayer Unit)
     {
         //Call This function on other players

@@ -382,7 +382,7 @@ public class AI : AbstractPlayer
 
     //Destroys AI object
     //NOTE: If AI.Die() is called while AI is being referenced as AbstractPlayer, AbstractPlayer.Die() will be used instead
-    [Task] [PunRPC]//Make Photon RPC
+    [Task] [Photon.Pun.RPC]//Make Photon RPC
     public new bool Die()
     {
         if(PhotonNetwork.CurrentRoom != null)

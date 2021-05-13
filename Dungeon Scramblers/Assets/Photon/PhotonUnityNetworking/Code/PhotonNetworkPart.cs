@@ -322,7 +322,7 @@ namespace Photon.Pun
 
         // PHOTONVIEW/RPC related
 #pragma warning disable 0414
-        private static readonly Type typePunRPC = typeof(PunRPC);
+        private static readonly Type typePunRPC = typeof(RPC);
         private static readonly Type typePhotonMessageInfo = typeof(PhotonMessageInfo);
         private static readonly object keyByteZero = (byte)0;
         private static readonly object keyByteOne = (byte)1;

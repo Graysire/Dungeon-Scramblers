@@ -143,7 +143,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
     }
 
     //Function to exclusively set Gameobject inactive
-    [PunRPC]
+    [Photon.Pun.RPC]
     protected void TurnOffProjectile(int go)
     {
         GameObject GOReset = PhotonView.Find(go).gameObject;
@@ -227,7 +227,7 @@ public class ProjectileStats : MonoBehaviourPunCallbacks
         this.gameObject.SetActive(false);
     }
 
-    [PunRPC]
+    [Photon.Pun.RPC]
     public void ShowProjectile(int go)
     {
         if (PhotonNetwork.CurrentRoom != null)
