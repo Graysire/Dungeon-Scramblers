@@ -134,6 +134,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Ready: " + ready);
         if (ready)
         {
+            //Check overlord is Dead
+            if (Overlord.Dead())
+            {
+                DestroyEverything();
+                GameOver(true);
+            }
+            Debug.Log("# of escaped scramblers " + escapedScramblers);
+
             //will generate a new level
             if (createNewLevel)
             {
@@ -182,12 +190,6 @@ public class GameManager : MonoBehaviour
 
                 SetAllAliveScramblersActive(); //Sets all escaped specating players back to active
             }
-            //Check overlord is Dead
-            if (Overlord.Dead())
-            {
-                GameOver(true);
-            }
-            Debug.Log("# of escaped scramblers " + escapedScramblers);
         }
     }
 
@@ -321,6 +323,7 @@ public class GameManager : MonoBehaviour
         //Load Main Menu Scene here
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(MenuSceneName);
+        Destroy(this);
     }
 
     //adds scrambler to list of dead scramblers
