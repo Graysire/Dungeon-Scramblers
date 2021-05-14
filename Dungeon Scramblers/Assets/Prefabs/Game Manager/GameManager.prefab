@@ -70,7 +70,7 @@ MonoBehaviour:
   voteTimeInSeconds: 30
   matchTimeInSeconds: 240
   bossFightTimeInSeconds: 240
-  numberOfRounds: 2
+  numberOfRounds: 1
   Map: {fileID: 0}
   PlayerPrefabs: []
   MasterClient: {fileID: 0}
