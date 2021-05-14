@@ -281,8 +281,20 @@ public class GameManager : MonoBehaviour
 
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(BossRoomSceneName);
-
+        StartCoroutine(LoadAttackList());
         timer.InitializeAndStartTimer(bossFightTimeInSeconds, true); //start boss fight timer
+    }
+
+
+    //Reload Attacks to show up in OverLord Boss Scene
+    IEnumerator LoadAttackList()
+    {
+        yield return new WaitForSeconds(2);
+        foreach(Scrambler s in Scramblers)
+        {
+            s.LoadAttackObjects();
+        }
+        Overlord.LoadAttackObjects();
     }
 
     //Generates a level

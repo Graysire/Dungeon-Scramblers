@@ -61,24 +61,8 @@ public class Player : AbstractPlayer
                 else
                     usingOnScreenControls = false;*/
 
-        // Instantiate attack sequences to reattach the instance to the player
-        for(int i = 0; i < AttackObjectList.Count; i++)
-        {
-            if (PhotonNetwork.CurrentRoom != null)
-            {
-                AttackObjectList[i] = PhotonNetwork.Instantiate(AttackObjectList[i].name, gameObject.transform.position, new Quaternion());
-                AttackObjectList[i].layer = gameObject.layer;
-
-
-            }
-            else
-            {
-                AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
-                AttackObjectList[i].layer = gameObject.layer;
-            }
-
-        }
-            
+        //Load Attackobjects
+        LoadAttackObjects();
         
         // Pool the objects needed for the attack sequence
         AttackList = new List<Ability>();
@@ -276,6 +260,29 @@ public class Player : AbstractPlayer
     // For On-screen stick usage only
     public virtual void SetActiveIndependentJoystick(int j) {
         activeIndependentJoystick = j;
+    }
+
+    public void LoadAttackObjects()
+    {
+
+        // Instantiate attack sequences to reattach the instance to the player
+        for (int i = 0; i < AttackObjectList.Count; i++)
+        {
+            if (PhotonNetwork.CurrentRoom != null)
+            {
+                AttackObjectList[i] = PhotonNetwork.Instantiate(AttackObjectList[i].name, gameObject.transform.position, new Quaternion());
+                AttackObjectList[i].layer = gameObject.layer;
+
+
+            }
+            else
+            {
+                AttackObjectList[i] = Instantiate(AttackObjectList[i], gameObject.transform);
+                AttackObjectList[i].layer = gameObject.layer;
+            }
+
+        }
+
     }
 
     protected virtual void Attack(Vector2 d) {
