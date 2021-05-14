@@ -37,6 +37,15 @@ public class MenuManager : MonoBehaviourPunCallbacks
 
     }
 
+    void Update()
+    {
+        GameManager gm = FindObjectOfType<GameManager>();
+        if (gm != null)
+        {
+            Destroy(gm);
+        }
+    }
+
     //Loads the data into the temp bits
     private void LoadData()
     {

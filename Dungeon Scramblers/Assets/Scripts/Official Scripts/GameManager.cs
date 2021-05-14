@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
     Random.State s; //State for Map Spawn
     int seed;
 
+    bool doOnce = true;
+
     //Update handler stuff
     protected virtual void OnEnable()
     {
@@ -135,8 +137,9 @@ public class GameManager : MonoBehaviour
         if (ready)
         {
             //Check overlord is Dead
-            if (Overlord.Dead())
+            if (Overlord.Dead() && doOnce)
             {
+                doOnce = false;
                 DestroyEverything();
                 GameOver(true);
             }
@@ -325,7 +328,6 @@ public class GameManager : MonoBehaviour
         //Load Main Menu Scene here
         PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.LoadLevel(MenuSceneName);
-        Destroy(this);
     }
 
     //adds scrambler to list of dead scramblers
