@@ -548,11 +548,15 @@ public class GameManager : MonoBehaviour
         Destroy(gameObject);
 
         //Destroy Inventory handlers and audio handlers
-        Destroy(FindObjectOfType<AudioManager>().gameObject);
-        InventoryHandler[] gos = FindObjectsOfType<InventoryHandler>();
+        AudioManager[] gos = FindObjectsOfType<AudioManager>();
         for (int i = 0; i < gos.Length; i++)
         {
             Destroy(gos[i].gameObject);
+        }
+        InventoryHandler[] gos2 = FindObjectsOfType<InventoryHandler>();
+        for (int i = 0; i < gos2.Length; i++)
+        {
+            Destroy(gos2[i].gameObject);
         }
     }
 
