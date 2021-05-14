@@ -291,12 +291,14 @@ public class GameManager : MonoBehaviour
     //Reload Attacks to show up in OverLord Boss Scene
     IEnumerator LoadAttackList()
     {
-        yield return new WaitForSeconds(2);
+
+        yield return new WaitForSeconds(3);
         foreach(Scrambler s in Scramblers)
         {
             s.LoadAttackObjects();
         }
         Overlord.LoadAttackObjects();
+        Debug.Log("ATTACKS RELOADED");
     }
 
     //Generates a level
