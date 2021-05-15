@@ -137,11 +137,14 @@ public class GameManager : MonoBehaviour
         if (ready)
         {
             //Check overlord is Dead
-            if (Overlord.Dead() && doOnce)
+            if (Overlord != null)
             {
-                doOnce = false;
-                DestroyEverything();
-                GameOver(true);
+                if (Overlord.Dead() && doOnce)
+                {
+                    doOnce = false;
+                    DestroyEverything();
+                    GameOver(true);
+                }
             }
             Debug.Log("# of escaped scramblers " + escapedScramblers);
 
