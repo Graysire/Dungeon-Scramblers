@@ -71,15 +71,24 @@ public class Player : AbstractPlayer
             AttackObjectList[i].GetComponent<Ability>().Equip(this);
         }
         // Make sure on-screen controls are on/off based on what they should be
+        if (PlayerOnScreenControls == null)
+        {
+            //if (gameObject.layer == 10)
+            //{ // If the gameobject layer is a Scrambler 
+                PlayerOnScreenControls = GameObject.Find("Player On-Screen Controls");
+            //}
+        }
         if (usingOnScreenControls && PlayerOnScreenControls != null)
         {
             if (!PlayerOnScreenControls.activeSelf)
                 PlayerOnScreenControls.SetActive(true);
         }
-        else if (!usingOnScreenControls && PlayerOnScreenControls != null) {
+        else if (!usingOnScreenControls && PlayerOnScreenControls != null)
+        {
             if (PlayerOnScreenControls.activeSelf)
                 PlayerOnScreenControls.SetActive(false);
-        }   
+        }
+        
            
         controls = new InputMaster();
         controls.PlayerMovement.Movement.performed += ctx => Move(ctx.ReadValue<Vector2>());

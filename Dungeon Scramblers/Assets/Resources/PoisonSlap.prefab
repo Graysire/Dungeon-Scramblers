@@ -84,6 +84,7 @@ MonoBehaviour:
   maxTargetsHit: 1
   StatusEffects:
   - {fileID: 2652015777586013772, guid: 0905b2aede51e55499dee51b6df09faa, type: 3}
+  IgnoreWall: 0
 --- !u!50 &2513873347589818176
 Rigidbody2D:
   serializedVersion: 4
