@@ -137,7 +137,7 @@ public class GameManager : MonoBehaviour
         if (ready)
         {
             //Check overlord is Dead
-            if (Overlord != null)
+            if (Overlord && Overlord.Dead() && doOnce)
             {
                 if (Overlord.Dead() && doOnce)
                 {
@@ -507,10 +507,10 @@ public class GameManager : MonoBehaviour
         if (perkListPrefab)
             perkList = Instantiate(perkListPrefab, transform);
 
-        if (perkList != null)
-        {
-            ApplyPerk(perkList.GetPerk());
-        }
+        //if (perkList != null)
+        //{
+        //    ApplyPerk(perkList.GetPerk());
+        //}
 
         //createNewLevel = true;
         ready = true;

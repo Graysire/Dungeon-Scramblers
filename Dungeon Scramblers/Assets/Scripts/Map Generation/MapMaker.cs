@@ -351,7 +351,7 @@ public class MapMaker : MonoBehaviour
                 tilemaps[0].SetTile(new Vector3Int(x, y, 0), floorTile);
 
                 //Spawn level exit object
-                if (nextLevelTeleport != null)
+                if (nextLevelTeleport != null && PhotonNetwork.CurrentRoom != null)
                 {
                     PhotonNetwork.Instantiate(nextLevelTeleport.name, tilemaps[0].GetCellCenterWorld(new Vector3Int(x, y, 0)), new Quaternion());
                 }
